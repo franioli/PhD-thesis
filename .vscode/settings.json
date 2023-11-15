@@ -7,7 +7,6 @@
         "-synctex=1",
         "-interaction=nonstopmode",
         "-file-line-error",
-        "-f",
         "%DOC%"
       ]
     },
@@ -18,7 +17,6 @@
         "-synctex=1",
         "-interaction=nonstopmode",
         "-file-line-error",
-        "-f",
         "--no-pdf",
         "%DOC%"
       ]

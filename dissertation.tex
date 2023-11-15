@@ -23,9 +23,6 @@
 \newcommand{\tabref}[1]{Tab.~\ref{#1}}
 \newcommand{\secref}[1]{Sec.~\ref{#1}}
 
-%- Image Path
-% \graphicspath{{figures/}}
-
 \begin{document}
 
 % the front matter
@@ -39,22 +36,24 @@
 % \dedicationpage
 \acknowledgments
 
-% \doublespacing
-\singlespacing
+% \singlespacing
+\onehalfspacing
 
 % include each chapter...
-\setcounter{chapter}{0}  % start chapter numbering at 0
+\setcounter{chapter}{0} % start chapter numbering at 1
+\justifying
 \include{chapters/chapter1}
 \include{chapters/chapter2}
 \include{chapters/chapter3}
 \include{chapters/chapter4}
 \include{chapters/chapter5}
+\include{chapters/chapter6}
 \include{chapters/conclusion}
+
+\singlespacing
 \begin{appendices}
     \include{chapters/appendixA}
 \end{appendices}
-
-\singlespacing
 
 % % the back matter
 % \clearpage
@@ -62,6 +61,6 @@
 % \addcontentsline{toc}{chapter}{References}
 % \bibliographystyle{apalike2}
 
-\include{endmatter/colophon}
+% \include{endmatter/colophon}
 
 \end{document}

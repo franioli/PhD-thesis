@@ -50,7 +50,7 @@
 \RequirePackage[super,comma,numbers,sectionbib]{natbib}
 \setcitestyle{authoryear,open={(},close={)}} %Citation-related commands
 \renewcommand{\bibnumfmt}[1]{[#1]}
-\RequirePackage[width=5.75in, letterpaper]{geometry}
+\RequirePackage[width=6.25in, letterpaper]{geometry} %width=5.75in
 \RequirePackage{fancyhdr}
 
 \usepackage[titletoc]{appendix}
@@ -58,6 +58,7 @@
 
 \RequirePackage{setspace}
 \RequirePackage{booktabs}
+\usepackage{bookmark}
 % \RequirePackage[tight,nice]{units}
 \RequirePackage{verbatim}
 \setcounter{tocdepth}{1}
@@ -91,14 +92,14 @@
 
 \RequirePackage[labelfont={bf,sf,footnotesize,singlespacing},
    textfont={sf,footnotesize,singlespacing},
-   justification={justified,RaggedRight},
+   justification={justified}, % RaggedRight
    singlelinecheck=false,
    margin=0pt,
    figurewithin=chapter,
    tablewithin=chapter]{caption}
 \RequirePackage[font=footnotesize,justification=centering]{subcaption}
 
-\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+% \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 
 %\onehalfspacing
 %\doublespacing
