@@ -1,0 +1,70 @@
+%!TEX TS-program = xelatex 
+%!TEX encoding = UTF-8 Unicode
+
+% Modify the following line to match your school
+% Available options include `Harvard`, `Princeton`, and `NYU`.
+\documentclass[School=Harvard]{Dissertate}
+
+\usepackage{chapterbib}  
+
+\usepackage{siunitx}
+\usepackage{tabularx}
+\usepackage{eurosym}
+
+%- Declaration of Units (SIUNIX)
+\DeclareSIUnit\pixel{px}
+\DeclareSIUnit\Hz{Hz}
+\DeclareSIUnit\year{y}
+\DeclareSIUnit\pt{pt}
+\DeclareSIUnit\masl{m~a.s.l.}
+\sisetup{product-units=single}
+
+% Referencing
+\newcommand{\figref}[1]{Fig.~\ref{#1}}
+\newcommand{\tabref}[1]{Tab.~\ref{#1}}
+\newcommand{\secref}[1]{Sec.~\ref{#1}}
+
+
+%- Image Path
+% \graphicspath{{figures/}}
+
+\begin{document}
+
+% the front matter
+\input{frontmatter/personalize}
+\maketitle
+\copyrightpage
+\abstractpage
+\tableofcontents
+%\authorlist
+\listoffigures
+% \dedicationpage
+\acknowledgments
+
+% \doublespacing
+\singlespacing
+
+% include each chapter...
+\setcounter{chapter}{0}  % start chapter numbering at 0
+\justifying
+\include{chapters/chapter1}
+\include{chapters/chapter2}
+\include{chapters/chapter3}
+\include{chapters/chapter4}
+\include{chapters/chapter5}
+\include{chapters/conclusion}
+\begin{appendices}
+    \include{chapters/appendixA}
+\end{appendices}
+
+\singlespacing
+
+% % the back matter
+% \clearpage
+% \bibliography{references}
+% \addcontentsline{toc}{chapter}{References}
+% \bibliographystyle{apalike2}
+
+\include{endmatter/colophon}
+
+\end{document}

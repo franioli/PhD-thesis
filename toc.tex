@@ -1,0 +1,147 @@
+%!TEX TS-program = xelatex 
+%!TEX encoding = UTF-8 Unicode
+
+% Modify the following line to match your school
+% Available options include `Harvard`, `Princeton`, and `NYU`.
+\documentclass[12pt]{article}
+\usepackage{outlines}
+\usepackage[left=1cm,right=1cm,vmargin=2cm]{geometry}
+\usepackage{enumitem}
+\usepackage{xcolor}
+
+\setlist[1]{label=\arabic*}
+\setlist{label*=.\arabic*}
+
+\begin{document}
+
+
+Introduction on importance of glacier monitoring, strenght and limits of different techniques used (platforms, scales ecc..), 
+Aim of the thesis: 
+
+Story (told in intro and remarked in thesis outline sec): 
+
+- start with UAV photogrammetry: traditional techniques with well-established processing procedure to reconstruct glacier geometry. 
+Outputs: annual pcd, dem, orthotophotos which allows for estimating annual average glacier flow, volume variations, glacier retreat (compute glacier outline). 
+Temporal frequency: annual. Spatial scale: high (cm/dm), all glacier
+
+- How to go back in time and reconstruct the history of a glacier: digitalization of historical aerial images acquired from mapping purposed. Still established approaches. 
+Only way to build accurate DSM for past years.
+Outputs: same as UAV-photogrammetry. Temporal frequency: 10-years. Spatial scale: sub-meter, all glacier (and more)
+
+- Glaciers are rapidily moving and there is the need for high-frequency monitoring: fixed time lapse cameras. Challange of wide baseline hindered reconstruction with traditional photogrammetry. Developing ad hoc workflow based on deep-learning photogrammetry.
+Outputs: daily velocity, volume variation and glacier retreat. Temporal frequency: daily. Spatial scale high: 
+
+- Is it possible to use HR stereo satellite to build coarse but accurate DSM, without in-situ measurements?
+Case of debris-flow of august 2023.
+
+- Discussion: 
+Combining different techniques gives a comprehensive overview of the phenomenon.
+Correlation with environmental data at different temporal scale.
+Powerful of new DL techniques for solving challanging problems.
+....
+
+\begin{outline}[enumerate]
+    \1 Introduction: photogrammetry for multi-temporal monitoring of mountain env.
+        \2 Motivation and relevance
+        \2 Low-cost photogrammery
+        \2 Deep learning photogrammetry for solving challenging situations
+        \2 Aims of the thesis
+        \2 Thesis outline 
+    \1 The Belvedere Glacier {\color{red}(area of study da articolo Mid-Term e ultimo). Dove metterlo?}
+    \1 State of the art {\color{red}(Capitolo separato qua all'inizio oppure in intro e poi specifica per ogni capitolo? Su cosa?)}
+    \1 UAV photogrammetry (2015-2023) {\color{red} (note: need to add 2021-2022-2023 data and PIV on orthophotos)}
+        \2 Introduction {\color{red}(tenere intro per ogni capitolo? Magari senza sezione separata)}
+        \2 Instruments and datasets
+            \3 UAV flights
+            \3 GNSS measurements
+        \2 Methodology
+            \3 SfM workflow
+            \3 Glacier flow velocity
+                \4 GNSS velcoities 
+                \4 DIC on orthotphotos \textcolor{red}{(TO DO)}
+                \4 MAN points (for first years and validation of DIC)
+            \3 Volume variations
+                \4 Cross sections
+                \4 Global ice volume loss
+            \3 Glacier outline \textcolor{red}{(TO DO)}
+        \2 Results
+            \3 SfM
+            \3 Glacier velocity
+            \3 Volume variation
+            \3 Glacier outline \textcolor{red}{(TO DO)}
+        \2 Discussion (Comparison with previous studies)
+        \2 References
+    \1 Back to the past: reconstructing glacier geometry with historical images (1977-2009)
+        \2 Introduction
+        \2 Photogrammetric Dataset
+            \3 Historical Aerial Datasets of 1977, 1991 and 2001
+            \3 Digital Aerial and UAV Datasets of 2009 and 2019
+            \3 The GNSS Survey for Block Georeferencing
+        \2 Methods
+            \3 Image Orientation and Point Cloud Generation
+            \3 Digital Surface Model Preliminary Processing
+            \3 Glacier outline
+        \2 Discussion
+        \2 References
+    \1 Short-term monitoring with low-cost fixed time-lapse cameras and deep-learning stereo photogrammetry
+        \2 Introduction 
+        \2 The low-cost stereoscopic system {\color{red} (paper antalya + last paper)}
+            \3 System description
+                \4 The circuit
+                \4 Power supply
+                \4 System control and scheduling
+                \4 Connectivity 
+                \4 Case and protection
+                \4 General performances
+            \3 Camera and lenses
+            \3 Monumentation
+        \2 Datasets and methods
+            \3 Datasets 
+                \4 Image sequences
+                \4 GCPs
+                \4 UAV surveys  {\color{red} (Add 2023 UAV blocks)}
+                \4 Meteorological monitoring station        
+            \3 Image selection
+            \3 Camera calibration
+            \3 Camera stability and GCPs
+            \3 Stereoscopic image processing workflow
+                \4 Wide-baseline image matching
+                \4 Tracking points over epochs
+                \4 3D scene reconstruction
+            \3 Volume variation estimation
+            \3 Automatic extraction of ice cliff top edge
+            \3 Digital Image Correlation from single cameras    
+                \4 Orthorectification uncertainty
+            \3 Correlation between glacier dynamics and meteorological variables
+        \2 Results {\color{red} (Add 2023 sequence!)}
+            \3 Image acquisition
+            \3 Automatic detection of GCPs
+            \3 Wide-baseline feature matching and tracking
+            \3 3D scene reconstruction
+            \3 Volume variations and glacier retreat
+            \3 Validation of the stereo models with UAV data
+            \3 Glacier surface velocity and morphology
+            \3 Velocity orthorectification uncertainty
+            \3 Comparison between surface velocity, frontal ice loss and meteorological variables
+        \2 Discussion
+            \3 Hand-crafted vs deep learning matching
+            \3 Merging stereoscopic and monoscopic processings to study the glacier dynamics
+            \3 Glacier velocity, frontal ablation and temperature 
+            \3 Transferability of the system
+        \2 References
+    \1 High-res satellite stereo photogrammetry  \textcolor{red}{(TO DO, if there is time)}
+    \1 Discussion
+        \2 
+    \1 Conclusions
+    \1 Appendixes:
+        \2 Published papers 
+            \3 RS historical
+            \3 RS historical
+            \3 PFG
+        \2 Open software
+            \3 ICEpy4D (paper ICEpy4D)
+            \3 Deep-image-matching (paper 3Darch)
+    
+\end{outline}
+
+\end{document}
