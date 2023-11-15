@@ -89,12 +89,12 @@
 \setmonofont[Scale=MatchLowercase]{Noto Mono} % Font substitution for Source Code Pro
 
 \RequirePackage[labelfont={bf,sf,footnotesize,singlespacing},
-								textfont={sf,footnotesize,singlespacing},
-								justification={justified,RaggedRight},
-								singlelinecheck=false,
-								margin=0pt,
-								figurewithin=chapter,
-								tablewithin=chapter]{caption}
+   textfont={sf,footnotesize,singlespacing},
+   justification={justified,RaggedRight},
+   singlelinecheck=false,
+   margin=0pt,
+   figurewithin=chapter,
+   tablewithin=chapter]{caption}
 \RequirePackage[font=footnotesize,justification=centering]{subcaption}
 
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
@@ -113,22 +113,22 @@
 \setlength\mybibindent{0pt}
 \makeatletter
 \renewenvironment{thebibliography}[1]
-    {\chapter*{\bibname}%
-     \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}%
-     \list{\@biblabel{\@arabic\c@enumiv}}
-          {\settowidth\labelwidth{\@biblabel{999}}
-           \leftmargin\labelwidth
-            \advance\leftmargin\dimexpr\labelsep+\mybibindent\relax\itemindent-\mybibindent
-           \@openbib@code
-           \usecounter{enumiv}
-           \let\p@enumiv\@empty
-           \renewcommand\theenumiv{\@arabic\c@enumiv}}
-     \sloppy
-     \clubpenalty4000
-     \@clubpenalty \clubpenalty
-     \widowpenalty4000%
-     \sfcode`\.\@m}
-    {\def\@noitemerr
-      {\@latex@warning{Empty `thebibliography' environment}}
-     \endlist}
+{\chapter*{\bibname}%
+   \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}%
+   \list{\@biblabel{\@arabic\c@enumiv}}
+   {\settowidth\labelwidth{\@biblabel{999}}
+      \leftmargin\labelwidth
+      \advance\leftmargin\dimexpr\labelsep+\mybibindent\relax\itemindent-\mybibindent
+      \@openbib@code
+      \usecounter{enumiv}
+      \let\p@enumiv\@empty
+      \renewcommand\theenumiv{\@arabic\c@enumiv}}
+   \sloppy
+   \clubpenalty4000
+   \@clubpenalty \clubpenalty
+   \widowpenalty4000%
+   \sfcode`\.\@m}
+{\def\@noitemerr
+   {\@latex@warning{Empty `thebibliography' environment}}
+   \endlist}
 \makeatother
