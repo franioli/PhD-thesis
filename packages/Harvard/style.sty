@@ -1,9 +1,5 @@
 \ProvidesPackage{packages/Harvard/style}
 
-% School name and location
-\university{Harvard University}
-\universitycity{Cambridge}
-\universitystate{Massachusetts}
 
 % School color found from university's graphic identity site:
 % http://isites.harvard.edu/icb/icb.do?keyword=k75408&pageid=icb.page392732
@@ -11,11 +7,11 @@
 \definecolor{chaptergrey}{rgb}{0.6471, 0.1098, 0.1882} % for chapter numbers
 
 \hypersetup{
-    colorlinks,
-    citecolor=SchoolColor,
-    filecolor=black,
-    linkcolor=black,
-    urlcolor=SchoolColor,
+	colorlinks,
+	citecolor=SchoolColor,
+	filecolor=black,
+	linkcolor=black,
+	urlcolor=SchoolColor,
 }
 
 % Formatting guidelines found in:
@@ -31,30 +27,54 @@
 	\acknowledgments
 }
 
+% \renewcommand{\maketitle}{
+% 	\thispagestyle{empty}
+% 	\vspace*{\fill}
+% 	\vspace{100pt}
+% 	\begin{center}
+% 		\Huge \textcolor{SchoolColor}{\thetitle} \normalsize \\
+% 		\vspace{100pt}
+% 		\textsc{a dissertation presented \\ by\\
+% 			\theauthor\\ to\\ The Department of \@department\\
+% 			\vspace{12pt}
+% 			in partial fulfillment of the requirements\\
+% 			for the degree of\\ \@degree\\
+% 			in the subject of\\ \@field\\
+% 			\vspace{12pt}
+% 			\@university\\ \@universitycity, \@universitystate\\
+% 			\@degreemonth\ \@degreeyear}
+% 	\end{center} \vspace*{\fill}
+% }
+
 \renewcommand{\maketitle}{
 	\thispagestyle{empty}
 	\vspace*{\fill}
-	\vspace{100pt}
+	\vspace{60pt}
 	\begin{center}
-	\Huge \textcolor{SchoolColor}{\thetitle} \normalsize \\
-	\vspace{100pt}
-	\textsc{a dissertation presented \\ by\\
-	\theauthor\\ to\\ The Department of \@department\\
-	\vspace{12pt}
-	in partial fulfillment of the requirements\\
-	for the degree of\\ \@degree\\
-	in the subject of\\ \@field\\
-	\vspace{12pt}
-	\@university\\ \@universitycity, \@universitystate\\
-	\@degreemonth\ \@degreeyear}
+		\Huge \textcolor{SchoolColor}{\thetitle} \normalsize \\
+		\vspace{30pt}
+		\small{by}\\\textsc{\theauthor}\\
+		\vspace{40pt}
+		\textsc{a dissertation presented to\\ the \@department\\
+			\vspace{12pt}
+			in fulfillment of the requirements\\
+			for the degree of\\ \@degree\\
+			in \@field\\
+			\vspace{12pt}
+			\@university\\ \@universitycity, \@universitystate\\
+			\@degreemonth\ \@degreeyear} \\
+		% \vspace{30pt}
+		% \textsc{accepted on the recommendation of\\}
+		% \textsc{\@advisor\\ \@reviewerA \\ \@reviewerB \\ \@reviewerC}
 	\end{center} \vspace*{\fill}
 }
+
 
 \newcommand{\copyrightpage}{
 	\newpage
 	\thispagestyle{empty}
 	\vspace*{\fill}
-	\scshape \noindent \small \copyright \small 2023\hspace{3pt}-- \theauthor \\
+	\scshape \noindent \small \copyright \small 2024\hspace{3pt}-- \theauthor \\
 	\noindent all rights reserved.
 	\vspace*{\fill}
 	\newpage
@@ -70,9 +90,9 @@
 	\renewcommand{\headrulewidth}{0.0pt}
 	\vspace*{35pt}
 	\begin{center}
-	\Large \textcolor{SchoolColor}{\@title} \normalsize \\
-	\vspace*{20pt}
-	\scshape Abstract \\ \rm
+		\Large \textcolor{SchoolColor}{\@title} \normalsize \\
+		\vspace*{20pt}
+		\scshape Abstract \\ \rm
 	\end{center}
 	\input{frontmatter/abstract}
 	\vspace*{\fill}

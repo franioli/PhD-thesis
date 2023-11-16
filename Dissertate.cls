@@ -30,6 +30,9 @@
 \def\pdTwoName#1{\gdef\@pdTwoName{#1}}
 \def\pdTwoSchool#1{\gdef\@pdTwoSchool{#1}}
 \def\pdTwoYear#1{\gdef\@pdTwoYear{#1}}
+\def\reviewerA#1{\gdef\@reviewerA{#1}}
+\def\reviewerB#1{\gdef\@reviewerB{#1}}
+\def\reviewerC#1{\gdef\@reviewerC{#1}}
 
 \RequirePackage{color}
 \usepackage{hyperref}
