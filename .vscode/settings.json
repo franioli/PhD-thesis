@@ -20,6 +20,11 @@
         "--no-pdf",
         "%DOC%"
       ]
+    },
+    {
+      "name": "bibtex",
+      "command": "bibtex",
+      "args": ["%DOCFILE%"]
     }
   ],
   "latex-workshop.latex.recipes": [
@@ -30,9 +35,17 @@
     {
       "name": "xelatexmk - draft",
       "tools": ["xelatexmk - draft"]
+    },
+    {
+      "name": "xelatexmk -> bibtex - xelatexmk *2",
+      "tools": ["xelatexmk", "bibtex", "xelatexmk", "xelatexmk"]
     }
   ],
   "latex-workshop.latex.recipe.default": "xelatexmk",
+  "latex-workshop.latex.build.forceRecipeUsage": false,
+  "latex-workshop.latex.rootFile.useSubFile": true,
+  "latex-workshop.latex.clean.subfolder.enabled": true,
+  "latex-workshop.latex.texDirs": ["frontmatter", "chapters", "endmatter"],
   "editor.wordWrap": "off",
   "editor.wordWrapColumn": 180,
   "editor.formatOnSave": true,

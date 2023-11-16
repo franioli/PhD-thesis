@@ -50,8 +50,9 @@
 \RequirePackage{graphicx}
 \RequirePackage{amssymb}
 \RequirePackage{lettrine}
-\RequirePackage[super,comma,numbers,sectionbib]{natbib}
-\setcitestyle{authoryear,open={(},close={)}} %Citation-related commands
+\RequirePackage[authoryear,comma]{natbib}
+\setcitestyle{open={(},close={)}} %Citation-related commands
+\RequirePackage{chapterbib}
 \renewcommand{\bibnumfmt}[1]{[#1]}
 \RequirePackage[width=6.25in, letterpaper]{geometry} %width=5.75in
 \RequirePackage{fancyhdr}

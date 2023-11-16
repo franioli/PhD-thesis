@@ -19,6 +19,7 @@
 \renewcommand{\frontmatter}{
 	\input{frontmatter/personalize}
 	\maketitle
+	\advisorspage
 	\copyrightpage
 	\abstractpage
 	\tableofcontents
@@ -56,26 +57,49 @@
 		\small{by}\\\textsc{\theauthor}\\
 		\vspace{40pt}
 		\textsc{a dissertation presented to\\ the \@department\\
-			\vspace{12pt}
+			\vspace{18pt}
 			in fulfillment of the requirements\\
 			for the degree of\\ \@degree\\
 			in \@field\\
-			\vspace{12pt}
+			\vspace{18pt}
 			\@university\\ \@universitycity, \@universitystate\\
 			\@degreemonth\ \@degreeyear} \\
-		% \vspace{30pt}
-		% \textsc{accepted on the recommendation of\\}
-		% \textsc{\@advisor\\ \@reviewerA \\ \@reviewerB \\ \@reviewerC}
 	\end{center} \vspace*{\fill}
 }
 
+% \newcommand{\copyrightpage}{
+% 	\newpage
+% 	\thispagestyle{empty}
+% 	\vspace*{\fill}
+% 	\scshape \noindent \small \copyright \small 2024\hspace{3pt}-- \theauthor \\
+% 	\noindent all rights reserved.
+% 	\vspace*{\fill}
+% 	\newpage
+% 	\rm
+% }
 
 \newcommand{\copyrightpage}{
 	\newpage
 	\thispagestyle{empty}
 	\vspace*{\fill}
+	\scshape \noindent This thesis has been approved by\\
+	\textsc{
+		\textbf{\@advisor}, advisor \\
+	}
+	% \vspace{40pt} \\
+	% \noindent \textsc{Examination Board} \\
+	% \textbf{\@reviewerA}, examiner \\
+	% \textbf{\@reviewerB}, examiner \\
+	% \textbf{\@reviewerC}, examiner
+	\vspace{40pt} \\
+	\@university\\
+	\@department\\
+	\@universitycity, \@universitystate \vspace{10pt} \\
 	\scshape \noindent \small \copyright \small 2024\hspace{3pt}-- \theauthor \\
-	\noindent all rights reserved.
+	\noindent all rights reserved. \vspace{10pt} \\
+	\begin{figure}[h!]
+		\includegraphics[width=0.5\textwidth]{frontmatter/polimi_logo_text.jpg}
+	\end{figure}
 	\vspace*{\fill}
 	\newpage
 	\rm
@@ -86,7 +110,7 @@
 	\pagenumbering{roman}
 	\setcounter{page}{3}
 	\pagestyle{fancy}
-	\lhead{Thesis advisor: Professor \@advisor} \rhead{\@author}
+	% \lhead{Thesis advisor: Professor \@advisor} \rhead{\@author}
 	\renewcommand{\headrulewidth}{0.0pt}
 	\vspace*{35pt}
 	\begin{center}
