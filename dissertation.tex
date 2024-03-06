@@ -4,6 +4,7 @@
 % Available options include `Harvard`, `Princeton`, and `NYU`.
 \documentclass[School=Harvard]{Dissertate}
 
+\usepackage{apalike}
 \usepackage{siunitx}
 \usepackage{tabularx}
 \usepackage{eurosym}
@@ -14,12 +15,21 @@
 \DeclareSIUnit\year{y}
 \DeclareSIUnit\pt{pt}
 \DeclareSIUnit\masl{m~a.s.l.}
-\sisetup{product-units=single}
+\sisetup{product-units=repeat}
 
 % Referencing
 \newcommand{\figref}[1]{Fig.~\ref{#1}}
 \newcommand{\tabref}[1]{Tab.~\ref{#1}}
 \newcommand{\secref}[1]{Sec.~\ref{#1}}
+
+\newcommand{\makechapterbibliography}{
+    \begin{spacing}{0.5}
+        \bibliography{references} % Make bibliography
+        \addcontentsline{toc}{section}{References} % Add Reference entry to TOC
+        \bibliographystyle{apalike3} % Set bibliography style
+    \end{spacing}
+}
+
 
 \begin{document}
 
@@ -31,6 +41,7 @@
 \tableofcontents
 %\authorlist
 \listoffigures
+\listoftables
 % \dedicationpage
 \acknowledgments
 
@@ -54,10 +65,10 @@
 \end{appendices}
 
 % the back matter
-\clearpage
-\bibliography{references}
-\addcontentsline{toc}{chapter}{References}
-\bibliographystyle{apacite}
+% \clearpage
+% \bibliography{references}
+% \addcontentsline{toc}{chapter}{References}
+% \bibliographystyle{apalike2}
 
 % \include{endmatter/colophon}
 
