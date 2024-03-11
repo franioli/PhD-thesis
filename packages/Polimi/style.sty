@@ -1,0 +1,129 @@
+\ProvidesPackage{packages/Harvard/style}
+
+% School name and location
+\university{Politecnico di Milano}
+\universitycity{Milano}
+\universitystate{Italy}
+
+% School color found from university's graphic identity site:
+\definecolor{SchoolColor}{rgb}{0.4, 0.6, 0.8}
+\definecolor{chaptergrey}{rgb}{0.6471, 0.1098, 0.1882} % for chapter numbers
+
+\hypersetup{
+    colorlinks,
+    citecolor=SchoolColor,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=SchoolColor,
+}
+
+% Formatting guidelines found in:
+% http://www.gsas.harvard.edu/publications/form_of_the_phd_dissertation.php
+\renewcommand{\frontmatter}{
+	\input{frontmatter/personalize}
+	\maketitle
+	\advisorspage
+	\copyrightpage
+	\abstractpage
+	\tableofcontents
+	% \listoffigures % optional
+	\dedicationpage
+	\acknowledgments
+}
+
+\renewcommand{\maketitle}{
+	\thispagestyle{empty}
+	\vspace*{\fill}
+	\vspace{10pt}
+	\begin{center}
+	    \Huge \textcolor{SchoolColor}{\thetitle} \normalsize \\
+	    \vspace{20pt}
+        by\\ 
+        \theauthor \\
+        \vspace{35pt}
+        \includegraphics[width = 40mm]{figures/logo.png}\\
+        \vspace{35pt}
+    	\textsc{
+            a dissertation submitted to\\
+            \vspace{4pt}
+    	    The Department of \@department\\
+            \vspace{4pt}
+            for the degree of \\
+            \vspace{4pt}
+            \@degree \\
+            \vspace{4pt}
+            in \@field \\
+        	\vspace{30pt}
+                Thesis advisor: Professor \@advisor\\
+                Co-advisor: Professor \@coadvisor\\
+            \vspace{50pt}
+        	\@university\\ 
+            \@universitycity, \@universitystate\\
+        	\@degreemonth\ \@degreeyear
+         } \\
+    \end{center} 
+    \vspace*{\fill}
+}
+
+
+\newcommand{\copyrightpage}{
+	\newpage
+	\thispagestyle{empty}
+	\vspace*{\fill}
+	\scshape \noindent This thesis has been approved by\\
+	\textsc{
+		\textbf{\@advisor}, advisor \\
+        \textbf{\@coadvisor}, co-advisor \\
+	}
+	\vspace{40pt} \\
+	\noindent \textsc{Examination Board} \\
+	\textbf{\@reviewerA}, examiner \\
+	\textbf{\@reviewerB}, examiner \\
+	% \textbf{\@reviewerC}, examiner
+	\vspace{40pt} \\
+	\@university\\
+	\@department\\
+	\@universitycity, \@universitystate \vspace{10pt} \\
+	\scshape \noindent \small \copyright \small 2024\hspace{3pt}-- \theauthor \\
+	\noindent all rights reserved. \vspace{10pt} \\
+	\begin{figure}[h!]
+		\includegraphics[width=0.5\textwidth]{frontmatter/polimi_logo_text.jpg}
+	\end{figure}
+	\vspace*{\fill}
+	\newpage
+	\rm
+}
+
+\newcommand{\abstractpage}{
+	\newpage
+	\pagenumbering{roman}
+	\setcounter{page}{3}
+	\pagestyle{fancy}
+	% \lhead{Thesis advisor: Professor \@advisor} \rhead{\@author}
+	\renewcommand{\headrulewidth}{0.0pt}
+	\vspace*{35pt}
+	\begin{center}
+		\Large \textcolor{SchoolColor}{\@title} \normalsize \\
+		\vspace*{20pt}
+		\scshape Abstract \\ \rm
+	\end{center}
+	\input{frontmatter/abstract}
+	\vspace*{\fill}
+	\newpage \lhead{} \rhead{}
+	\cfoot{\thepage}
+}
+
+\newcommand{\dedicationpage}{
+	\newpage \thispagestyle{fancy} \vspace*{\fill}
+	\scshape \noindent \input{frontmatter/dedication}
+	\vspace*{\fill} \newpage \rm
+}
+
+\newcommand{\acknowledgments}{
+	\chapter*{Acknowledgments}
+	\noindent
+	\input{frontmatter/thanks}
+	\vspace*{\fill} \newpage
+	\setcounter{page}{1}
+	\pagenumbering{arabic}
+}

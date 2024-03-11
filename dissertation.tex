@@ -1,13 +1,13 @@
 % !TEX root = ./dissertation.tex
 
 % Modify the following line to match your school
-% Available options include `Harvard`, `Princeton`, and `NYU`.
-\documentclass[School=Harvard]{Dissertate}
+\documentclass[School=Polimi]{Dissertate}
 
 \usepackage{apalike}
 \usepackage{siunitx}
 \usepackage{tabularx}
 \usepackage{eurosym}
+% \usepackage{bibentry}
 
 %- Declaration of Units (SIUNIX)
 \DeclareSIUnit\pixel{px}
@@ -22,6 +22,7 @@
 \newcommand{\tabref}[1]{Tab.~\ref{#1}}
 \newcommand{\secref}[1]{Sec.~\ref{#1}}
 
+% Bibliography
 \newcommand{\makechapterbibliography}{
     \begin{spacing}{0.5}
         \bibliography{references} % Make bibliography
