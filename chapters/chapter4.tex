@@ -16,9 +16,321 @@
 
 \newpage
 
-\section{Introduction\textcolor{red}{TODO}}\label{sec:4:introduction}
+\section{Introduction}\label{sec:4:intro}
 
-{\color{red} TODO: write introduction}
+Climate change is accelerating the evolution of alpine glaciers, leading to rapid ice melt and increased frequency of collapses during summer months. 
+This accelerated melting can trigger various glaciological, geomorphological, and slope stability hazards, including avalanches, glacier outbursts, rockfalls, permafrost-related collapses, and moraine instability~\citep{Kaab2005, chiarle2023, Nigrelli2024}
+Consequently, short-term observations (e.g., daily) are crucial for achieving a deep understanding of glaciers with their processes associated processes and their relation with external forces, in particular the air temperature.
+Monitoring surface kinematics is particularly important, as it can provide early indications of impending instability~\citep{Faillettaz2015}.
+However, the remote and hazardous nature of glacial environments poses logistical and safety challenges. 
+
+Over the years, a wide array of remote sensing techniques have been developed for safely monitoring glaciers and related processes.
+These include satellite-based sensing \citep{altena_kaab_2020,Scherler2008},
+satellite Synthetic Aperture Radar (SAR)~\citep{Strozzi2020}, 
+3D photogrammetric reconstruction from UAVs~\citep{Chudley2019,Ioli2022},
+aerial platforms~\citep{Degaetani2021} and optical high-resolution satellite~\citep{Tonolo2020},
+ground-based monoscopic or stereoscopic time-lapse cameras~\citep{Messerli2015,Schwalbe2017,Hendrickx2022},
+ground-based SAR~\citep{Dematteis2018,Noferini2009}, 
+aerial and UAV laser scanner \citep{Hartl2023} 
+or Terrestrial Laser Scanners (TLS)~\citep{Hendrickx2022,Voordendag2023}.
+% \textcolor{red}{update with monoplotting, gnss and total stations and more relevant refs for archival images!}
+% Various technologies and techniques have been developed and proposed for remotely monitoring gravitational slope phenomena, including permanent terrestrial SAR or TLS, UAV and terrestrial photogrammetry, monoplotting (i.e. the projection of photographs taken by a time-lapse camera onto a DSM), GNSS and traditional topography \textcolor{red}{add references to all}.
+
+High-resolution space- or airborne-based remote sensing systems provide spatially distributed data over large areas with high precision.
+However, these methods usually entail significant costs and the repeatability of the survey is strongly limited.
+Furthermore, unfavorable acquisition geometries can impact measurement accuracy in case of complex geomorphological scenarios. 
+In contrast, UAV photogrammetry offers high-precision 3D reconstruction of mountain environments at a low cost~\citep{Chudley2019,Ioli2022},
+yet the need for on-site flight operations and the deployment and measurement of Ground Control Points (GCPs) can be time-consuming and labor-intensive, making it less suitable for short-term glacier monitoring.
+
+Permanent ground-based solutions are generally preferred for short-term monitoring.
+Among these, terrestrial SAR and TLS have gained significant attention.
+SAR, in particular, offers the advantage of all-weather and day-and-night imaging, making it suitable for
+real-time monitoring and early-warning systems~\citep{Dematteis2021,Noferini2009}.
+However, both ground-based SAR and permanent TLS are expensive, requires complex
+logistics.
+These limitations prevent their applications in distributed sites at regional scale, but
+their usage may be limited to investigating hazardous locations.
+
+Fixed time-lapse cameras offer an affordable alternative to terrestrial SAR and TLS for
+gathering qualitative and quantitative information on glacier
+dynamics~\citep{Giordan2016,James2016, Maas2006,Messerli2015}.
+Digital Image Correlation (DIC) can be used on sequences of images from terrestrial
+time-lapse cameras to estimate glacier surface velocity.
+Initially used in laboratory settings, DIC was first applied to glaciers
+by~\cite{Evans2000}. Subsequently, numerous studies employed this
+technique for measuring glacier kinematics
+\citep{ahn_box_2010,Giordan2016,Hadhri2019,James2016,Messerli2015}.
+However, external Digital Surface Models (DSMs) are required to convert 2D pixel
+displacements obtained by DIC into 3D displacement vectors.
+
+Although most of the existing literature focuses on single time-lapse cameras, in recent
+years some studies have been conducted on multi-camera systems.
+Even though it was not applied to glaciers, \cite{roncella_landslide_2014} first
+developed a pure stereoscopic system for monitoring a moving landslide, proposing a fully
+photogrammetric approach to derive a 3D model of the scene and detect collapses, without
+the need for a priori DSMs.
+\cite{Schwalbe2017} proposed an application of multiple time-lapse cameras for deriving
+a coarse digital surface model using Structure-from-Motion (SfM) to estimate a distance
+map, which was used to scale displacement vectors.
+\cite{Marsy2020} used a stereo camera system to construct a glacier DSM and
+back-projected the DIC-derived velocity field.
+However, their main focus was on deriving glacier kinematics rather than achieving a
+short-term 3D reconstruction of the glacier.
+Recently, \cite{kneib_sub-seasonal_2022} used a multi-camera system to
+estimate sub-seasonal variability of supraglacial ice cliff melt rates.
+\cite{Taylor2023} successfully tested a low-cost Raspberry Pi with a high-quality camera
+module and a telephoto lens mounted on a boat for reconstructing a glacier calving front
+by SfM achieving sub-meter accuracy when compared to a UAV benchmark.
+\cite{Blanch2023} proposed a low-cost fixed multi-camera system for natural hazard
+monitoring using a photogrammetric approach and they achieved sub-decimetric change
+detection sensitivity in rockfall detection.
+
+Nevertheless, all of the aforementioned studies used small or normal camera baselines,
+which makes it easier for traditional photogrammetric methods to find corresponding
+points between images and achieve 3D scene reconstruction.
+However, in mountainous terrain, finding stable, accessible locations with ideal
+baseline and viewing geometry can be challenging.
+Conversely, wide baselines or highly convergent views hinder a 3D reconstruct by
+traditional photogrammetry.
+
+In traditional photogrammetry, keypoints are identified on different images by
+local feature detectors and descriptors such as SIFT~\citep{Lowe2004},
+Kaze~\citep{Alcantarilla2012} or ORB~\citep{Rublee2011}
+and matched by minimizing descriptor distances in the descriptor space.
+Bundle Adjustment (BA) is then used to estimate the 3D coordinates of tie points
+and camera parameters.
+Extracting tie points becomes challenging when the camera baseline is wide.
+Changes in viewpoint lead to complex distortions, missing content, and occlusions between
+corresponding objects, making
+matching difficult.
+
+In traditional photogrammetry, keypoints are detected using local feature methods like
+SIFT~\citep{Lowe2004}, Kaze~\citep{Alcantarilla2012}, or ORB~\citep{Rublee2011}. The
+keypoints are matched by minimizing descriptor distances in descriptor space and BA is
+then employed to estimate their 3D coordinates and camera parameters.
+Wide camera baselines complicate tie point extraction, due to complex
+distortions and occlusions between corresponding objects.
+Deep Learning (DL) techniques and particularly attention-based
+architectures~\citep{vaswani2023attention},
+have emerged as a powerful techniques for extracting and matching features in difficult
+conditions, such as wide baselines and significant radiometric
+differences~\citep{jin_image_2021,Yao_2021}.
+Research in DL-based matching has soared in recent
+years~\citep{Chen_2021_handcrafted_to_DL},
+addressing various challenges, including large baselines, oblique
+images~\citep{Yao_2021}, historical image matching~\citep{Maiwald2021_Historical},
+low-quality cameras and public webcams~\citep{wu2021_public_webcams}.
+A comprehensive survey by \cite{remondino2022_at_with_dl} covers methods from
+traditional corner detectors to state-of-the-art DL matching
+approaches.
+
+This chapter presents a pilot study on short-term 4D monitoring of the Belvedere Glacier glacier using
+a low-cost stereo-camera system with a wide baseline. 
+The study focuses on investigating daily glacier dynamics by calculating surface movement, ice volume loss, and glacier
+retreat of a debris-covered alpine glacier.
+The proposed methodology integrates 3D reconstruction from stereo cameras for volume
+estimation and utilizes DIC on monoscopic cameras to derive surface velocities.
+By utilizing state-of-the-art DL matching techniques, this approach overcomes
+the challenges posed by the wide camera baselines and allows for accurately
+reconstructing the scene under suboptimal viewing conditions.
+
+The objective of this work is twofold:
+(i) to demonstrate the feasibility and effectiveness of using a cost-effective
+photogrammetric solution for short-term glacier monitoring using a DL approach;
+(ii) to investigate the short-term relationship between air temperature, ice volume
+variations and glacier surface velocity for an alpine debris-covered glacier.
+By combining stereo and monoscopic image sequence analysis, this study
+contributes to a better understanding of sub-seasonal glacier dynamics,
+particularly in the context of changing climate conditions and rising temperatures.
+
+\section{The low-cost stereoscopic system}\label{sec:4:system}
+
+The low-cost stereoscopic system employed for short-term monitoring of the Belvedere Glacier consists of two autonomous and independent monitoring units. 
+Each unit consists of a monitoring station that includes an off-the-shelf DSLR camera, a circuit for scheduling of image acquisition and controlling the system, a solar-based power supply system, and a case for protecting the system from the harsh environment. 
+The core of each monitoring unit is the controlling circuit, which is composed of an Arduino microcontroller for camera triggering, and a Raspberry Pi Zero with a SIM card for sending images to a remote server via a GSM network~\figref{fig:4:scheme_foto}.
+The total cost of each unit was less than \texteuro2000, including camera and lens \citep{ioli2023_replicable}.
+
+The system was designed and built adapting to the alpine environment an existing
+open-source model developed by Greig Sheridan and published on
+GitHub\footnote{\label{foot:greig}Greig Sheridan' Intervalometerator repository:
+  \url{https://github.com/greiginsydney/Intervalometerator}}.
+A key aspect of the project was to ensure easy assembly and realization of the system to
+guarantee future replications and improvements.
+
+In this section, we describe in detail the monitoring system and its installation at the Belvedere Glacier.
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.6\textwidth]{schema.pdf}
+  \caption{Scheme of the proposed acquisition system configuration for a single
+    monitoring station. Arrows indicate the direction of signal initiation. Image adapted
+    from Greig Sheridan's repository.}
+  \label{fig:4:scheme_foto}
+\end{figure}
+
+
+\subsection{Power supply}\label{Power_supply}
+Each monitoring unit has its autonomous power supply line (yellow arrows in Figure
+\ref{fig:4:scheme_foto}) provided by a solar panel combined with a sealed lead-acid
+battery. An MPPT (Maximum Power Point Tracker) charge regulator directly connects with
+the unit's internal circuit, providing a regular current supply to the battery
+and the load and exploiting all the power generated by the panel. This regulator prevents
+any excess current that may damage the connected device, thus increasing the reliability
+of the system. Its battery life-saving algorithm modulates the load disconnection level
+so that a nearly 100\% recharge is achieved about once every week and, in case of battery
+discharging, the whole system is switched off until 100\% recharge of the battery is
+achieved.
+The whole monitoring system is designed to minimize power consumption, e.g., by powering
+off devices responsible for the highest power consumption when not needed.
+An estimation of the system's energy consumption guided the choice of the components of
+the power supply line. 
+Specifically, the battery and the associated panel must be
+accurately dimensioned for the system's purpose. 
+To this end, the Photovoltaic Geographical Information System (PVGIS)\footnote{\url{https://re.jrc.ec.europa.eu/pvg_tools/en/}}, a tool provided by the European Commission, was used.
+PVGIS can estimate the performance of off-grid photovoltaic systems according to the installation site and it is supported by a database and algorithms for calculating solar radiation. 
+Tuning the parameters for the Belvedere Glacier location and the system consumption, we ended up with the specifications of solar panel power of 30 W, a battery voltage of 12 V, and capacity of 10 Ah. 
+Some compromises were made, accepting that the system would not be sufficiently powered in the months with the lowest solar radiation (November, December, January, and February). 
+
+\subsection{Controlling circuit and acquisition scheduling}\label{Control}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.6\textwidth]{board.jpg}
+  \caption{Stripboard on which are soldered the main components of the internal
+    circuit: capacitors (1), voltage regulators (2), real-time clock with coin-cell
+    battery (3), Arduino Pro Mini (4), optoisolators (5), and Raspberry Pi Zero W (6).
+      {\color{red} Add pic of new board}}
+  \label{fig:4:circuit}
+\end{figure}
+
+The internal electronic circuit (red box in \figref{fig:4:scheme_foto}) of the
+monitoring unit is the only load connected to the power supply and is responsible for all
+the system's control and scheduling functionalities.
+Its components are a real-time clock (number 3 in \figref{fig:4:circuit}) with a 12
+mm
+coin-cell backup battery, an Arduino microcontroller (Pro  Mini 328 3.3V 8MHz, number 4
+in \figref{fig:4:circuit}), a Raspberry Pi Zero W with 128 GB SD memory card (number
+6 in \figref{fig:4:circuit}), and minor elements for connections, isolation (capacitors and optoisolators numbers 1 and 5 in \figref{fig:4:circuit}), and voltage regulations (numbers 2 in \figref{fig:4:circuit}).
+The circuit was realized manually by soldering wires and components on a stripboard (see \figref{fig:4:circuit}).
+
+The Arduino communicates through an SPI (Serial Peripheral Interface) bus with an
+accurate real-time clock to schedule its actions: waking the camera, firing the shutter to take a photo, and turning on/off the Raspberry. 
+The Raspberry can access the camera images and transfer them to a remote server via internet connectivity. 
+A large storage memory is added to the unit to save photos before remote transferring. 
+The Raspberry also provides a web-based, user-friendly interface
+(\figref{fig:4:web-interface}) to configure and monitor the system remotely
+\citep{greig}.
+An I2C (Inter Integrated Circuit) bus and digital pin connections enable higher-level
+communication between these two boards. Among the minor components, we mention the role
+of the three voltage regulators. They allow each unit to be powered at the appropriate
+voltage and current: starting from the 12 V in input, one delivers 3.3 V and 500 mA to
+the Arduino, one 5 V and 2.5 A to the Raspberry and its hat, and the other 7.5 V and 2.4
+A to the camera. The Arduino controls the 5V regulator of the Raspberry to reduce
+quiescent power consumption when the Raspberry board is off.
+
+Acquisition of a defined number of images, camera triggering and timing, and sending of
+images to a remote server can be scheduled thanks to adequate programming of a cyclic
+executive program in C++ for Arduino and  of services executing automatically Python
+scripts for the Raspberry.
+All the monitoring station activities can be remotely scheduled from the terminal or a
+user-friendly web interface \citep{greig}. 
+This useful feature allows one to change the settings and check the behavior of the system, avoiding the need for manual intervention. 
+The Raspberry uses the gPhoto2, a Python-based protocol developed to specifically interact with popular cameras’ firmware, to communicate with the camera and access the new photos. 
+The  web-based interface service is based on NGINX and Gunicorn, open-source software for web servers. 
+The interface (\figref{fig:4:web-interface}) consists of a web page accessible with credentials and provides a summary of the system state and the exact time of the last operations (time of the last shot and the last upload of images), temperatures of the components, previews of the last images, buttons to wake up the camera, take a preview photo and schedule the system routine (time and number of photo acquisition, wake-up time of the Raspberry) and some camera settings.
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.8\textwidth]{web_interface.png}
+  \caption{Example of some of the pages of the web-based interface to remotely control
+    the monitoring units.}
+  \label{fig:4:web-interface}
+\end{figure}
+
+All the components were chosen because of their low power consumption and their
+inter-compatibility. 
+The circuit is robust against power losses due to battery discharging and can auto-recover when power is regained. 
+A low energy consumption policy is also followed in selecting the scheduling. 
+The camera is switched on only during the data capture activity. 
+The Raspberry is switched on only once per day when the connection with the remote server and image transfer is scheduled.
+
+\subsection{Connectivity}\label{Connectivity}
+Internet connectivity is crucial to transfer images and to control the units remotely. To
+this end, the Raspberry is equipped with the SIM7600E-H 4G hat by Waveshare. The module
+supports 4G/3G/2G communication via a SIM card. Raspberry and hat operations are the most
+expensive in terms of power consumption. For this reason, the board is switched on only
+once a day for a limited period, which is kept adequately low to be sustainable
+for the system power supply but still sufficient for transferring new images to the
+server. We adopted IoT (Internet of Things) SIM cards provided by the multi-operator
+service Emnify \citep{emnify}, as it offers the ability to connect to the best-quality
+cellular network available and includes flexible and customizable data plans.
+Remote access to the devices is allowed by a VPN (Virtual Private Network).
+The service costs \texteuro33 per month for a data plan with 6 GB.
+
+\subsection{Case and protection}\label{Case and protection}
+The majority of the components need to be protected. Therefore, a solid and compact case
+that allows keeping all the parts (except the solar panel) in the same
+location is desirable for the functioning of the system and convenient
+transportation, installation and maintenance. The case should also satisfy the thermal
+insulation requirements according to each component's working temperature range. The case
+should also be waterproof and robust against different and harsh weather conditions but,
+at the same time, provide access for connecting the solar panel and taking pictures. Our
+choice was an HPRC 2250 lightweight, waterproof resin case with internal insulating foam.
+The foam was found to be useful in enhancing the temperature seal and stabilising the
+location of some components, preventing unwanted movements. Holes were drilled in the
+case: one sealed with a UV filter of 82 mm to allow the camera to take shots, two others
+to give access to the solar panel wires, and others to fix the system to a tripod. The
+internal case dimensions (236x182x155 mm) posed a significant challenge in accommodating
+all the components inside. In particular, the camera lens dimensions were constrained by
+space availability.
+
+\subsection{General performances}\label{General_performances}
+The system was subject to several tests before being used in its final application at the
+Belvedere glacier site. During these tests, the system proved to be autonomous, robust to
+sudden shutdowns, cold-resistant, water-resistant, and self-sufficient for a prolonged
+period with no direct sunlight on the solar panels. 
+Specifically, in the absence of sunlight, the battery can power the system for about nine days before it is completely discharged. 
+Battery voltage and temperatures of components were monitored, simulating the absence of solar radiation and low environmental temperatures.
+Figure \ref{fig:4:nominal_performance} shows the performances of the system during these tests.
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=.6\textwidth]{nominal.png}
+  \caption{Battery voltage and temperature of boards with and without the solar panel
+    during a period of tests. Starting from a fully charged condition, the system was
+    kept without solar panel at around 2 °C for the first six days. After nine days, the
+    battery was fully discharged and the system was reconnected to the panel and exposed
+    to solar radiation.}
+  \label{fig:4:nominal_performance}
+\end{figure}
+
+\subsection{The choice of the camera}\label{camera}
+The choice of the DSLR camera and the optics can be considered application-dependent.
+Therefore specifications regarding these components are reported referring to the
+Belvedere glacier case study. 
+Each monitoring station was equipped with a DSLR camera Canon EOS 2000D, with 24.1 MP CMOS \mbox{APS-C} sensor. 
+This model was chosen because of the limited costs, the high image resolution, and its compactness, as it must fit inside the case. 
+Additionally, another fundamental requirement was camera compatibility with the \textit{gPhoto2} software. 
+The choice of the lenses is mostly site-specific, as it is driven by the required GSD of the images, in addition
+to dimensional constraints that limit the choices of the optics to rather small lenses that can fit into the protective case.
+The lenses chosen for the two cameras are described in \secref{sec:4:siteselection}.
+
+In the installation inside the system case, the traditional rechargeable battery was replaced by a special battery 
+(”fake battery”) equipped with a power supply cable, which provides a voltage of 7.5 V from the circuit. 
+The camera is attached to a sliding plate able to vary, with a limited range, and then fix the position of the camera 
+on the longitudinal axis. Screws fix the camera to the plate and the plate to the case.
+
+\subsection{Site selection for permanent installation}\label{sec:4:siteselection}
+
+A preliminary survey was conducted to identify suitable locations for the two monitoring units. 
+The primary goal was to ensure both cameras had a clear view of the northwest terminal lobe, particularly the terminal ice cliff,
+as this area experiences substantial transformation and retreat. 
+However, the harsh glacial environment presented significant challenges. 
+The glacier's steep moraines are mostly unstable due to reduced support from the melting ice, making them prone to sliding and collapsing.
+
+Another critical consideration for a good acquisition geometry is the baseline (i.e., the distance between cameras). 
+This distance should be sufficiently large relative to the camera-object distance to avoid compromising depth estimation accuracy due to narrow perspective ray intersection. 
+Consequently, installing the cameras close together on the same side of the glacier was not feasible.
 
 \begin{figure}
   \centering
@@ -33,30 +345,12 @@
   \label{fig:4:studyarea}
 \end{figure}
 
-\section{The low-cost stereoscopic system}\label{sec:4:system}
+Ultimately, two large boulders located on opposite moraines flanking the glacier's terminal lobe were identified as the only suitable and stable locations\figref{fig:4:studyarea}.
+The cameras, labelled as C1 and C2, were installed in July 2021 approximately at \SI{\sim230}{\meter} and \SI{\sim350}{\meter} from the terminal ice cliff respectively, with a strongly convergent pose~\figref{fig:4:studyarea}.
 
-% From last paper
-The low-cost stereoscopic system consists of two autonomous and independent monitoring
-units. Each unit is includes an off-the-shelf DSLR camera (Canon Eos 1200D), an Arduino
-microcontroller for camera triggering, and a Raspberry Pi
-Zero with a SIM card for sending images to a remote server via a GSM
-network \citep{ioli2023_replicable}.
-The instruments are housed in waterproof cases and mounted on tripods anchored to stable
-rocks along the glacier moraines.
-Power is supplied by a solar panel combined with a sealed lead-acid battery.
-The total cost of each unit was less than \texteuro2000, including
-camera and lens \citep{ioli2023_replicable}.
-The low-cost camera system is described in detail in \citet{ioli2023_replicable}.
-
-The two monitoring stations, labelled as C1 and C2, were installed in summer 2021 on
-either side of the north tongue of Belvedere Glacier (\figref{fig:4:studyarea}).
-The harsh glacier environment with steep and unstable moraines, often subject to rockfall
-due to glacier retreat, constrained the camera installation location at
-\SI{\sim230}{\meter} (camera C1) and \SI{\sim350}{\meter} (camera C2) from the terminal
-ice cliff, with a strongly convergent pose.
-Different lenses were used for the two cameras to achieve the same image scale in
-correspondence of the glacier tongue: C1 was equipped with a 24 mm lens, while a 35 mm
-lens was used for C2.
+To ensure comparable Ground Sample Distance (GSD) of the images (\SI{\sim 3.5}{\centi\meter\per\pixel}), lenses with different focal lengths were employed. 
+A Canon EF 24 mm f/2.8 IS USM was used for camera C1 (stream-wise right) and a Canon EF 35 mm f/2 IS USM was used for camera C2 (stream-wise left).
+A summary of the characteristics of the cameras and lenses employed is provided in \tabref{tab:4:cameras}.
 
 \begin{table}
   \centering
@@ -95,247 +389,16 @@ site geometry constraints.
 Therefore, camera C1 provides a limited view that primarily encompasses the frontal ice
 cliff, but does not capture the glacier surface, which is only visible from camera C2.
 
-The stereoscopic system was operating from August 2021 up to December 2022, when it was
-temporarily unmounted for ordinary maintenance, and finally mounted again in June 2023.
-During the operational period, the system was programmed to acquire two images per day,
-but only one image per day was used for the multitemporal processing.
-Only daily images taken during the snow-free period between 01/05/2022 and
-13/11/2022 were considered.
-In this period, the glacier is experiencing the most significant changes, flow velocity
-and ablation rates. On the other hand, during winter and spring seasons, the glacier was
-covered by snow, making it difficult to extract relevant information from optical images
-for tasks such as 3D reconstruction and surface velocity estimation.
 
-% From paper antalya
-The low-cost stereoscopic system for continuous monitoring is composed of two independent
-units, each housing an off-the-shelves DSLR camera.
-Each unit consists in an autonomous monitoring station that provides power supply,
-internet connectivity, timing and scheduling of image acquisition, and protection from
-the harsh environment.
-The station was designed and built adapting to the alpine environment an existing
-open-source model developed by Greig Sheridan and published on
-GitHub\footnote{\label{foot:greig}Greig Sheridan' Intervalometerator repository:
-  \url{https://github.com/greiginsydney/Intervalometerator}}.
-A key aspect of the project was to ensure easy assembly and realization of the system to
-guarantee future replication or improvement by non-experts.
-In the following, we describe in detail the services and the
-nominal performances provided by our system that make it worth consideration for
-applications in different monitoring contexts. Refer to \figref{fig:4:scheme_foto} for
-a descriptive schematic of the whole system showing the components selected for the
-Belvedere Glacier case study. The choice of the camera and optics is discussed in Section
-XX, as these components are dependent on the domain of use of the
-stereoscopic system.
+\subsection{Camera monumentation}\label{sec:4:cameramonumentation}
+The cameras were mounted on large, stable rocks along the moraines using aluminum topographic tripods anchored with steel dowels and cables (\figref{fig:4:final_installation}). 
+A central steel tie rod secures each system. 
+This agile monumentation approach allows for relatively easy on-site assembly and disassembly within the challenging environment, minimizing cost and time requirements. 
+The equipment was transported to the site via backpacks, often traversing unmarked terrain.
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.6\textwidth]{schema.pdf}
-  \caption{Scheme of the proposed acquisition system configuration for a single
-    monitoring station. Arrows indicate the direction of signal initiation. Image adapted
-    from Greig Sheridan's repository.}
-  \label{fig:4:scheme_foto}
-\end{figure}
-
-\subsection{Power supply}\label{Power_supply}
-Each monitoring unit has its autonomous power supply line (yellow arrows in Figure
-\ref{fig:4:scheme_foto}) provided by a solar panel combined with a sealed lead-acid
-battery. An MPPT (Maximum Power Point Tracker) charge regulator directly connects with
-the unit's internal circuit, providing a regular current supply to the battery
-and the load and exploiting all the power generated by the panel. This regulator prevents
-any excess current that may damage the connected device, thus increasing the reliability
-of the system. Its battery life-saving algorithm modulates the load disconnection level
-so that a nearly 100\% recharge is achieved about once every week and, in case of battery
-discharging, the whole system is switched off until 100\% recharge of the battery is
-achieved.
-The whole monitoring system is designed to minimise power consumption, e.g., by powering
-off devices responsible for the highest power consumption when not needed.
-An estimation of the system's energy consumption guided the choice of the components of
-the power supply line. Specifically, the battery and the associated panel must be
-accurately dimensioned for the system's purpose. To this end, the Photovoltaic
-Geographical Information System (PVGIS) \citep{pvgis}, a tool provided by the European
-Commission, was used. PVGIS can estimate the performance of off-grid photovoltaic systems
-according to the installation site and it is supported by a database and algorithms for
-calculating solar radiation. Tuning the parameters for the Belvedere Glacier location and
-the system consumption, we ended up with the specifications of solar panel power of 30 W
-and battery voltage of 12 V and capacity of 10 Ah. Some compromises were made, accepting
-that the system would not be sufficiently powered in the months with lowest solar
-radiation (November, December, January, and February). {\color{red} further details on
-    PVGIS simulations for the Belvedere Glacier case study are given.}
-
-\subsection{System control and scheduling}\label{Control}
+Despite these efforts, analysis of the acquired images revealed minor instability in both cameras, particularly small rotations around the vertical axis and wind-induced vibrations. While achieving perfect stability in a mountain environment is challenging, the use of GCPs located in stable areas will enable the estimation of camera orientation during image processing.
 
 \begin{figure}[ht!]
-  \centering
-  \includegraphics[width=0.6\textwidth]{board.jpg}
-  \caption{Stripboard on which are soldered the main components of the internal
-    circuit: capacitors (1), voltage regulators (2), real-time clock with coin-cell
-    battery (3), Arduino Pro Mini (4), optoisolators (5), and Raspberry Pi Zero W (6).
-      {\color{red} Add pic of new board}}
-  \label{fig:4:circuit}
-\end{figure}
-
-The internal electronic circuit (red box in \figref{fig:4:scheme_foto}) of the
-monitoring unit is the only load connected to the power supply and is responsible for all
-the system's control and scheduling functionalities.
-Its components are a real-time clock (number 3 in \figref{fig:4:circuit}) with a 12
-mm
-coin-cell backup battery, an Arduino microcontroller (Pro  Mini 328 3.3V 8MHz, number 4
-in \figref{fig:4:circuit}), a Raspberry Pi Zero W with 128 GB SD memory card (number
-6 in \figref{fig:4:circuit}), and minor elements for connections, isolation (capacitors and optoisolators numbers 1 and 5 in \figref{fig:4:circuit}), and voltage regulations (numbers 2 in \figref{fig:4:circuit}).
-The circuit was realized manually by soldering wires and components on a stripboard (see \figref{fig:4:circuit}).
-
-The Arduino communicates through an SPI (Serial Peripheral Interface) bus with an
-accurate real-time clock to schedule its actions: waking the camera, firing the shutter to take a photo, and turning on/off the Raspberry. 
-The Raspberry is able to access the camera images and transfer them to a remote server via internet connectivity. 
-A large storage memory is added to the unit to save photos before remote transferring. 
-The Raspberry also provides a web-based, user-friendly interface
-(\figref{fig:4:web-interface}) to configure and monitor the system remotely
-\citep{greig}.
-An I2C (Inter Integrated Circuit) bus and digital pin connections enable higher-level
-communication between these two boards. Among the minor components, we mention the role
-of the three voltage regulators. They allow each unit to be powered at the appropriate
-voltage and current: starting from the 12 V in input, one delivers 3.3 V and 500 mA to
-the Arduino, one 5 V and 2.5 A to the Raspberry and its hat, and the other 7.5 V and 2.4
-A to the camera. The Arduino controls the 5V regulator of the Raspberry to reduce
-quiescent power consumption when the Raspberry board is off.
-
-Acquisition of a defined number of images, camera triggering and timing, and sending of
-images to a remote server can be scheduled thanks to adequate programming of a cyclic
-executive program in C++ for Arduino and  of services executing automatically Python
-scripts for the Raspberry.
-All the monitoring station activities can be remotely scheduled from the terminal or a
-user-friendly web interface \citep{greig}. This useful feature allows one to change the
-settings and check the behaviour of the system, avoiding the need for manual
-intervention. The Raspberry uses the gPhoto2, a Python-based protocol developed to
-specifically interact with popular cameras’ firmware, to communicate with the camera and
-access the new photos. The  web-based interface service is based on NGINX and Gunicorn,
-open-source software for web servers. The interface (\figref{fig:4:web-interface})
-consists of a web page accessible with credentials and provides a summary of the system
-state and the exact time of the last operations (time of the last shot and the last
-upload of images), temperatures of the components, previews of the last images, buttons
-to wake up the camera, take a preview photo and schedule the system routine (time and
-number of photo acquisition, wake-up time of the Raspberry) and some camera settings.
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.8\textwidth]{web_interface.png}
-  \caption{Example of some of the pages of the web-based interface to remotely control
-    the monitoring units.}
-  \label{fig:4:web-interface}
-\end{figure}
-
-All the components were chosen because of their low power consumption and their
-inter-compatibility. The circuit is robust against power losses due to battery
-discharging and is able to auto-recover when power is regained. A low energy consumption
-policy is also followed in selecting the scheduling. The camera is switched on only
-during the data capture activity. The Raspberry is switched on only once per day when the
-connection with the remote server and image transfer is scheduled.
-
-\subsection{Connectivity}\label{Connectivity}
-Internet connectivity is crucial to transfer images and to control the units remotely. To
-this end, the Raspberry is equipped with the SIM7600E-H 4G hat by Waveshare. The module
-supports 4G/3G/2G communication via a SIM card. Raspberry and hat operations are the most
-expensive in terms of power consumption. For this reason, the board is switched on only
-once a day for a limited period of time, which is kept adequately low to be sustainable
-for the system power supply but still sufficient for transferring new images to the
-server. We adopted IoT (Internet of Things) SIM cards provided by the multi-operator
-service Emnify \citep{emnify}, as it offers the ability to connect to the best-quality
-cellular network available and includes flexible and customizable data plans.
-Remote access to the devices is allowed by a VPN (Virtual Private Network).
-The service costs \texteuro33 per month for a data plan with 6 GB.
-
-\subsection{Case and protection}\label{Case and protection}
-The majority of the components need to be protected. Therefore, a solid and compact case
-that allows keeping all the parts (with the exception of the solar panel) in the same
-location is desirable for the functioning of the system and for convenient
-transportation, installation and maintenance. The case should also satisfy the thermal
-insulation requirements according to each component's working temperature range. The case
-should also be waterproof and robust against different and harsh weather conditions but,
-at the same time, provide access for connecting the solar panel and taking pictures. Our
-choice was an HPRC 2250 lightweight, waterproof resin case with internal insulating foam.
-The foam was found to be useful in enhancing the temperature seal and stabilising the
-location of some components, preventing unwanted movements. Holes were drilled in the
-case: one sealed with a UV filter of 82 mm to allow the camera to take shots, two others
-to give access to the solar panel wires, and others to fix the system to a tripod. The
-internal case dimensions (236x182x155 mm) posed a significant challenge in accommodating
-all the components inside. In particular, the camera lens dimensions were constrained by
-space availability.
-
-\subsection{General performances}\label{General_performances}
-The system was subject to several tests before being used in its final application at the
-Belvedere glacier site. During these tests, the system proved to be autonomous, robust to
-sudden shutdowns, cold-resistant, water-resistant and self-sufficient for a prolonged
-period of time with no direct sunlight on the solar panels. Specifically, in the absence
-of sunlight, the battery is able to power the system for about nine days before it is
-completely discharged. Battery voltage and temperatures of components were monitored,
-simulating the absence of solar radiation and low environmental temperatures. See Figure
-\ref{fig:4:nominal_performance} for the performances of the system during these tests.
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=.5\textwidth]{nominal.png}
-  \caption{Battery voltage and temperature of boards with and without the solar panel
-    during a period of tests. Starting from a fully charged condition, the system was
-    kept without solar panel at around 2 °C for the first six days. After nine days, the
-    battery was fully discharged and the system was reconnected to the panel and exposed
-    to solar radiation.}
-  \label{fig:4:nominal_performance}
-\end{figure}
-
-\subsection{Camera and lenses}\label{camera_lenses}
-The choice of the DSLR camera and of the optics can be considered application-dependent.
-Therefore specifications regarding these components are reported in reference to the
-Belvedere glacier case study. Each monitoring station was equipped with a DSLR camera
-Canon EOS 2000D, with 24.1 MP CMOS \mbox{APS-C} sensor. This model was chosen because of
-the limited costs, the high image resolution and its compactness, as it must fit inside
-the case. Additionally, another fundamental requirement was camera compatibility with the
-gPhoto2 software. In the installation inside the system case, the traditional
-rechargeable battery was replaced by a special battery (”fake battery”) equipped with a
-power supply cable, which provides a voltage of 7.5 V from the circuit. The camera is
-attached to a sliding plate able to vary, with a limited range, and then fix the position
-of the camera on the longitudinal axis. Screws fix the camera to the plate and the plate
-to the case.
-
-The two stations were installed respectively at \SI{\sim 180}{\meter} and \SI{\sim 340}{\meter} m distance to
-the glacier terminus (see \figref{fig:4:studyarea}), avoiding the steep moraines
-of the glacier, often prone to collapses and landslides. Therefore, a wide baseline of
-\SI{\sim 260}{\meter} occurs between the two sensors.
-The final positioning of the two cameras was decisive in the choice of optics.
-In fact, to ensure comparable Ground Sample Distance (GSD) of the images (\SI{\sim 3}{\centi\meter\per\pixel}), lenses with different focal lengths were employed.
-In particular, a Canon EF 24 mm f/2.8 IS USM and a Canon EF 35 mm f/2 IS USM were used
-respectively for Camera 1 (stream-wise right) and Camera 2 (stream-wise left).
-
-\subsection{Camera installation}\label{Monumentation}
-
-Monumentation of the two cameras at the Belvedere Glacier site was achieved by choosing
-two large stable rocks along the moraines.
-Each camera is supported by an aluminium topographic tripod system anchored with steel
-dowels and cables to the rocks (\figref{fig:4:final_installation}b).
-A central steel tie rod keeps the system in a fixed position.
-The choice of an agile monumentation was aimed at having a system that can be rather
-easily assembled on site (and also disassembled, if needed), also in a harsh environment,
-with limited costs and time.
-To install the cameras, in fact, all the equipment was carried in backpacks along the
-moraines, sometimes without a marked walking path (e.g., in the case of the stream-wise
-left camera).
-As a drawback, the analysis of the acquired photos revealed a non-optimal stabilization
-of the two cameras.
-In fact, small rotations, especially around the vertical axis, and vibrations, mostly
-induced by the wind, were experienced.
-Though, a perfectly stable monumentation in a mountain environment is hardly achievable.
-Therefore, it is not possible to assume the camera orientation as stable a priori, but
-camera orientation must be estimated based on some Ground Control Points (GCPs) located
-on the ground in stable areas.
-
-It is worth mentioning the performances of the system in terms of costs: our  monitoring
-system can be fully reproduced with an average cost of \texteuro2000 per station
-(November 2023), including camera (\texteuro400), lens (\texteuro500) and material for
-the on-site installation (\texteuro150).
-In comparison, commercial time-lapse cameras are expensive
-(e.g., PhotoSentinel\footnote{PhotoSentinel: \url{https://photosentinel.com/} (accessed
-  on 15/11/23)} cameras cost more than \$ 5,000.00) and hardly customizable.
-The final prototype of the monitoring station is shown in Figure
-\ref{fig:4:final_installation}.
-
-\begin{figure}[h!]
   \centering
   \includegraphics[width=.2\columnwidth]{finale1.pdf}
   \includegraphics[width=0.3\columnwidth]{centralina.jpg} \\
@@ -348,6 +411,60 @@ The final prototype of the monitoring station is shown in Figure
   \label{fig:4:final_installation}
 \end{figure}
 
+% Monumentation of the two cameras at the Belvedere Glacier site was achieved by choosing
+% two large stable rocks along the moraines.
+% Each camera is supported by an aluminium topographic tripod system anchored with steel
+% dowels and cables to the rocks (\figref{fig:4:final_installation}b).
+% A central steel tie rod keeps the system in a fixed position.
+% The choice of an agile monumentation was aimed at having a system that can be rather
+% easily assembled on site (and also disassembled, if needed), also in a harsh environment,
+% with limited costs and time.
+% To install the cameras, in fact, all the equipment was carried in backpacks along the
+% moraines, sometimes without a marked walking path (e.g., in the case of the stream-wise
+% left camera).
+% As a drawback, the analysis of the acquired photos revealed a non-optimal stabilization
+% of the two cameras.
+% In fact, small rotations, especially around the vertical axis, and vibrations, mostly
+% induced by the wind, were experienced.
+% Though, a perfectly stable monumentation in a mountain environment is hardly achievable.
+% Therefore, it is not possible to assume the camera orientation as stable a priori, but
+% camera orientation must be estimated based on some Ground Control Points (GCPs) located
+% on the ground in stable areas.
+
+
+% The baseline between the two cameras of \SI{\sim 261}{\meter} ensured a good
+% viewing geometry because of the large parallax between corresponding points.
+% However, the baseline comparable to the camera-object distance (base-height ratio close
+% to \(1\), \tabref{tab:4:cameras}) led to complex affinity-like distortions and occlusions
+% between corresponding areas in the two images~\citep{Yao_2021}.
+% Additionally, C1 was positioned at a lower viewpoint compared to C2, due to
+% site geometry constraints.
+% Therefore, camera C1 provides a limited view that primarily encompasses the frontal ice
+% cliff, but does not capture the glacier surface, which is only visible from camera C2.
+
+\subsection{System operation and cost-effectiveness}
+
+The stereoscopic system was operating from August 2021 up to December 2022, when it was
+temporarily unmounted for ordinary maintenance, and finally mounted again in June 2023.
+During the operational period, the system was programmed to acquire two images per day,
+but only one image per day was used for the multitemporal processing.
+Only daily images taken during the snow-free period between 01/05/2022 and
+13/11/2022 were considered.
+In this period, the glacier experienced the most significant changes, flow velocity
+and ablation rates. On the other hand, during winter and spring seasons, the glacier was
+covered by snow, making it difficult to extract relevant information from optical images
+for tasks such as 3D reconstruction and surface velocity estimation.
+
+It is worth mentioning the performances of the system in terms of costs: our  monitoring
+system can be fully reproduced with an average cost of \texteuro2000 per station
+(November 2023), including camera (\texteuro400), lens (\texteuro500) and material for
+the on-site installation (\texteuro150).
+In comparison, commercial time-lapse cameras are expensive
+(e.g., PhotoSentinel\footnote{PhotoSentinel: \url{https://photosentinel.com/} (accessed
+  on 15/11/23)} cameras cost more than \$ 5,000.00) and hardly customizable.
+The final prototype of the monitoring station is shown in Figure
+\ref{fig:4:final_installation}.
+
 \section{Datasets}\label{sec:4:datasets}
 
 \subsection{Stereoscopic image sequences}\label{sec:4:stereo}
@@ -355,9 +472,8 @@ The final prototype of the monitoring station is shown in Figure
 During the snow-free study period (from 1/05/2022 to 13/11/2022), both camera C1 and
 camera C2 were able to acquire images every day, for a total of 197 images. However, 39
 images were discarded due to bad weather conditions, such as rain, low clouds, or fog,
-resulting in 158 days with valid data for stereo and monoscopic processing
-
-  {\color{red} TODO: write about the images sequence 2022 and 2023}
+resulting in 158 days with valid data for stereo and monoscopic processing.
+{\color{red} TODO: ADD sequences of 2022 and 2023}
 
 \subsection{UAV surveys}\label{sec:4:uavsurveys}
 
@@ -570,13 +686,13 @@ fully integrated into ICEpy4D package.
 SuperPoint is a Convolutional Neural Network (CNN) with an encoder-decoder
 structure, which detects interesting points and computes 256-value descriptors in a
 single forward pass.
-\citet{DeTone_2018} trained SuperPoint to detect corner-like features first using corners
+\cite{DeTone_2018} trained SuperPoint to detect corner-like features first using corners
 of synthetic shape datasets as ground truth.
 They employed a self-supervised approach by applying random homographies to warped
 copies of the input training images and combining the results \citep{DeTone_2018}.
 SuperGlue is an attention-based graph CNN used for local feature matching.
 It was specifically designed to match SuperPoint features based on their descriptors.
-\citet{sarlin2020superglue} trained SuperGlue in a supervised manner and published two
+\cite{sarlin2020superglue} trained SuperGlue in a supervised manner and published two
 different sets of weights: one for indoor environments and another for outdoor
 environments.
 The outdoor environment model was trained on the Megadepth dataset
@@ -861,7 +977,7 @@ resampled at 1 m resolution to smooth small local DSM variations.
 The orthorectification of the 2D DIC displacement vectors to obtain 3D vectors is
 influenced by the chosen DSM and its associated uncertainty \citep{Travelletti2012}.
 Ideally, using an updated DSM derived from daily stereo-processing, as performed in
-\citet{Marsy2020}, would be the optimal approach.
+\cite{Marsy2020}, would be the optimal approach.
 However, due to the camera's viewing location, it was not feasible to reconstruct the
 daily DSM of the upper surface of the glacier lobe. Consequently, we utilized the UAV-A
 DSM acquired on 28/07/2022.
@@ -1405,7 +1521,7 @@ temperature~\citep{sanders2018variations}.
 At hourly to daily scale, several studies showed that the flow velocity is linked to
 subglacial water pressure \citep{sugiyama2010surface} and air
 temperature~\citep{liu2019diurnal},
-even though~\citet{allstadt2015observations} did not observed a significant variation in
+even though~\cite{allstadt2015observations} did not observed a significant variation in
 the diurnal cycle.
 Moreover, in many cases the flow velocity was observed to rise after intense
 rainstorms~\citep{benoit2015multi,horgan2015glacier,sugiyama2010surface}.
@@ -1442,11 +1558,11 @@ presents favorable conditions for 3D reconstruction due to the presence of disti
 patterns in the images.
 However, successful 3D reconstructions of bare ice or snow-covered areas have also been
 achieved in previous studies.
-\citet{belloni2023} and~\citet{Gindraux2017} utilized UAV-SfM to generate 3D models
+\cite{belloni2023} and~\cite{Gindraux2017} utilized UAV-SfM to generate 3D models
 of debris-free or partially debris-covered glaciers.
-\citet{Taylor2023} demonstrated the effectiveness of an extremely low-cost camera for 3D
+\cite{Taylor2023} demonstrated the effectiveness of an extremely low-cost camera for 3D
 reconstruction of a debris-free glacier calving front in Iceland.
-Additionally,~\citet{Avanzi2018} and~\citet{DeMichele2016} employed UAV-based
+Additionally,~\cite{Avanzi2018} and~\cite{DeMichele2016} employed UAV-based
 photogrammetric reconstruction to map snow depth Despite snow having even fewer
 discernible patterns than bare ice, the use of multi-camera photogrammetry allowed for
 achieving accurate 3D reconstructions.

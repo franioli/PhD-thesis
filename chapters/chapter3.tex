@@ -19,44 +19,75 @@ the Belvedere Glacier. Remote Sensing, 14(1), 28.
 
 \section{Introduction\textcolor{red}{TODO}}\label{sec:3:intro}
 
-\textcolor{red}{TODO}
+This chapter presents the extensive and continuous monitoring activity that has been carried out since 2015
+and aimed at investigating the annual evolution of the Belvedere Glacier with UAVs-based photogrammetry and in-situ GNSS measurements.
+The monitoring activity was designed and conducted jointly by the Department of Civil and Environmental Engineering (DICA) 
+of Politecnico di Milano and the Department of Environment, Land and Infrastructure Engineering (DIATI) of Politecnico di Torino. 
+Moreover, the DREAM projects (DRone tEchnnology for wAter resources and hydrologic hazard Monitoring), 
+involving teachers and students from Alta Scuola Politecnica (ASP) of Politecnico di Torino and Milano, 
+contributed to the campaign from 2015 to 2017.
+
+Every year, fixed-wing UAVs and quadcopters were used to remotely sense the glacier and build 
+high-resolution 3D photogrammetric models, which are employed for investigating the glacier kinematics.
+The series of point clouds is then used to estimate the ice volume variations of the glacier, while the orthophotos
+are used to estimate the ice flow velocity and glacier retreat. 
 
 
-\section{Instruments and datasets\textcolor{red}{TODO}}\label{sec:3:instrument}
+\textcolor{red}{The goal of this work is ...}
 
-\textcolor{red}{Short intro to section...}
+\textcolor{red}{add short intro on open data ...}
 
- 
+
+\section{Instruments and datasets}\label{sec:3:instrument}
+
+Every year, the monitoring activity involved the acquisition of punctual GNSS measurements 
+and UAV images spread all over the glacier. 
+This section introduces the data acquired in this study from 2015 to 2023.
+
 \subsection{GNSS measurements}\label{sec:3:gnss}
 
-A set of GCPs was materialized with square cross targets, printed on polypropylene sheets
-and anchored on big rocks (\figref{fig:3:belvedereGCP}b).
-About 25 targets were deployed over the glacier (named hereafter as \textit{moving targets} or \textit{M\#} in \figref{fig:3:belvedereGCP}a) and 24 targets (labelled as 
-\textit{stable targets} or \textit{S\#} in \figref{fig:3:belvedereGCP}a) were placed on
-stable areas along the moraines so that they were not subjected neither to the ice flow
-nor to rock falls.
+Yearly GNSS measurements of permanent targets deployed across the glacier were conducted. 
+These targets served a dual purpose: as GCPs/CPs for photogrammetric block processing and as high-accuracy 
+reference points for evaluating glacier kinematics derived from photogrammetry. 
+The targets were materialized using square cross patterns printed on polypropylene sheets and anchored to 
+large rocks and boulders (\figref{fig:3:belvedereGCP}b).
+Approximately 25 targets were deployed on the glacier itself (designated as as \textit{moving targets} or 
+\textit{M\#} in \figref{fig:3:belvedereGCP}a), while 24 targets were placed on stable areas along the moraines 
+(labelled as \textit{stable targets} or \textit{S\#} in \figref{fig:3:belvedereGCP}a). 
+
 Every year, the condition of each target was checked and, if one was damaged or
 destroyed, the polypropylene sheet was replaced by keeping the same location of the
-center (i.e., by using the same fisher plugs).
-During the years, some targets were lost, and therefore new ones were materialized (e.g.,
-M29bis).
-Targets were yearly surveyed with dual frequency (L1/L2) geodetic quality GNSS receivers
-and their coordinates were framed within the official Italian reference system ETRF2000
-at the epoch 2008.0, projected in UTM 32N.
-For the lower part of the glacier, where the GSM network connection was available, target
-position was obtained in nRTK with respect to a network of CORS permanent stations
-(either HxGN SmartNet or SPIN GNSS).
-The points were occupied at least twice, each time for a duration of \qty{5}{\second}.
-By contrast, in the upper part of the glacier, targets were surveyed with static sessions
-of \qty{\sim 10}{\minute}, and raw observation data was post-processed with respect to
-local master stations, located on stable and well known points.
-To this end, either the point \textit{S12}, placed on a big rock next to the
-Zamboni-Zappa hut, or the point \textit{S20}, located near the Rifugio Ghiacciai del Rosa
-on the Belvedere hill,	were used (see \figref{fig:3:belvedereGCP}a).
-Accuracy of GNSS measurements was evaluated empirically by comparing repeated
+center (i.e., by using the same fisher plugs). 
+During the years, some targets were lost, and therefore new ones were materialized, close 
+to the location of the lost ones (e.g., M29bis).
+
+All targets were surveyed with dual frequency geodetic quality GNSS receivers: 
+Leica GPS VivaGS14 and Leica GPS1200+.
+The measurements were framed within the official Italian reference system ETRF2000
+at the epoch 2008.0, projected in UTM 32N (RDN2008 / UTM zone 32N, EPSG:7791).
+
+The measurement techniques employed in the survey have evolved over time.
+Before 2021, target positions on the lower glacier (where GSM network coverage was available) 
+were determined using nRTK relative to CORS permanent stations (either HxGN SmartNet or SPIN GNSS).
+These points were occupied for at least two 5-second intervals. 
+In contrast, upper glacier targets were surveyed using static sessions of approximately 10 
+minutes, with raw data post-processed relative to local master stations located in stable areas 
+(S12 or S20, see \figref{fig:3:belvedereGCP}a).
+
+Since 2021, GNSS measurements were conducted in RTK mode using a local base station 
+(\textit{S12} or \textit{S20}).
+The real-time corrections were streamed from the base to the rover by a radio link connection. 
+his approach has significantly reduced measurement time in the upper glacier, requiring seconds 
+rather than minutes per occupation, as was for static processing.
+Additionally, the local-base RTK method improves internal coherence among measurements, 
+as well as tropospheric and ionospheric error modeling due to shorter baselines compared to 
+the nRTK approach.
+
+The accuracy of GNSS measurements was evaluated empirically by comparing repeated
 measurements over stable targets carried out in different years.
 RMSE of \qty{1.5}{\centi\meter} in planimetry and \qty{3}{\centi\meter} in elevation were
 obtained.
+
 
 \begin{figure}
     \centering
@@ -76,34 +107,40 @@ obtained.
 \end{figure}
 
 
-\subsection{UAV flights\textcolor{red}{UPDATE}}\label{sec:3:uav-flights}
+\subsection{UAV flights}\label{sec:3:uav-flights}
 
-Because of the long duration of the monitoring campaign, the challenging environment and
-the fact that more than one research group was involved in the project, different UAV
-platforms and cameras were used.
-As reported in \tabref{tab:3:datasets}, in~2015 and 2016, a~ready-to-fly fixed-wing UAV
-SenseFly eBee, equipped with a compact camera Canon PowerShot S110, was employed to
-survey the whole glacier.
-During 2017, different combinations of UAVs (fixed-wing and quadcopters) and cameras were
-employed (\tabref{tab:3:datasets}).
-From 2018 to 2020, a~low-cost recreational fixed-wing UAV Parrot Disco FPV, with~a
-wingspan of \SI{1.15}{\meter} and a weight of \SI{750}{\gram}, was adapted to carry a
-small and lightweight action cam Hawkeye Firefly~8S.
-For each camera, the main sensor and objective characteristics are listed
-\tabref{tab:3:camere}.
+The long duration of the monitoring campaign, challenging environment, and involvement of 
+multiple research groups led to the use of various UAV platforms and cameras over time. 
+\tabref{tab:3:datasets} provides a detailed summary of the equipment (UAV and camera) employed, while 
+\tabref{tab:3:camere} lists the main sensor and lens specifications for each camera.
 
-UAVs flights were conducted automatically by using ground station software packages
-developed by UAV manufacturers.
-    {\color{red} Add UGCS...}
+In 2015 and 2016, a ready-to-fly fixed-wing SenseFly eBee equipped with a compact camera Canon
+PowerShot S110 was used for whole glacier surveys.
+Due to technical problems, the year 2017 saw the use of different UAVs (both fixed-wing and quadcopters)
+and camera combinations (\tabref{tab:3:datasets}). 
+From 2018 to 2020, a low-cost recreational Parrot Disco FPV fixed-wing UAV (wingspan 1.15 m, weight 750 g) 
+was adapted to carry a lightweight Hawkeye Firefly 8S action camera.
 
+In 2021, a professional-grade DJI Matrice 210 V2 quadcopter was employed, carrying a 
+DJI ZenMuse X5s camera featuring a Micro 4/3 sensor and a 15 mm lens. 
+Since 2022, the UAV platform has been upgraded to a DJI Matrice 300 RTK quadcopter
+paired with a full-frame DJI Zenmuse P1 camera and a DL 35 mm F2.8 LS ASPH lens.
+While this setup offered superior image quality, the longer focal length necessitates 
+higher flight altitudes to maintain a consistent GSD with the previous surveys.
+Furthermore, the DJI Matrice 300 RTK was equipped with an RTK GNSS receiver, enabling 
+decimeter-level accuracy in recording the camera position for each shot. 
+This precision was achieved through a local GNSS base station positioned near the take-off 
+location, which streamed real-time corrections to the drone via DJI's proprietary link.
+
+UAV flights were conducted automatically by using ground station software packages
+developed by UAV manufacturers and UgCS\footnote{\url{https://www.sphengineering.com/flight-planning/ugcs}}
+flight planning software.
 The flights were designed to have GSD ranging between \qtylist{5;10}{\centi\meter}, and
 to guarantee \qty{\sim 80}{\percent} of longitudinal and \qty{\sim 60}{\percent} of
 transversal overlap.
 Average image GSD values and number of GCPs and CPs, used respectively to orient the
 images and to assess the quality of the photogrammetric blocks, are summarized in
 \tabref{tab:3:datasets}.
-
-{\color{red} Add instruments for 2021-2023...}
 
 \begin{table}[p]
     \small
@@ -192,9 +229,9 @@ images and to assess the quality of the photogrammetric blocks, are summarized i
                                                                           & DJI Matrice 300 RTK
                                                                           & DJI Zenmuse P1 - 35 mm
                                                                           & 0.03
-                                                                          & XX
+                                                                          & 23
                                                                           &
-        XX
+        9
         \\[4mm]        
         \bottomrule
 
@@ -249,110 +286,127 @@ images and to assess the quality of the photogrammetric blocks, are summarized i
     \label{tab:3:camere}
 \end{table}
 
-\subsection{Problems Arisen during the surveys of 2017 and~2020 {\color{red} REVISE}} \label{sec:3:problems} 
-% Compared to traditional glaciological techniques, UAVs allow for a significant reduction of in-situ operations (limited to surveying few GCPs spread along the glacier and performing UAV flights).
-Conducting a yearly monitoring campaign in an alpine environment for~six consecutive
-years is challenging because of, for example,~the hard accessibility of some areas of the
-glacier (also for fixed-wing UAVs take-off and landing) and the variability of the
-meteorological~conditions.
+\subsection{Challenges and adaptations in the 2017, 2018 and 2020 surveys}\label{sec:3:problems} 
 
-Adverse meteorological conditions and practical issues made it necessary to split the
-2017 survey in different dates, and~various UAVs and cameras were employed (see
-\tabref{tab:3:datasets}).
-The 2017 photogrammetric model was therefore divided into three parts: the central part
-refers to the October survey while the lower and the upper parts refer to the November
-survey and at that time the glacier was covered by snow (\figref{fig:3:ortophoto}c).
-Technical problems arose also during the 2020 survey: a breakage of one elevon servo
-during a landing phase caused the fixed-wing UAV to crash.
-Therefore, a~quadcopter DJI Phantom 4 Pro was employed to survey the upper part of the
-glacier (approximately the S1 sector, see the different colors in the orthophoto of
-\figref{fig:3:ortophoto}f) 14 days after the former.
-However, during~the August 2020 fieldwork, it was not possible to measure any additional
-GCPs because the south-west part of the Belvedere Glacier, close to the Monte-Rosa
-Glacier is hardly accessible and dangerous due to the presence of crevasses and steep
-rocks.
-The few GCPs available in the upper part of the glacier made necessary to co-register the
-Phantom 4 Pro model on the 2019 model, by~searching for sharp edges of rocks along the
-moraines, remained fixed along the year, on~ 2019 images.
-This approach is less accurate than measuring targets directly on the field.
-The RMSE on CPs was therefore equal to \SI{0.36}{\meter} (see
-\figref{fig:3:CP_errors}), \SI{\sim 7}{}~times the GSD.
-Nevertheless, the~area affected by this issue was rather limited, compared to the whole
-Belvedere~Glacier.
+Conducting annual monitoring campaigns in alpine environments poses logistical and environmental
+challenges, including limited accessibility in certain areas and unpredictable weather. 
+These factors directly impacted the 2017 and 2020 surveys.
 
-Moreover, between~2017 and 2018, the~survey period was moved from Autumn to Summer.
-From 2015 to 2017, in~fact, field works were included within the DREAM project (see
-\secref{sec:3:intro}) and they took place in Autumn, at~the beginning of the academic
-year.
-By contrast, from~2018 to 2020, surveys were carried out at the end of July because they
-were encompassed within a Summer School organized by DICA (Politecnico di Milano).
-The change in the survey dates was critical because the timespan occurred between the
-survey of October/November 2017 and that of July 2018 did not include the period of
-maximum ablation and velocity of the glacier (neither August 2017 nor August 2018).
-Therefore, volume variation and ice flow velocity refer mostly the wintertime and the
-results obtained are not directly comparable with those of the other~years.
+Adverse weather and logistical constraints necessitated splitting the 2017 survey across 
+multiple dates, requiring using different UAVs and cameras (see \tabref{tab:3:datasets}). 
+Consequently, the photogrammetric model was built in three parts. 
+The central portion corresponds to a survey carried out in October, while the snow-covered 
+upper and lower sections were acquired in November (\figref{fig:3:ortophoto}c).
 
+Technical issues arose during the 2020 survey when an elevon servo failed during landing and
+caused the fixed-wing UAV to crash.
+To complete the survey, a DJI Phantom 4 Pro quadcopter was employed 14 days later to survey 
+the upper part of the glacier (see the different colors in the orthophoto of
+\figref{fig:3:ortophoto}f).
+However, the harsh terrain and the presence of crevasses in the upper part of the glacier 
+prevented the measurement of additional GCPs to constrain the model in this region. 
+This necessitated co-registering the Phantom 4 Pro model with the 2019 data, 
+using stable rock features along the moraines as reference points. 
+This approach was less accurate than measuring GCPs directly on the field and yielded an
+RMSE on CPs of \SI{0.36}{\meter} (see \figref{fig:3:CP_errors}), \SI{\sim 7}{}~times the GSD.
+Nevertheless, the area affected by this problem consisted of the upper accumulation area only
+and it was rather limited compared to the whole Belvedere~Glacier.
+
+The project timeline also led to a shift in survey periods from autumn (2015-2017) 
+to summer (2018-2023).
+This change means that the timespan between the October/November 2017 and July 2018 
+surveys does not encompass the summer (neither August 2017 nor August 2018 was included), 
+which is the period of maximum glacier ablation and surface velocity. 
+Consequently, volume variation and ice flow velocity estimated between 2017 and 2018 reflect
+primarily winter conditions and are not directly comparable to other years, as they underestimate
+the actual annual average statistics.
 
 \section{Metodology}\label{sec:3:methodology}
 
 \subsection{SfM workflow}\label{sec:3:sfm}
 
-In order to build photogrammetric models of the glacier, images acquired during UAV
-surveys were processed with the SfM software Agisoft Metashape 1.7.2 \citep{agisoft}.
-For each year, at least 24 GCPs spread over the glacier were employed to orient the
-images, whereas at least 10 Check Points (CPs) were used to assess models quality.
-Both GCPs and CPs were manually collimated on the images.
-Tie Points (TPs) were detected and matched by Metashape on full resolution images (which
+To generate photogrammetric models of the glacier, UAV imagery was processed using 
+Agisoft Metashape 1.8.5\footnote{\url{https://www.agisoft.com}}.
+Each year, a minimum of 22 GCPs distributed across the glacier were used for image 
+orientation, while at least 8 CPs served for model quality assessment.  
+All GCPs and CPs were manually collimated within the images.
+
+Tie Points (TPs) were detected and matched by Metashape on full-resolution images (which
 corresponds to \textit{high accuracy} parameter in Metashape).
 Image External Orientation (EO) and TPs world coordinates were estimated by solving the
 Bundle Block Adjustment (BBA).
-TPs with the worst reprojection error on images, which are likely originated from false
-matches, were removed and the BBA was solved again to improve quality of BBA solution.
-This process was iterated more times until TPs mean reprojection error had dropped below
+TPs with the worst reprojection error on images, which likely originated from false
+matches, were removed and the BBA was solved again to improve the quality of the BBA solution.
+This process was iterated more times until the TP mean reprojection error had dropped below
 \SI{\sim 0.8}{\pixel}.
 Camera internal orientation was estimated by self-calibration
-\citep{Fraser2013,Cramer2017}, because of its instability in the cameras employed.
+\citep{Fraser2013, Cramer2017}, because of its instability in the cameras employed.
 
-Dense 3D reconstruction was computed by Agisoft Metashape with proprietary MVS
+Agisoft Metashape computed dense 3D reconstruction with proprietary MVS
 algorithms~\citep{Dallasta}.
-Depth maps and dense point clouds were obtained from images downsampled by a factor 4,
+Depth maps and dense point clouds were obtained from images downsampled by a factor of 4,
 in~order to reduce the computational time (\textit{medium quality} parameter of the dense
 cloud generation in Metashape).
-Triangulated mesh surfaces and photorealistic textures were~computed.
+Triangulated mesh surfaces and photorealistic textures were computed.
 
 DSMs with a resolution of \SI{0.5}{\meter\per\pixel} were derived from the mesh model.
 Finally, orthophotos with a GSD of \SI{0.10}{\meter\per\pixel} were obtained by
 projecting the most nadiral images over the mesh model (\figref{fig:3:ortophoto}).
 
-\subsection{Glacier flow velocity\textcolor{red}{TODO}}\label{sec:3:method_velocity}
+\subsection{Glacier flow velocity}\label{sec:3:method_velocity}
 
-In case of debris-covered glacier, big rocks and boulders usually move jointly with the ice flow \textcolor{red}{REF}, 
-Therefore, it was possible to investigate ice flow dynamics and to estimate glacier surface velocity by evaluating debris pattern movements.
-In-situ GNSS measurements of the \textit{moving targets}, deployed over big rocks (see~\secref{sec:3:gnss}),  were first employed to estimate yearly average velocities of the glacier.
-Targets coordinates, measured on different years, were differentiated and the annual average velocity of each point was derived by dividing the displacement by the time lag. 
-These punctual velocity measurements are hereafter labelled as \textit{GNSS} and they can be considered as high accurate (i.e., centimetric) measurements of glacier displacements and velocities.
+In debris-covered glaciers, surface debris and boulders primarily move in conjunction with the underlying
+ice flow, making them valuable proxies for evaluating glacier kinematics through tracking 
+techniques~\citep{Dehecq2015, Sam2016, Blothe2021}.
 
-{\color{red} ADD DIC}
+In-situ GNSS measurements of the \textit{moving targets} anchored to large rocks (see~\secref{sec:3:gnss})
+was used as a method for deriving glacier surface flow velocities.
+These punctual measurements, labeled as \textit{GNSS}, provided high-accuracy (centimeter-level) records of glacier movement.
+However, due to the limited number of GNSS measurement points across the glacier, they are insufficient for deriving a 
+complete glacier velocity field.
 
-The number of GNSS measurements are limited to a dozen of points spread over the glacier, consequently they are not enough to derive a complete glacier velocity field.
-Hence, DIC algorithms, such as normalized cross-correlation or orientation correlation~\citep{Heid2012_evaluation_xcorr} are widely applied to automatically compute displacement on orthophotos and might allow for sub-pixel accuracy \citep{Debella_Gilo2011}.	
+A powerful approach for deriving glacier flow velocity using remote sensing involves DIC or 
+feature tracking algorithms~\citep{ahn_box_2010, Giordan2016, Hadhri2019}.
+At its core, DIC tracks distinct pixel patterns across a time series of images, employing cross-correlation to quantify 
+surface displacements. 
+This implies iteratively analyzing subsets of the reference image (often referred to as \textit{templates} 
+or \textit{windows}), pinpointing the location of maximum similarity within a search area in the subsequent 
+image by cross-correlation in spatial \citep{Scambos1992} or frequency domain \citep{rolstad1997}.
+This shift represents the displacement of the tracked feature.
+Initially applied to glaciers by \cite{Scambos1992}, DIC is now widely used to analyze optical satellite imagery
+\citep{Scambos1992, Scherler2008, Heid2012_evaluation_xcorr} or high-resolution orthophotos derived by aerial or 
+UAV photogrammetry \citep{immerzeel2014, Chudley2019, ioli2021mid}. \textcolor{red}{(This is more an intro... think about moving...)}
 
-{\color{red} motivate MAN because of snow and validation of DIC}
+The presence of snow and significant environmental variations between orthophotos from 2015 to 2018 (\figref{fig:3:ortophoto}),
+prevented the use of automated image matching algorithms. 
+Consequently, we relied on the visual identification of characteristic features (e.g., sharp edges of large rocks) across multiple 
+orthophotos \citep{Lucchitta1986} for tracking surface elements and deriving velocity fields. 
+We refer to these points as \textit{MAN}.
 
-Additionally, a set of features were manually collimated on orthophotos and tracked over the years to obtain complete surface velocity fields.
-These points are named as \textit{MAN}.
+While less precise than DIC, manual selection by a human operator ensured high matching reliability. 
+To maintain uniform distribution, features were selected on a \qtyproduct{100 x 100}{\metre} grid whenever possible, resulting 
+in approximately 130 points (with approximately (approximately one point every \qty{10000}{\meter\squared})).  
+Unfortunately, some points were lost over time, leaving only 115 identifiable on the 2020 orthophoto.
 
-However, because of the presence of snow and due to significantly different environmental conditions between years (\figref{fig:3:ortophoto}), it was not feasible to apply automatic image matching algorithms on all the orthophotos to obtain displacements between corresponding pattern of pixels. 
-Therefore, the visual collimation of characteristic features (e.g., sharp edges of big rocks emerging from the snow) on different orthophotos was the only possibility to track elements on the glacier surface. 
-Even though manual collimation precision of natural elements, such as rocks, on orthophotos was likely worse compared to computer vision algorithms, a human operator supervision ensured high matching reliability.
-Moreover, it was possible to define a regular grid of \qtyproduct{100 x 100}{\metre} on the orthophotos in order to select homogeneously distributed features (\qty{\sim 1}{\pt} every \qty{10000}{\meter\squared}), resulting in a total of \qty{\sim 130}{points}.
-Most of the points were tracked over the years; however some were lost and only \qty{115}{points} were found on the 2020 orthophoto.
+From 2018 onwards, consistent acquisition periods (end of July) and snow-free conditions enabled the use of 
+DIC for comprehensive velocity field derivation. 
+We employed the open-source Local Adaptive Multiscale Image Matching Algorithm (LAMMA)~\citep{Dematteis2022}, 
+LAMMA adopts a hierarchy structure of patch grids of increasing spatial resolution and
+uses locally-adaptive search area sizes, according to the displacements already
+obtained in the neighboring region.
+Lamma was originally written in Matlab\footnote{\url{https://github.com/niccolodematteis/LAMMA}}, but we have 
+recently translated it into Python and published it as an open-source library\footnote{\url{https://github.com/franioli/pylamma/}} 
+within the work of \cite{ioli2024deep}.
 
+As a correlation function, we used the cosine similarity applied to orientation images \citep{Dematteis2021}, 
+which is less sensitive to changes in the shadow pattern and is known to perform well in glacier
+environments \citep{Heid2012_evaluation_xcorr}.
 
 \subsection{Volume variations}\label{sec:3:method_volumes}
 
 To compute glacier volume variation $ \Delta V $, consecutive DSMs were differentiated
-by~employing a DEM of Difference (DOD) approach with the tool \textit{Compute 2.5D volume} implemented in CloudCompare~\citep{cloudcompare}.
+by~employing a DEM of Difference (DOD) approach with the tool \textit{Compute 2.5D volume}
+implemented in CloudCompare~\citep{cloudcompare}.
 First, photogrammetric dense clouds were gridded by projecting points along the vertical
 direction on a planar surface, obtaining DSMs with a cell footprint on ground of \qtyproduct{0.5x0.5}{\meter}.
 The choice of the raster resolution was a compromise to achieve a robust height field
@@ -392,16 +446,16 @@ volume estimation.
 The snow height accumulated at the nivometric station located near Zamboni Zappa Hut
 (\SI{2075}{\masl}, in the central sector of the glacier) on the survey dates was retrieved
 from the meteorological database of ARPA Piemonte, the regional agency for the
-environment~\citep{arpaPie}: \SI{22}{\centi\meter} of snow were measured on 23 October
+environment\footnote{\url{https://www.arpa.piemonte.it/rischinaturali/accesso-ai-dati/annali_meteoidrologici/annali-meteo-idro/banca-dati-meteorologica.html}}: 
+\SI{22}{\centi\meter} of snow were measured on 23 October
 2015, \SI{20}{\centi\meter} on 20 October 2016, \SI{40}{\centi\meter} on 15 November 2017.
 The measured snow heights were considered additional components of the DSM standard
 deviations.
 Yet, because the glacier was only partially covered by snow, the snow-driven uncertainty
 was weighted by half of the total glacier area in variance propagation.
 
-\subsection{Glacier outline\textcolor{red}{TODO}}\label{sec:3:method_outline}
-
-{\color{red} TODO}
+% \subsection{Glacier outline\textcolor{red}{TODO}}\label{sec:3:method_outline}
+% {\color{red} TODO}
 
 \section{Results}\label{sec:3:res}
 
@@ -409,52 +463,50 @@ was weighted by half of the total glacier area in variance propagation.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.7\columnwidth]{CPrmse.png}
-    \caption{Barplot of reprojection RMSE computed CPs for each photogrammetric
-        model. Due to practical problems occurred in 2020 and explained in
-        \secref{sec:3:problems}, the~RMSE of 2020 model was split in two parts:
-        \textit{2020 lower} denotes the CP RMSE over related to the central and 
-        lower sectors of the glacier (S2 and S3 in \figref{fig:3:belvedere}a), 
-        whereas \textit{2020 upper} refers to the upper accumulation sector 
-        only (S1). {\color{red} remove 2020 upper and add recent years}}
+    \includegraphics[width=0.9\columnwidth]{uav_cp_error.png}
+    \caption{Barplot of reprojection RMSE computed on CPs for each photogrammetric
+        model. Due to the technical problems that occurred in 2020 
+        (see \secref{sec:3:problems}), the 2020 RMSE refers only to the survey of
+        the lower part of the glacier, excluding the upper accumulation sector.
+    }
     \label{fig:3:CP_errors}
 \end{figure}
 
 \begin{figure}
     \centering
     \subcaptionbox{\label{fig:3:ortophoto:2015}}{
-        \includegraphics[width=0.30\textwidth]{orto2015.jpg}
+        \includegraphics[width=0.25\textwidth]{orto2015.jpg}
     }
     \subcaptionbox{\label{fig:3:ortophoto:2016}}{
-        \includegraphics[width=0.30\textwidth]{orto2016.jpg}
+        \includegraphics[width=0.25\textwidth]{orto2016.jpg}
     }
     \subcaptionbox{\label{fig:3:ortophoto:2017}}{
-        \includegraphics[width=0.30\textwidth]{orto2017.jpg}
+        \includegraphics[width=0.25\textwidth]{orto2017.jpg}
     }
     \\
     \subcaptionbox{\label{fig:3:ortophoto:2018}}{
-        \includegraphics[width=0.30\textwidth]{orto2018.jpg}
+        \includegraphics[width=0.25\textwidth]{orto2018.jpg}
     }
     \subcaptionbox{\label{fig:3:ortophoto:2019}}{
-        \includegraphics[width=0.30\textwidth]{orto2019.jpg}
+        \includegraphics[width=0.25\textwidth]{orto2019.jpg}
     }
     \subcaptionbox{\label{fig:3:ortophoto:2020}}{
-        \includegraphics[width=0.30\textwidth]{orto2020.jpg}
+        \includegraphics[width=0.25\textwidth]{orto2020.jpg}
     }
     \subcaptionbox{\label{fig:3:ortophoto:2021}}{
-        \includegraphics[width=0.30\textwidth]{orto2020.jpg}
+        \includegraphics[width=0.25\textwidth]{orto2021.jpg}
     }
     \subcaptionbox{\label{fig:3:ortophoto:2022}}{
-        \includegraphics[width=0.30\textwidth]{orto2020.jpg}
+        \includegraphics[width=0.25\textwidth]{orto2022.jpg}
     }
     \subcaptionbox{\label{fig:3:ortophoto:2023}}{
-        \includegraphics[width=0.30\textwidth]{orto2020.jpg}
+        \includegraphics[width=0.25\textwidth]{orto2023.jpg}
     }
     \caption{Orthophotos obtained from the photogrammetric model for each year.
         (\textbf{a}) 2015, (\textbf{b}) 2016, (\textbf{c}) 2017, (\textbf{d}) 2018,
-        (\textbf{e})
-        2019, (\textbf{f}) 2020, (\textbf{g}) 2021, (\textbf{h}) 2022, (\textbf{i})
-        2023. {\color{red} Add recent years}}
+        (\textbf{e}) 2019, (\textbf{f}) 2020, (\textbf{g}) 2021, (\textbf{h}) 2022, (\textbf{i})
+        2023. All the orthophotos are in 1:25000 scale and they are overlapped to the Swisstopo base-map (source: Swisstopo
+        www.geo.admin.ch)}
     \label{fig:3:ortophoto}
 \end{figure}
 
@@ -573,9 +625,9 @@ The highest height reduction is found at the lower terminus of the glacier (\fig
 It is noticeable that the overall glacier surface profile remained the same, but the ice thickness shrank.
 In the central part of the glacier (sections CC' and DD', \figref{fig:3:profiles}c-d), the height reduction was less regular because of the crevasses that strongly ripple the transfer zone of the glacier.	
 
-\subsection{Glacier outline \textcolor{red}{TODO}}\label{sec:3:res:outline}
+% \subsection{Glacier outline \textcolor{red}{TODO}}\label{sec:3:res:outline}
 
-{\color{red} TODO}
+% {\color{red} TODO}
 
 \section{An open source database to store and share the monitoring results \textcolor{red}{TODO}}
 

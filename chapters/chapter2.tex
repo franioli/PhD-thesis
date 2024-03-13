@@ -1,7 +1,7 @@
 \graphicspath{{figures/chapter2/}}
 \onehalfspacing
 
-\chapter{Back to the past: reconstructing glacier geometry with historical aerial images
+\chapter{Back to the past: reconstructing glacier topography with archival aerial images
   (1977-2009)}\label{ch:2}
   
 \vfill
@@ -19,43 +19,48 @@ Sensing, 13(18), 3787. \url{https://doi.org/10.3390/rs13183787}
 To understand the long-term dynamics of an alpine glacier, gathering information from the past becomes mandatory. 
 Geomorphological studies particularly benefit from three-dimensional topographic representations, which allow for an accurate description of the topography surfaces and the quantification their variation over time~\citep{chandler1995steady}.
 Traditionally, image datasets acquired by metric cameras mounted onboard planes have been used to build maps through analytical stereoplotters and traditional photogrammetric techniques. 
-Image orientation experienced improvements with the incorporation of GNSS-INS sensors for precise camera positioning and orientation~\citep{Pinto2002, jacobsen2004issues}.
+Image orientation experienced improvements with the incorporation of GNSS-INS sensors for precise camera positioning and orientation
+~\citep{Forlani_pinto2001, jacobsen2004issues}.
 
 The emergence of digital photogrammetry in the late 1990s and the advent of automated methods for finding homologous points between images catalyzed a shift towards automated processing of large image collections. 
 Since then, photogrammetry became a widely used, cost- and time-effective approach for geoscience research~\citep{Lane2000}.
 This transformation, coupled with the development of Structure-from-Motion (SfM) and Multi-View Stereo (MVS) algorithms, and the availability of affordable digital cameras, has established photogrammetry as an indispensable technique for geomorphological research and glacier monitoring.
-\textcolor{red}{add more refs for histo}
 
-Despite millions of analog photographs documenting land surface change between the 1910s and 2000s being available in historical archives, only a small fraction of these photographs have been digitally scanned and can be used with modern photogrammetric techniques. 
+Despite millions of analog photographs documenting land surface change taken in the past century being available in historical archives, only a small fraction of these photographs have been digitally scanned and can be used with modern photogrammetric techniques. 
 Scanned historical aerial image archives allow for "going back in time” and derive accurate historical Digital Elevation Models (DEMs) and orthophotos for long-term measurements of surface change ~\citep{Micheletti2015}
 
 Examples of applications of historical archive photogrammetry for documenting geomorphological processes includes fluvial geomorphology~\citep{Bakker2017, lane2010quantification}, gravitational mass movement processes~\citep{chandler1995steady, walstra2007historical, schwab2008landsliding}, mapping and land cover estimation~\citep{Giordano2018} and permafrost and glacial processes~\citep{kaab2002monitoring, Kaufmann2003, keutterling2006monitoring, mondino2008multi, Fischer2011}.
 
-Recentely, % swiss archive \cite{Heisig2021}
+Recently, several modern photogrammetric software packages, including Agisoft Metashape\footnote{\url{https://www.agisoft.com/}}, Pix4DMapper\footnote{\url{https://www.pix4d.com/product/pix4dmapper-photogrammetry-software/}}, ERDAS IMAGINE\footnote{\url{https://hexagon.com/products/imagine-photogrammetry}}, MicMac~\citep{rupnik2017micmac, Zhang2021} together with a recent sPyMicMac addition~\citep{McNabb2020} and NASA AMES Stereo Pipeline~\citep{Beyer2018}, have implemented support for processing archival images with fiducial marks defining the camera interior orientation. 
+Moreover, the Swiss Federal Office of Topography Swisstopo has recently digitalized, catalogued and published a large collection of grayscale and color historical aerial images on their website~\citep{Heisig2021}, representing a virtuosus example of promoting open data practices.
+In this context, several authors employed modern photogrammetric techniques with historical archive images for reconstructing glaciers' 3D topography in the past, including 
+glaciers in Antartica~\citep{Child2021, Dahle2024}, North America\citep{Knuth2023} and in the Alpine region~\citep{Molg2017, poli2020use}.
 
+This chapter aims to reconstruct the long-term evolution of the Belvedere Glacier between 1977 and 2019 by utilizing historical archival images and modern digital photogrammetry.
+To this end, three archival datasets captured by analog metric cameras in 1977, 1991, and 2001 were combined with data from a more recent aerial survey (2009) and a UAV flight (2019).
+These surveys are distributed across the timeline with a rather consistent interval of approximately 10 years, allowing us to track the glacier's morphological evolution and quantify volumetric changes. 
+
+Notably, the 2001 dataset captured the 3D topography of the Belvedere Glacier during a peculiar surge-type event \citep{Haeberli2002} occurred between 2000 and 2002 (See \secref{sec:1:belvedereglacier} for more  details)
+This event marked the glacier's maximum extension since the Little Ice Age, and its resulting moraines remain visible today.
+Consequently, analyzing the Belvedere Glacier's long-term evolution since 1977 enables us to quantify the progression of a glacier that underwent a rapid expansion followed by a critical regression and thinning, a process that continues to this day.
+
+% swiss archive \cite{Heisig2021}
 % Glaciers: 
 %  - historical aerial photogrammetry \cite{kaab2002monitoring, Kaufmann2003, keutterling2006monitoring, mondino2008multi, Fischer2011}
 %  - modern photogrammetry\cite{Molg2017, poli2020use, Child2021, Knuth2023, Dahle2024} 
-
 % photogrammetry to geomorphology~\cite{chandler1995steady, walstra2007historical, schwab2008landsliding, Micheletti2015, Bakker2017}
-
 % land cover \cite{Giordano2018}
-
 % historical aerial images for semantic segm \cite{Dahle2024}
-
-
 % swiss archive \cite{Heisig2021}
-
 % Moreover, in the past 10 years, the increasing development of unmanned aerial vehicles (UAVs), low-cost sensors and structure-from-motion (SfM) techniques have drastically reduced the need for highly specific and expensive equipment for large-scale glacier monitoring [17]. High-spatial-resolution volume variation [18,19,20,21] as well as high-frequency displacement and surface velocity fields [22,23,24,25,26] can be derived even by a single research group with simplified logistics and resource allocation.
 
-
-% \textcolor{red}{Why 2019 and not 2023 as final epoch?}
 
 \section{Datasets}\label{sec:2:datasets}
 
 The study utilized data obtained from five photogrammetric surveys conducted between 1977 and 2019. The earlier datasets, referred to as \textit{historical} datasets, were conducted in September 1977, August 1991, and September 2001. 
 These surveys involved the acquisition of images for regional mapping purposes by the Italian company CGR SpA (Compagnia Generale Ripreseaeree) using analog photogrammetric cameras mounted on planes. 
-The images were cataloged, and their metadata were organized in the SITAD (Sistema Informativo Territoriale Ambientale Diffuso) database \citep{Cipriano2005_SITAD}, now integrated with the GeoPortale Piemonte \citep{geoportlae_piem}.
+The images were cataloged, and their metadata were organized in the SITAD (Sistema Informativo Territoriale Ambientale Diffuso) database \citep{Cipriano2005_SITAD}, now integrated with the GeoPortale Piemonte\footnote{\url{ https://www.geoportale.piemonte.it/}}.
+% \citep{geoportlae_piem}.
 Upon request, CGR SpA digitized the images related to the Belvedere Glacier and provided them to the authors. 
 The analog films were digitized using a photogrammetric scanner with a resolution of \SI{21}{\micro\meter\per\pixel}. 
 The 2009 dataset was acquired with digital photogrammetric camera by CGR SpA for mapping purposes and was made available to the authors upon request.
@@ -171,7 +176,7 @@ To assess the quality of the digitalized images, the actual pixel size was compu
     \subcaptionbox{\label{fig:2:datasets_digital:2019_img}}[.6\textwidth]{
         \includegraphics[height=4cm]{2019_img}
     } \\
-    \caption{Digital datasets {\color{red} conclude caption}}
+    \caption{Digital datasets {\color{red} conclude caption and make better figs}}
     \label{fig:2:datasets_digital}
 \end{figure}
 
@@ -228,7 +233,7 @@ workflow is provided in \figref{fig:2:workflow}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{workflow}
+    \includegraphics[width=0.4\textwidth]{workflow}
     \caption{Workflow for the reconstruction of models and their spatial alignment in a common reference frame}
     \label{fig:2:workflow}
 \end{figure}
