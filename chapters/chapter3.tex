@@ -14,9 +14,6 @@ the Belvedere Glacier. Remote Sensing, 14(1), 28.
 
 \newpage
 
-{\color{red} TODO: move the definition of the three sectors in discussion (experimentally bases!). Remove all references to sectors before that.}
-
-
 \section{Introduction\textcolor{red}{TODO}}\label{sec:3:intro}
 
 This chapter presents the extensive and continuous monitoring activity that has been carried out since 2015
@@ -361,9 +358,13 @@ techniques~\citep{Dehecq2015, Sam2016, Blothe2021}.
 
 In-situ GNSS measurements of the \textit{moving targets} anchored to large rocks (see~\secref{sec:3:gnss})
 was used as a method for deriving glacier surface flow velocities.
-These punctual measurements, labeled as \textit{GNSS}, provided high-accuracy (centimeter-level) records of glacier movement.
-However, due to the limited number of GNSS measurement points across the glacier, they are insufficient for deriving a 
-complete glacier velocity field.
+These punctual measurements, labeled as \textit{GNSS}, provided high-accuracy, 
+estimated at approximately \qty{\sim 3}{\centi\meter} (see Section~\ref{sec:3:gnss}).
+Assuming measurements of the same target at two consecutive years as independent, the expected standard deviation 
+of the velocity was computed by propagating the variance as \qty{\pm 0.04}{\meter\per\year}.
+Therefore, GNSS measurements were considered the most reliable reference for flow velocity estimation.
+However, due to the limited number of GNSS measurement points across the glacier, they are insufficient 
+for deriving a complete glacier velocity field.
 
 A powerful approach for deriving glacier flow velocity using remote sensing involves DIC or 
 feature tracking algorithms~\citep{ahn_box_2010, Giordan2016, Hadhri2019}.
@@ -383,6 +384,11 @@ Consequently, we relied on the visual identification of characteristic features 
 orthophotos \citep{Lucchitta1986} for tracking surface elements and deriving velocity fields. 
 We refer to these points as \textit{MAN}.
 
+Assuming collimation standard deviation of \SI{\sim 2}{\pixel} and considering the planimetric accuracy of 
+the orthophotos of \SI{\sim 0.1}{\meter} (Figure~\ref{fig:CP_errors}), 
+the~standard deviation of the velocity obtained from MAN points was estimated as \SI{\pm 0.3}{m/y} 
+by variance propagation (covariances were neglected, assuming the orthophotos as independent).  
+
 While less precise than DIC, manual selection by a human operator ensured high matching reliability. 
 To maintain uniform distribution, features were selected on a \qtyproduct{100 x 100}{\metre} grid whenever possible, resulting 
 in approximately 130 points (with approximately (approximately one point every \qty{10000}{\meter\squared})).  
@@ -395,73 +401,95 @@ LAMMA adopts a hierarchy structure of patch grids of increasing spatial resoluti
 uses locally-adaptive search area sizes, according to the displacements already
 obtained in the neighboring region.
 Lamma was originally written in Matlab\footnote{\url{https://github.com/niccolodematteis/LAMMA}}, but we have 
-recently translated it into Python and published it as an open-source library\footnote{\url{https://github.com/franioli/pylamma/}} 
-within the work of \cite{ioli2024deep}.
+recently translated it into Python for multitemporal processing of stereo images \citep{ioli2024deep} and 
+published it as an open-source library, named pyLamma\footnote{\url{https://github.com/franioli/pylamma/}}.
 
 As a correlation function, we used the cosine similarity applied to orientation images \citep{Dematteis2021}, 
-which is less sensitive to changes in the shadow pattern and is known to perform well in glacier
-environments \citep{Heid2012_evaluation_xcorr}.
+which is less sensitive to chromatic variation changes (e.g., due to to shadows or snow patterns) and is known 
+to perform well in glacier environments \citep{Heid2012_evaluation_xcorr, Dematteis2019}.
+The cosine similarity function is defined as \citep{Dematteis2022}:
+\begin{equation}
+\text{CXC}(r,c) = \frac{1}{RC} \sum_{r,c} \mathrm{Re} \left( A_{\text{or}}^{*}(i,j) \cdot B_{\text{or}}(i+r,j+c) \right)
+\end{equation}
+where $A_{or}$ and $B_{or}$ denotes the complex conjugate and are the orientation images of the 
+reference and slave patches, respectively. 
+An orientation image is defined as $ I_{\text{or}} = \frac{I_x}{|I_x|} + i\frac{I_y}{|I_y|} $, 
+where are the first derivatives of the image intensity in the two dimensions \citep{fitch2002_OC}.
+
+To achieve subpixel displacement sensitivity, LAMMA considers the sub-region of the similarity function centred 
+in its maximum value and it oversamples this sub-region using bicubic interpolation \citep{Dematteis2022}.
+Then, the subpixel displacement is the peak's position of the oversampled correlation function \citep{Debella_Gilo2011}.
+ 
+The noise level of DIC was evaluated by applying it to stable areas. \textcolor{red}{CONTINUE...}
 
 \subsection{Volume variations}\label{sec:3:method_volumes}
 
 To compute glacier volume variation $ \Delta V $, consecutive DSMs were differentiated
-by~employing a DEM of Difference (DOD) approach with the tool \textit{Compute 2.5D volume}
-implemented in CloudCompare~\citep{cloudcompare}.
+by employing a DEM of Difference (DOD) approach.
+To this end, the tool \textit{Compute 2.5D volume} implemented in 
+CloudCompare~\footnote{Cloudcompare: \url{https://www.danielgm.net/cc/}} was used.
 First, photogrammetric dense clouds were gridded by projecting points along the vertical
-direction on a planar surface, obtaining DSMs with a cell footprint on ground of \qtyproduct{0.5x0.5}{\meter}.
-The choice of the raster resolution was a compromise to achieve a robust height field
-estimation by averaging a large enough number of points for each cell of the raster,
-but~at the same time small enough to maintain a spatial resolution able to map small
-scale glacier morphology.
-A mask was manually created and applied to all the DSMs to exclude areas outside the
-glacier surface.
-DSMs from consecutive years were then differentiated pixel-by-pixel to obtain the height
-difference at each cell of the raster.
+direction onto a planar surface, resulting in DSMs with a \qtyproduct{0.5x0.5}{\meter} ground resolution.
+This resolution balances robust height estimation (by averaging a sufficient number of points per cell) 
+with the ability to resolve finer-scale glacier morphology.
+A manually created mask delineated the glacier surface within each DSM, ensuring only 
+relevant areas were analyzed.  
+DSMs from consecutive years were then subtracted pixel-by-pixel, yielding the height 
+difference for each raster cell.
 
-In order to rigorously estimate volume variation variances, by~propagating the variance,
-it would be  necessary to know the covariance matrix of each DSM, considered as a
-multivariate random variable with dimension equal to the number of cells.
-However, no information concerning cells covariances was provided by the SfM software
-employed, thus it was troublesome to compute covariances between nearby cells in a DSM
-(which are clearly correlated because they were generated by the same set of images in
-the photogrammetric process).
-As a consequence, only a rough estimation of the variance was carried out by considering
-each DSM as a mono-dimensional random variable with variance equal to the squared value
-of the vertical component of RMSE computed on the CPs of the relative photogrammetric
-model.
-Moreover, $ DSM^{(i+1)} $ and $ DSM^{(i)} $ were considered as independent because there
-was no relation between the surveys.
-The variance of the volume variation was therefore computed as:
+A simplified approach was initially used to estimate volume variation variance, 
+treating each DSM as a mono-dimensional random variable with variance equal to the squared 
+vertical RMSE computed on CPs.  
+While providing a preliminary idea, a more rigorous uncertainty estimation would require 
+several additional considerations.
+Firstly, to propagate variance accurately, we need the full covariance matrix of each DSM. 
+This information is not provided by the SfM software (Agisoft Metashape), hindering the 
+calculation of covariances between neighboring DSM cells (which are correlated due to 
+shared image sources).
+Additionally, the available 3x3 covariance matrices from the sparse point cloud reflect
+bundle adjustment errors but may not capture systematic biases like the doming 
+effect~\citep{James2014_mitigating, James2020_mitigating2}.
+Finally, these variances pertain only to the sparse point cloud and would require 
+interpolation onto the DSM grid.
+A potential solution for more robust DSM covariance estimation lies in Monte Carlo simulations, 
+as carried out by \cite{James2017_3duncertainty} and \cite{Roncella2021_montecarlo}.
+
+Consequently, due to these limitations, we derived a rough variance estimation by
+assuming a constant variance of the DSM equal to the squared vertical RMSE computed on CPs.
+Assuming DSMs computed at different years as independet, the volume variation variance 
+was calculated as follows:
 \begin{equation}
     \sigma^2_{\Delta V^{(i+1,i)}}  = {(n \times A_c)}^2 \left( \sigma^2
     _{DSM^{(i+1)}} + \sigma^2_{DSM^{(i)}} \right),
     \label{eq:3:volVarProp}
 \end{equation}
-where $ n $ is the number of cell in the~DSMs and $ \sigma^2 _{DSM}$ is the squared
-vertical error of the photogrammetric model evaluated on the GCPs.
+where $ n $ is the number of cell in the~DSMs, $A_c$ is the area of the cells
+and $ \sigma^2 _{DSM}$ is the squared vertical error of the photogrammetric model.
 
-For the years 2015--2016, 2016--2017, 2017--2018, the~glacier was partially covered by
-snow (see \figref{fig:3:ortophoto}a--c), which introduced additional uncertainties in
-volume estimation.
-The snow height accumulated at the nivometric station located near Zamboni Zappa Hut
-(\SI{2075}{\masl}, in the central sector of the glacier) on the survey dates was retrieved
-from the meteorological database of ARPA Piemonte, the regional agency for the
-environment\footnote{\url{https://www.arpa.piemonte.it/rischinaturali/accesso-ai-dati/annali_meteoidrologici/annali-meteo-idro/banca-dati-meteorologica.html}}: 
-\SI{22}{\centi\meter} of snow were measured on 23 October
-2015, \SI{20}{\centi\meter} on 20 October 2016, \SI{40}{\centi\meter} on 15 November 2017.
-The measured snow heights were considered additional components of the DSM standard
-deviations.
-Yet, because the glacier was only partially covered by snow, the snow-driven uncertainty
-was weighted by half of the total glacier area in variance propagation.
+Between 2015 and 2018, the partial snow cover (\figref{fig:3:ortophoto}a--c)) introduced
+additional uncertainty in volume estimation. 
+To address this, snow depth data measured from the meteorological station located close 
+to the Zamboni Zappa 
+Hut\footnote{\url{https://www.arpa.piemonte.it/rischinaturali/accesso-ai-dati/annali_meteoidrologici/annali-meteo-idro/banca-dati-meteorologica.html}} 
+was used as a first estimate of the snow depth for the upper part of the glacier. 
+The snow depths measured on survey dates are the following
+\begin{itemize}
+    \item 2015 (Oct. 23): 22 cm
+    \item 2016 (Oct. 20): 20 cm
+    \item 2017 (Nov. 15): 40 cm
+\end{itemize}
+These depths were incorporated into the DSM standard deviations. 
+However, due to the partial snow cover, the snow-driven uncertainty was weighted 
+by half the total glacier area during variance propagation.
 
 % \subsection{Glacier outline\textcolor{red}{TODO}}\label{sec:3:method_outline}
 % {\color{red} TODO}
 
 \section{Results}\label{sec:3:res}
 
-\subsection{SfM\textcolor{red}{UPDATE}}\label{sec:3:res:sfm}
+\subsection{SfM}\label{sec:3:res:sfm}
 
-\begin{figure}
+\begin{figure}[ht!]
     \centering
     \includegraphics[width=0.9\columnwidth]{uav_cp_error.png}
     \caption{Barplot of reprojection RMSE computed on CPs for each photogrammetric
@@ -510,64 +538,79 @@ was weighted by half of the total glacier area in variance propagation.
     \label{fig:3:ortophoto}
 \end{figure}
 
-The re-projection RMSE over the CPs are shown in \figref{fig:3:CP_errors} as assessment
-of the geometrical accuracy of the models.
-The global re-projection RMSE was mostly ranging between \SIlist{0.1;0.2}{\meter}.
-The only exception consisted in the {\color{red} upper sector (comparable to sector S1 in
-\figref{fig:3:belvedere}a) of the 2020 model}, for~which the RMSE is almost double
-compared to the other values.
-{\color{red}
-This was caused by practical problems occurred in 2020, explained in detail in
-\secref{sec:3:problems}.
-}
-As a consequence, the~value of 2020 RMSE was split in two different bars in the graph.
-From 2015 to 2017, when compact cameras were used, errors comparable to 1.5 times the GSD
-were obtained.
-Since 2018, a~lightweight action-cam has been employed to minimize the UAV take-off
-weight and this has led to an RMSE up to 3~times the GSD, but~still always smaller than
-\SI{0.2}{\meter}.
+Each SfM process yielded a 3D point cloud, a textured mesh, a DSM, and an orthophoto of the glacier. 
+Point cloud density increased over time: point clouds from 2015 to 2020 contained \SI{0.5e8}{} to \SI{1e8}{} 
+points, while those from 2021 onwards had \SI{1.5e8}{} to \SI{2.5e8}{} points. 
+DSMs and orthophotos were produced at a resolution of 20 centimeters per pixel 
+Due to autumn surveys, orthophotos from 2015 to 2017 show some snow cover (\figref{fig:3:ortophoto}).
+
+The geometrical accuracy of the SfM models was evaluated for all years using CPs.
+\figref{fig:3:CP_errors} RMSE of on-ground error in all three directions and globally. 
+RMSE values range between 0.1 and 0.2 meters across all components and years. 
+Note that for 2020, errors only reflect the lower part of the glacier. 
+The upper part was sensed with a separate photogrammetric flight that lacked GNSS-measured
+GCPs and instead relied on natural features identified in the 2019 model as GCPs (see \secref{sec:3:problems}).
+
+% From 2015 to 2017, when compact cameras were used, errors smaller than 2 times the GSD
+% were obtained.
+% From 2018 to 2020, a lightweight action-cam has been employed to minimize the UAV take-off
+% weight and this has led to an RMSE up to 3~times the GSD, but~still always smaller than
+% \SI{0.2}{\meter}.
+% From 2021, errors smaller than 2 times the GSD
+% accuracy from 1 to 1.5 times the GSD.
+
+To maximize accessibility, the point clouds were converted to a Potree-compatible structure\citep{schutz2016potree}
+and uploaded to a web server.
+Potree is an open-source WebGL-based JavaScript library designed for web-based rendering of large point 
+clouds\citep{schutz2016potree, Gaspari2024}.
+It offers versatile tools for handling 2D and 3D objects, scene navigation and interaction,
+including measurements and cross-section profile extraction.
+Viewers can explore the 3D glacier model in any web browser\footnote{\url{https://labmgf.dica.polimi.it/pujob/belvedere/}}.
 
 \subsection{Glacier flow velocity\textcolor{red}{TODO}}\label{sec:3:res:velocity}
 
-Annual ice flow velocities were first computed from in-situ GNSS measurements of \textit{moving targets}.
-\figref{fig:3:GNSS_velocity} shows the time-series of the velocities of GNSS points. 
-Most of the moving targets were found and measured for 3 or more years and some of them have been continuously tracked since 2015 (e.g., the point \textit{M10} in the upper part of the glacier, \textit{M28} in the middle part or \textit{M41} on the south-east tongue). 
-However, some of them have been lost over the year, e.g. because they fell into a crevasse, and they were replaced with new ones. 
-The location accuracy of the GNSS measurement was estimated as \qty{\sim 3}{\centi\meter} (see Section~\ref{sec:3:gnss}). 
-Assuming measurements of the same GCPs at two consecutive years as independent,
-the expected standard deviation of the velocity was computed by propagating the variance as \qty{\pm 0.04}{\meter\per\year} (i.e., two order of magnitude less than the computed annual velocities which ranges between \qtylist{2;22}{\meter\per\year}).
-Therefore, GNSS measurement are considered as the reference source of information for flow velocity estimation.
-
-From graph in \figref{fig:3:GNSS_velocity}, GNSS points can be visually grouped in three clusters (C1, C2, C3) on the basis of velocity magnitude. 
-The first low-velocity cluster C1 includes points with velocities between  \qtylist{2;7}{\meter\per\year}. 
-{\color{red}
-The location of GNSS points included in C1 well match morphological sectors S1 (upper accumulation sector) and S3 (glacier tongues), marked in \textcolor{red}{FIGXX}.
-% \figref{fig:belvedere}a.
-By contrast, cluster C3 presents significantly higher speed, ranging between \qtylist{17;22}{\meter\per\year} were sensed in the central sector S2 (e.g., \textit{M10, M11, M22, M28}).
-Cluster C2 include GNSS points located in transition areas between S2 and S1 (e.g., targets \textit{M10, M11}, placed between the central sector and the accumulation area) and between S2 and S3 (e.g., \textit{M49}, between the central sector and the lower north-west tongue).
-}
-
-{\color{red} Move to discussion: 
-Measurements of targets \textit{M22, M23} and \textit{M28} suggests the presence of a rising velocity trend in the central part of the glacier between 2018 and 2020. 
-In fact, these points experienced an increase of the velocity magnitude of \qty{\sim 1}{\meter\per\year} from 2018 to 2020.
-However, some more measurement years would be necessary to state if this increasing velocity trend holds and is significant. 
-On the other hand, all the other targets showed rather steady velocities over the 6 years.
-}
-
-\begin{figure}
+\begin{figure}[ht!]
     \subcaptionbox{\label{fig:3:GNSS_velocity:ts}}{
         \includegraphics[width=0.68\textwidth]{GCPghiacciaioSerieTemp_02}
     }
     \subcaptionbox{\label{fig:3:GNSS_velocity:map}}{
         \includegraphics[width=0.29\textwidth]{GCPghiaccaio_clusters}
     }
-    \caption{\textbf{(a)} Time series of the velocity computed from the GNSS measurements of the targets deployed over the glacier. Dashed lines denote measurement continuity over the years (i.e., if the line is interrupted, the target was lost or not measured during that year). Labels C1-C3 denote the three velocity clusters of GNSS points, whereas labels S1-S3 indicate the three morphological sectors marked in \figref{fig:belvedere}a. A correspondence between clusters and sectors can be identified: C1 corresponds to sectors S1 and S2, cluster C3 to sector S2, whereas cluster C2 corresponds to the two transition areas S2-S1 and S2-S3. \textbf{(b)} Location of the targets over the glacier.}
+    \caption{\textbf{(a)} Time series of the velocity computed from the GNSS measurements of the targets deployed over the glacier. Dashed lines denote measurement continuity over the years (i.e., if the line is interrupted, the target was lost or not measured during that year). Labels C1-C3 denote the three velocity clusters of GNSS points, whereas labels S1-S3 indicate the three morphological sectors marked in \figref{fig:belvedere}a. A correspondence between clusters and sectors can be identified: C1 corresponds to sectors S1 and S2, cluster C3 to sector S2, whereas cluster C2 corresponds to the two transition areas S2-S1 and S2-S3. \textbf{(b)} Location of the targets over the glacier. \textcolor{red}{UPDATE}}
     \label{fig:3:GNSS_velocity}		
 \end{figure}
 
-\subsection{Volume variations \textcolor{red}{Update}}\label{sec:3:res:volumes}
+Annual ice flow velocities were first computed using in-situ GNSS measurements of moving targets
+(\figref{fig:3:GNSS_velocity}).
+Most of the moving targets were found and measured for 3 or more years and some of them have been continuously tracked since 2015 
+(e.g.,\textit{M10}, \textit{M28}, \textit{M41}). 
+While some targets were inevitably lost (e.g., due to presence of crevasses), they were replaced with new ones 
+materialized nearby to maintain data continuity. 
 
-{\color{red} Add 2021-2023!}
+Analysis of the graph in \figref{fig:3:GNSS_velocity} reveals three distinct velocity clusters (C1, C2, C3) 
+within the GNSS data.  
+Cluster C1 exhibits the lowest velocities \qtylist{2;7}{\meter\per\year} and encompasses points in the upper 
+accumulation section and glacier tongues. 
+Significantly faster speeds \qtylist{17;22}{\meter\per\year} characterize cluster C3, located in the glacier's 
+central part (e.g., targets \textit{M10, M11, M22, M28}). 
+Cluster C2 represents a transition zone with intermediate velocities, found between the central sector 
+and the accumulation area (targets \textit{M10, M11}) and between the central sector and the lower north-west tongue 
+(e.g., target \textit{M49}).
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.68\textwidth]{man_points_2015-2020}
+    \caption{\textit{MAN} points between 2015-2020 \textcolor{red}{UPDATE. take only 2015-2017 (use 2018-2019 as valid for DIC}. Change colorscale to viridis}
+    \label{fig:3:MAN_points_all}
+\end{figure}
+
+Additionally, orthophotos were used to derive a more complete flow velocity field.
+Due to unfavorable conditions, from 2015 to 2017, it was not feasible to apply DIC to orthophotos
+to automatically derive glacier displacement, but manually collimated points were used (\figref{fig:3:MAN_points_all}). 
+
+
+
+\subsection{Volume variations \textcolor{red}{Update}}\label{sec:3:res:volumes}
 
 \begin{figure}
     \centering
@@ -575,8 +618,29 @@ On the other hand, all the other targets showed rather steady velocities over th
     \caption{Yearly volume variation computed as difference between DSM of two
         consecutive years. The~error bars plotted represent the uncertainty of each
         estimated value. Note that the values on the Y axis are expressed in million of
-        \si{\cubic\meter}.}
+        \si{\cubic\meter}. \textcolor{red}{Update with 2021-2023}}
     \label{fig:3:volumes}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \subcaptionbox{\label{fig:3:profiles:AA}}{
+    \includegraphics[width=.45\textwidth]{profile_AA.jpg}
+  }
+  \subcaptionbox{\label{fig:3:profiles:BB}}{
+    \includegraphics[width=.45\textwidth]{profile_BB.jpg}
+  }\\
+  \subcaptionbox{\label{fig:3:profiles:CC}}{
+    \includegraphics[width=.45\textwidth]{profile_CC.jpg}
+  }
+  \subcaptionbox{\label{fig:3:profiles:DD}}{
+    \includegraphics[width=.45\textwidth]{profile_DD.jpg}
+  } \\
+  \subcaptionbox{\label{fig:3:profiles:map}}{
+    \includegraphics[width=.45\textwidth]{profileMap.png}
+  }
+    \caption{Elevation profiles obtained from the DSM computed on the years 2015-2020 along 4 different cross-sections. \textbf{(a)} Cross-section AA' at the north-west glacier tongue; \textbf{(b)} Cross-section BB' at the south tongue; \textbf{(c)} Cross-section CC' in the lower portion of the glacier transition sector; \textbf{(d)} Cross-section DD' in the upper portion of the glacier transition sector; \textbf{(e)} Cross-sections location. Cross-sections are seen from South towards North (i.e., from upstream to downstream of the glacier), as marked by the letters in \textbf{(e)}. \textcolor{red}{ADD NEW PROFILES}}
+    \label{fig:3:profiles}
 \end{figure}
 
 \figref{fig:3:volumes} illustrates the loss of ice volume year by year.
@@ -598,27 +662,6 @@ the photo acquisition.
 Overall, the~negative ice volume variation occurred between 2015 and 2020 is evident and
 significant: every year, between~\SIlist{2e6;3.5e6}{\cubic\meter} of ice were~lost.
 
-\begin{figure}
-  \centering
-  \subcaptionbox{\label{fig:3:profiles:AA}}{
-    \includegraphics[width=.45\textwidth]{profile_AA.jpg}
-  }
-  \subcaptionbox{\label{fig:3:profiles:BB}}{
-    \includegraphics[width=.45\textwidth]{profile_BB.jpg}
-  }\\
-  \subcaptionbox{\label{fig:3:profiles:CC}}{
-    \includegraphics[width=.45\textwidth]{profile_CC.jpg}
-  }
-  \subcaptionbox{\label{fig:3:profiles:DD}}{
-    \includegraphics[width=.45\textwidth]{profile_DD.jpg}
-  } \\
-  \subcaptionbox{\label{fig:3:profiles:map}}{
-    \includegraphics[width=.45\textwidth]{profileMap.png}
-  }
-    \caption{Elevation profiles obtained from the DSM computed on the years 2015-2020 along 4 different cross-sections. \textbf{(a)} Cross-section AA' at the north-west glacier tongue; \textbf{(b)} Cross-section BB' at the south tongue; \textbf{(c)} Cross-section CC' in the lower portion of the glacier transition sector; \textbf{(d)} Cross-section DD' in the upper portion of the glacier transition sector; \textbf{(e)} Cross-sections location. Cross-sections are seen from South towards North (i.e., from upstream to downstream of the glacier), as marked by the letters in \textbf{(e)}.}
-    \label{fig:3:profiles}
-\end{figure}
-
 In \figref{fig:3:profiles}, elevation profiles of the glacier obtained every year at four different cross sections are plotted together.
 In each profile, it is easily identifiable the glacier surface, which is delimited by the lateral moraines.
 The highest height reduction is found at the lower terminus of the glacier (\figref{fig:3:profiles}a-b): \qty{\sim 2}{\meter} have been lost every year. 
@@ -633,18 +676,19 @@ In the central part of the glacier (sections CC' and DD', \figref{fig:3:profiles
 
 {\color{red} TODO}
 
-\section{Discussion}\label{sec:3:discussion}
+% \subsection{Morphological sectors\textcolor{red}{TODO}}\label{sec:3:discussion:sectors}
 
-\subsection{Morphological sectors\textcolor{red}{TODO}}\label{sec:3:discussion:sectors}
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=.7\textwidth]{belvedereMapSect}
+% 	\caption{Subdivision of the Belvedere Glacier in three main morphological sectors: sector 1 (S1) is the accumulation zone, sector 2 (S2) is the transfer zone, sector 3 (S3) is the low-relief zone with the two glacier tongues. Coordinates are framed in ETRF2000(2008) UTM 32N. [Basemap source: \textit{Swisstopo (geo.admin.ch)}].}
+% 	\label{fig:3:sectors}	
+% \end{figure}	
 
-\begin{figure}
-    \centering
-    \includegraphics[width=.7\textwidth]{belvedereMapSect}
-	\caption{Subdivision of the Belvedere Glacier in three main morphological sectors: sector 1 (S1) is the accumulation zone, sector 2 (S2) is the transfer zone, sector 3 (S3) is the low-relief zone with the two glacier tongues. Coordinates are framed in ETRF2000(2008) UTM 32N. [Basemap source: \textit{Swisstopo (geo.admin.ch)}].}
-	\label{fig:3:sectors}	
-\end{figure}	
+% \subsection{Comparison with previous studies\textcolor{red}{UPDATE}}\label{sec:3:discussion:prevstudies}
 
-\subsection{Comparison with previous studies\textcolor{red}{UPDATE}}\label{sec:3:discussion:prevstudies}
+
+\section{Comparison with previous studies}\label{sec:3:prevstudies}
 
 Several studies focused on understanding and quantifying Belvedere Glacier
 dynamics.~\cite{Kaab2005} estimated velocities ranging between

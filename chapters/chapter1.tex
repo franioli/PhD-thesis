@@ -20,18 +20,16 @@
 \section{Motivation and relevance}
 
 Glaciers all over the world are experiencing profound transformations due to the ongoing climate crisis~\citep{Oerlemans2005} and their sensitivity to temperature fluctuations renders them powerful indicators of global climate change~\citep{Barry2016}.
-
 Alpine glaciers, situated in temperate zones, are particularly susceptible to rising temperatures. The accelerated rate of glacial retreat underscores the necessity for comprehensive monitoring programs~\citep{Zemp2006,Sommer2020}. 
 Therefore, they are often considered as a proxy for climate change evaluation.
 Projections point out that the European Alps may lose more than 60\% of ice volume by the end of the century under the RCP2.6 scenario, whereas a larger amount of ice loss is expected under worse scenarios~\citep{Zekollari2019}.
 
 However, mountain glaciers are a critical component of the local economy regarding freshwater supply, hydroelectric production, and tourist activities.
 In particular, glaciers serve as critical as crucial freshwater reservoirs and their undergoing transformation is likely to have severe consequences for the future water availability~\citep{Barnett2005, hock2005}. 
-
 Additionally, glacier melting and retreat are triggering several glaciological processes, e.g., ice break-off, glacier outburst, snow/ice avalanches, and gravitational slope stability processes, such as rockfalls and collapses, and debris flow, which can threaten the population, urban areas or infrastructure of the nearby areas~\citep{Kaab2004, Deline2015, Giordan2020}.
 In the European Alps, the number of mass movements and hazardous events in high-elevations environments has experienced an increase in the past decade due to climate change~\citep{chiarle2023, Nigrelli2024}.
 
-A relevant and tragic example was the collapse of a section of the Marmolada Glacier (Dolomites, Italy), which occurred on 3 July 2022 at 13:43:20 CEST. 
+A relevant and tragic example was the collapse of a section of the Marmolada Glacier (Dolomites, Italy), which occurred on 3 July 2022 at 13:43:20 CEST\footnote{\url{https://www.theguardian.com/world/2022/jul/03/deaths-glacier-breaks-marmolada-mountain-italy}}. 
 The collapse caused an ice avalanche that killed 11 mountaineers trying to reach the Marmolada summit and injured 7~\citep{Olivieri2023, Bondesan2023}.
 The collapse occurred on the northern slope of the glacier at an elevation of \SI{3213}{\masl} and involved a volume of \SI{\sim 96000}{\cubic\meter}~\citep{Olivieri2023}.
 The detachment was caused by a failure along a median crevasse, partially filled by meltwater due to highly anomalous temperatures, that reached \SI{10.7}{\degree\celsius} at the time of the event.
@@ -59,10 +57,42 @@ The literature for satellite-based global or regional mapping of glaciers is now
 This includes glacier outline mapping from optical imagery (\textcolor{red}{REF}) or from combinations of different bands~\citep{Winsvold2016}, such as Red and SWIR bands or the near-infrared and SWIR (short-wave infrared band)~\citep{Paul_2002} or the normalized difference snow index (NDSI)~\citep{Hall1995}.
 Planimetric glacier displacements and flow velocity are often derived from ortho-projected products with digital image correlation (DIC) techniques~\citep{Scambos1992, Kaab2005, Scherler2008, altena_kaab_2020}. 
 Satellite remote sensing has been used also for estimating mass balances~\citep{Bamber2007, Berthier2016, Rabatel2017, Berthier2023}.
+\textcolor{red}{(SAR and passive satellites?)}
 % \textcolor{red}{Satellite SAR data \citep{Strozzi2020, Fang2016, Winsvold2018}.}
 
 Although satellite remote sensing is essential for large-scale regional or even global glacier monitoring, most of the free solutions offer limited spatial and temporal resolution, which hinders the ability to sense small alpine glaciers and capture short-term glacier dynamics. 
 
+\textcolor{red}{...Conclude this intro su satellite with high-res optical sats...}
+
+\textcolor{red}{...Part on aerial photogrammetry for mid-to-large scale and long-term freq...}
+
+In the past decade, Unmanned Aerial Vehicles (UAVs) have undergone rapid technological advancements and cost reductions,
+making them indispensable tools for environmental monitoring. 
+Coupled with modern Structure-from-Motion (SfM) \citep{Westoby2012} and Multi-View Stereo (MVS) \citep{Seitz2006} algorithms, 
+images captured by UAV-mounted cameras enable the creation of high-resolution 3D point clouds, Digital Surface Models (DSMs),
+and orthophotos. 
+Their applications in environmental studies are extensive, including geomorphology modelling~\citep{Cook2017, James2017_3duncertainty}, 
+river flow velocity and discharge estimation~\citep{Detert2017,Ioli2020}, 
+snow volume calculation~\citep{DeMichele2016, Buhler2016, Avanzi2018},
+dam sediment volume evaluation~\citep{Pagliari2016}, glaciers \citep{Immerzeel2014, Chudley2019, Groos2019}, 
+periglacial morphology \citep{Sledz2021}.
+
+Several examples of UAV and photogrammetry applications for cryosphere monitoring can be found in the literature~\citep{Bhardwaj2016, Gaffey2020}.
+For instance, \cite{Whitehead2013} employed fixed-wing and helicopter-based UAVs equipped with low-cost cameras to generate orthophotos 
+and DSMs of the Fountain Glacier in the Canadian Arctic. 
+Similarly,~\cite{Immerzeel2014} and \cite{kraaijenbrink2016} leveraged fixed-wing UAVs for evaluating seasonal surface velocities of the debris-covered
+Lirung Glacier in Nepal. 
+\cite{Gindraux2017} further investigated the impact of Ground Control Point (GCP) quantity and distribution on the accuracy of UAV-derived glacier DSMs 
+and she proposed a technique based on the joint usage of Digital Image Correlation (DIC) on both DSMs and orthophotos to derive glacier kinematics.
+The growing body of recent work highlights the potential of UAVs and low-cost photogrammetry to efficiently monitor small and mid-scale 
+glaciers with high spatial resolution, as they enable comprehensive reconstruction of glacier morphology while minimizing in-situ operations and
+costs \citep{Benoit2019, Chudley2019, Jouvet2020, Cao2021, Lamsters2022, belloni2023}.
+Moreover, studies like \cite{ioli2021mid} demonstrate the feasibility of using UAVs for mid-term (i.e., ten-year span) glacier monitoring with 
+very high spatial resolution and annual temporal frequency.
+ 
+\textcolor{red}{... Part on in-situ monitoring for high spatial res and frequency...}
+While UAVs vastly improve spatial resolution, they might not fully replace in-situ monitoring for tasks requiring high temporal frequency 
+(e.g., continuous measurements)....
 
 
 % Over the years, various remote sensing approaches have been utilized to
@@ -77,13 +107,6 @@ Although satellite remote sensing is essential for large-scale regional or even 
 % ground-based SAR~\citep{Dematteis2018,Noferini2009},
 % aerial and UAV laser scanner \citep{Hartl2023} or Terrestrial Laser Scanners
 % (TLS)~\citep{Hendrickx2022,Voordendag2023}.
-
-% UAV photogrammetry offers high-precision 3D reconstruction of mountain environments at a low
-% cost~\citep{Chudley2019,Ioli2022}. 
-% However, it requires in-situ intervention to perform the flights, deploy and measure
-% Ground Control Points (GCPs). 
-% These operations may be time-consuming and manpower-intensive.
-% Consequently, UAV photogrammetry is not suitable for short-term glacier monitoring.
 
 % Permanent terrestrial SAR and TLS have gained significant attention for short-term
 % monitoring.
@@ -106,8 +129,9 @@ Although satellite remote sensing is essential for large-scale regional or even 
 % However, external Digital Surface Models (DSMs) are required to convert 2D pixel
 % displacements obtained by DIC into 3D displacement vectors.
 
-
 % \cite{Paul2015, KaabFunk1999}
+
+\section{Objectives}
 
 \section{The Belvedere Glacier}\label{sec:1:belvedereglacier}
 
@@ -163,11 +187,25 @@ The ice thickness increased more than~\SI{20}{\meter} and the wave travelled dow
 creating a depression area in the accumulation zone, that was filled by a super-glacial
 lake, the~Lago Effimero~\citep{Haeberli2002, Mortara2009}.
 
+
+During spring 2002, the large depression at the foot of the Monte Rosa east face caused by the 
+surge-type movement was temporarily filled by a lake with a volume of \SI{3e6}{\cubic\meter}, 
+the socalled \textit{Lago Effimero} (\textit{short-lived lake}).
+Recognizing the potential danger of an outburst flood, the Italian Civil Defense Department rapidly 
+implemented emergency measures, including evacuating parts of Macugnaga village, installing automatic 
+alarm systems and pumps, and initiating detailed scientific investigations. 
+Reduced meltwater input in July 2002, combined with natural subglacial drainage, stabilized and subsequently 
+lowered the lake level.
+However the lake reformed in spring 2003 and it burst out in mid-June of that year without causing 
+any significant damage \citep{Kaab2004}.
+
+\textcolor{red}{Expand this part and add more pics with old and recent events}
+
 % The northern lobe of the Belvedere Glacier is concurrently experiencing a fast retreat:
 % in the past few years, an average retreat of \SI{\sim20}{\meter\per\year} was documented
 % \citep{Ioli2022} and it is actively changing every day, due to ice falls and collapses.
 
-\section{Thesis scope and outline}
+\section{Thesis outline}
 
 % References
 \makechapterbibliography{}
