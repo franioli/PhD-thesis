@@ -20,62 +20,28 @@
 
 \section{Introduction}\label{sec:4:intro}
 
-\textcolor{red}{NON RIPETERSI CON INTRO GENERALE}
-
 Climate change is accelerating the evolution of alpine glaciers, leading to rapid ice melt and increased frequency of collapses during summer months. 
 This accelerated melting can trigger various glaciological, geomorphological, and slope stability hazards, including avalanches, glacier outbursts, rockfalls, permafrost-related collapses, and moraine instability~\citep{Kaab2005, chiarle2023, Nigrelli2024}.
 Consequently, short-term observations (e.g., daily) are crucial for achieving a deep understanding of glaciers with their processes associated processes and their relation with external forces, in particular the air temperature.
 Monitoring surface kinematics is particularly important, as it can provide early indications of impending instability~\citep{Faillettaz2015}.
-However, the remote and hazardous nature of glacial environments poses logistical and safety challenges. 
-
-\textcolor{red}{Non ripetersi con intro generale!}
-Over the years, a wide array of remote sensing techniques have been developed for safely monitoring glaciers and related processes.
-These include satellite-based sensing \citep{altena_kaab_2020,Scherler2008},
-satellite Synthetic Aperture Radar (SAR)~\citep{Strozzi2020}, 
-3D photogrammetric reconstruction from UAVs~\citep{Chudley2019,Ioli2022},
-aerial platforms~\citep{Degaetani2021} and optical high-resolution satellite~\citep{Tonolo2020},
-ground-based monoscopic or stereoscopic time-lapse cameras~\citep{Messerli2015,Schwalbe2017,Hendrickx2022},
-ground-based SAR~\citep{Dematteis2018,Noferini2009}, 
-aerial and UAV laser scanner \citep{Hartl2023} 
-or Terrestrial Laser Scanners (TLS)~\citep{Hendrickx2022,Voordendag2023}.
-% \textcolor{red}{update with monoplotting, gnss and total stations and more relevant refs for archival images!}
-% Various technologies and techniques have been developed and proposed for remotely monitoring gravitational slope phenomena, including permanent terrestrial SAR or TLS, UAV and terrestrial photogrammetry, monoplotting (i.e. the projection of photographs taken by a time-lapse camera onto a DSM), GNSS and traditional topography \textcolor{red}{add references to all}.
-
-High-resolution space- or airborne-based remote sensing systems provide spatially distributed data over large areas with high precision.
-However, these methods usually entail significant costs and the repeatability of the survey is strongly limited.
-Furthermore, unfavorable acquisition geometries can impact measurement accuracy in the case of complex geomorphological scenarios. 
-In contrast, UAV photogrammetry offers high-precision 3D reconstruction of mountain environments at a low cost~\citep{Chudley2019,Ioli2022},
-yet the need for on-site flight operations and the deployment and measurement of Ground Control Points (GCPs) can be time-consuming and labor-intensive, making it less suitable for short-term glacier monitoring.
 
 Permanent ground-based solutions are generally preferred for short-term monitoring.
-Among these, terrestrial SAR and TLS have gained significant attention.
-SAR, in particular, offers the advantage of all-weather and day-and-night imaging, making it suitable for
-real-time monitoring and early-warning systems~\citep{Dematteis2021,Noferini2009}.
+Among these, terrestrial SAR~\citep{Strozzi2020} and TLS~\citep{Hendrickx2022,Voordendag2023} have gained significant attention.
+SAR, in particular, offers the advantage of all-weather and day-and-night imaging, making it suitable for real-time monitoring and early-warning systems~\citep{Dematteis2021, Noferini2009}.
 However, both ground-based SAR and permanent TLS are expensive, require complex
 logistics.
-These limitations prevent their applications in distributed sites at the regional scale, but
-their usage may be limited to investigating hazardous locations.
+These limitations prevent their applications in distributed sites at the regional scale, but their usage may be limited to investigating hazardous locations.
 
-Fixed time-lapse cameras offer an affordable alternative to terrestrial SAR and TLS for
-gathering qualitative and quantitative information on glacier
-dynamics~\citep{Giordan2016,James2016, Maas2006,Messerli2015}.
-Digital Image Correlation (DIC) can be used on sequences of images from terrestrial
-time-lapse cameras to estimate glacier surface velocity.
-Initially used in laboratory settings, DIC was first applied to glaciers
-by~\cite{Evans2000}. Subsequently, numerous studies employed this
-technique for measuring glacier kinematics
-\citep{ahn_box_2010,Giordan2016,Hadhri2019,James2016,Messerli2015}.
-However, external Digital Surface Models (DSMs) are required to convert 2D pixel
-displacements obtained by DIC into 3D displacement vectors.
+Fixed time-lapse cameras are affordable alternatives to SAR and permanent TLS to acquire short-term qualitative and quantitative information on glacier dynamics~\citep{Giordan2016, James2016, Maas2006, Messerli2015}.
+DIC can be used on sequences of images from terrestrial time-lapse cameras to estimate glacier surface velocity.
+However, external DSMs are required to convert 2D-pixel displacements obtained by DIC into 3D displacement vectors.
 
 Although most of the existing literature focuses on single time-lapse cameras, in recent
 years some studies have been conducted on multi-camera systems.
 Even though it was not applied to glaciers, \cite{roncella_landslide_2014} first
-developed a pure stereoscopic system for monitoring a moving landslide, proposing a fully
-photogrammetric approach to derive a 3D model of the scene and detect collapses, without
-the need for a priori DSMs.
+developed a pure stereoscopic system for monitoring a moving landslide, proposing a fully photogrammetric approach to derive a 3D model of the scene and detect collapses, without the need for a priori DSMs.
 \cite{Schwalbe2017} proposed an application of multiple time-lapse cameras for deriving
-a coarse digital surface model using Structure-from-Motion (SfM) to estimate a distance
+a coarse digital surface model using SfM to estimate a distance
 map, which was used to scale displacement vectors.
 \cite{Marsy2020} used a stereo camera system to construct a glacier DSM and
 back-projected the DIC-derived velocity field.
@@ -100,19 +66,16 @@ traditional photogrammetry.
 
 In traditional photogrammetry, keypoints are identified on different images by
 local feature detectors and descriptors such as SIFT~\citep{Lowe2004},
-Kaze~\citep{Alcantarilla2012} or ORB~\citep{Rublee2011}
-and matched by minimizing descriptor distances in the descriptor space.
+Kaze~\citep{Alcantarilla2012} or ORB~\citep{Rublee2011} and matched by minimizing 
+descriptor distances in the descriptor space.
 Bundle Adjustment (BA) is then used to estimate the 3D coordinates of tie points
 and camera parameters.
 Extracting tie points becomes challenging when the camera baseline is wide.
-Changes in viewpoint lead to complex distortions, missing content, and occlusions between
-corresponding objects, making
-matching difficult.
+Changes in viewpoint lead to complex distortions, missing content, and occlusions between corresponding objects, making matching difficult.
 
 In traditional photogrammetry, keypoints are detected using local feature methods like
 SIFT~\citep{Lowe2004}, Kaze~\citep{Alcantarilla2012}, or ORB~\citep{Rublee2011}. 
-The keypoints are matched by minimizing descriptor distances in descriptor space and BA is
-then employed to estimate their 3D coordinates and camera parameters.
+The keypoints are matched by minimizing descriptor distances in descriptor space and BA is then employed to estimate their 3D coordinates and camera parameters.
 Wide camera baselines complicate tie point extraction, due to complex
 distortions and occlusions between corresponding objects.
 Deep Learning (DL) techniques, and particularly attention-based
@@ -126,8 +89,7 @@ addressing various challenges, including large baselines, oblique
 images~\citep{Yao_2021}, historical image matching~\citep{Maiwald2021_Historical},
 low-quality cameras and public webcams~\citep{wu2021_public_webcams}.
 A comprehensive survey by \cite{remondino2022_at_with_dl} covers methods from
-traditional corner detectors to state-of-the-art DL matching
-approaches.
+traditional corner detectors to state-of-the-art DL matching approaches.
 
 This chapter presents a pilot study on short-term 4D monitoring of the Belvedere Glacier glacier using a low-cost stereo-camera system with a wide baseline. 
 The study focuses on investigating daily glacier dynamics by calculating surface movement, ice volume loss, and glacier retreat of a debris-covered alpine glacier.
@@ -135,7 +97,7 @@ The proposed methodology integrates 3D reconstruction from stereo cameras for vo
 estimation and utilizes DIC on monoscopic cameras to derive surface velocities.
 By utilizing state-of-the-art DL matching techniques, this approach overcomes
 the challenges posed by the wide camera baselines and it allows for accurately
-reconstructing the scene under suboptimal viewing conditions.
+reconstructing the scene under sub-optimal viewing conditions.
 
 The objective of this work is twofold:
 (i) to demonstrate the feasibility and effectiveness of using a cost-effective
@@ -543,7 +505,7 @@ over a larger area of the north lobe of the Belvedere Glacier (dashed-green area
 
 \begin{figure*}[ht]
   \centering
-  \includegraphics[width=154mm]{3_general_workflow.png}
+  \includegraphics[width=\textwidth]{3_general_workflow.png}
   \caption{General workflow with two parallel processing chains involving stereoscopic
     reconstruction of terminal ice cliff from stereo-pairs of images to derive ice volume
     losses at the glacier terminus and glacier retreat and monoscopic digital-image
@@ -649,14 +611,8 @@ orientation correlation algorithm~\citep{fitch2002_OC}, which is more robust aga
 
 \begin{figure}
   \centering
-  \includegraphics[width=.6\textwidth]{3_stereo-workflow.png}
-  \caption{Scheme of the stereoscopic workflow performed with ICEpy4D. At a generic epoch
-    \(i\), new features are extracted and matched.
-    At the same time, features from the previous epoch \(i-1\) are tracked on the current
-    epoch images. After geometric verification, features successfully
-    matched are used for 3D scene reconstruction. Point clouds obtained on
-    different days are used to compute ice volume differences and glacier
-    retreat.}
+  \includegraphics[width=.8\textwidth]{3_stereo-workflow.png}
+  \caption{Scheme of the stereoscopic workflow performed with ICEpy4D. At a generic epoch \(i\), new features are extracted and matched. At the same time, features from the previous epoch \(i-1\) are tracked on the current epoch images. After geometric verification, features successfully matched are used for 3D scene reconstruction. Point clouds obtained on different days are used to compute ice volume differences and glacier retreat.}
   \label{fig:4:stereo-workflow}
 \end{figure}
 
@@ -666,7 +622,7 @@ ICEpy4D was developed (ICEpy4D code is available in the repository
 ICEpy4D allows for solving different steps of scene reconstruction
 (\figref{fig:4:stereo-workflow}). In particular, the main steps consist of:
 (i) finding corresponding points by deep-learning feature matching;
-(ii) tracking features on sequence of images acquired from the same camera;
+(ii) tracking features on the sequence of images acquired from the same camera;
 (iii) performing 3D scene reconstruction and point cloud post-processing.
 All the processing was carried out with a mid-class workstation equipped with a 20-cores
 i7-12700 CPU, 32~Gb of DDR5 RAM and a GPU NVIDIA RTX A2000 12~GB.
@@ -721,9 +677,7 @@ Incorrectly matched keypoints, which did not satisfy the epipolar constraint, we
 rejected using Pydegensac~\citep{Mishkin2015_pydegensac}, by imposing a maximum
 re-projection error of 1.5 px.
 
-\subsubsection{Tracking points over epochs}\label{sec:4:tracking}
-
-\begin{figure}
+\begin{figure}[ht]
   \centering
   \includegraphics[width=0.8\textwidth]{3_tracking.png}
   \caption{Scheme of feature tracking in stereo-cameras sequence. At each epoch, new
@@ -738,6 +692,8 @@ re-projection error of 1.5 px.
     0 and 1.}
   \label{fig:4:tracking}
 \end{figure}
+
+\subsubsection{Tracking points over epochs}\label{sec:4:tracking}
 
 Matched points are tracked over time on single camera image time series
 (\figref{fig:4:tracking}).
@@ -769,8 +725,7 @@ In the first step, matches between each stereo-pair were utilized to estimate th
 relative pose of the two cameras, based on the camera's pre-calibrated intrinsic matrix.
 Subsequently, the absolute orientation was determined by calculating a Helmert
 transformation, considering the cameras' locations and the available GCPs.
-In the second step, a full BA was performed to refine the relative-absolute solution. For
-this purpose, the Agisoft Metashape software package was employed via its Python API.
+In the second step, a full BA was performed to refine the relative-absolute solution. For this purpose, the Agisoft Metashape software package was employed via its Python API.
 The choice of Agisoft Metashape was driven by its support for GCPs, the possibility to
 assign different a-priori weights to observations, and the availability of a Python API,
 enabling the software to be run from a Python routine in headless mode.
@@ -800,18 +755,15 @@ triangulated mesh.
 
 \subsection{Volume variation estimation}\label{sec:4:volumevariation}
 
-\begin{figure}
+\begin{figure}[ht]
 \centering
   \includegraphics[width=1.0\linewidth]{3_dod_scheme.png}
   \caption{Scheme of Dem of Difference (DOD) approach used to compute volume variations
     at the glacier terminal ice cliff.
-    Two point clouds built at epoch i and i+dt (we used dt=5 days to increase the
-    signal-to-noise ratio), were rasterized to a vertical Y-Z planes, with normals
-    parallel to the glacier flow direction (X direction).
+    Two point clouds built at epoch \textit{i} and \textit{i+dt} (we used dt=5 days to increase the signal-to-noise ratio), were rasterized to a vertical Y-Z planes, with normals parallel to the glacier flow direction (X direction).
     Before rasterization, the point clouds are clipped with the same convex polygon in
     the Y-Z plane (red line).
-    The colors of the grids represent the depth of each cell of the two rasters along the
-    X direction (i.e., the distance along X from a reference plane).
+    The colors of the grids represent the depth of each cell of the two rasters along the X direction (i.e., the distance along X from a reference plane).
     Volume variation was computed by DOD of the two rasters along X.}
   \label{fig:4:dod_scheme}
 \end{figure}
@@ -850,7 +802,7 @@ point clouds of the terminal ice cliff ranged from 90\% to
 
 To estimate volume variation and surface velocity, the point clouds were processed using
 pairs spaced 5 days apart.
-This interval was selected based on the available open-data acquired by Ioli et al. with
+This interval was selected based on the available open data acquired by Ioli et al. with
 historical aerial datasets and in-situ annual photogrammetric UAV surveys on the
 Belvedere Glacier between 1977 and 2022~\citep{Ioli2022,ioli_2023_zenodo,Degaetani2021}.
 Given a decimetric accuracy of the stereo point clouds (see the results presented
@@ -860,13 +812,13 @@ Therefore, each point cloud acquired on a particular day was compared to that ca
 5 days earlier for volume differences computation.
 However, in case of adverse weather conditions which hindered stereo reconstruction and
 resulted in the unavailability of a point cloud on a certain date, the closest one
-acquired within a range 5 to 7-days earlier was chosen as a substitute.
+acquired within a range of 5 to 7 days earlier was chosen as a substitute.
 This approach ensured a balance between preserving temporal resolution and minimizing
 data gaps caused by unfavorable weather conditions.
 
 To ensure consistency between volume variations and surface velocities, the same pairs of
 days utilized for estimating volume differences from point clouds were also employed for
-selecting pairs of images to compute surface velocities using DIC on monoscopic image
+selecting pairs of images to compute surface velocities using DIC on a monoscopic image
 sequences (see \secref{sec:4:dic}).
 
 \subsection{Automatic extraction of ice cliff top edge}
@@ -918,7 +870,7 @@ Moreover, assuming a zero-translation of the camera perspective centers, but onl
 rotations (\secref{sec:4:stability}), the transformation between the image plane at an
 arbitrary epoch with respect to a reference one (named \textit{master}) is
 described by a homography transformation.
-As master image, we adopted the image taken on 28/07/2022, which was
+As a master image, we adopted the image taken on 28/07/2022, which was
 coeval with the DSM built from the UAV-A survey.
 All the other images acquired were warped to be coregistered to the master image,
 by computing a homography transformation \(H\) (Eq.~\ref{eq:4:homography}):
@@ -931,7 +883,7 @@ by computing a homography transformation \(H\) (Eq.~\ref{eq:4:homography}):
 where \(K\) is the camera intrinsic matrix and \(R\) is the relative
 rotation between the image planes \citep{forstner2016}.
 The relative rotation \(R\) between the camera pose at a generic epoch and the pose of
-the master camera was known from the stereo processing.
+the master camera was known from stereo processing.
 
 The same image pairs used for volume  variation computation, spaced by a time lag of 5
 days, were selected for DIC~(\secref{sec:4:timelag}).
@@ -1258,21 +1210,21 @@ identify different domains, based on their morphology and kinematic behavior
         morainic side.
 \end{enumerate}
 
-\begin{figure*}
-  \includegraphics[width=\textwidth]{4_ts_velocities.png}
-  \caption{Time series of displacement extracted in the terminal part of the glacier
-    lobe. The red curves correspond to point P1, located at 10 m from the terminal ice cliff (considering the location of the terminal ice cliff on 28/07/2022), and the blue curves correspond to point P2 located 120 m far from the ice
-    cliff. The location of points P1 and P2 is marked in~\figref{fig:4:dic_results}.}
-  \label{fig:4:velocity_ts}
-\end{figure*}
-
-Compared to the glacier main body, the two latter domains moved at progressively lower
+Compared to the glacier's main body, the two latter domains moved at progressively lower
 rates, with the morainic talus showing the slowest velocity. Besides the kinematic
 regimes, these domains are clearly distinct due to long longitudinal fractures indicating
 displacement gradients. In the oblique images (\figref{fig:4:dic_results}c), it
 is possible to recognize other portions of the glacier outside the area of interest of
 this study, including a lower crevassed area and the icefall that feeds the glacier
 lobes.
+
+\begin{figure}[ht]
+  \includegraphics[width=\textwidth]{4_ts_velocities.png}
+  \caption{Time series of displacement extracted in the terminal part of the glacier
+    lobe. The red curves correspond to point P1, located at 10 m from the terminal ice cliff (considering the location of the terminal ice cliff on 28/07/2022), and the blue curves correspond to point P2 located 120 m far from the ice
+    cliff. The location of points P1 and P2 is marked in~\figref{fig:4:dic_results}.}
+  \label{fig:4:velocity_ts}
+\end{figure}
 
 We considered the displacement time series of two points on the glacier surface: one at
 10 meters from the frontal ice cliff at the end of the considered period (P1) and one in
@@ -1292,6 +1244,23 @@ The South-North velocity component is the highest, varying during the warm seaso
 to \SI{0.15}{\meter\per\day} (P2).
 The East-West component is approximately \SI{0.05}{\meter\per\day} lower, while the
 vertical component assumes smaller values, approximately \SI{0.03}{\meter\per\day}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.7\textwidth]{4_velocity_ortortect_uncertainty.png}
+  \caption{Uncertainty analysis of velocity vector orthorectification against possible
+    DSM variation. Blue boxes represent the difference between the velocity vectors
+    back-projected on the true DSM of 28/07/2022 and those back-projected on a simulated
+    DSM advanced downstream by 12m (as it was in May 2022).
+    Red boxes represent the difference between the true velocity vectors and those
+    obtained with a simulated DSM with the glacier front retreated 5 meters upstream
+    (as it was in November 2022).
+    \(v_E\), \(v_N\), \(v_z\), and \(v\) are respectively the three components in the
+    east, north, and height directions and the magnitude of the differences of the
+    velocity vectors.
+  }
+  \label{fig:4:velocity_ortortect_uncertainty}
+\end{figure}
 
 \subsection{Velocity orthorectification uncertainty}\label{sec:4:res_velocity_uncertainty}
 
@@ -1318,33 +1287,16 @@ East and North planimetric components \(v_E, v_N\) were similar and approximatel
 times higher than MAD\(_z\), while the normalized MADs of the velocity modules were
 \(5.2\%\) and \(2.6\%\) (advanced and retreated positions).
 
-\begin{figure}
-  \centering
-  \includegraphics[width=0.7\textwidth]{4_velocity_ortortect_uncertainty.png}
-  \caption{Uncertainty analysis of velocity vector orthorectification against possible
-    DSM variation. Blue boxes represent the difference between the velocity vectors
-    back-projected on the true DSM of 28/07/2022 and those back-projected on a simulated
-    DSM advanced downstream by 12m (as it was in May 2022).
-    Red boxes represent the difference between the true velocity vectors and those
-    obtained with a simulated DSM with the glacier front retreated 5 meters upstream
-    (as it was in November 2022).
-    \(v_E\), \(v_N\), \(v_z\), and \(v\) are respectively the three components in the
-    east, north, and height directions and the magnitude of the differences of the
-    velocity vectors.
-  }
-  \label{fig:4:velocity_ortortect_uncertainty}
-\end{figure}
-
-\subsection{Comparison between surface velocity, frontal ice loss and meteorological
-  variables}\label{sec:4:res_temp_comparison}
-
-\begin{figure*}
+\begin{figure}[ht]
   \centering
   \includegraphics[width=1\textwidth]{4_TS_P1.png}
   \caption{Time series of the daily volume loss due to the glacier terminus retreat,
     compared to the time series of glacier surface velocity extracted by monoscopic DIC at the location of point P1 (located close to the ice cliff terminus and marked with an orange triangle in~\figref{fig:4:dic_results}) and the 5-day smoothed time series air temperature measured by the AWS at the location marked in~\figref{fig:4:studyarea}.}
   \label{fig:4:TS_punto-fronte}
-\end{figure*}
+\end{figure}
+
+\subsection{Comparison between surface velocity, frontal ice loss and meteorological
+  variables}\label{sec:4:res_temp_comparison}
 
 We compared the time series of ice volume variation \(dV\), obtained with the stereo
 cameras, and the magnitude of the surface velocity \(v\) obtained by the monoscopic
