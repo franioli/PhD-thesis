@@ -1,7 +1,7 @@
 \graphicspath{{figures/chapter2/}}
 \onehalfspacing
 
-\chapter{Back to the past: reconstructing glacier topography with archival aerial images
+\chapter{Back to the Past: Reconstructing Glacier Topography with Archival Aerial Images
   (1977-2009)}\label{ch:2}
   
 \vfill
@@ -17,22 +17,22 @@ Sensing, 13(18), 3787. \url{https://doi.org/10.3390/rs13183787}
 \section{Introduction}\label{sec:2:introduction}
 
 To understand the long-term dynamics of an alpine glacier, gathering information from the past becomes mandatory. 
-Geomorphological studies particularly benefit from three-dimensional topographic representations, which allow for an accurate description of the topography surfaces and the quantification their variation over time~\citep{chandler1995steady}.
-Traditionally, image datasets acquired by metric cameras mounted onboard planes have been used to build maps through analytical stereoplotters and traditional photogrammetric techniques. 
+Geomorphological studies particularly benefit from three-dimensional topographic representations, which allow for an accurate description of the topography surfaces and the quantification of their variation over time~\citep{chandler1995steady}.
+Traditionally, image datasets acquired by metric cameras mounted onboard planes have been used to build maps through analytical stereo plotters and traditional photogrammetric techniques. 
 Image orientation experienced improvements with the incorporation of GNSS-INS sensors for precise camera positioning and orientation
 ~\citep{Forlani_pinto2001, jacobsen2004issues}.
 
 The emergence of digital photogrammetry in the late 1990s and the advent of automated methods for finding homologous points between images catalyzed a shift towards automated processing of large image collections. 
-Since then, photogrammetry became a widely used, cost- and time-effective approach for geoscience research~\citep{Lane2000}.
+Since then, photogrammetry has become a widely used, cost- and time-effective approach for geoscience research~\citep{Lane2000}.
 This transformation, coupled with the development of Structure-from-Motion (SfM) and Multi-View Stereo (MVS) algorithms, and the availability of affordable digital cameras, has established photogrammetry as an indispensable technique for geomorphological research and glacier monitoring.
 
 Despite millions of analog photographs documenting land surface change taken in the past century being available in historical archives, only a small fraction of these photographs have been digitally scanned and can be used with modern photogrammetric techniques. 
 Scanned historical aerial image archives allow for "going back in time” and derive accurate historical Digital Elevation Models (DEMs) and orthophotos for long-term measurements of surface change ~\citep{Micheletti2015}
 
-Examples of applications of historical archive photogrammetry for documenting geomorphological processes includes fluvial geomorphology~\citep{Bakker2017, lane2010quantification}, gravitational mass movement processes~\citep{chandler1995steady, walstra2007historical, schwab2008landsliding}, mapping and land cover estimation~\citep{Giordano2018} and permafrost and glacial processes~\citep{kaab2002monitoring, Kaufmann2003, keutterling2006monitoring, mondino2008multi, Fischer2011}.
+Examples of applications of historical archive photogrammetry for documenting geomorphological processes include fluvial geomorphology~\citep{Bakker2017, lane2010quantification}, gravitational mass movement processes~\citep{chandler1995steady, walstra2007historical, schwab2008landsliding}, mapping and land cover estimation~\citep{Giordano2018} and permafrost and glacial processes~\citep{kaab2002monitoring, Kaufmann2003, keutterling2006monitoring, mondino2008multi, Fischer2011}.
 
 Recently, several modern photogrammetric software packages, including Agisoft Metashape\footnote{\url{https://www.agisoft.com/}}, Pix4DMapper\footnote{\url{https://www.pix4d.com/product/pix4dmapper-photogrammetry-software/}}, ERDAS IMAGINE\footnote{\url{https://hexagon.com/products/imagine-photogrammetry}}, MicMac~\citep{rupnik2017micmac, Zhang2021} together with a recent sPyMicMac addition~\citep{McNabb2020} and NASA AMES Stereo Pipeline~\citep{Beyer2018}, have implemented support for processing archival images with fiducial marks defining the camera interior orientation. 
-Moreover, the Swiss Federal Office of Topography Swisstopo has recently digitalized, catalogued and published a large collection of grayscale and color historical aerial images on their website~\citep{Heisig2021}, representing a virtuosus example of promoting open data practices.
+Moreover, the Swiss Federal Office of Topography SwissTopo has recently digitalized, cataloged, and published a large collection of grayscale and color historical aerial images on their website~\citep{Heisig2021}, representing a virtuosus example of promoting open data practices.
 In this context, several authors employed modern photogrammetric techniques with historical archive images for reconstructing glaciers' 3D topography in the past, including 
 glaciers in Antartica~\citep{Child2021, Dahle2024}, North America\citep{Knuth2023} and in the Alpine region~\citep{Molg2017, poli2020use}.
 
@@ -63,7 +63,7 @@ The images were cataloged, and their metadata were organized in the SITAD (Siste
 % \citep{geoportlae_piem}.
 Upon request, CGR SpA digitized the images related to the Belvedere Glacier and provided them to the authors. 
 The analog films were digitized using a photogrammetric scanner with a resolution of \SI{21}{\micro\meter\per\pixel}. 
-The 2009 dataset was acquired with digital photogrammetric camera by CGR SpA for mapping purposes and was made available to the authors upon request.
+The 2009 dataset was acquired with a digital photogrammetric camera by CGR SpA for mapping purposes and was made available to the authors upon request.
 The most recent dataset, from 2019, was directly acquired by the authors using a fixed-wing UAV with a small and lightweight action camera mounted on board. A summary of the characteristics of the cameras and flights for each of the five datasets is presented in \tabref{tab:2:camera_summary}.
 
 \begin{table}
@@ -95,7 +95,7 @@ The most recent dataset, from 2019, was directly acquired by the authors using a
     \end{tabularx}
     
     \smallskip
-    \footnotesize{1 For analog images, pixel size and GSD refer to those of the digitalized images.}
+    \footnotesize{1 Pixel size and GSD of the analog images refer to those of the digitalized images.}
 \end{table}
 
 
@@ -104,24 +104,24 @@ The most recent dataset, from 2019, was directly acquired by the authors using a
 \begin{figure}
     \centering
     \subcaptionbox{\label{fig:2:datasets_historical:1977_block}}{
-        \includegraphics[height=4cm]{1977_block} \hfill
+        \includegraphics[height=5cm]{1977_block} \hfill
     } 
     \subcaptionbox{\label{fig:2:datasets_historical:1977_img}}{
-        \includegraphics[height=4cm]{1977_img}
+        \includegraphics[height=5cm]{1977_img}
     } \\
     \subcaptionbox{\label{fig:2:datasets_historical:1991_block}}{
-        \includegraphics[height=4cm]{1991_block} \hfill
+        \includegraphics[height=5cm]{1991_block} \hfill
     } 
     \subcaptionbox{\label{fig:2:datasets_historical:1991_img}}{
-        \includegraphics[height=4cm]{1991_img}
+        \includegraphics[height=5cm]{1991_img}
     } \\
     \subcaptionbox{\label{fig:2:datasets_historical:2001_block}}{
-        \includegraphics[height=4cm]{2001_block} \hfill
+        \includegraphics[height=5cm]{2001_block} \hfill
     } 
     \subcaptionbox{\label{fig:2:datasets_historical:2001_img}}{
-        \includegraphics[height=4cm]{2001_img}
+        \includegraphics[height=5cm]{2001_img}
     } \\
-    \caption{Historical datasets {\color{red} conclude caption}}
+    \caption{Historical datasets of \textbf{a,b} 1977, \textbf{c,d} 1991, \textbf{e,f} and 2001. For each dataset, a picture depicting the image acquisition geometry (left) and a sample of the scanned analog images (right) is presented.}
     \label{fig:2:datasets_historical}
 \end{figure}
 
@@ -131,7 +131,7 @@ a focal length of 153.26 mm. The flight consisted of three stripes performed at 
 altitude of 5600 m a.s.l., with approximately 60\% along-flight overlap and transversal
 overlap varying from 30\% to 60\% because the stripes were not parallel. A total of 11 RGB
 images were acquired (\figref{fig:2:datasets_historical:1977_block}). 
-Considering an average altitude of the glacier of \SI{2000}{\masl}, the scale of the images
+Considering the average altitude of the glacier of \SI{2000}{\masl}, the scale of the images
 was about 1:23,000, leading to an average ground
 sample distance (GSD) of 0.5 m. The camera reference system was materialized on the film
 with four fiducial marks placed at the four corners of the image. As is visible in \figref{fig:2:datasets_historical:1977_img},
@@ -146,7 +146,7 @@ GSD for the images of about 0.9 m. The along-flight overlap was approximately be
 70\% and 80\%, while the transversal overlap was about 50\%. As in the images of 1977, four
 fiducial marks allowed for the definition of the camera reference system (\figref{fig:2:datasets_historical:1991_img}).
 
-The most recent among the three historical datasets dated back to 2001. Images were
+The most recent among the three historical datasets dates back to 2001. Images were
 acquired with a film camera Wild RC30 equipped with a 15/4 UAG-S lens (focal length
 of 153.928 mm). The flight consisted of three stripes acquired between 06/09/2001 and
 11/09/2001, producing a total of ten RGB images with overlaps of ~70\% along flight and
@@ -155,38 +155,37 @@ altitude of about \SI{6100}{\masl}, while the central one was conducted at a low
 about \SI{4800}{\masl},, for an average of \SI{5800}{\masl}, The mean scale of the images was 1:23,000, producing a GSD of 0.5 m, comparable to that of the 1977 flight. 
 The camera reference frame was materialized by 8 fiducial marks, well identifiable on the digitalized images (\figref{fig:2:datasets_historical:1977_img}).
 
-Historical aerial images were digitalized by means of a photogrammetric scanner PhotoScan2000, developed by Z/I Imaging and Carl Zeiss, capable of scanning analog film rolls. 
+Historical aerial images were digitalized using a photogrammetric scanner PhotoScan2000, developed by Z/I Imaging and Carl Zeiss, capable of scanning analog film rolls. 
 The images were digitalized by CGR SpA with a resolution of 21 µm/px, producing eight-bit TIF 
 images with dimensions of \qtyproduct{12 098 x 11 144}{\pixel}. 
-To assess the quality of the digitalized images, the actual pixel size was computed as the average ratio of the distance (in millimeters) between the fiducail marks with the corresponding distance in pixel. The estimated pixel size was \qtyproduct{21 x 21}{\micro\meter} for each dataset, with a standard deviations of about three orders of magnitude less, in agreement with in agreement with the technical scanner specifications.
+To assess the quality of the digitalized images, the actual pixel size was computed as the average ratio of the distance (in millimeters) between the fiducial marks with the corresponding distance in pixel. The estimated pixel size was \qtyproduct{21 x 21}{\micro\meter} for each dataset, with a standard deviation of about three orders of magnitude less, in agreement with in agreement with the technical scanner specifications.
 
-\subsection{Digital aerial dataset of 2009}
-
-\begin{figure}
+\begin{figure}[ht]
     \centering
     \subcaptionbox{\label{fig:2:datasets_digital:2009_block}}[.35\textwidth]{
-        \includegraphics[height=4cm]{2009_block} \hfill
+        \includegraphics[height=5cm]{2009_block} \hfill
     } 
     \subcaptionbox{\label{fig:2:datasets_digital:2009_img}}[.6\textwidth]{
-        \includegraphics[height=4cm]{2009_img}
+        \includegraphics[height=5cm]{2009_img}
     } \\
     \subcaptionbox{\label{fig:2:datasets_digital:2019_block}}[.35\textwidth]{
-        \includegraphics[height=4cm]{2019_block} \hfill
+        \includegraphics[height=5cm]{2019_block} \hfill
     } 
     \subcaptionbox{\label{fig:2:datasets_digital:2019_img}}[.6\textwidth]{
-        \includegraphics[height=4cm]{2019_img}
+        \includegraphics[height=5cm]{2019_img}
     } \\
-    \caption{Digital datasets {\color{red} conclude caption and make better figs}}
+    \caption{Digital datasets of \textbf{a,b} 2009 (aerial), \textbf{c,d} 2019 (UAV). For each dataset, a picture depicting the image acquisition geometry (left) and a sample images (right) is presented.\textcolor{red}{Make better figs}}
     \label{fig:2:datasets_digital}
 \end{figure}
 
+\subsection{Digital aerial dataset of 2009}
 
 During October 2009, a flight over Belvedere Glacier was carried out by CGR SpA for mapping purposes. 
 This time, a digital photogrammetric camera was employed.
 A Z/I-Imaging DMC camera equipped with a 120 mm focal length lens and a CCD
-sensor with pixel size of 12 µm × 12 µm, acquiring RGB digital images at a resolution of
+sensor with a pixel size of 12 µm × 12 µm, acquiring RGB digital images at a resolution of
 7680 × 13,824 pixels, was mounted on an airplane. 
-Eleven images with along-flight and transversal overlaps of 70\% and 50\%, respectively, were gathered along two stripes with altitude between 5600 and 6000 m a.s.l~\figref{fig:2:datasets_digital}a-b). 
+Eleven images with along-flight and transversal overlaps of 70\% and 50\%, respectively, were gathered along two stripes with altitudes between 5600 and 6000 m a.s.l~\figref{fig:2:datasets_digital}a-b). 
 The average image scale was 1:32,000, and the GSD was 0.4 m.
 
 \subsection{Digital UAV dataset of 2019}
@@ -196,7 +195,7 @@ Belvedere Glacier carried out between 29/07/2019 and 02/08/2019~\citep{Ioli2022}
 A fixed-wing UAV Parrot Disco was adapted in such a way as to carry a low-cost and lightweight action
 camera, a HawkEye Firefly 8S. 
 The action camera was equipped with a 12 Mpx 1/2.3” CMOS sensor and had a pixel size of 1.34 µm × 1.34 µm and a focal length of 3.8 mm (90◦ field of view). 
-The flights were conducted at an average height of 120 m a.g.l. (above ground level), in agreement with Italian UAV regulations, and images were taken with longitudinal and transversal overlap of 80\% and 60\%, respectively (except for a small portion in the middle of the glacier with a slightly smaller transversal overlap of ~50\%; see \figref{fig:2:datasets_digital:2019_block}).
+The flights were conducted at an average height of 120 m A.G.L. (above ground level), in agreement with Italian UAV regulations, and images were taken with longitudinal and transversal overlap of 80\% and 60\%, respectively (except for a small portion in the middle of the glacier with a slightly smaller transversal overlap of ~50\%; see \figref{fig:2:datasets_digital:2019_block}).
 The average image scale was therefore approximately 1:32,000, and the GSD was 5 cm, one order of magnitude smaller compared to those of the aerial datasets. 
 Because of UAV technical limitations, the survey area was restricted to the glacier body only and five flights with the fixed-wing UAV were performed (\figref{fig:2:datasets_digital:2019_block})
 
@@ -208,18 +207,18 @@ of 50 cm × 50 cm polypropylene sheets with high color contrast, were deployed o
 survey area, anchored to large rocks on both the glacier and the moraines. Among the
 36 targets, 26 were used as ground control points (GCPs) and 10 as control points (CPs).
 The targets were measured on the field with a dual frequency (L1/L2) geodetic quality
-GNSS receiver Leica GS14. Because GSM internet connection was available in the lower
-part of the glacier, the targets were measured in nRTK with respect to the HxGN SmartNet
+GNSS receiver Leica GS14. Because a GSM internet connection was available in the lower
+part of the glacier, the targets were measured in nRTK relative to the HxGN SmartNet
 network of permanent stations. All the points measured in nRTK were occupied for ~10 s
-at 1 Hz of acquisition rate. In the upper part of the glacier, where nRTK was not possible,
+with 1 Hz acquisition rate. In the upper part of the glacier, where nRTK was not possible,
 the targets were measured by static positioning. For each of those points, carrier-phase
 raw observations were logged for a timespan of \SI{\sim 10}{\minute} (1 Hz sampling rate).
-These were postprocessed with respect to a local master station (Leica GPS1200) placed 
+These were postprocessed relative to a local master station (Leica GPS1200) placed 
 over a target located next to the Zamboni–Zappa hut (2070 m a.s.l.). 
 Coordinates of the master station were repeatedly measured in different years with both
 static and nRTK measurements, and accuracy on the order of 0.5 cm in planimetry and 2 cm 
 in height was obtained. 
-GNSS observations were postprocessed with the software Leica Infinity (version 3.2.0) in the
+GNSS observations were post-processed with the software Leica Infinity (version 3.2.0) in the
 official Italian reference system ETRF2000 at epoch 2008.0. The resulting accuracies of
 the coordinates of the GCPs were 1.5 cm in planimetry and 3 cm in height, in terms of
 average RMSE.
@@ -228,7 +227,7 @@ average RMSE.
 
 \subsection{Image Orientation and Point Cloud Generation}
 
-For image orientation and model reconstruction of all the datasets, the photogrammetric software Agisoft Metashape (version 1.7.2) was employed. A sketch of the followed
+For image orientation and model reconstruction of all the datasets, the photogrammetric software Agisoft Metashape (version 1.7.2) was employed. A sketch of the following
 workflow is provided in \figref{fig:2:workflow}
 
 \begin{figure}
@@ -253,23 +252,23 @@ workflow is provided in \figref{fig:2:workflow}
     \label{fig:2:gcp}
 \end{figure}
 
-Concerning the most recent UAV survey, that from 2019, the 1486 images were oriented by traditional aerial triangulation on the basis of 26 targets spread over the survey
-(Figure 8) area used as GCPs in the Bundle Block Adjustment (BBA). The
-GCPs were manually collimated on the images. A collimation accuracy of 1 px was assumed as the a priori standard deviation of the observations within the BBA. Tie Points
-(TPs) were automatically detected and matched by Metashape on full resolution images.
+Concerning the most recent UAV survey, that from 2019, the 1486 images were oriented by traditional aerial triangulation based on 26 targets spread over the survey
+\figref{fig:2:gcp} area used as GCPs in the Bundle Block Adjustment (BBA).
+The GCPs were manually collimated on the images.
+A collimation accuracy of 1 px was assumed as the a priori standard deviation of the observations within the BBA. 
+Tie Points (TPs) were automatically detected and matched by Metashape on full-resolution images.
 Camera Internal Orientation (IO) parameters of the Hawkeye Firefly 8S action camera was
-estimated during the BBA by self-calibration. To this end, approximated values of IO
-were precalibrated by using a traditional checkerboard. However, these initial values were
-adjusted for each flight because of the internal instability of the camera and thanks to the
-high density of the GCPs available
+estimated during the BBA by self-calibration. 
+To this end, approximated values of IO were precalibrated by using a traditional checkerboard. 
+However, these initial values were adjusted for each flight because of the internal instability of the camera and thanks to the high density of the GCPs available
 
 Regarding the 2009 digital dataset, the Z/I-Imaging DMC system included high precision GNSS/INS instrumentation able to provide the camera External Orientation (EO) \citep{Hinz2001}. 
 The coordinates of the camera projection centers were provided with an accuracy of 30 cm, while the camera attitude angles had an accuracy of 8 mgon for roll and pitch angles and 10 mgon for yaw \citep{Forlani_pinto2001}.
-In order to improve the quality of the photogrammetric block within a small area such as that of Belvedere Glacier, 11 features clearly identifiable on the images (e.g., sharp rocks) were used as GCPs. 
+To improve the quality of the photogrammetric block within a small area such as that of Belvedere Glacier, 11 features identifiable on the images (e.g., sharp rocks) were used as GCPs. 
 Their coordinates were retrieved from the 2019 model, which has a significantly higher spatial resolution (\tabref{tab:2:camera_summary}). 
 EO of the images was estimated through Assisted Aerial Triangulation (AAT) \citep{ioli2021_lowcost_dgps}. 
 The BBA was solved by combining GNSS/INS information with TPs automatically detected by the software and 11 GCPs, manually collimated on the images. 
-The quality of the photogrammetric model was assessed by means of 6 Check Points (CP) not used to solve the BBA. 
+The quality of the photogrammetric model was assessed employing 6 Check Points (CP) not used to solve the BBA. 
 
 \begin{figure}
     \centering
@@ -279,22 +278,22 @@ The quality of the photogrammetric model was assessed by means of 6 Check Points
     \subcaptionbox{\label{fig:2:gcp_examples:natural}}[\textwidth]{
         \includegraphics[height=4cm]{natural_gcps}
     }
-    \caption{Examples of points chosen as GCPs or CPs: (a) artificial features in 1977, 1991 and 2001 aerial images, respectively; (d) natural features in 1977, 1991 and 2001 aerial images, respectively.}
+    \caption{Examples of points chosen as GCPs or CPs: (a) artificial features in 1977, 1991, and 2001 aerial images, respectively; (d) natural features in 1977, 1991, and 2001 aerial images, respectively.}
     \label{fig:2:gcp_examples}
 \end{figure}
 
 After the digitalization, the three historical datasets were oriented by aerial triangulation based on the 2009 block. The coordinates of nine GCPs (marked with numbers 1 to 9 in \figref{fig:2:gcp}) and eight CPs (marked with letters A to H), well distributed over the whole area, were retrieved from the aerial images acquired with the DMC digital photogrammetry system.
-Points such as buildings edges, corners, sharp rocks along the glacier moraines and particular morphological patterns that remained reasonably unchanged over time were selected in such a way as to be clearly identified in most of the four datasets (1977, 1991, 2001 and 2009), as shown in \figref{fig:2:gcp_examples}).
-Note that it was not always possible to identify the same point in all four of the datasets because of the different image scales, different image quality (e.g., RGB versus grayscale images) or changes in the morphology over 30 years. Therefore, if one point was not visible in one dataset, another one was searched nearby. To clarify, if one point (e.g., Point 2) was not found in images from 1991, then another feature, named Point 2b, was searched for close to the original location of Point 2 in the 2009 images and used as GCP for the 1991 dataset. However, in the statistics, Points 2 and 2b were considered as one single point because of their spatial proximity.
-The GCPs used to solve the BBA of the three historical datasets were properly weighted with their variance. An accuracy of 0.75 px was assumed as the collimation accuracy for a human operator dealing with high-quality digital images such as those from 2009. This assumption was confirmed by the image reprojection error of the manually collimated points, which was always smaller than one pixel. Therefore, an a priori accuracy of 0.3 m was given to the GCPs in the three datasets from 1977, 1991 and 2001.
+Points such as buildings edges, corners, sharp rocks along the glacier moraines, and particular morphological patterns that remained reasonably unchanged over time were selected in such a way as to be clearly identified in most of the four datasets (1977, 1991, 2001, and 2009), as shown in \figref{fig:2:gcp_examples}).
+Note that it was not always possible to identify the same point in all four of the datasets because of the different image scales, different image quality (e.g., RGB versus grayscale images), or changes in the morphology over 30 years. Therefore, if one point was not visible in one dataset, another one was searched nearby. To clarify, if one point (e.g., Point 2) was not found in images from 1991, then another feature, named Point 2b, was searched for close to the original location of Point 2 in the 2009 images and used as GCP for the 1991 dataset. However, in the statistics, Points 2 and 2b were considered as one single point because of their spatial proximity.
+The GCPs used to solve the BBA of the three historical datasets were properly weighted with their variance. An accuracy of 0.75 px was assumed as the collimation accuracy for a human operator dealing with high-quality digital images such as those from 2009. This assumption was confirmed by the image reprojection error of the manually collimated points, which was always smaller than one pixel. Therefore, an a priori accuracy of 0.3 m was given to the GCPs in the three datasets from 1977, 1991, and 2001.
 
-Concerning the camera interior orientation, the three analog cameras were calibrated in laboratory by the producer, and calibration certificates were available. Therefore, the calibrated value of focal length and the coordinates of the principal point were provided as initial values in the BBA. These were then adjusted based on the GCPs by using a self-calibration procedure \citep{jacobsen2004issues}. Additionally, two radial (k1 and k2) and tangential (p1 and p2) distortion parameters were estimated in order to correct the lens distortions of the photogrammetric cameras and the distortion introduced by external factors, e.g., the deterioration of the films over the years.
+Concerning the camera interior orientation, the three analog cameras were calibrated in the laboratory by the producer, and calibration certificates were available. Therefore, the calibrated value of focal length and the coordinates of the principal point were provided as initial values in the BBA. These were then adjusted based on the GCPs by using a self-calibration procedure \citep{jacobsen2004issues}. Additionally, two radial (k1 and k2) and tangential (p1 and p2) distortion parameters were estimated in order to correct the lens distortions of the photogrammetric cameras and the distortion introduced by external factors, e.g., the deterioration of the films over the years.
 
-After BBA, georeferenced dense point clouds (PCs) were computed (a downscale factor of 2 was set to make the PCs more manageable) and used as starting point for glacier analyses. 
+After BBA, georeferenced dense point clouds (PCs) were computed (a downscale factor of 2 was set to make the PCs more manageable) and used as a starting point for glacier analyses. 
 
 
 \subsection{Point cloud pre-processing}{\label{sec:2:pcd_preproc}}
-The obtained point clouds referring to the different surveys required some additional preprocessing aimed at making them consistent for further analyses, both in term of spatial resolution and coverage area.
+The obtained point clouds referring to the different surveys required some additional preprocessing aimed at making them consistent for further analyses, both in terms of spatial resolution and coverage area.
 The point clouds were initially rasterized by using CloudCompare (v2.12 alpha).
 East–North gridded data with 0.5 m grid spacing were derived by averaging the height of the points falling inside each cell. 
 Empty cells were initially filled with null values.
@@ -306,13 +305,13 @@ Empty cells were initially filled with null values.
     \label{fig:2:pcd_rasterzed}
 \end{figure}
 
-The rasterized DSM were then manipulated in the MATLAB (R2020a) environment.
+The rasterized DSM was then manipulated in the MATLAB (R2020a) environment.
 As the coverage area of the surveys is significantly different, the first step was to automatically detect the valid area for each photogrammetric DSM. 
-This was carried out defining first a binary mask with 1 value in correspondance of non-null cells of the DSM. 
-The mask was then blurred by iterative convolutions with a kernel representing a circular box (10 m of radius) and assigning unitary value to resulting cells with values greater than 0, until no voids were present in the inner area.
-By applying the converse procedure (i.e., blurring with the same kernel and assigning 0 to resulting cells with values smaller than 1) for the same number of iterations, a binary mask defining the valid surveyed area was obtained.
+This was carried out by defining first a binary mask with 1 value in correspondence of non-null cells of the DSM. 
+The mask was then blurred by iterative convolutions with a kernel representing a circular box (10 m of radius) and assigning unitary value to resulting cells with values greater than 0 until no voids were present in the inner area.
+By applying the converse procedure (i.e., blurring with the same kernel and assigning 0 to the resulting cells with values smaller than 1) for the same number of iterations, a binary mask defining the valid surveyed area was obtained.
 Finally, empty cells of initial rasterized DSM within the valid surveyed area were filled via triangulation-based bi-dimensional linear interpolation
-As result, gridded point clouds at a consistent resolution of 0.5 m were obtained for all five surveys (\figref{fig:2:pcd_rasterzed}).
+As a result, gridded point clouds at a consistent resolution of 0.5 m were obtained for all five surveys (\figref{fig:2:pcd_rasterzed}).
 
 \begin{figure}[ht]
     \centering
@@ -321,32 +320,32 @@ As result, gridded point clouds at a consistent resolution of 0.5 m were obtaine
     \label{fig:2:glacier_masks}
 \end{figure}
 
-To compare DSM from different surveys, now at a consistent spatial resolution (0.5 m), a common mask referring the glacier body only and excluding surrounding areas was required.
+To compare DSM from different surveys, now at a consistent spatial resolution (0.5 m), a common mask referring to the glacier body only and excluding surrounding areas was required.
 To this end, the five binary masks defining the valid areas of each survey were superimposed and only fully overlapped cells were considered (\figref{fig:2:glacier_masks}b).
 For the identification of the glacier body boundaries, a data-driven approach was pursued. 
 In fact, low or even null altitude variability over time was expected in the surrounding areas, while cells referring to the glacier body were expected to show detectable changes in altitude. 
 \figref{fig:2:glacier_masks}c shows the binary mask representing the cells for which the height difference between consecutive survey epochs was greater than 10 m. 
-The shape of the glacier body is clearly recognizable. 
-This mask was then refined by applying the same iterative procedure previously presented for the valid area identification, which first removed isolated areas and cleaned glacier borders (\figref{fig:2:glacier_masks}d) and then applied a buffer around it so as to also comprise lateral moraines expected to remain almost unchanged over time (\figref{fig:2:glacier_masks}e). 
+The shape of the glacier's body is recognizable. 
+This mask was then refined by applying the same iterative procedure previously presented for the valid area identification, which first removed isolated areas and cleaned glacier borders (\figref{fig:2:glacier_masks}d) and then applied a buffer around it to also comprise lateral moraines expected to remain almost unchanged over time (\figref{fig:2:glacier_masks}e). 
 The obtained final glacier mask (now covering about a surface of \SI{1.78}{\kilo\meter\squared}) was then applied to the interpolated DSMs.
 
 \subsection{Glacier evolution analysis}{\label{sec:2:glacier_evolution}
 
-The final masked DSMs allowed spatial analyses of the glacier surface by comparing the measured altitude variations, quantifying volume variations and evaluating the long-term morphology evolution from 1977 to 2019. 
-First, the DSMs were analyzed in absolute terms, i.e., in terms of their altitude variability range and the spatial distribution of areas classified on the basis of their measured altitude. 
+The final masked DSMs allowed spatial analyses of the glacier surface by comparing the measured altitude variations, quantifying volume variations, and evaluating the long-term morphology evolution from 1977 to 2019. 
+First, the DSMs were analyzed in absolute terms, i.e., in terms of their altitude variability range and the spatial distribution of areas classified based on their measured altitude. 
 
-Additionally, to quantify the different effects of accumulation and ablation processes on Belvedere Glacier during time, relative comparisons were conducted.
+Additionally, to quantify the different effects of accumulation and ablation processes on Belvedere Glacier over time, relative comparisons were conducted.
 Because the different DSMs were georeferenced and made consistent in terms of spatial resolution, volume variations could be computed by Dem of Difference (DoD).
-Cumulate volume variations were obtained, taking the 1977 DSM as reference, while average annual volume losses/gains were obtained in the considered periods.
+Cumulate volume variations were obtained, taking the 1977 DSM as a reference, while average annual volume losses/gains were obtained in the considered periods.
 
 \section{Results}\label{sec:2:results}
 
 \subsection{Image Orientation and Point Cloud Generation}\label{sec:2:res_reconstruction}
 
-On the basis of the considered CPs, different model accuracies were obtained. 
+Based on the considered CPs, different model accuracies were obtained. 
 The accuracy of the three historical models was assessed by using eight CPs, distributed mainly along the glacier moraines (see Figure 8). 
 Six CPs were used for the 2009 dataset. As reported in Figure 10, the 1977 and 1991 models obtained global RMSEs of about 0.66 m and 0.74 m, respectively, while the 2001 and 2009 models obtained similar RMSEs of about 0.38 m.
-In all cases, these values were comparable to the average GSD of the aerial images. Regarding the 2019 survey, the model accuracy was assessed by 10 CPs, resulting in a RMSE error of 0.17 m, comparable to three times the GSD. 
+In all cases, these values were comparable to the average GSD of the aerial images. Regarding the 2019 survey, the model accuracy was assessed by 10 CPs, resulting in an RMSE error of 0.17 m, comparable to three times the GSD. 
 This was due to the low quality of the camera employed. 
 Nevertheless, as the GSD was on the order of magnitude of the centimeter, the model accuracy was still higher than that of the older flights.
 
@@ -379,7 +378,7 @@ While the PC size was strictly related to the survey coverage, the PC average de
 
 Based on the preliminary processing described in \secref{sec:2:pcd_preproc}, reliable estimates of surveyed surface coverage and average density of the original point clouds were quantified (\tabref{tab:2:pcd_surface_coverage}.
 Surface coverage was obtained by multiplying the number of nonzero values of the binary masks of the valid area of each survey and the DSM cell size (0.25 m2). 
-The ratio between the number of nonempty cells in the original and interpolated DSMs provided an indication of the average data density of the point clouds in the considered surveyed areas. 
+The ratio between the number of nonempty cells in the original and interpolated DSMs indicated the average data density of the point clouds in the considered surveyed areas. 
 
 \begin{table}[ht]
   \centering
@@ -396,16 +395,16 @@ The ratio between the number of nonempty cells in the original and interpolated 
 \end{table}
 
 The numbers in Table \tabref{tab:2:pcd_surface_coverage} allow evaluating the impact of the chosen grid spacing when gridding the point clouds. 
-With 0.5 m grid spacing, the 2019 survey (that is the most detailed one) required few empty cells to be interpolated, about 6\%, thus closely fully exploiting its high spatial resolution. 
+With 0.5 m grid spacing, the 2019 survey (that is the most detailed one) required a few empty cells to be interpolated, about 6\%, thus closely fully exploiting its high spatial resolution. 
 A finer grid would require increasing the number of interpolated cells (and thus increasing the required memory allocation for matrix manipulation), without adding information, in particular for the historical surveys.
-On the other hand a coarser resolution would require downsampling the surveyed detailed DSM, potentially losing finer details. 
+On the other hand, a coarser resolution would require downsampling the surveyed detailed DSM, potentially losing finer details. 
 With the chosen grid spacing, the minimum amount of interpolation was needed, while the full potential of more recent and detailed surveys was preserved. 
 Furthermore, the surface coverage of the different surveys was quite different, introducing the second aspect to be addressed to complete the required preprocessing of the point clouds.
 
 \subsection{Glacier evolution analysis}{\label{sec:2:res_glacier_evolution}
 
-The minimum and maximum altitudes of the glacier extracted from each DSMs is shown in \tabref{tab:2:glacier_altitudes}.
-The minimum values were all between 1820 m and 1826 m, the while maximum values ranged between about 2339 m and 2385 m. 
+The minimum and maximum altitudes of the glacier extracted from each DSM is shown in \tabref{tab:2:glacier_altitudes}.
+The minimum values were all between 1820 m and 1826 m, while maximum values ranged between about 2339 m and 2385 m. 
 The stability of the minimum values can be justified by the area masking. 
 Minimum altitudes likely occurred in the vicinity of the glacier terminus, and the mask buffering could have comprised points surveyed at the terminal lobes.
 On the other hand, the variability of the maximum glacier heights likely occurred closer to mountainous peaks along the surveyed glacier accumulation area, located in the SW region of the mask, where mass balance can benefit from events such as avalanches or particular meteorological conditions immediately before the epoch of the surveys.
@@ -432,9 +431,9 @@ On the other hand, the variability of the maximum glacier heights likely occurre
 \end{figure}
 
 \figref{fig:2:results_contour} presents glacier contour altitudes between 1800 and 2400 m, so as to comprise the maximum altitude range measured by the five surveys with a contour interval of 50m.
-With respect to the 1977 DSM (\figref{fig:2:results_contour}a), 1991 DSM cells classified in the range 2200–2400 m remained almost unchanged while the following contour lines gradually moved toward a valley, clearly indicating a mass accumulation (\figref{fig:2:results_contour}b).
+Compared to the 1977 DSM (\figref{fig:2:results_contour}a), 1991 DSM cells classified in the range 2200–2400 m remained almost unchanged while the following contour lines gradually moved toward a valley, clearly indicating a mass accumulation (\figref{fig:2:results_contour}b).
 The following 2001 survey showed a continuation in these areas of the trend of increasing altitude toward the glacier terminus, but an altitude decrease was observed in the SW cells of the accumulation area (note the extension of the altitude class 2200–2250 m in \figref{fig:2:results_contour}c), and cells of the highest altitude class were practically absent (see \tabref{tab:2:glacier_altitudes}). 
-The 2009 DSM showed totally different behavior (\figref{fig:2:results_contour}d). 
+The 2009 DSM showed different behavior (\figref{fig:2:results_contour}d). 
 Lower contour lines retreated toward peaks, approximately in the same location as in 1977, while the 2150–2200 m range greatly retreated and covered a large part of the glacier toward the accumulation area.
 The most recent 2019 DSM (\figref{fig:2:results_contour}e) again showed a general retreat trend of lower contour lines, with no sharp transition in the range of 2100–2200 m (probably due to high surface ablation phenomena) and no great variation in the remaining areas in the range of 2200–2350 m.
 
@@ -453,13 +452,20 @@ The most recent 2019 DSM (\figref{fig:2:results_contour}e) again showed a genera
   \end{tabular}
 \end{table}
 
-Volume variations obtained by DoD is shown in \tabref{tab:2:glacier_volume_variations}.
+Volume variations obtained by DoD are shown in \tabref{tab:2:glacier_volume_variations}.
 Cumulated volume variations are computed taking into account the 1977 DSM as a reference.
-The numbers in \tabref{tab:2:glacier_volume_variations} confirm what was found by analyzing the glacier contours variations, but from a different perspective. 
-In the period 1977–2001, the glacier’s volume increased by about \SI[retain-explicit-plus]{+20.66e6}{\cubic\meter}, and its rate of volume gain increased by about 50\% in the period 1991–2001 (from \SI[retain-explicit-plus]{+0.72e6}{\cubic\meter\per\year} to \SI[retain-explicit-plus]{+1.06e6}{\cubic\meter\per\year}). 
-The period 2001–2019 revealed an important reduction of glacier volume.
-In the period 2001–2009, the average yearly volume decrease was \SI{-5.97e6}{\cubic\meter\per\year}, bringing the volume down to \SI{-27.12e6}{\cubic\meter} with respect to the initial volume recorded in 1977 despite the volume accumulation in the previous period.
-In the following period, between 2009 and 2019, the trend remained negative but was less severe (\SI{-2.72e6}{\cubic\meter\per\year}), resulting in a total loss of \SI{-54.28e6}{\cubic\meter} in the considered 42 years, from 1977 to 2019.
+The numbers in \tabref{tab:2:glacier_volume_variations} confirm what was found by analyzing the glacier contour variations but from a different perspective. 
+
+Between 1977 and 2001, the glacier’s volume increased substantially by \SI[retain-explicit-plus]{+20.66e6}{\cubic\meter}.
+Notably, the rate of expansion accelerated period 1991-2001.
+During this period, the glacier gained volume 50\% faster than the previous decade, increasing from \SI[retain-explicit-plus]{+0.72e6}{\cubic\meter\per\year} to \SI[retain-explicit-plus]{+1.06e6}{\cubic\meter\per\year}.
+The glacier expansion continued up to the end end of the surge event of 2000-2002 \citep{Haeberli2002, Kaab2004, Mortara2009}.
+
+Since 2001, the glacier has undergone severe retreat, losing a total of \SI{-74.94e6}{\cubic\meter} of ice volume between 2001 and 2019.
+From 2001 to 2009, the average yearly volume decrease was \SI{-5.97e6}{\cubic\meter\per\year}, reducing the volume by \SI{-27.12e6}{\cubic\meter} relative to the initial 1977 measurement, despite prior accumulation.
+
+While the negative trend persisted from 2009 to 2019, the rate of loss slowed (\SI{-2.72e6}{\cubic\meter\per\year}).
+Over the 42-year observation period (1977-2019), the glacier experienced a net loss of \SI{-54.28e6}{\cubic\meter}.
 
 \begin{figure}
     \centering
@@ -471,15 +477,18 @@ In the following period, between 2009 and 2019, the trend remained negative but 
 The reported volume gains or losses refer to the whole glacier surface, but it could be interesting to investigate local variations. 
 \figref{fig:2:volume_variations} classifies glacier areas in terms of altitude variation, with contour intervals of 25 m. 
 In the first considered period, from 1977 to 1991, the volume increase was quite distributed. 
-Glacier terminus advancement was clearly visible, and volume decrease was measured in small portions at higher altitudes. 
+Glacier terminus advancement was visible, and volume decrease was measured in small portions at higher altitudes. 
 The following period, 1991–2001, saw an important volume accumulation in the central part of the glacier, which was partially counterbalanced at higher altitudes. 
 The following periods showed general volume loss, which was particularly important between 2001 and 2009 in the higher portion and was distributed until the terminus (see the northern one) in the period 2009–2019.
 
-\section{Discussion\textcolor{red}{Update}}\label{sec:2:discussion}
+\subsection{Comparison with previous studies}
 
-\textcolor{red}{ADD COMMENTS ON SURGE AND COMPARISON WITH OTHER STUDIES!}
-
-This work analyzed the evolution of the Belvedere Glacier by means of SfM techniques applied to digitalized historical aerial images combined with more recent digital surveys, either from aerial platforms or UAVs. This allowed the monitoring of the Belvedere Glacier with high resolution and geometrical accuracy over a long span of time, which is crucial for this application. Digital surface models of the area surrounding the glacier were produced on the basis of five different surveys conducted at the epochs 1977, 1991, 2001, 2009 and 2019 with different ground resolutions and accuracies, which for the most recent survey even reached the decimeter level. First, DSMs were made comparable by producing georeferenced raster images at equal spatial resolution (with common cell size of 0.5 m). Then, proper masks focusing on the glacier surface were determined by following a data-driven approach and exploiting common image processing techniques. This preprocessing led to the determination of glacier altitude and volume variations during the considered time span, sampled about every 10 years. Volume gains/losses were clearly identified and, more importantly, quantified. In the period 1977–2019, a loss of about 54 million m3 was computed, but the trend of these losses was far from linear. In the first half of the considered period, the glacier increased its volume and extent, accelerating this phenomenon in the second period. In the second half, a sudden glacier retreat began, particularly severe in the first decade of the current century, that almost totally compensated the volume increase of the previous 20 years. In the last period, the retreat continued, bringing us the current state of the glacier with thickness reduced by tenths of meters, particularly at higher altitudes. Without the use of historical aerial acquisitions, such long-term analyses would have suffered from a lack of data referring to less recent epochs that was suitable to be processed and made consistent with most recent technologies. This proved how the availability of such data is a remarkable heritage for glaciological studies.
+Several studies focused on understanding and quantifying Belvedere Glacier dynamics. 
+\cite{Diolaiuti2003} digitalized two large-scale topographic maps to interpolate DSMs and estimate volume variations between 1957 and 1991. 
+They found a positive volume difference of \SI{+22.7e6}{\cubic\meter}, which translates to an average rate of \SI{\sim0.69e6}{\cubic\meter\per\year} (assuming a linear volume variation between 1957 and 1991). 
+This is in line with the yearly volume variation rate estimated in this study between 1977 and 1997 equal to \SI{+0.72e6}{\cubic\meter\per\year}.
+The results obtained by \cite{Diolaiuti2003} agrees with those obtained by \cite{Roethlisberger1985}, who estimated an increase of the glacier height of 
+\SI{+1.5}{\meter\per\year} between 1983 and 1985.
 
 % References
 \makechapterbibliography{}

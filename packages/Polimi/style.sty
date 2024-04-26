@@ -6,15 +6,16 @@
 \universitystate{Italy}
 
 % School color found from university's graphic identity site:
-\definecolor{SchoolColor}{rgb}{0.4, 0.6, 0.8}
-\definecolor{chaptergrey}{rgb}{0.6471, 0.1098, 0.1882} % for chapter numbers
+\definecolor{SchoolColor}{RGB}{20, 126, 209} % Light blue
+\definecolor{chaptergrey}{RGB}{20, 126, 209} % for chapter numbers
+\definecolor{LinkColor}{RGB}{20, 89, 144} % for links
 
 \hypersetup{
     colorlinks,
-    citecolor=SchoolColor,
-    filecolor=black,
     linkcolor=black,
-    urlcolor=SchoolColor,
+    urlcolor=LinkColor,
+    citecolor=LinkColor,
+    filecolor=black,
 }
 
 % Formatting guidelines found in:
@@ -79,7 +80,7 @@
 	\noindent \textsc{Examination Board} \\
 	\textbf{\@reviewerA}, examiner \\
 	\textbf{\@reviewerB}, examiner \\
-	% \textbf{\@reviewerC}, examiner
+	\textbf{\@reviewerC}, examiner
 	\vspace{40pt} \\
 	\@university\\
 	\@department\\

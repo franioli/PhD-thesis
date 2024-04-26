@@ -14,7 +14,14 @@
 \newpage
 
 \section{Introduction\textcolor{red}{TODO}}
-
+{\color{red}
+\begin{itemize}
+    \item Why it is important to implement a multi-camera system
+    \item Which are the challenges and the advantages
+    \item Motivate Deep-Image-Matching because no existing library allows for multi-view matching with DL features for complex scenarios
+    \item Showcase few case studies with DIM in complex scenarios and test case with UAV images on belvedere (simulate third camera)
+\end{itemize}
+}
 
 \section{Image matching in challenging scenarios\textcolor{red}{TODO}}
 
@@ -96,11 +103,11 @@ $ p = C(n,2) = \frac{n*\left(n-1\right)}{2}$, where $p$ is the number of pairs.
 
 For image sequences acquired in order by a moving camera, (e.g., VSLAM), the sequential strategy offers optimized efficiency by matching each image with a defined number of subsequent images. The overlap parameter defines the number of consecutive images to match sequentially (see Fig. XXy) and the computational complexity is given by $p = \left(n-O\right) * O $, where $O$ is the overlap parameter.
 
-The matching\textunderscorelowres strategy enhances computational efficiency by initially analyzing downsampled images to pre-filter pairs based on valid matches detected at lower resolution and considered as inliers after a geometric verification. By default, the minimum number of valid matches is 20 but it can be tuned by the user. 
+The \texttt{matching\char`_lowres } enhances computational efficiency by initially analyzing downsampled images to pre-filter pairs based on valid matches detected at lower resolution and considered as inliers after a geometric verification. By default, the minimum number of valid matches is 20 but it can be tuned by the user. 
 
 The retrieval strategy allows to use global features to determine the pairs of images that are likely to see the same scene. Global features encode the full images into a neural network and therefore they are widely used to takle visual place recognition problems (cit). DIM makes use of hloc (cit) for extracting and matching global features and it supports NetVLAD (CIT), openIBL (CIT), and CoSpace (CIT) global features.  
 
-Finally, the custom\textunderscorepairs option grants users precise control over the matching process, allowing the specification of exact image pairs via a text file. This enables tailored workflows for specific research objectives. 
+Finally, the \texttt{custom\char`_pairs} option grants users precise control over the matching process, allowing the specification of exact image pairs via a text file. This enables tailored workflows for specific research objectives. 
 
 % Image matching plays a pivotal role in Structure-from-Motion (SfM), Visual Odometry (VO), simultaneous localization and mapping (SLAM), and various photogrammetric applications. Although traditional hand-crafted local features, such as SIFT (Lowe, 2004) and ORB (Rublee et al., 2011), have facilitated automatic keypoint extraction and matching, these methods have limitations when dealing with significant viewpoint and radiometric variations. These challenging situations can occur in cultural heritage image datasets, for example, when matching historical images with contemporary dataset for valorization projects based on virtual/augmented reality (Maiwald et al., 2021; Morelli et al., 2022) or multitemporal aerial datasets (Zhang et al., 2021; Farella et al., 2022). Typically, in these scenarios the number of historical images is often limited and presents strong variations in viewpoint and radiometric appearance.
 % Over the last decade, there has been a proliferation of deep learning (DL) approaches for feature extraction and matching (Chen et al., 2021; Jin et al. 2021; Yao et al., 2021) that aim to overcome these limitations and they have demonstrated resilience against varying illumination conditions, multi-temporal datasets, wide baselines, and significantly different view angles. Recently, several works have proved the effectiveness of DL approaches in challenging scenarios, including glacier monitoring with wide camera baselines (Ioli et al., 2023a, Ioli et al., 2023b), multi-temporal image matching (Maiwald et al., 2023), multi-temporal co-registration problems (Maiwald et al., 2021; Morelli et al., 2022), VO and SLAM (Morelli et al., 2023), aerial triangulation (Remondino et al., 2022) and in terrestrial laser scanning point cloud registration (Markiewicz et al., 2023). However, well known limitations of DL approaches are their computational complexity, limited scale and rotation invariance of the descriptors and their application on high-resolution images.

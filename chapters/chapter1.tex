@@ -29,7 +29,12 @@ In particular, glaciers serve as critical as crucial freshwater reservoirs and t
 Additionally, glacier melting and retreat are triggering several glaciological processes, e.g., ice break-off, glacier outburst, snow/ice avalanches, and gravitational slope stability processes, such as rockfalls and collapses, and debris flow, which can threaten the population, urban areas or infrastructure of the nearby areas~\citep{Kaab2004, Deline2015, Giordan2020}.
 In the European Alps, the number of mass movements and hazardous events in high-elevations environments has experienced an increase in the past decade due to climate change~\citep{chiarle2023, Nigrelli2024}.
 
-A relevant and tragic example was the collapse of a section of the Marmolada Glacier (Dolomites, Italy), which occurred on 3 July 2022 at 13:43:20 CEST\footnote{\url{https://www.theguardian.com/world/2022/jul/03/deaths-glacier-breaks-marmolada-mountain-italy}}. 
+A relevant and tragic example was the collapse of a section of the Marmolada Glacier 
+\marginpar[Note 1]{
+    \includegraphics[width=\marginparwidth]{dummy_qr}
+    \textcolor{red}{test for a lateral note for qr code}
+}
+(Dolomites, Italy), which occurred on 3 July 2022 at 13:43:20 CEST\footnote{\url{https://www.theguardian.com/world/2022/jul/03/deaths-glacier-breaks-marmolada-mountain-italy}}. 
 The collapse caused an ice avalanche that killed 11 mountaineers trying to reach the Marmolada summit and injured 7~\citep{Olivieri2023, Bondesan2023}.
 The collapse occurred on the northern slope of the glacier at an elevation of \SI{3213}{\masl} and involved a volume of \SI{\sim 96000}{\cubic\meter}~\citep{Olivieri2023}.
 The detachment was caused by a failure along a median crevasse, partially filled by meltwater due to highly anomalous temperatures, that reached \SI{10.7}{\degree\celsius} at the time of the event.
@@ -39,7 +44,12 @@ Just one year after the Marmolada collapse, another relevant event slope instabi
 On 11 June 2023, a big portion of the summit of Fluchthorn, a nearly \SI{3400}{\masl} has collapsed sending more than \SI{100000}{\cubic\meter} of rock crashing into the valley below and triggering mudslides\footnote{\mbox{\url{https://edition.cnn.com/2023/06/14/europe/austrian-mountain-fluchthorn-rockslide-climate-intl/index.html}}}.
 This event was likely related to the thawing permafrost due to the high temperatures of that period\footnote{\url{https://blogs.agu.org/landslideblog/2023/06/12/fluchthorn-1/}}.
 
-On 30 August 2023, a large debris flow occurred at the Belvedere Glacier (Anzasca Valley, Italian Alps)\footnote{\url{https://www.regione.piemonte.it/web/temi/protezione-civile-difesa-suolo-opere-pubbliche/protezione-civile/sorvolo-ghiacciai-monte-rosa-07092023}}.
+On 30 August 2023, a large debris flow occurred at the Belvedere Glacier
+\marginpar[Note 1]{
+    \includegraphics[width=\marginparwidth]{dummy_qr}
+    \textcolor{red}{test for a lateral note for qr code}
+}
+(Anzasca Valley, Italian Alps)\footnote{\url{https://www.regione.piemonte.it/web/temi/protezione-civile-difesa-suolo-opere-pubbliche/protezione-civile/sorvolo-ghiacciai-monte-rosa-07092023}}.
 The debris flow was triggered at the beginning of the steep Castelfranco gully, located at approximately \SI{3600}{\masl} on the streamwise-left side of the Belvedere Glacier north-west lobe.
 During the event, a volume of \SI{\sim 200000}{\cubic\meter} was accumulated on top of the Belvedere Glacier and obstructed the sinkhole that allowed the Castelfranco stream to flow below the ice sheet. 
 This caused the water to stream on top of the glacier, carving deep grooves on top of the Belvedere Glacier. 
@@ -51,6 +61,8 @@ To achieve a thorough understanding of these complex systems, systematic observa
 A particular focus is usually placed on monitoring surface kinematics, as these can potentially offer early warning signs of impending instability or collapse events~\citep{Faillettaz2015}.
 Nevertheless, monitoring glaciers in remote areas and inaccessible terrains often presents logistical and safety challenges.
 Therefore, remote sensing techniques are widely used as they allow for observing glacial processes with minimal risk for scientists and technicians. 
+
+\section{Remote and close-range sensing of alpine environments}
 
 In the past 30 years, the availability of free and commercial satellite imagery, with various spatial, temporal, and radiometric resolutions, has widely enlarged the possibility of sensing remote areas.
 The literature for satellite-based global or regional mapping of glaciers is nowadays extremely wide and covers different aspects of glacier monitoring \citep{Paul2007}. 
@@ -95,6 +107,8 @@ While UAVs vastly improve spatial resolution, they might not fully replace in-si
 (e.g., continuous measurements)....
 
 
+
+
 % Over the years, various remote sensing approaches have been utilized to
 % capture the glacier dynamics and evolution. These approaches include satellite-based
 % sensing~\citep{altena_kaab_2020,Scherler2008}, satellite Synthetic Aperture Radar
@@ -131,7 +145,82 @@ While UAVs vastly improve spatial resolution, they might not fully replace in-si
 
 % \cite{Paul2015, KaabFunk1999}
 
+A powerful approach for deriving glacier flow velocity using remote sensing involves DIC or 
+feature tracking algorithms~\citep{ahn_box_2010, Giordan2016, Hadhri2019}.
+At its core, DIC tracks distinct pixel patterns across a time series of images, employing cross-correlation to quantify 
+surface displacements. 
+This implies iteratively analyzing subsets of the reference image (often referred to as \textit{templates} 
+or \textit{windows}), pinpointing the location of maximum similarity within a search area in the subsequent 
+image by cross-correlation in spatial \citep{Scambos1992} or frequency domain \citep{rolstad1997}.
+This shift represents the displacement of the tracked feature.
+Initially applied to glaciers by \cite{Scambos1992}, DIC is now widely used to analyze optical satellite imagery
+\citep{Scambos1992, Scherler2008, Heid2012_evaluation_xcorr} or high-resolution orthophotos derived by aerial or 
+UAV photogrammetry \citep{Immerzeel2014, Chudley2019, ioli2021mid}.
+
+
 \section{Objectives}
+
+This thesis presents an integrated approach to monitoring an alpine glacier across multiple 
+spatial and temporal scales, using photogrammetric and image-based techniques. 
+The study focuses specifically on the debris-covered Belvedere Glacier in the Italian Alps.
+
+The work begins by examining major geomorphological changes over decades at the meter scale to
+establish a broad temporal and spatial context, and then it moves to a finer scale, 
+focusing on changes at the centimeter scale with daily observations to capture the short-term dynamics of this rapidly evolving environment.
+
+\textcolor{red}{Add figure of multi-temporal/multi-scale}
+
+To investigate the long-term evolution of the glacier, this study uses archival aerial photogrammetry data collected by public agencies during mapping flights.
+This technique allowed the reconstruction of past glacier morphology from 1977 to 2009, with 
+approximately decadal intervals between models.  
+The historical knowledge gained through this method is invaluable in documenting a natural
+heritage that is rapidly disappearing due to climate change. 
+Of particular interest, archival photogrammetry reveals a significant period of glacier expansion in the early of the glacier in the early 21st century, allowing precise quantification of the increase in ice volume and glacier thickness.
+
+To understand the current evolution of the glacier, this work integrates low-cost UAVs and GNSS
+for close-range photogrammetric monitoring.
+Annual in-situ surveys, conducted since 2015, provide a periodical and highly accurate record of the evolution. 
+Through these UAV surveys, centimeter-scale resolution enables detailed mapping of the dynamic environment, including precise quantification of glacier volume loss and study of variations in glacier flow rate.
+
+However, alpine glacier dynamics are inherently non-linear, with a pronounced acceleration of processes in summer compared to winter.  
+This trend has intensified in recent years due to the increasing frequency of hot and dry summers associated with climate change. 
+While annual high-precision in-situ measurements provide essential insights into long-term geomorphological evolution, they lack the temporal resolution to fully capture the short-term kinematics of the glacier, which are crucial for
+understanding the relationship between glacier dynamics and external drivers such as air temperature.
+To address this need, a permanent monitoring system based on low-cost stereo cameras has been designed and installed on Belvedere Glacier. 
+This system allows daily observations of glacier motion at a local spatial scale,
+providing the high-frequency data needed for in-depth kinematic analysis.
+
+This thesis describes the technical design and implementation of a low-cost glacier monitoring system, as well as the development of novel software tools for extracting relevant information from stereo camera images via photogrammetric processing. 
+To overcome the limitations of existing software in handling images with extremely wide baselines, a new pipeline was designed and published. 
+This pipeline allows the analysis of time-series point clouds and the extraction of metrics such as velocity, 
+volume variations, and displacement.
+
+A major challenge was related to the challenging mountain environment, which constrained the camera placement.
+This resulted in extremely wide baselines and significant viewpoint differences.  
+These conditions made it difficult to find corresponding points using traditional local feature-matching techniques 
+and hindered 3D reconstruction using existing commercial and open-source photogrammetric software.
+To overcome this obstacle, a novel pipeline was developed using state-of-the-art deep-learning algorithms 
+for robust feature matching that successfully overcomes the limitations of wide baseline stereo image processing.
+
+This paper presents a successful pilot test of the low-cost glacier monitoring system.
+The current uses only two cameras installed at the northwest terminal lobe of the Belvedere glacier, focused 
+on the terminal ice cliff, which is the portion of the glacier that is experiencing the most severe retreat 
+and fast evolution. 
+To achieve a more comprehensive and robust monitoring framework capable of capturing the full dynamics of the glacier, 
+the system needs to be scaled up. 
+Expanding the camera network will increase the coverage and significantly improve the quality of the daily 3D 
+reconstructions through greater data redundancy.
+Motivated by this potential, the final part of this thesis focuses on the development of a flexible multi-view library. 
+This library enables image matching using both state-of-the-art deep learning algorithms and traditional hand-crafted features. 
+Crucially, it integrates seamlessly with existing photogrammetric software for streamlined 3D reconstruction, 
+thus supporting a future expansion of the monitoring system.
+
+{\color{red}
+The aims of the thesis are the following:
+\begin{itemize}
+    \item aaaa
+\end{itemize}
+}
 
 \section{The Belvedere Glacier}\label{sec:1:belvedereglacier}
 
@@ -142,21 +231,22 @@ The lower part of the Belvedere Glacier is a temperate debris-covered glacier, t
 covers an area of
 \SI{\sim1.8}{\kilo\meter\squared} and extends from an altitude of \SI{\sim2250}{\masl} to
 \SI{\sim1800}{\masl}.
-This region is characterized by a gentle slope, and it is fed by ice falls and snow
-avalanches coming from the Monte Rosa East Face \citep{Haeberli2002}. In its low-relief
+This region is characterized by a gentle slope, and it is fed by icefalls and snow
+avalanches coming from the Monte Rosa East Face \citep{Haeberli2002}. 
+In its low-relief
 sector, the Belvedere Glacier splits into two lobes, reaching \SI{\sim1800}{\masl}.
 The northern lobe, in particular, ends with a prominent ice cliff, from which the River
 Anza springs.
 
-Similarly to Miage glacier (Monte Bianco, Valle d’Aosta), the Belvedere Glacier is almost
-completely covered by rocks and boulders with dimensions ranging from few decimetres to
+Similarly to Miage Glacier (Monte Bianco, Valle d’Aosta), the Belvedere Glacier is almost
+completely covered by rocks and boulders with dimensions ranging from a few decimetres to
 some meters, which makes it a \textit{black glaciers}.
-Due to the global warming trend, the~number of black glaciers along the Italian Alps is
+Due to the global warming trend, the number of black glaciers along the Italian Alps is
 rising~\citep{Diolaiuti2003}.
 Up to the beginning of the century, the~debris cover helped to compensate the effect of
 the increased temperature, establishing a negative feedback in the temperature-ablation
 relationship~\citep{Roethlisberger1985,Diolaiuti2003}.
-However, in~recent years, the~debris cover protection has not been sufficient to limit
+However, in recent years, the debris cover protection has not been sufficient to limit
 the glacier~retreat.
 
 \begin{figure}
@@ -168,11 +258,11 @@ the glacier~retreat.
         \includegraphics[height=5cm]{belvedere_pic.jpg}
     }
     \caption{(a) Location of Belvedere Glacier, base map (source: Swisstopo
-        www.geo.admin.ch); (b) Picture of \textcolor{red}{...}}
+        www.geo.admin.ch); (b) Picture of the Belvedere Glacier taken from the nearby Monte Moro.}
     \label{fig:1:studyarea}
 \end{figure}
 
-In the past, several hazardous events originated by the Belvedere Glacier, such as floods
+In the past, several hazardous events originated from the Belvedere Glacier, such as floods
 and slope instability, threatened the nearby village of Macugnaga and the Zamboni Zappa
 Hut, at 2070 m a.s.l. \citep{Kaab2004}.
 At the beginning of the 21st century, the Belvedere Glacier was characterized by a
@@ -187,8 +277,7 @@ The ice thickness increased more than~\SI{20}{\meter} and the wave travelled dow
 creating a depression area in the accumulation zone, that was filled by a super-glacial
 lake, the~Lago Effimero~\citep{Haeberli2002, Mortara2009}.
 
-
-During spring 2002, the large depression at the foot of the Monte Rosa east face caused by the 
+During spring 2002, the large depression at the foot of the Monte Rosa east face, caused by the 
 surge-type movement was temporarily filled by a lake with a volume of \SI{3e6}{\cubic\meter}, 
 the socalled \textit{Lago Effimero} (\textit{short-lived lake}).
 Recognizing the potential danger of an outburst flood, the Italian Civil Defense Department rapidly 
@@ -196,7 +285,7 @@ implemented emergency measures, including evacuating parts of Macugnaga village,
 alarm systems and pumps, and initiating detailed scientific investigations. 
 Reduced meltwater input in July 2002, combined with natural subglacial drainage, stabilized and subsequently 
 lowered the lake level.
-However the lake reformed in spring 2003 and it burst out in mid-June of that year without causing 
+However, the lake reformed in the spring 2003 and it burst out in mid-June of that year without causing 
 any significant damage \citep{Kaab2004}.
 
 \textcolor{red}{Expand this part and add more pics with old and recent events}

@@ -4,19 +4,23 @@
 \chapter{Deep learning low-cost photogrammetry for 4D short-term glacier monitoring
   (2022-2023)}
 
-\vfill
+% \vfill
+% \vspace{5mm}
 
 \newthought{This chapter is based on:}
 
 \begin{itemize}
   \item Ioli, F., Dematteis, N., Giordan, D., Nex, F., Pinto, L. (2024). Deep Learning Low-cost Photogrammetry for 4D Short-term Glacier Dynamics Monitoring. \textit{PFG}, \footnotesize{\url{https://doi.org/10.1007/s41064-023-00272-w}}.
-  \item Ioli, F., Barbieri, F., Gaspari, F., Nex, F., and Pinto, L. (2023). ICEPY4D: A PYTHON TOOLKIT FOR ADVANCED MULTI-EPOCH GLACIER MONITORING WITH DEEP-LEARNING PHOTOGRAMMETRY, \textit{Int. Arch. Photogramm. Remote Sens. Spatial Inf. Sci.}, XLVIII-1/W2-2023, 1037–1044, \footnotesize{\url{https://doi.org/10.5194/isprs-archives-XLVIII-1-W2-2023-1037-2023}}.
-  \item Ioli, F., Bruno, E., Calzolari, D., Galbiati, M., Mannocchi, A., Manzoni, P., Martini, M., Bianchi, A., Cina, A., De Michele, C., and Pinto, L. (2023). A REPLICABLE OPEN-SOURCE MULTI-CAMERA SYSTEM FOR LOW-COST 4D GLACIER MONITORING, \textit{Int. Arch. Photogramm. Remote Sens. Spatial Inf. Sci.}, XLVIII-M-1-2023, 137–144, \footnotesize{\url{https://doi.org/10.5194/isprs-archives-XLVIII-M-1-2023-137-2023}}.
+  \item Ioli, F., Barbieri, F., Gaspari, F., Nex, F., and Pinto, L. (2023).
+  ICEpy4D: a Python Toolkit for Advanced Multi-epoch Glacier Monitoring with Deep-learning Photogrammetry, \textit{Int. Arch. Photogramm. Remote Sens. Spatial Inf. Sci.}, XLVIII-1/W2-2023, 1037–1044, \footnotesize{\url{https://doi.org/10.5194/isprs-archives-XLVIII-1-W2-2023-1037-2023}}.
+  \item Ioli, F., Bruno, E., Calzolari, D., Galbiati, M., Mannocchi, A., Manzoni, P., Martini, M., Bianchi, A., Cina, A., De Michele, C., and Pinto, L. (2023). A Replicable Open-source Multi-camera system for Low-cost 4D Glacier Monitoring, \textit{Int. Arch. Photogramm. Remote Sens. Spatial Inf. Sci.}, XLVIII-M-1-2023, 137–144, \footnotesize{\url{https://doi.org/10.5194/isprs-archives-XLVIII-M-1-2023-137-2023}}.
 \end{itemize}
 
 \newpage
 
 \section{Introduction}\label{sec:4:intro}
+
+\textcolor{red}{NON RIPETERSI CON INTRO GENERALE}
 
 Climate change is accelerating the evolution of alpine glaciers, leading to rapid ice melt and increased frequency of collapses during summer months. 
 This accelerated melting can trigger various glaciological, geomorphological, and slope stability hazards, including avalanches, glacier outbursts, rockfalls, permafrost-related collapses, and moraine instability~\citep{Kaab2005, chiarle2023, Nigrelli2024}.
@@ -39,7 +43,7 @@ or Terrestrial Laser Scanners (TLS)~\citep{Hendrickx2022,Voordendag2023}.
 
 High-resolution space- or airborne-based remote sensing systems provide spatially distributed data over large areas with high precision.
 However, these methods usually entail significant costs and the repeatability of the survey is strongly limited.
-Furthermore, unfavorable acquisition geometries can impact measurement accuracy in case of complex geomorphological scenarios. 
+Furthermore, unfavorable acquisition geometries can impact measurement accuracy in the case of complex geomorphological scenarios. 
 In contrast, UAV photogrammetry offers high-precision 3D reconstruction of mountain environments at a low cost~\citep{Chudley2019,Ioli2022},
 yet the need for on-site flight operations and the deployment and measurement of Ground Control Points (GCPs) can be time-consuming and labor-intensive, making it less suitable for short-term glacier monitoring.
 
@@ -47,9 +51,9 @@ Permanent ground-based solutions are generally preferred for short-term monitori
 Among these, terrestrial SAR and TLS have gained significant attention.
 SAR, in particular, offers the advantage of all-weather and day-and-night imaging, making it suitable for
 real-time monitoring and early-warning systems~\citep{Dematteis2021,Noferini2009}.
-However, both ground-based SAR and permanent TLS are expensive, requires complex
+However, both ground-based SAR and permanent TLS are expensive, require complex
 logistics.
-These limitations prevent their applications in distributed sites at regional scale, but
+These limitations prevent their applications in distributed sites at the regional scale, but
 their usage may be limited to investigating hazardous locations.
 
 Fixed time-lapse cameras offer an affordable alternative to terrestrial SAR and TLS for
@@ -91,7 +95,7 @@ which makes it easier for traditional photogrammetric methods to find correspond
 points between images and achieve 3D scene reconstruction.
 However, in mountainous terrain, finding stable, accessible locations with ideal
 baseline and viewing geometry can be challenging.
-Conversely, wide baselines or highly convergent views hinder a 3D reconstruct by
+Conversely, wide baselines or highly convergent views hinder a 3D reconstruction by
 traditional photogrammetry.
 
 In traditional photogrammetry, keypoints are identified on different images by
@@ -106,14 +110,14 @@ corresponding objects, making
 matching difficult.
 
 In traditional photogrammetry, keypoints are detected using local feature methods like
-SIFT~\citep{Lowe2004}, Kaze~\citep{Alcantarilla2012}, or ORB~\citep{Rublee2011}. The
-keypoints are matched by minimizing descriptor distances in descriptor space and BA is
+SIFT~\citep{Lowe2004}, Kaze~\citep{Alcantarilla2012}, or ORB~\citep{Rublee2011}. 
+The keypoints are matched by minimizing descriptor distances in descriptor space and BA is
 then employed to estimate their 3D coordinates and camera parameters.
 Wide camera baselines complicate tie point extraction, due to complex
 distortions and occlusions between corresponding objects.
-Deep Learning (DL) techniques and particularly attention-based
+Deep Learning (DL) techniques, and particularly attention-based
 architectures~\citep{vaswani2023attention},
-have emerged as a powerful techniques for extracting and matching features in difficult
+have emerged as a powerful technique for extracting and matching features in difficult
 conditions, such as wide baselines and significant radiometric
 differences~\citep{jin_image_2021,Yao_2021}.
 Research in DL-based matching has soared in recent
@@ -125,21 +129,18 @@ A comprehensive survey by \cite{remondino2022_at_with_dl} covers methods from
 traditional corner detectors to state-of-the-art DL matching
 approaches.
 
-This chapter presents a pilot study on short-term 4D monitoring of the Belvedere Glacier glacier using
-a low-cost stereo-camera system with a wide baseline. 
-The study focuses on investigating daily glacier dynamics by calculating surface movement, ice volume loss, and glacier
-retreat of a debris-covered alpine glacier.
+This chapter presents a pilot study on short-term 4D monitoring of the Belvedere Glacier glacier using a low-cost stereo-camera system with a wide baseline. 
+The study focuses on investigating daily glacier dynamics by calculating surface movement, ice volume loss, and glacier retreat of a debris-covered alpine glacier.
 The proposed methodology integrates 3D reconstruction from stereo cameras for volume
 estimation and utilizes DIC on monoscopic cameras to derive surface velocities.
 By utilizing state-of-the-art DL matching techniques, this approach overcomes
-the challenges posed by the wide camera baselines and allows for accurately
+the challenges posed by the wide camera baselines and it allows for accurately
 reconstructing the scene under suboptimal viewing conditions.
 
 The objective of this work is twofold:
 (i) to demonstrate the feasibility and effectiveness of using a cost-effective
 photogrammetric solution for short-term glacier monitoring using a DL approach;
-(ii) to investigate the short-term relationship between air temperature, ice volume
-variations and glacier surface velocity for an alpine debris-covered glacier.
+(ii) to investigate the short-term relationship between air temperature, ice volume variations and glacier surface velocity for an alpine debris-covered glacier.
 By combining stereo and monoscopic image sequence analysis, this study
 contributes to a better understanding of sub-seasonal glacier dynamics,
 particularly in the context of changing climate conditions and rising temperatures.
@@ -151,12 +152,10 @@ Each unit consists of a monitoring station that includes an off-the-shelf DSLR c
 The core of each monitoring unit is the controlling circuit, which is composed of an Arduino microcontroller for camera triggering, and a Raspberry Pi Zero with a SIM card for sending images to a remote server via a GSM network~\figref{fig:4:scheme_foto}.
 The total cost of each unit was less than \texteuro2000, including camera and lens \citep{ioli2023_replicable}.
 
-The system was designed and built adapting to the alpine environment an existing
-open-source model developed by Greig Sheridan and published on
+The system was designed and built by adapting to the alpine environment an existing open-source model developed by Greig Sheridan and published on
 GitHub\footnote{\label{foot:greig}Greig Sheridan' Intervalometerator repository:
   \url{https://github.com/greiginsydney/Intervalometerator}}.
-A key aspect of the project was to ensure easy assembly and realization of the system to
-guarantee future replications and improvements.
+A key aspect of the project was to ensure easy assembly and realization of the system to guarantee future replications and improvements.
 
 In this section, we describe in detail the monitoring system and its installation at the Belvedere Glacier.
 
@@ -176,20 +175,15 @@ Each monitoring unit has its autonomous power supply line (yellow arrows in Figu
 battery. An MPPT (Maximum Power Point Tracker) charge regulator directly connects with
 the unit's internal circuit, providing a regular current supply to the battery
 and the load and exploiting all the power generated by the panel. This regulator prevents
-any excess current that may damage the connected device, thus increasing the reliability
-of the system. Its battery life-saving algorithm modulates the load disconnection level
-so that a nearly 100\% recharge is achieved about once every week and, in case of battery
-discharging, the whole system is switched off until 100\% recharge of the battery is
-achieved.
-The whole monitoring system is designed to minimize power consumption, e.g., by powering
-off devices responsible for the highest power consumption when not needed.
-An estimation of the system's energy consumption guided the choice of the components of
-the power supply line. 
-Specifically, the battery and the associated panel must be
-accurately dimensioned for the system's purpose. 
+any excess current that may damage the connected device, thus increasing the reliability of the system. 
+Its battery life-saving algorithm modulates the load disconnection level
+so that a nearly 100\% recharge is achieved about once every week and, in case of battery discharging, the whole system is switched off until 100\% recharge of the battery is achieved.
+The whole monitoring system is designed to minimize power consumption, e.g., by powering off devices responsible for the highest power consumption when not needed.
+An estimation of the system's energy consumption guided the choice of the components of the power supply line. 
+Specifically, the battery and the associated panel must be accurately dimensioned for the system's purpose. 
 To this end, the Photovoltaic Geographical Information System (PVGIS)\footnote{\url{https://re.jrc.ec.europa.eu/pvg_tools/en/}}, a tool provided by the European Commission, was used.
 PVGIS can estimate the performance of off-grid photovoltaic systems according to the installation site and it is supported by a database and algorithms for calculating solar radiation. 
-Tuning the parameters for the Belvedere Glacier location and the system consumption, we ended up with the specifications of solar panel power of 30 W, a battery voltage of 12 V, and capacity of 10 Ah. 
+Tuning the parameters for the Belvedere Glacier location and the system consumption, we ended up with the specifications of solar panel power of 30 W, a battery voltage of 12 V, and a capacity of 10 Ah. 
 Some compromises were made, accepting that the system would not be sufficiently powered in the months with the lowest solar radiation (November, December, January, and February). 
 
 \subsection{Controlling circuit and acquisition scheduling}\label{Control}
@@ -198,9 +192,7 @@ Some compromises were made, accepting that the system would not be sufficiently 
   \centering
   \includegraphics[width=0.6\textwidth]{board.jpg}
   \caption{Stripboard on which are soldered the main components of the internal
-    circuit: capacitors (1), voltage regulators (2), real-time clock with coin-cell
-    battery (3), Arduino Pro Mini (4), optoisolators (5), and Raspberry Pi Zero W (6).
-      {\color{red} Add pic of new board}}
+    circuit: capacitors (1), voltage regulators (2), real-time clock with coin-cell battery (3), Arduino Pro Mini (4), optoisolators (5), and Raspberry Pi Zero W (6). \textcolor{red}{Add pic of new board}}
   \label{fig:4:circuit}
 \end{figure}
 
@@ -236,13 +228,13 @@ scripts for the Raspberry.
 All the monitoring station activities can be remotely scheduled from the terminal or a
 user-friendly web interface \citep{greig}. 
 This useful feature allows one to change the settings and check the behavior of the system, avoiding the need for manual intervention. 
-The Raspberry uses the gPhoto2, a Python-based protocol developed to specifically interact with popular cameras’ firmware, to communicate with the camera and access the new photos. 
-The  web-based interface service is based on NGINX and Gunicorn, open-source software for web servers. 
+The Raspberry uses the gPhoto2, a Python-based protocol developed to specifically interact with popular cameras’ firmware, to communicate with the camera and access new photos. 
+The web-based interface service is based on NGINX and Gunicorn, open-source software for web servers. 
 The interface (\figref{fig:4:web-interface}) consists of a web page accessible with credentials and provides a summary of the system state and the exact time of the last operations (time of the last shot and the last upload of images), temperatures of the components, previews of the last images, buttons to wake up the camera, take a preview photo and schedule the system routine (time and number of photo acquisition, wake-up time of the Raspberry) and some camera settings.
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[width=0.8\textwidth]{web_interface.png}
+  \includegraphics[width=1\textwidth]{web_interface.png}
   \caption{Example of some of the pages of the web-based interface to remotely control
     the monitoring units.}
   \label{fig:4:web-interface}
@@ -406,9 +398,7 @@ Despite these efforts, analysis of the acquired images revealed minor instabilit
   \centering{(a)\hspace{30mm}(b)}\\ \vspace{1mm}
   \caption{(a) Picture of the monitoring unit prototype installed for tests at the
     Belvedere Glacier site. (b) Picture of the final monumentation of the camera
-    installed on
-    the stream-wise right moraine. {\color{red} TODO: change picture with the final
-        installation}}
+    installed on the stream-wise right moraine. \textcolor{red}{TODO: change picture with the final installation}}
   \label{fig:4:final_installation}
 \end{figure}
 
@@ -474,7 +464,6 @@ During the snow-free study period (from 1/05/2022 to 13/11/2022), both camera C1
 camera C2 were able to acquire images every day, for a total of 197 images. However, 39
 images were discarded due to bad weather conditions, such as rain, low clouds, or fog,
 resulting in 158 days with valid data for stereo and monoscopic processing.
-{\color{red} TODO: ADD sequences of 2022 and 2023}
 
 \subsection{UAV surveys}\label{sec:4:uavsurveys}
 
@@ -526,8 +515,11 @@ external environmental variables, data measured from an Automatic Weather Statio
 located close to the Zamboni Zappa Hut were used.
 The AWS is located at an altitude of \SI{2075}{\masl} and at a distance of
 2 km from the area of study.
+The data from the AWS can be downloaded from the Arpa Piemonte
+website\footnote{\url{https://www.arpa.piemonte.it/rischi_naturali/snippets_arpa_graphs/dati_giornalieri_meteo/?statid=PIE-003086-906-2007-07-05&param=T}}.
 In our study, we analyzed mean daily values of air temperature, precipitation and
 incoming solar radiation from 01/05/22 to 15/11/22.
+
 
 \section{Methodology}\label{sec:4:methodology}
 This chapter outlines the methodology developed to monitor the evolution of the Belvedere
@@ -1090,9 +1082,7 @@ pixels.
   \centering
   \includegraphics[width=72mm]{4_sec_location.png}
   \caption{Series of the point clouds built at the beginning of each month from
-    01/05/22 to 01/11/22.
-    The basemap is derived from a previous UAV survey carried out by the
-    authors in July 2022}
+    01/05/22 to 01/11/22. The basemap is derived from a previous UAV survey carried out by the authors in July 2022}
   \label{fig:4:section_locations}
 \end{figure}
 
@@ -1100,21 +1090,18 @@ pixels.
   \begin{center}
     % \includegraphics[width=70mm]{sec4/sec_location} \\
     % \centering{(a)} \\ \vspace{1mm}
-    \includegraphics[width=62mm]{4_sec_aa.png} \quad
-    \includegraphics[width=62mm]{4_sec_bb.png} \\
-    \centering{(a)} \hspace{62mm}
-    \centering{(b)} \\ \vspace{1mm}
-    \includegraphics[width=62mm]{4_sec_cc.png} \quad
-    \includegraphics[width=62mm]{4_sec_dd.png} \\
-    \centering{(c)} \hspace{62mm}
-    \centering{(d)}
+    \includegraphics[width=70mm]{4_sec_aa.png} \quad
+    \includegraphics[width=70mm]{4_sec_bb.png} \\
+    \centering{(a)} \hspace{70mm} \centering{(b)} \\ \vspace{1mm}
+    \includegraphics[width=70mm]{4_sec_cc.png} \quad
+    \includegraphics[width=70mm]{4_sec_dd.png} \\
+    \centering{(c)} \hspace{70mm} \centering{(d)}
   \end{center}
   \caption{Vertical cross-sections extracted at the location marked in
     \figref{fig:4:section_locations}.
-    All the cross sections are extracted in a local reference system, with the
-    X-direction pointing in direction of the glacier flow, the Z-direction pointing
-    upward, and the Y-direction completing the right-hand reference system.
-    Please, note the different scale of the figures, indicated by the scale bar (in
+    All the cross-sections are extracted in a local reference system, with the
+    X-direction pointing in the direction of the glacier flow, the Z-direction pointing upward, and the Y-direction completing the right-hand reference system.
+    Please, note the different scales of the figures, indicated by the scale bar (in
     meters).}
   \label{fig:4:sections}
 \end{figure}
@@ -1151,131 +1138,87 @@ At each epoch, the dense point cloud consisted of 5 to 7 million points,
 with a spacing of \SI{\sim3}{\centi\meter}, which is comparable to the image GSD.
 Due to the wide baseline and the different camera viewpoints, only the
 sub-vertical part of the terminal ice cliff and a few boulders near the upper
-edge of the ice cliff were reconstructed.
+edge of the ice cliff was reconstructed.
 
 For clarity, \figref{fig:4:section_locations} shows a point cloud for each month
 highlighting glacier retreat: \SI{\sim17.5}{\meter} in total.
-\figref{fig:4:sections}a-d show four vertical cross-sections extracted
+\figref{fig:4:sections}a-d shows four vertical cross-sections extracted
 parallel to the streamwise direction at specific locations indicated in
 \figref{fig:4:section_locations}.
-The higher rate of ice ablation during the summer, especially from June to September, is
-evidenced by the greater shift to the left and downward of the corresponding cross
-sections (i.e., light green, light blue, and red curves) compared to those taken during
-the fall (i.e., yellow, dark green, and dark blue curves).
+The higher rate of ice ablation during the summer, especially from June to September, is evidenced by the greater shift to the left and downward of the corresponding cross sections (i.e., light green, light blue, and red curves) compared to those taken during the fall (i.e., yellow, dark green, and dark blue curves).
 Cross-section AA' reveals the occurrence of an ice block collapse in August
 (\figref{fig:4:sections}a).
-This can be observed from the rightmost section of the profile, which appears to detach
-from the main body of the ice cliff and slide to the right and downward.
+This can be observed from the rightmost section of the profile, which appears to detach from the main body of the ice cliff and slide to the right and downward.
 At the same time, the remaining sections of the profile exhibit a leftward movement.
 This behavior is consistent until the September profile (yellow
 curve), at which point the detached ice block is no longer present.
 
 \subsection{Volume variations and glacier retreat}\label{sec:4:res_volumes_retreat}
 
-\begin{figure*}
+\begin{figure}
   \centering
-  \begin{minipage}[b]{0.45\textwidth}
-    \centering
-    \includegraphics[height=58mm]{4_delta_volumi_stereo_daily.png}\\
-    \centering{(a)}
-  \end{minipage}
-  \hspace{0.05\textwidth}
-  \begin{minipage}[b]{0.45\textwidth}
-    \centering
-    \includegraphics[height=58mm]{4_delta_volumi_stereo_cumlated.png}\\
-    \centering{(b)}
-  \end{minipage}
-  \caption{(a) Daily ice volume lost at the glacier terminus, estimated by DOD of pairs
-    of point clouds spaced by 5 days. (b) Cumulative curve of the ice volume loss during
-    the study period.}
+    \subcaptionbox{\label{fig:4:volumes_variation:daily}}{
+    \includegraphics[height=56mm]{4_delta_volumi_stereo_daily.png}
+  } 
+  \subcaptionbox{\label{fig:4:volumes_variation:cumulated}}{
+    \includegraphics[height=56mm]{4_delta_volumi_stereo_cumlated.png}
+  }
+  \caption{\textbf{(a)} Daily ice volume lost at the glacier terminus, estimated by DOD of pairs of point clouds spaced by 5 days. \textbf{(b)} Cumulative curve of the ice volume loss during the study period.}
   \label{fig:4:volumes_variation}
-\end{figure*}
+\end{figure}
 
-\begin{figure*}
+\begin{figure}
   \centering
-  \begin{minipage}[b]{0.45\textwidth}
-    \centering
-    \includegraphics[height=50mm]{4_top_border_series_map.png}\\
-    \centering{(a)}
-  \end{minipage}
-  \hspace{0.05\textwidth}
-  \begin{minipage}[b]{0.45\textwidth}
-    \centering
-    \includegraphics[height=50mm]{4_glacier_retreat.png}\\
-    \centering{(b)}
-  \end{minipage}
-  \caption{(a) Location of the segmented ice cliff top edge at the beginning of each
-    month from May to November 2022;
-    (b) Estimation of daily retreat based on the displacement of the top edge along the
-    flow direction (X-direction).
-    The location of the ice cliff at 01/05/2022 is considered as baseline for the
-    retreat.
-    The orange marker indicates the day of the UAV-A survey.}
+    \subcaptionbox{\label{fig:4:retrea:map}}{
+    \includegraphics[height=56mm]{4_top_border_series_map.png}
+  } 
+  \subcaptionbox{\label{fig:4:retreat:ts}}{
+    \includegraphics[height=56mm]{4_glacier_retreat.png}
+  }
+  \caption{\textbf{(a)} Location of the segmented ice cliff top edge at the beginning of each month from May to November 2022; \textbf{(b)} Estimation of daily retreat based on the displacement of the top edge along the flow direction (X-direction). The location of the ice cliff on 01/05/2022 is considered as a baseline for the retreat. The orange marker indicates the day of the UAV-A survey.}
   \label{fig:4:retreat}
-\end{figure*}
+\end{figure}
 
 Estimation of ice volume variation was performed by DOD along the
-streamwise direction on a daily basis (\secref{sec:4:volumevariation}).
+streamwise direction (\secref{sec:4:volumevariation}).
 \figref{fig:4:volumes_variation} presents the daily ice volume variations and the cumulated
 curve, highlighting the varying ablation rate throughout the study period.
-Every value of the time series is referred to the mean instant between the date of the
-two point clouds from which it was derived (see~\secref{sec:4:timelag}).
+Every value of the time series is referred to as the mean instant between the date of the two point clouds from which it was derived (see~\secref{sec:4:timelag}).
 The ice loss rate increases during summer and significantly reduces in autumn,
 particularly after mid-September.
 A total ice loss of \SI{63000}{\cubic\meter} was observed from 01/05/2022 to 13/11/2022.
 
-The daily glacier was estimated continuously tracking a point located at the center of
-the top edge of the terminal ice cliff, extracted as described in~\secref{sec:4:topedge}.
-The glacier retreat curve is shown in \figref{fig:4:retreat}b and, similarly to that of
-volume variations, it shows a higher rate of retreat during the summer months, while the
-retreat velocity
-decreased between September and November.
+The daily glacier was estimated continuously tracking a point located at the center of the top edge of the terminal ice cliff, extracted as described in~\secref{sec:4:topedge}.
+The glacier retreat curve is shown in \figref{fig:4:retreat}b and, similarly to that of volume variations, it shows a higher rate of retreat during the summer months, while the retreat velocity decreased between September and November.
 From 01/05/2022 to 13/11/2022, a retreat of 17.8 meters was estimated.
-
-% \begin{figure}
-%   \includegraphics[width=1.0\linewidth]{4_stereo_uav_2807.png}
-%   \caption{Comparison of the 28/07/22 stereo point cloud with respect to the reference
-%     UAV point cloud acquired on the same day, computed with M3C2
-%     algorithm~\citep{lague2013accurate}.
-%     The stereo-point cloud is represented with a colorscale indicating the distances with
-%     respect to to the UAV point cloud (represented with a light gray color as a
-%     reference).}
-%   \label{fig:4:stereo_uav_2807}
-% \end{figure}
 
 \subsection{Validation of the stereo models with UAV data}\label{sec:4:res_uav_validation}
 
 To validate the stereo models, both in terms of internal geometric and absolute
-georeferencing errors, the dense stereo point clouds were compared with those obtained
-from UAV-A (28/07/2022) and UAV-B (05/08/2022) flights.
-The signed difference between the UAV point clouds and the stereo point clouds acquired
-on the same day were computed using the M3C2 algorithm~\citep{lague2013accurate}, in
-CloudCompare.
+georeferencing errors, the dense stereo point clouds were compared with those obtained from UAV-A (28/07/2022) and UAV-B (05/08/2022) flights.
+The signed difference between the UAV point clouds and the stereo point clouds acquired on the same day were computed using the M3C2 algorithm~\citep{lague2013accurate}, in CloudCompare.
 M3C2 first computes a 3D local surface normal for each core point at a scale
 D, by fitting a plane to the core points located within a radius of size D/2.
-Once the normal vectors are defined, the local distance is computed for each core point
-as the mean distance of the target points that fall inside a cylinder oriented as the
-normal vector, projected to the cylinder axis.
+Once the normal vectors are defined, the local distance is computed for each core point as the mean distance of the target points that fall inside a cylinder oriented as the normal vector, projected to the cylinder axis.
 
-The comparison with the UAV-A point cloud resulted in a non-significant mean difference
-between the point clouds of 0.01 m, with a standard deviation of 0.04 cm, indicating
-absence of systematic errors in stereo point cloud georeferencing.
-The largest differences were observed at the edges of the stereo point cloud and inside
-the ice cave. % (\figref{fig:4:stereo_uav_2807}).
-Considering the UAV-B block, the mean difference was 0.05 m, with a standard deviation of
-0.03 m.
-The non-negligible mean difference was likely due to a combination of the georeferencing
-accuracy of the stereo point cloud and the georeferencing error in the UAV model, which
-was in the order of few centimeters (see~\secref{sec:4:uavsurveys}).
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth]{4_stereo_uav_2807.png}
+  \caption{Comparison of the 28/07/22 stereo point cloud with the reference UAV point cloud acquired on the same day, computed with M3C2 algorithm~\citep{lague2013accurate}. The stereo-point cloud is represented with a color scale indicating the distances relative to the UAV point cloud (represented with a light gray color as a reference).}
+  \label{fig:4:stereo_uav_2807}
+\end{figure}
+
+The comparison with the UAV-A point cloud resulted in a non-significant mean difference between the point clouds of 0.01 m, with a standard deviation of 0.04 cm, indicating an absence of systematic errors in stereo point cloud georeferencing. 
+The largest differences were observed at the edges of the stereo point cloud and inside the ice cave \figref{fig:4:stereo_uav_2807}).
+Considering the UAV-B block, the mean difference was 0.05 m, with a standard deviation of 0.03 m.
+The non-negligible mean difference was likely due to a combination of the georeferencing accuracy of the stereo point cloud and the georeferencing error in the UAV model, which was in the order of a few centimeters (see~\secref{sec:4:uavsurveys}).
 UAV-B block, in fact, had limited coverage in the surveyed area and fewer GCPs
 compared to UAV-A block.
-Overall, from both the comparison showed an overall error of stereo models smaller than
-10 cm.
-Therefore, a decimetric level of precision can be reasonably considered for the stereo
-models.
+Overall, both the comparisons showed an overall error of stereo models smaller than 10 cm.
+Therefore, a decimetric level of precision can be reasonably considered for the stereo models.
 
 \begin{figure*}[ht]
-  \includegraphics[width=174mm]{4_dic_composition.png}
+  \includegraphics[width=\textwidth]{4_dic_composition.png}
   \caption{(a) DIC displacement map between 25 and 30 July 2022. (b) Orthorectified DIC
     displacement map between 25 and 30 July 2022. The triangles indicate the points P1
     and P2 where we extracted the velocity time series.
@@ -1316,12 +1259,9 @@ identify different domains, based on their morphology and kinematic behavior
 \end{enumerate}
 
 \begin{figure*}
-  \includegraphics[width=174mm]{4_ts_velocities.png}
+  \includegraphics[width=\textwidth]{4_ts_velocities.png}
   \caption{Time series of displacement extracted in the terminal part of the glacier
-    lobe.
-    The red curves correspond to point P1, located at 10 m from the terminal ice cliff
-    (considering the location of the terminal ice cliff on 28/07/2022), the blue curves
-    correspond to point P2 located 120 m far from the ice
+    lobe. The red curves correspond to point P1, located at 10 m from the terminal ice cliff (considering the location of the terminal ice cliff on 28/07/2022), and the blue curves correspond to point P2 located 120 m far from the ice
     cliff. The location of points P1 and P2 is marked in~\figref{fig:4:dic_results}.}
   \label{fig:4:velocity_ts}
 \end{figure*}
@@ -1380,7 +1320,7 @@ times higher than MAD\(_z\), while the normalized MADs of the velocity modules w
 
 \begin{figure}
   \centering
-  \includegraphics[width=1.0\linewidth]{4_velocity_ortortect_uncertainty.png}
+  \includegraphics[width=0.7\textwidth]{4_velocity_ortortect_uncertainty.png}
   \caption{Uncertainty analysis of velocity vector orthorectification against possible
     DSM variation. Blue boxes represent the difference between the velocity vectors
     back-projected on the true DSM of 28/07/2022 and those back-projected on a simulated
@@ -1400,12 +1340,9 @@ times higher than MAD\(_z\), while the normalized MADs of the velocity modules w
 
 \begin{figure*}
   \centering
-  \includegraphics[width=158mm]{4_TS_P1.png}
+  \includegraphics[width=1\textwidth]{4_TS_P1.png}
   \caption{Time series of the daily volume loss due to the glacier terminus retreat,
-    compared to the time series of glacier surface velocity extracted by monoscopic DIC
-    at the location of point P1 (located close the ice cliff terminus and marked with an
-    orange triangle in Fig. 15a) and the 5-days smoothed time series air temperature
-    measured by the AWS at the location marked in Fig. 1.}
+    compared to the time series of glacier surface velocity extracted by monoscopic DIC at the location of point P1 (located close to the ice cliff terminus and marked with an orange triangle in~\figref{fig:4:dic_results}) and the 5-day smoothed time series air temperature measured by the AWS at the location marked in~\figref{fig:4:studyarea}.}
   \label{fig:4:TS_punto-fronte}
 \end{figure*}
 

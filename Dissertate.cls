@@ -36,8 +36,10 @@
 \def\reviewerB#1{\gdef\@reviewerB{#1}}
 \def\reviewerC#1{\gdef\@reviewerC{#1}}
 
-\RequirePackage{color}
-\usepackage{hyperref}
+% \RequirePackage{color}
+\RequirePackage[usenames,dvipsnames]{xcolor}
+
+\RequirePackage{hyperref}
 \RequirePackage[tiny, md, sc]{titlesec}
 \setlength{\headheight}{15pt}
 \pagestyle{plain}
@@ -56,25 +58,27 @@
 \setcitestyle{open={(},close={)}} %Citation-related commands
 \RequirePackage{chapterbib}
 \renewcommand{\bibnumfmt}[1]{[#1]}
-\RequirePackage[width=6.25in, letterpaper]{geometry} %width=5.75in
+\RequirePackage[width=6in, letterpaper, marginparwidth=75pt]{geometry}
+% \RequirePackage[width=6.25in, letterpaper]{geometry} %width=5.75in
+\RequirePackage{marginnote}
 \RequirePackage{fancyhdr}
 
-\usepackage[titletoc]{appendix}
+\RequirePackage[titletoc]{appendix}
 \renewcommand{\setthesection}{\arabic{chapter}.A\arabic{section}}
 
 \RequirePackage{setspace}
 \RequirePackage{booktabs}
-\usepackage{bookmark}
+\RequirePackage{bookmark}
 % \RequirePackage[tight,nice]{units}
 \RequirePackage{verbatim}
 \setcounter{tocdepth}{2}
 
 \RequirePackage{url}
-\usepackage[titles]{tocloft}
+\RequirePackage[titles]{tocloft}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 \renewcommand{\cftchapfont}{\normalsize \scshape}
 % \usepackage{fixltx2e}
-\usepackage{ragged2e}
+\RequirePackage{ragged2e}
 
 \renewcommand\bibname{References}
 \renewcommand\listfigurename{Listing of figures}
