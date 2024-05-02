@@ -436,7 +436,7 @@ effect~\citep{James2014_mitigating, James2020_mitigating2}.
 Finally, these variances pertain only to the sparse point cloud and would require 
 interpolation onto the DSM grid.
 A potential solution for more robust DSM covariance estimation lies in Monte Carlo simulations, 
-as carried out by \cite{James2017_3duncertainty} and \cite{Roncella2021_montecarlo}.
+as carried out by \citet{James2017_3duncertainty} and \citet{Roncella2021_montecarlo}.
 
 Consequently, due to these limitations, we derived a rough variance estimation by
 assuming a constant variance of the DSM equal to the squared vertical RMSE computed on CPs.
@@ -657,6 +657,13 @@ The velocities obtained with DIC were compared with those measured by GNSS.
 This was done by manually defining the nodes where pyLamma defines the templates on the master image with the same coordinates of the GNSS-measured targets for each year.
 Considering only the targets located within the glacier body and excluding 15 measurements located in particularly troublesome areas, such as very close to opening crevasses (where DIC clearly fails as there is no coherence between orthophotos or DSM in consecutive years due to changes in glacier morphology), a total number of 110 GNSS measurements were used to validate the DIC displacements.
 
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\columnwidth]{gps_lamma_boxplot.png}
+    \caption{Boxplots of the differences between the displacements computed by GNSS measurements and those obtained by DIC on DSMs (from 2015 to 2018) and orthophotos (from 2018 to 2023). The differences are grouped by the image source (orthophoto and DSM) and are divided for two planimetric components and the magnitude of the displacement vectors.}
+    \label{fig:3:gps_lamma_boxplot}
+\end{figure}
+
 The velocities determined through DIC were validated by comparing them with measurements obtained via GNSS.
 To this end, PyLamma was employed to calculate displacements based on templates centered around GNSS-measured target coordinates each year. 
 To ensure a reliable comparison, 23 measurements of points located in particularly troublesome glacier areas, such as those near crevasses or where other morphological changes disrupt the image coherence between two consecutive years upon which DIC relies, were manually excluded from the comparison.
@@ -664,21 +671,14 @@ Thus, a dataset of 106 GNSS measurements spanning the glacier to compute the dif
 Overall, the Median Absolute Deviation (MAD) of differences was \SI{0.20}{\meter}, \SI{0.18}{\meter}, and \SI{0.22}{\meter} for East, North, and magnitude components, respectively.
 These values are comparable to the GSD of the orthophotos and DSMs, highlighting an overall displacement estimation accuracy at the pixel level.
 Boxplots in \figref{fig:3:gps_lamma_boxplot} illustrate differences categorized by image source (DSM or orthophotos). 
-While both groups show outliers exceeding \SI{2}{\meter}, orthophotos yield significantly less dispersion compared to DSMs.
+While both groups show outliers exceeding \SI{2}{\meter}, orthophotos yield significantly less dispersion than DSMs.
 Considering the magnitude of the displacement vectors, MAD for orthophotos was \SI{0.17}{\meter}, contrasting with DSM's three times larger \SI{0.58}{\meter}. 
 
 Despite the challenges posed by the presence of snow partially covering the glacier and critical illumination conditions, the glacier surface displacement field was successfully computed by DIC also for the period between 2015 and 2018, albeit with coarser accuracy evident in the GNSS comparison.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\columnwidth]{gps_lamma_boxplot.png}
-    \caption{Boxplots of the differences between the displacements computed by GNSS measurements and those obtained by DIC on DSMs (from 2015 to 2018) and orthophotos (from 2018 to 2023). The differences are grouped by the image source (orthophoto and DSM) and are divided for two planimetric components and the magnitude of the displacement vectors.}
-    \label{fig:3:gps_lamma_boxplot}
-\end{figure}
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.9\columnwidth]{volume_loss_2015-2023.png}
+    \includegraphics[width=1\columnwidth]{volume_loss_2015-2023.png}
     \caption{Yearly volume variation computed as the difference between DSM of two
         consecutive years. The~error bars plotted represent the uncertainty of each
         estimated value.}
@@ -741,6 +741,31 @@ These features are particularly noticeable in the cross-sections BB' and DD'.
 Notably, the streamwise right moraine of the glacier experiences progressive sliding processes and collapses due to the diminishing support of the thinning glacier. 
 This phenomenon is prominently observed in both section AA' and section DD'.
 
+\section{Glacier volumes variations from 1977 to 2023}
+
+By integrating historical aerial surveys (Chapter \ref{ch:2}) with repeated in-situ UAV measurements, this study quantified long-term cumulative volume variations in the Belvedere Glacier (\figref{fig:3:cumulative_volumes_mass:volumes}).
+For periods exceeding 5 years, an average ice density of\SI[separate-uncertainty = true]{850 \pm 60}{\kilo\gram\per\cubic\meter} was used to convert volume variations into mass changes \cite{Huss2013_density_geodetic_balance}. 
+However, recognizing the limitations of this assumption for shorter periods (< 3 years) due to potential density variations \cite{Huss2013_density_geodetic_balance}, the analysis focused specifically on three surveys (2015, 2019, 2023) spaced by approximately 5 years. 
+Volume variations between these surveys were calculated using a DOD approach and subsequently converted into ice mass variations  (\figref{fig:3:cumulative_volumes_mass:mass}). 
+This strategy mitigates the uncertainty associated with density assumptions for short-term mass balance assessments.
+
+\begin{figure}
+  \centering
+    \subcaptionbox{\label{fig:3:cumulative_volumes_mass:volumes}}{
+    \includegraphics[width=0.8\textwidth]{cumulative_volume_variations_all.png}
+  } \\
+  \subcaptionbox{\label{fig:3:cumulative_volumes_mass:mass}}{
+    \includegraphics[width=.8\textwidth]{cumulative_mass_changes_all.png}
+  }
+    \caption{(a) Cumulative volumes variations Belvedere Glacier (1977-2023) with 1977 as the reference year (b) Cumulative ice mass variations (in megatonnes), assuming an ice density of \SI[separate-uncertainty = true]{850 \pm 60}{\kilo\gram\per\cubic\meter}, considering periods longer than 5 years \cite{Huss2013_density_geodetic_balance}. \textcolor{red}{Make again computation volume differences for period 2015-2023}} 
+  \label{fig:3:cumulative_volumes_mass}
+\end{figure}
+
+The Belvedere Glacier experienced increasing mass from 1977 to 2001, highlighting that the Belvedere Glacier was still experiencing an expansion. 
+This trend abruptly ended with the 2000-2002 surge event, resulting in a significant mass gain around 2001. 
+Subsequently, the glacier has undergone a continuous and dramatic retreat. 
+As of 2023, the Belvedere Glacier has lost \SI{\sim 24}{\mega\tonne} of ice mass compared to its 1977 state.
+
 \section{An open-source framework for sharing monitoring results}\label{sec:3:open-data}
 
 A long-term monitoring campaign of Belvedere Glacier has produced a rich dataset that includes high-accuracy in-situ GNSS measurements, 3D point clouds, digital surface models (DSMs), and orthophotos derived from UAV photogrammetry.
@@ -769,10 +794,10 @@ The 3D glacier models are accessible from any web browser (\figref{fig:3:potree}
     \label{fig:3:potree}
 \end{figure}
 
-Additionally, a robust open-source relational database management system (RDBMS) serves as the central repository for the outcomes of the monitoring campaign, ensuring easy storage, use, and sharing. 
-We chose PostgreSQL for its flexibility, permissive open-source license, and ability to seamlessly manage geospatial data through the PostGIS extension. 
+Additionally, a robust open-source relational database serves as the central repository for the outcomes of the monitoring campaign, ensuring easy storage, use, and sharing. 
+We chose PostgreSQL for its flexibility, permissive open-source license, and ability to manage geospatial data through the PostGIS extension seamlessly. 
 This integration allows direct use within GIS software packages such as QGIS. 
-Using an RDBMS centralizes data storage and provides remote access while allowing customizable permission levels. 
+Using a database centralizes data storage and provides remote access while allowing customizable permission levels. 
 This allows public access (e.g. via a read-only web interface) while protecting sensitive data for internal use. 
 
 The database primarily serves as a repository for field survey data, including details such as survey dates, instrument specifications, key acquisition parameters, and selected processing statistics. 
@@ -781,7 +806,7 @@ It also contains periodic GNSS measurements of photogrammetric targets and outpu
 \begin{figure}[ht!]
   \centering
   \includegraphics[width=0.9\textwidth]{belvederedb_erd.png}
-  \caption{ERD diagram of the PostgreSQL database used for storing the Belvedere results. \textcolor{red}{TEMPORARY}}
+  \caption{ERD diagram of the PostgreSQL database used for storing the Belvedere results. \textcolor{red}{Update fig}}
   \label{fig:3:belvederedb_erd}
 \end{figure}
 

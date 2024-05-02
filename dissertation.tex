@@ -25,6 +25,9 @@
 \newcommand{\tabref}[1]{Tab.~\ref{#1}}
 \newcommand{\secref}[1]{Sec.~\ref{#1}}
 
+% Make citing in parenthesis the default approach
+\renewcommand{\cite}{\citep}
+
 % Bibliography
 \newcommand{\makechapterbibliography}{
     \begin{spacing}{0.5}
@@ -60,13 +63,13 @@
 \include{chapters/chapter3}
 \include{chapters/chapter4}
 \include{chapters/chapter5}
-\include{chapters/chapter6}
+% \include{chapters/chapter6}
 \include{chapters/conclusion}
 
-\singlespacing
-\begin{appendices}
-    \include{chapters/appendixA}
-\end{appendices}
+% \singlespacing
+% \begin{appendices}
+%     \include{chapters/appendixA}
+% \end{appendices}
 
 % the back matter
 % \clearpage

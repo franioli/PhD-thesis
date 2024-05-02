@@ -2,7 +2,7 @@
 \onehalfspacing
 
 \chapter{Deep learning low-cost photogrammetry for 4D short-term glacier monitoring
-  (2022-2023)}
+  (2022-2023)}\label{ch:4}
 
 % \vfill
 % \vspace{5mm}
@@ -38,21 +38,21 @@ However, external DSMs are required to convert 2D-pixel displacements obtained b
 
 Although most of the existing literature focuses on single time-lapse cameras, in recent
 years some studies have been conducted on multi-camera systems.
-Even though it was not applied to glaciers, \cite{roncella_landslide_2014} first
+Even though it was not applied to glaciers, \citet{roncella_landslide_2014} first
 developed a pure stereoscopic system for monitoring a moving landslide, proposing a fully photogrammetric approach to derive a 3D model of the scene and detect collapses, without the need for a priori DSMs.
-\cite{Schwalbe2017} proposed an application of multiple time-lapse cameras for deriving
+\citet{Schwalbe2017} proposed an application of multiple time-lapse cameras for deriving
 a coarse digital surface model using SfM to estimate a distance
 map, which was used to scale displacement vectors.
-\cite{Marsy2020} used a stereo camera system to construct a glacier DSM and
+\citet{Marsy2020} used a stereo camera system to construct a glacier DSM and
 back-projected the DIC-derived velocity field.
 However, their main focus was on deriving glacier kinematics rather than achieving a
 short-term 3D reconstruction of the glacier.
-Recently, \cite{kneib_sub-seasonal_2022} used a multi-camera system to
+Recently, \citet{kneib_sub-seasonal_2022} used a multi-camera system to
 estimate sub-seasonal variability of supraglacial ice cliff melt rates.
-\cite{Taylor2023} successfully tested a low-cost Raspberry Pi with a high-quality camera
+\citet{Taylor2023} successfully tested a low-cost Raspberry Pi with a high-quality camera
 module and a telephoto lens mounted on a boat for reconstructing a glacier calving front
 by SfM achieving sub-meter accuracy when compared to a UAV benchmark.
-\cite{Blanch2023} proposed a low-cost fixed multi-camera system for natural hazard
+\citet{Blanch2023} proposed a low-cost fixed multi-camera system for natural hazard
 monitoring using a photogrammetric approach and they achieved sub-decimetric change
 detection sensitivity in rockfall detection.
 
@@ -64,32 +64,32 @@ baseline and viewing geometry can be challenging.
 Conversely, wide baselines or highly convergent views hinder a 3D reconstruction by
 traditional photogrammetry.
 
-In traditional photogrammetry, keypoints are identified on different images by
-local feature detectors and descriptors such as SIFT~\citep{Lowe2004},
-Kaze~\citep{Alcantarilla2012} or ORB~\citep{Rublee2011} and matched by minimizing 
-descriptor distances in the descriptor space.
-Bundle Adjustment (BA) is then used to estimate the 3D coordinates of tie points
-and camera parameters.
-Extracting tie points becomes challenging when the camera baseline is wide.
-Changes in viewpoint lead to complex distortions, missing content, and occlusions between corresponding objects, making matching difficult.
+% In traditional photogrammetry, keypoints are identified on different images by
+% local feature detectors and descriptors such as SIFT~\citep{Lowe2004},
+% Kaze~\citep{Alcantarilla2012} or ORB~\citep{Rublee2011} and matched by minimizing 
+% descriptor distances in the descriptor space.
+% Bundle Adjustment (BA) is then used to estimate the 3D coordinates of tie points
+% and camera parameters.
+% Extracting tie points becomes challenging when the camera baseline is wide.
+% Changes in viewpoint lead to complex distortions, missing content, and occlusions between corresponding objects, making matching difficult.
 
-In traditional photogrammetry, keypoints are detected using local feature methods like
-SIFT~\citep{Lowe2004}, Kaze~\citep{Alcantarilla2012}, or ORB~\citep{Rublee2011}. 
-The keypoints are matched by minimizing descriptor distances in descriptor space and BA is then employed to estimate their 3D coordinates and camera parameters.
-Wide camera baselines complicate tie point extraction, due to complex
-distortions and occlusions between corresponding objects.
-Deep Learning (DL) techniques, and particularly attention-based
-architectures~\citep{vaswani2023attention},
-have emerged as a powerful technique for extracting and matching features in difficult
-conditions, such as wide baselines and significant radiometric
-differences~\citep{jin_image_2021,Yao_2021}.
-Research in DL-based matching has soared in recent
-years~\citep{Chen_2021_handcrafted_to_DL},
-addressing various challenges, including large baselines, oblique
-images~\citep{Yao_2021}, historical image matching~\citep{Maiwald2021_Historical},
-low-quality cameras and public webcams~\citep{wu2021_public_webcams}.
-A comprehensive survey by \cite{remondino2022_at_with_dl} covers methods from
-traditional corner detectors to state-of-the-art DL matching approaches.
+% In traditional photogrammetry, keypoints are detected using local feature methods like
+% SIFT~\citep{Lowe2004}, Kaze~\citep{Alcantarilla2012}, or ORB~\citep{Rublee2011}. 
+% The keypoints are matched by minimizing descriptor distances in descriptor space and BA is then employed to estimate their 3D coordinates and camera parameters.
+% Wide camera baselines complicate tie point extraction, due to complex
+% distortions and occlusions between corresponding objects.
+% Deep Learning (DL) techniques, and particularly attention-based
+% architectures~\citep{vaswani2023attention},
+% have emerged as a powerful technique for extracting and matching features in difficult
+% conditions, such as wide baselines and significant radiometric
+% differences~\citep{jin_image_2021,Yao_2021}.
+% Research in DL-based matching has soared in recent
+% years~\citep{Chen_2021_handcrafted_to_DL},
+% addressing various challenges, including large baselines, oblique
+% images~\citep{Yao_2021}, historical image matching~\citep{Maiwald2021_Historical},
+% low-quality cameras and public webcams~\citep{wu2021_public_webcams}.
+% A comprehensive survey by \citet{remondino2022_at_with_dl} covers methods from
+% traditional corner detectors to state-of-the-art DL matching approaches.
 
 This chapter presents a pilot study on short-term 4D monitoring of the Belvedere Glacier glacier using a low-cost stereo-camera system with a wide baseline. 
 The study focuses on investigating daily glacier dynamics by calculating surface movement, ice volume loss, and glacier retreat of a debris-covered alpine glacier.
@@ -102,10 +102,68 @@ reconstructing the scene under sub-optimal viewing conditions.
 The objective of this work is twofold:
 (i) to demonstrate the feasibility and effectiveness of using a cost-effective
 photogrammetric solution for short-term glacier monitoring using a DL approach;
-(ii) to investigate the short-term relationship between air temperature, ice volume variations and glacier surface velocity for an alpine debris-covered glacier.
+(ii) to investigate the short-term relationship between air temperature, ice volume variations, and glacier surface velocity for an alpine debris-covered glacier.
 By combining stereo and monoscopic image sequence analysis, this study
 contributes to a better understanding of sub-seasonal glacier dynamics,
 particularly in the context of changing climate conditions and rising temperatures.
+
+
+\section{Image matching in challenging scenarios}\label{sec:4:localfeatures}
+
+Identifying homologous or tie points in pairs of images serves as the foundational task in photogrammetry for non-contact 3D measuring methods. 
+These points allow for orienting single, stereo, or multi-image configurations. Applications span a wide range, depending on object size and the requisite level of accuracy, encompassing industrial, architectural, engineering, and remote sensing applications, requiring measurements on sparse control points or evaluations on dense reconstructions via multi-view dense image matching. 
+Classical photogrammetric outputs include 3D point clouds, orthophotos, and digital surface models. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{local_feats_history}
+    \caption{Timeline development of detectors, descriptors, and matches from preliminary works, hand-crafted, machine-learning, and deep-learning local features (Figure adapted from \citet{remondino2022_at_with_dl}.}
+    \label{fig:4:feats_history}
+\end{figure}
+
+Historically, local image features (also known as keypoints or interest points), were initially identified manually, with automatic approaches emerging between the 1980s and the early 2000s. 
+The evolution of these approaches spans a broad temporal spectrum (\figref{fig:4:feats_history}), gradually identifying algorithms that effectively deal with those fundamental characteristics necessary for reliable image features \citep{Lowe2004}. 
+Image detectors should identify repeatable keypoints across different images, described by a descriptor vector that characterizes the keypoint local neighborhood allowing for similarity matching across different image views. 
+These detectors and descriptors should exhibit invariance to scale differences, arbitrary rotations, radiometric changes, and multi-view perspective projections. 
+Moreover, descriptors should be distinctive and unambiguous.  
+
+Several groundbreaking works emerged, significantly contributing to the advancement of fully automatic SfM software packages. 
+Particularly noteworthy is SIFT (Scale Invariant Feature Transform), which, despite its acknowledged limited invariance to illumination and affine transformations \citep{Lowe2004}, marked a significant milestone as the first detector and descriptor demonstrating sufficient invariance for a broad spectrum of applications. 
+Even today, SIFT remains the benchmark feature among non-deep learning-based approaches, often referred to as hand-crafted methods \citep{jin_image_2021}. 
+
+\figref{fig:4:feats_history} illustrates a timeline of benchmark features. 
+Initially, corner detectors were utilized in the early works \citep{Harris1988ACC}, 
+transitioning to blob detectors that achieved a broader degree of scale and rotation invariance \citep{Lowe2004}. 
+Computational efficiency plays a pivotal role; for instance, SURF \citep{bay_surf_2006} was developed with the explicit goal of improving upon SIFT computation time, whilst ORB \citep{Rublee2011} was engineered as a binarized feature tailored for real-time applications. 
+
+However, these methods have limitations when dealing with large camera baselines, strong viewpoint differences, and strong radiometric or scale variations \citep{Yao_2021}. 
+Large camera baselines and changes in viewpoint lead to complex distortions, missing content, and occlusions between corresponding objects, making matching difficult \citep{jin_image_2021, ioli2023_replicable}.
+Other challenging scenarios for traditional local features include matching historical images with contemporary datasets, e.g., for cultural heritage valorization \citep{Maiwald2021_Historical, Maiwald2023_HAI-SFM} or multitemporal aerial datasets \citep{Farella2022, Zhang2021_featmatc_histo}.
+
+Since 2015, a novel category of DL approaches has emerged to address the limitations of existing features.
+Initially, these methods involved independently training detectors and descriptors on extensive datasets comprising multi-temporal images, challenging illumination and perspective changes, and wide baselines \citep{mishchuk2018working}. % Verdie_2015
+Subsequently, there has been a shift towards jointly training detectors and descriptors, starting with the seminal work of LIFT \citep{yi2016lift}, followed by other end-to-end DL approaches such as LF-Net \citep{ono2018lfnet}, SuperPoint \citep{DeTone_2018}, and ASLFeat \citep{luo2020aslfeat}.
+Generally, any combination of hand-crafted and DL approaches is feasible \citep{jin_image_2021}.
+
+Additionally, the matcher component can also be trained using DL techniques.
+A pioneering and groundbreaking approach in this regard was SuperGlue \citep{sarlin2020superglue}, which makes use of an attention-based architectures~\citep{vaswani2023attention} to dramatically improve matching results by exploiting self- (intra-image) and cross- (inter-image) attention to leverage both spatial relationships of the keypoints and their visual appearance.
+Superglue has been recently followed by a faster update named LightGlue \citep{lindenberger2023lightglue}. 
+Recently, semi-dense matchers such as LoFTR \citep{sun2021_loftr} and RoMa \citep{edstedt2023roma} have been developed. 
+However, it is noteworthy that they can identify tie points only on image pairs, as they are detector-free matchers. 
+As these semi-dense matchers are not designed to build tracks of features in multiple images, they are not suitable for multi-view image orientation.
+
+Several works have proved the effectiveness of DL approaches against varying illumination conditions, multi-temporal datasets, wide baselines, and significantly different view angles.
+These challenging scenarios include glacier monitoring with wide camera baselines \citep{ioli2023_replicable, ioli2024deep}, 
+multi-temporal image matching \citep{Maiwald2023_HAI-SFM}, 
+multi-temporal co-registration problems \citep{Maiwald2021_Historical, Morelli2022_photogrnowandthen}, 
+visual-odometry and SLAM \citep{morelli2023colmap}, 
+aerial triangulation \citep{remondino2022_at_with_dl} 
+and in terrestrial laser scanning point cloud registration \citep{Markiewicz2023}.
+Despite these advantages, well-known limitations of DL approaches are their computational complexity, 
+limited scale and rotation invariance of the descriptors, and their application on high-resolution images, 
+as they have been designed for low-resolution images.
+
+% \textcolor{red}{Add example of usage with references!}
 
 \section{The low-cost stereoscopic system}\label{sec:4:system}
 
@@ -119,13 +177,12 @@ GitHub\footnote{\label{foot:greig}Greig Sheridan' Intervalometerator repository:
   \url{https://github.com/greiginsydney/Intervalometerator}}.
 A key aspect of the project was to ensure easy assembly and realization of the system to guarantee future replications and improvements.
 
-In this section, we describe in detail the monitoring system and its installation at the Belvedere Glacier.
+This section describes the monitoring system and its installation at the Belvedere Glacier.
 
 \begin{figure}[ht!]
   \centering
   \includegraphics[width=0.6\textwidth]{schema.pdf}
-  \caption{Scheme of the proposed acquisition system configuration for a single
-    monitoring station. Arrows indicate the direction of signal initiation. Image adapted
+  \caption{Scheme of a single monitoring station's proposed acquisition system configuration. Arrows indicate the direction of signal initiation. Image adapted
     from Greig Sheridan's repository.}
   \label{fig:4:scheme_foto}
 \end{figure}
@@ -185,11 +242,12 @@ quiescent power consumption when the Raspberry board is off.
 
 Acquisition of a defined number of images, camera triggering and timing, and sending of
 images to a remote server can be scheduled thanks to adequate programming of a cyclic
-executive program in C++ for Arduino and  of services executing automatically Python
+executive program in C++ for Arduino and of services automatically executing Python
 scripts for the Raspberry.
 All the monitoring station activities can be remotely scheduled from the terminal or a
 user-friendly web interface \citep{greig}. 
-This useful feature allows one to change the settings and check the behavior of the system, avoiding the need for manual intervention. 
+This useful feature allows one to change the settings and check the behavior of the system, 
+avoiding the need for manual intervention. 
 The Raspberry uses the gPhoto2, a Python-based protocol developed to specifically interact with popular cameras’ firmware, to communicate with the camera and access new photos. 
 The web-based interface service is based on NGINX and Gunicorn, open-source software for web servers. 
 The interface (\figref{fig:4:web-interface}) consists of a web page accessible with credentials and provides a summary of the system state and the exact time of the last operations (time of the last shot and the last upload of images), temperatures of the components, previews of the last images, buttons to wake up the camera, take a preview photo and schedule the system routine (time and number of photo acquisition, wake-up time of the Raspberry) and some camera settings.
@@ -360,7 +418,7 @@ Despite these efforts, analysis of the acquired images revealed minor instabilit
   \centering{(a)\hspace{30mm}(b)}\\ \vspace{1mm}
   \caption{(a) Picture of the monitoring unit prototype installed for tests at the
     Belvedere Glacier site. (b) Picture of the final monumentation of the camera
-    installed on the stream-wise right moraine. \textcolor{red}{TODO: change picture with the final installation}}
+    installed on the stream-wise right moraine.}
   \label{fig:4:final_installation}
 \end{figure}
 
@@ -616,11 +674,10 @@ orientation correlation algorithm~\citep{fitch2002_OC}, which is more robust aga
   \label{fig:4:stereo-workflow}
 \end{figure}
 
-For the daily stereoscopic reconstruction of the glacier snout, a Python-based toolkit
-ICEpy4D was developed (ICEpy4D code is available in the repository
-\url{https://github.com/franioli/icepy4d}).
-ICEpy4D allows for solving different steps of scene reconstruction
-(\figref{fig:4:stereo-workflow}). In particular, the main steps consist of:
+ICEpy4D was developed to achieve a daily stereoscopic reconstruction of the glacier snout.
+ICEpy4D\footnote{\url{https://github.com/franioli/icepy4d})} is a Python-based toolkit that allows for solving different steps of scene reconstruction
+(\figref{fig:4:stereo-workflow}). 
+In particular, the main steps consist of:
 (i) finding corresponding points by deep-learning feature matching;
 (ii) tracking features on the sequence of images acquired from the same camera;
 (iii) performing 3D scene reconstruction and point cloud post-processing.
@@ -635,13 +692,13 @@ fully integrated into ICEpy4D package.
 SuperPoint is a Convolutional Neural Network (CNN) with an encoder-decoder
 structure, which detects interesting points and computes 256-value descriptors in a
 single forward pass.
-\cite{DeTone_2018} trained SuperPoint to detect corner-like features first using corners
+\citet{DeTone_2018} trained SuperPoint to detect corner-like features first using corners
 of synthetic shape datasets as ground truth.
 They employed a self-supervised approach by applying random homographies to warped
 copies of the input training images and combining the results \citep{DeTone_2018}.
 SuperGlue is an attention-based graph CNN used for local feature matching.
 It was specifically designed to match SuperPoint features based on their descriptors.
-\cite{sarlin2020superglue} trained SuperGlue in a supervised manner and published two
+\citet{sarlin2020superglue} trained SuperGlue in a supervised manner and published two
 different sets of weights: one for indoor environments and another for outdoor
 environments.
 The outdoor environment model was trained on the Megadepth dataset
@@ -721,7 +778,7 @@ verification was carried out to reject outliers.
 
 At each epoch, the reconstruction of the terminal ice cliff was carried out using ICEpy4D
 in two main steps: (i) relative-absolute orientation, and (ii) bundle adjustment.
-In the first step, matches between each stereo-pair were utilized to estimate the
+In the first step, matches between each stereo pair were utilized to estimate the
 relative pose of the two cameras, based on the camera's pre-calibrated intrinsic matrix.
 Subsequently, the absolute orientation was determined by calculating a Helmert
 transformation, considering the cameras' locations and the available GCPs.
@@ -737,7 +794,7 @@ A centimetric a-priori accuracy was assigned to the world coordinates of the GCP
 A centimetric accuracy was also given to the camera locations to constrain their
 positions, while still allowing for an estimation of the cameras' rotations.
 Additionally, during the BA process, the principal distance of the
-two cameras was refined by self-calibration based on the available GCPs, while the
+two cameras were refined by self-calibration based on the available GCPs, while the
 remaining interior orientation parameters were kept fixed at their pre-calibrated values.
 
 The dense reconstruction of the ice cliff terminus was again carried out using the
@@ -922,7 +979,7 @@ resampled at 1 m resolution to smooth small local DSM variations.
 The orthorectification of the 2D DIC displacement vectors to obtain 3D vectors is
 influenced by the chosen DSM and its associated uncertainty \citep{Travelletti2012}.
 Ideally, using an updated DSM derived from daily stereo-processing, as performed in
-\cite{Marsy2020}, would be the optimal approach.
+\citet{Marsy2020}, would be the optimal approach.
 However, due to the camera's viewing location, it was not feasible to reconstruct the
 daily DSM of the upper surface of the glacier lobe. Consequently, we utilized the UAV-A
 DSM acquired on 28/07/2022.
@@ -1411,7 +1468,7 @@ temperature~\citep{sanders2018variations}.
 At hourly to daily scale, several studies showed that the flow velocity is linked to
 subglacial water pressure \citep{sugiyama2010surface} and air
 temperature~\citep{liu2019diurnal},
-even though~\cite{allstadt2015observations} did not observed a significant variation in
+even though~\citet{allstadt2015observations} did not observed a significant variation in
 the diurnal cycle.
 Moreover, in many cases the flow velocity was observed to rise after intense
 rainstorms~\citep{benoit2015multi,horgan2015glacier,sugiyama2010surface}.
@@ -1448,11 +1505,11 @@ presents favorable conditions for 3D reconstruction due to the presence of disti
 patterns in the images.
 However, successful 3D reconstructions of bare ice or snow-covered areas have also been
 achieved in previous studies.
-\cite{belloni2023} and~\cite{Gindraux2017} utilized UAV-SfM to generate 3D models
+\citet{belloni2023} and~\citet{Gindraux2017} utilized UAV-SfM to generate 3D models
 of debris-free or partially debris-covered glaciers.
-\cite{Taylor2023} demonstrated the effectiveness of an extremely low-cost camera for 3D
+\citet{Taylor2023} demonstrated the effectiveness of an extremely low-cost camera for 3D
 reconstruction of a debris-free glacier calving front in Iceland.
-Additionally,~\cite{Avanzi2018} and~\cite{DeMichele2016} employed UAV-based
+Additionally,~\citet{Avanzi2018} and~\citet{DeMichele2016} employed UAV-based
 photogrammetric reconstruction to map snow depth Despite snow having even fewer
 discernible patterns than bare ice, the use of multi-camera photogrammetry allowed for
 achieving accurate 3D reconstructions.

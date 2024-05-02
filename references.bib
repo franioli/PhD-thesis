@@ -271,6 +271,29 @@
   year      = {2015}
 }
 
+
+@inproceedings{Chum2003_loransac,
+    address={Berlin, Heidelberg},
+    author = {Chum, Ond{\v{r}}ej and Matas, Ji{\v{r}}{\'i} and Kittler, Josef},
+    booktitle  = {Pattern Recognition},
+    doi        = {10.1007/978-3-540-45243-0_312},
+    pages      = {236--243},
+    publisher  = {Springer},
+    title      = {Locally Optimized RANSAC},
+    year       = {2003}
+}
+
+@Article{Ioli2023_icepy4d,
+AUTHOR = {Ioli, F. and Barbieri, F. and Gaspari, F. and Nex, F. and Pinto, L.},
+TITLE = {ICEPY4D: A PYTHON TOOLKIT FOR ADVANCED MULTI-EPOCH GLACIER MONITORING WITH DEEP-LEARNING PHOTOGRAMMETRY},
+JOURNAL = {The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences},
+VOLUME = {XLVIII-1/W2-2023},
+YEAR = {2023},
+PAGES = {1037--1044},
+URL = {https://isprs-archives.copernicus.org/articles/XLVIII-1-W2-2023/1037/2023/},
+DOI = {10.5194/isprs-archives-XLVIII-1-W2-2023-1037-2023}
+}
+
 @article{Benoit2019,
   author  = {Benoit, L. and Gourdon, A. and Vallat, R. and Irarrazaval, I. and Gravey, M. and Lehmann, B. and Prasicek, G. and Gr\"aff, D. and Herman, F. and Mariethoz, G.},
   doi     = {10.5194/essd-11-579-2019},
@@ -774,12 +797,43 @@
 }
 
 @inproceedings{Dusmanu2019_d2net,
-  author = {Dusmanu, Mihai and Rocco, Ignacio and Pajdla, Tomas and Pollefeys, Marc and Sivic, Josef and Torii, Akihiko and Sattler, Torsten},
-  doi    = {10.1109/CVPR.2019.00828},
-  month  = {06},
-  pages  = {8084-8093},
-  title  = {D2-Net: A Trainable CNN for Joint Description and Detection of Local Features},
-  year   = {2019}
+author={Dusmanu, Mihai and Rocco, Ignacio and Pajdla, Tomas and Pollefeys, Marc and Sivic, Josef and Torii, Akihiko and Sattler, Torsten},
+  booktitle={2019 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, 
+  title={D2-Net: A Trainable CNN for Joint Description and Detection of Local Features}, 
+  year={2019},
+  pages={8084-8093},
+  doi={10.1109/CVPR.2019.00828}
+}
+
+@article{Lindeberg1997_affine,
+title = {Shape-adapted smoothing in estimation of 3-D shape cues from affine deformations of local 2-D brightness structure},
+journal = {Image and Vision Computing},
+volume = {15},
+number = {6},
+pages = {415-434},
+year = {1997},
+doi = {https://doi.org/10.1016/S0262-8856(97)01144-X},
+author = {Tony Lindeberg and Jonas Gårding},
+}
+
+@article{Huss2013_density_geodetic_balance,
+author = {Huss, M.},
+title = {Density assumptions for converting geodetic glacier volume change to mass change},
+journal = {The Cryosphere},
+volume = {7},
+year = {2013},
+number = {3},
+pages = {877--887},
+doi = {10.5194/tc-7-877-2013}
+}
+
+@misc{dusmanu2019d2net,
+      title={D2-Net: A Trainable CNN for Joint Detection and Description of Local Features}, 
+      author={Mihai Dusmanu and Ignacio Rocco and Tomas Pajdla and Marc Pollefeys and Josef Sivic and Akihiko Torii and Torsten Sattler},
+      year={2019},
+      eprint={1905.03561},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
 }
 
 @article{Eder2000,
@@ -859,12 +913,13 @@
   year         = {2023}
 }
 
-@inproceedings{eriba2019_kornia,
-  author    = {Riba, E. and Mishkin, D. and Ponsa, D. and Rublee, E. and Bradski, G.},
-  booktitle = {Winter Conf. Appl. of Comput. Vis.},
-  title     = {Kornia: an Open Source Differentiable Computer Vision Library for PyTorch},
-  url       = {https://arxiv.org/pdf/1910.02190.pdf},
-  year      = {2020}
+@misc{riba2019kornia,
+      title={Kornia: an Open Source Differentiable Computer Vision Library for PyTorch}, 
+      author={Edgar Riba and Dmytro Mishkin and Daniel Ponsa and Ethan Rublee and Gary Bradski},
+      year={2019},
+      eprint={1910.02190},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
 }
 
 @article{Evans2000,
@@ -1205,6 +1260,15 @@
   year    = {2012}
 }
 
+@misc{ono2018lfnet,
+      title={LF-Net: Learning Local Features from Images}, 
+      author={Yuki Ono and Eduard Trulls and Pascal Fua and Kwang Moo Yi},
+      year={2018},
+      eprint={1805.09662},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+
 @article{Heisig2021,
   author    = {Heisig, Holger and Simmen, Jean-Luc},
   journal   = {PFG--Journal of Photogrammetry, Remote Sensing and Geoinformation Science},
@@ -1461,9 +1525,8 @@
 
 @article{jin_image_2021,
   author  = {Jin, Yuhe and Mishkin, Dmytro and Mishchuk, Anastasiia and Matas, Jiri and Fua, Pascal and Yi, Kwang Moo and Trulls, Eduard},
-  doi     = {10.1007/S11263-020-01385-0/TABLES/15},
+  doi     = {10.1007/S11263-020-01385-0},
   journal = {International Journal of Computer Vision},
-  note    = {Publisher: Springer},
   number  = {2},
   pages   = {517--547},
   title   = {Image Matching Across Wide Baselines: From Paper to Practice},
@@ -1896,6 +1959,116 @@
   year          = {2018}
 }
 
+@inproceedings{Chum2005_degensac,
+author = {Chum, O. and Werner, Tomas and Matas, Jiri},
+year = {2005},
+month = {07},
+pages = {772- 779 vol. 1},
+title = {Two-view geometry estimation unaffected by a dominant plane},
+volume = {1},
+isbn = {0-7695-2372-2},
+journal = {Proceedings - 2005 IEEE Computer Society Conference on Computer Vision and Pattern Recognition, CVPR 2005},
+doi = {10.1109/CVPR.2005.354}
+}
+
+@article{gagliolo2018_parameter_optim,
+    author  = {Gagliolo, S. and Fagandini, R. and Passoni, D. and Federici, B. and Ferrando, I. and Pagliari, D. and Pinto, L. and Sguerso, D.},
+    title   = {Parameter optimization for creating reliable photogrammetric models in emergency scenarios},
+    journal = {Applied Geomatics},
+    volume  = {10},
+    number  = {4},
+    pages   = {501--514},
+    year    = {2018},
+    doi     = {10.1007/s12518-018-0224-4},
+}
+
+@article{Gagliolo2017_uav_conservation_histo,
+author = {Gagliolo, S. and Fagandini, R. and Federici, B. and Ferrando, I. and Passoni, D. and Pagliari, D. and Pinto, L. and Sguerso, D.},
+title = {USE OF UAS FOR THE CONSERVATION OF HISTORICAL BUILDINGS IN CASE OF EMERGENCIES},
+journal = {The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences},
+volume = {XLII-5/W1},
+year = {2017},
+pages = {81--88},
+doi = {10.5194/isprs-archives-XLII-5-W1-81-2017}
+}
+
+
+@inproceedings{Firmenich2011_Multispectral,
+title = "Multispectral Interest Points for RGN-NIR Image Registration",
+abstract = "This paper explores the use of joint colour and near-infrared (NIR) information for feature based matching and image registration. In particular, we investigate multispectral generalisations of two popular interest point detectors (Harris and difference of Gaussians), and show that these give a marked improvement in performance when the extra NIR channel is available. We also look at the problem of multimodal RGB to NIR registration, and propose a variant of the SIFT descriptor that gives improved performance.",
+author = "Firmenich, D. and Brown, M. and Susstrunk, S.",
+year = "2011",
+booktitle = "ICIP 2011: IEEE International Conference on Image Processing",
+}
+
+
+@article{Aguilera2021_multispectral,
+AUTHOR = {Aguilera, Cristhian and Barrera, Fernando and Lumbreras, Felipe and Sappa, Angel D. and Toledo, Ricardo},
+TITLE = {Multispectral Image Feature Points},
+JOURNAL = {Sensors},
+VOLUME = {12},
+YEAR = {2012},
+NUMBER = {9},
+PAGES = {12661--12672},
+DOI = {10.3390/s120912661}
+}
+
+
+@article{Li2020_RIFT,
+  author={Li, Jiayuan and Hu, Qingwu and Ai, Mingyao},
+  journal={IEEE Transactions on Image Processing}, 
+  title={RIFT: Multi-Modal Image Matching Based on Radiation-Variation Insensitive Feature Transform}, 
+  year={2020},
+  volume={29},
+  pages={3296-3310},
+  doi={10.1109/TIP.2019.2959244}
+}
+
+@article{Laguela2013_thermographic,
+title = {Automatic thermographic and RGB texture of as-built BIM for energy rehabilitation purposes},
+journal = {Automation in Construction},
+volume = {31},
+pages = {230-240},
+year = {2013},
+doi = {https://doi.org/10.1016/j.autcon.2012.12.013},
+author = {S. Lagüela and L. Díaz-Vilariño and J. Martínez and J. Armesto},
+}
+
+
+@article{Ham2013_thermal,
+title = "An automated vision-based method for rapid 3D energy performance modeling of existing buildings using thermal and digital imagery",
+keywords = "3D reconstruction, Building retrofit, Energy performance modeling, Structure-from-Motion, Thermography",
+author = "Ham, Youngjib and Golparvar-Fard, Mani",
+year = "2013",
+doi = "10.1016/j.aei.2013.03.005",
+volume = "27",
+pages = "395--409",
+journal = "Advanced Engineering Informatics",
+number = "3",
+
+}
+
+@Article{RuizDeOna2023_photomatch,
+AUTHOR = {Ruiz de Oña, Esteban and Barbero-García, Inés and González-Aguilera, Diego and Remondino, Fabio and Rodríguez-Gonzálvez, Pablo and Hernández-López, David},
+TITLE = {PhotoMatch: An Open-Source Tool for Multi-View and Multi-Modal Feature-Based Image Matching},
+JOURNAL = {Applied Sciences},
+VOLUME = {13},
+YEAR = {2023},
+NUMBER = {9},
+ARTICLE-NUMBER = {5467},
+DOI = {10.3390/app13095467}
+}
+
+
+@misc{revaud2019r2d2,
+      title={R2D2: Repeatable and Reliable Detector and Descriptor}, 
+      author={Jerome Revaud and Philippe Weinzaepfel and César De Souza and Noe Pion and Gabriela Csurka and Yohann Cabon and Martin Humenberger},
+      year={2019},
+      eprint={1906.06195},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+
 @article{Mishkin2015_pydegensac,
   author  = {Mishkin, Dmytro and Matas, Jiri and Perdoch, Michal},
   doi     = {https://doi.org/10.1016/j.cviu.2015.08.005},
@@ -1946,6 +2119,70 @@
   title     = {COLMAP-SLAM: A FRAMEWORK FOR VISUAL ODOMETRY},
   volume    = {48},
   year      = {2023}
+}
+
+@Article{Morelli2022_photogrnowandthen,
+AUTHOR = {Morelli, L. and Bellavia, F. and Menna, F. and Remondino, F.},
+TITLE = {PHOTOGRAMMETRY NOW AND THEN – FROM HAND-CRAFTED TO DEEP-LEARNING TIE POINTS –},
+JOURNAL = {The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences},
+VOLUME = {XLVIII-2/W1-2022},
+YEAR = {2022},
+PAGES = {163--170},
+DOI = {10.5194/isprs-archives-XLVIII-2-W1-2022-163-2022}
+}
+
+@misc{barrosolaguna2019keynet,
+      title={Key.Net: Keypoint Detection by Handcrafted and Learned CNN Filters}, 
+      author={Axel Barroso-Laguna and Edgar Riba and Daniel Ponsa and Krystian Mikolajczyk},
+      year={2019},
+      eprint={1904.00889},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+
+@misc{edstedt2024dedode,
+      title={DeDoDe v2: Analyzing and Improving the DeDoDe Keypoint Detector}, 
+      author={Johan Edstedt and Georg Bökman and Zhenjun Zhao},
+      year={2024},
+      eprint={2404.08928},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+@misc{pultar2020improving,
+      title={Improving the HardNet Descriptor}, 
+      author={Milan Pultar},
+      year={2020},
+      eprint={2007.09699},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+
+@misc{zhao2022alike,
+      title={ALIKE: Accurate and Lightweight Keypoint Detection and Descriptor Extraction}, 
+      author={Xiaoming Zhao and Xingming Wu and Jinyu Miao and Weihai Chen and Peter C. Y. Chen and Zhengguo Li},
+      year={2022},
+      eprint={2112.02906},
+      archivePrefix={arXiv},
+}
+
+@misc{zhao2023aliked,
+      title={ALIKED: A Lighter Keypoint and Descriptor Extraction Network via Deformable Transformation}, 
+      author={Xiaoming Zhao and Xingming Wu and Weihai Chen and Peter C. Y. Chen and Qingsong Xu and Zhengguo Li},
+      year={2023},
+      eprint={2304.03608},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+
+@article{Markiewicz2023,
+author = {Markiewicz, Jakub and Kot, Patryk and Markiewicz, Łukasz and Muradov, Magomed},
+year = {2023},
+month = {12},
+pages = {1-26},
+title = {The evaluation of hand-crafted and learned-based features in Terrestrial Laser Scanning-Structure-from-Motion (TLS-SfM) indoor point cloud registration: the case study of cultural heritage objects and public interiors},
+volume = {11},
+journal = {Heritage Science},
+doi = {10.1186/s40494-023-01099-9}
 }
 
 @article{Morelli2024_dim,
@@ -2536,19 +2773,15 @@
   year    = {2008}
 }
 
-
-
-@inproceedings{Tyszkiewicz2020_DISK,
-  author    = {Tyszkiewicz, Micha\l  and Fua, Pascal and Trulls, Eduard},
-  booktitle = {Advances in Neural Information Processing Systems},
-  editor    = {H. Larochelle and M. Ranzato and R. Hadsell and M.F. Balcan and H. Lin},
-  pages     = {14254--14265},
-  publisher = {Curran Associates, Inc.},
-  title     = {DISK: Learning local features with policy gradient},
-  url       = {https://proceedings.neurips.cc/paper_files/paper/2020/file/a42a596fc71e17828440030074d15e74-Paper.pdf},
-  volume    = {33},
-  year      = {2020}
+@misc{tyszkiewicz2020disk,
+      title={DISK: Learning local features with policy gradient}, 
+      author={Michał J. Tyszkiewicz and Pascal Fua and Eduard Trulls},
+      year={2020},
+      eprint={2006.13566},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
 }
+
 @article{Vallot2019,
   author  = {Vallot, D. and Adinugroho, S. and Strand, R. and How, P. and Pettersson, R. and Benn, D. I. and Hulton, N. R. J.},
   doi     = {10.5194/gi-8-113-2019},
@@ -2560,6 +2793,88 @@
   year    = {2019}
 }
 
+@misc{arandjelovic2016netvlad,
+      title={NetVLAD: CNN architecture for weakly supervised place recognition}, 
+      author={Relja Arandjelović and Petr Gronat and Akihiko Torii and Tomas Pajdla and Josef Sivic},
+      year={2016},
+      eprint={1511.07247},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+
+@misc{ge2020selfsupervising,
+      title={Self-supervising Fine-grained Region Similarities for Large-scale Image Localization}, 
+      author={Yixiao Ge and Haibo Wang and Feng Zhu and Rui Zhao and Hongsheng Li},
+      year={2020},
+      eprint={2006.03926},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+
+
+@Article{Wu2018_steerer,
+AUTHOR = {Wu, Keyu and Abolfazli Esfahani, Mahdi and Yuan, Shenghai and Wang, Han},
+TITLE = {Learn to Steer through Deep Reinforcement Learning},
+JOURNAL = {Sensors},
+VOLUME = {18},
+YEAR = {2018},
+NUMBER = {11},
+ARTICLE-NUMBER = {3650},
+PubMedID = {30373261},
+DOI = {10.3390/s18113650}
+}
+
+@inproceedings{moulon2016openmvg,
+  title={Open{MVG}: Open multiple view geometry},
+  author={Moulon, Pierre and Monasse, Pascal and Perrot, Romuald and Marlet, Renaud},
+  booktitle={International Workshop on Reproducible Research in Pattern Recognition},
+  pages={60--74},
+  year={2016},
+  organization={Springer}
+}
+
+
+@misc{napoletano2017visual,
+      title={Visual descriptors for content-based retrieval of remote sensing images}, 
+      author={Paolo Napoletano},
+      year={2017},
+      eprint={1602.00970},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+
+@article{Hong_2019,
+   title={CoSpace: Common Subspace Learning From Hyperspectral-Multispectral Correspondences},
+   volume={57},
+   DOI={10.1109/tgrs.2018.2890705},
+   number={7},
+   journal={IEEE Transactions on Geoscience and Remote Sensing},
+   publisher={Institute of Electrical and Electronics Engineers (IEEE)},
+   author={Hong, Danfeng and Yokoya, Naoto and Chanussot, Jocelyn and Zhu, Xiao Xiang},
+   year={2019},
+pages={4349–4359} 
+}
+
+@misc{lindenberger2021pixelperfect,
+      title={Pixel-Perfect Structure-from-Motion with Featuremetric Refinement}, 
+      author={Philipp Lindenberger and Paul-Edouard Sarlin and Viktor Larsson and Marc Pollefeys},
+      year={2021},
+      eprint={2108.08291},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+
+@ARTICLE{Yang2013_imageretrieval,
+  author={Yang, Yi and Newsam, Shawn},
+  journal={IEEE Transactions on Geoscience and Remote Sensing}, 
+  title={Geographic Image Retrieval Using Local Invariant Features}, 
+  year={2013},
+  volume={51},
+  number={2},
+  pages={818-832},
+  doi={10.1109/TGRS.2012.2205158}
+}
+
 @misc{vaswani2023attention,
   archiveprefix = {arXiv},
   author        = {Ashish Vaswani and Noam Shazeer and Niki Parmar and Jakob Uszkoreit and Llion Jones and Aidan N. Gomez and Lukasz Kaiser and Illia Polosukhin},
@@ -2569,11 +2884,40 @@
   year          = {2023}
 }
 
+@article{Maiwald2023_HAI-SFM,
+    author = {Ferdinand Maiwald and Denis Feurer and Anette Eltner},
+    title = {Solving photogrammetric cold cases using AI-based image matching: New potential for monitoring the past with historical aerial images},
+    journal = {ISPRS Journal of Photogrammetry and Remote Sensing},
+    volume = {206},
+    pages = {184-200},
+    year = {2023},
+    doi = {https://doi.org/10.1016/j.isprsjprs.2023.11.008},
+}
+
+@article{Zhang2021_featmatc_histo,
+title = {Feature matching for multi-epoch historical aerial images},
+journal = {ISPRS Journal of Photogrammetry and Remote Sensing},
+volume = {182},
+pages = {176-189},
+year = {2021},
+doi = {https://doi.org/10.1016/j.isprsjprs.2021.10.008},
+author = {Lulin Zhang and Ewelina Rupnik and Marc Pierrot-Deseilligny},
+}
+
+@article{Farella2022,
+    author = {Farella, E. M. and Morelli, L. and Remondino, F. and Mills, J. P. and Haala, N. and Crompvoets, J.},
+    title = {THE EUROSDR TIME BENCHMARK FOR HISTORICAL AERIAL IMAGES},
+    journal = {The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences},
+    year = {2022},
+    pages = {1175--1182},
+    VOLUME = {XLIII-B2-2022},
+    DOI = {10.5194/isprs-archives-XLIII-B2-2022-1175-2022}
+}
+
 @inproceedings{Verdie_2015,
   author    = {Verdie, Yannick and Kwang Moo Yi and Fua, Pascal and Lepetit, Vincent},
   booktitle = {2015 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
   doi       = {10.1109/cvpr.2015.7299165},
-  month     = jun,
   publisher = {IEEE},
   title     = {TILDE: A Temporally Invariant Learned DEtector},
   url       = {http://dx.doi.org/10.1109/CVPR.2015.7299165},
