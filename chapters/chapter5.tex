@@ -66,9 +66,9 @@ DL techniques, and particularly attention-based architectures~\citep{vaswani2023
 
 Although DL local features offer several advantages, their limited rotational invariance remains a constraint, particularly when analyzing images with diverse orientations. 
 While some initial studies highlighted this issue, many subsequent approaches have not prioritized solutions. 
-This may stem from the common use of datasets with minimal rotational variance (e.g., upright images) within the computer vision community, which are common in aerial and UAV photogrammetric datasets. 
+This may stem from the common use of datasets with minimal rotational variability (e.g., upright images) within the computer vision community, which are common in aerial and UAV photogrammetric datasets \cite{Bkman2022_se2loftr}. 
 Recently, some end-to-end approaches like LIFT \citep{yi2016lift} and LFNet \citep{ono2018lfnet}, and semi-dense methods like RoRD \citep{parihar2022rord} and SE2-LoFTR \citep{Bkman2022_se2loftr}, demonstrate progress in achieving rotational invariance. 
-Recent work with steerers \citep{Wu2018_steerer} that allows to \textit{steer} the descriptors further addresses this limitation.
+Recent works involving Steerable CNNs \citep{cohen2016steerable, Wu2018_steerer}, are examples of group equivariant neural networks that allow for \textit{steering} the descriptors to make them invariant by the rotation, further address this limitation \cite{Weiler2019_e2cnn, cesa2022_escnn, Bkman2022_se2loftr}.
 Nevertheless, the number of approaches specifically addressing this problem is minimal compared to the overall interest in DL-based feature-matching algorithms.
 On the other hand, the most common approach to address large rotation is still to compensate by iteratively rotating images during matching, but this becomes computationally intensive for large datasets.
 
@@ -110,7 +110,8 @@ The process begins with a pre-processing stage where users select from different
 Additionally, DIM provides a module for addressing the challenge of rotated images within datasets (e.g., in the case of aerial or UAV surveys) by automatically identifying the ideal rotation angle between image pairs, significantly boosting matching accuracy. Users can opt to match images at their original resolution or employ down-sampling or up-sampling techniques managed by a quality parameter.
 To handle high-resolution imagery, DIM offers the added capability of image tiling, ensuring efficient processing without compromising detail. 
 
-For the actual matching, DIM supports various combinations of local feature and matching algorithms, named \textit{pipelines}, optimized for diverse problem domains. This allows users to tailor the workflow to their specific needs. Each pipeline consists of two main components: (I) an extraction part that is responsible for extracting local features from all images in the dataset; (ii) a matching Part that matches the extracted local features across the image pairs selected by the chosen matching strategy.  
+For the actual matching, DIM supports various combinations of local feature and matching algorithms, named \textit{pipelines}, optimized for diverse problem domains. This allows users to tailor the workflow to their specific needs. 
+Each pipeline consists of two main components: (i) an \textit{extraction} step that is responsible for extracting local features from all images in the dataset; and (ii) a \textit{matching} step that matches the extracted local features across the image pairs selected by the chosen matching strategy.  
 
 DIM supports a wide range of local features and matching algorithms, spanning from the traditional ones to recent state-of-the-art learning approaches. 
 Available local features include ORB \citep{Rublee2011}, SIFT \citep{Lowe2004}, SuperPoint \citep{DeTone_2018}, 
@@ -172,10 +173,10 @@ This approach is well suited for scenarios such as VSLAM, where images are captu
 \begin{figure}[ht]
   \centering
   \subcaptionbox{\label{fig:5:rotations:1}}{
-    \includegraphics[width=.6\textwidth]{dim_rotations_1.png}
+    \includegraphics[width=.8\textwidth]{dim_rotations_1.png}
   } \\
   \subcaptionbox{\label{fig:5:rotations:2}}{
-    \includegraphics[width=.6\textwidth]{dim_rotations_2.png}
+    \includegraphics[width=.8\textwidth]{dim_rotations_2.png}
   }
   \caption{Scheme of the DIM's cluster-based approach to estimate the best rotation of the images before performing the image matching. 
     The cluster-based approach allows for XX.
@@ -185,10 +186,6 @@ This approach is well suited for scenarios such as VSLAM, where images are captu
 
 \subsection{Image rotations}
 [Luca] [Explain approach with two clusters, faster than brute force with 4 rotations. 
-It would be nice to add an other approach (graph based clustering based on number of matches, Giulio). 
-Add global descriptors to decrease computational time.] 
-    2 clusters approach 
-    4 cluster approach – graph based [Giulio?] 
 
 \subsection{Matching pipelines}
 
@@ -243,7 +240,6 @@ Among these, PyDegensac \cite{Mishkin2015_pydegensac}, implementing LO-Ransac \c
 
 \section{Case studies}\label{sec:5:methods}
 
-
 This section presents several case studies on challenging multi-view datasets, showcasing DIM's versatility in diverse remote sensing scenarios.
 While these studies may not directly focus on the Belvedere Glacier, they address common complexities encountered in the remote sensing field.  
 Furthermore, two case studies specific to the Belvedere Glacier demonstrate how DIM, integrated with ICEpy4D (see \secref{sec:4:stereoworkflow}), can enable the creation of effective multi-view monitoring systems using low-cost cameras.
@@ -251,37 +247,44 @@ Furthermore, two case studies specific to the Belvedere Glacier demonstrate how 
 % Even though they are not all specifically related to the Belvedere Glacier, they tackle specific challenging scenarios that may be commonly encountered in remote sensing.
 % Two case studies related to the Belvedere Glacier introduce to the possibility of applying DIM for achieving an actual multi-view monitoring system using low-cost cameras, by integrating DIM with ICEpy4D (see \secref{sec:4:stereoworkflow}, used for tackling the multi-temporal component of the monitoring system. 
 
-\subsection{Dense reconstruction with wide-camera baselines}
+% \subsection{Dense reconstruction with wide-camera baselines}
 
-\begin{figure}
-  \centering
-  \subcaptionbox{\label{fig:5:stereo_res:1}}{
-    \includegraphics[width=14cm]{stereo_ms_matches}
-  }\\
-  \subcaptionbox{\label{fig:5:stereo_res:2}}{
-    \includegraphics[height=14cm]{stereo_colmap_matches}
-  }\\
-  \subcaptionbox{\label{fig:5:stereo_res:3}}{
-    \includegraphics[height=14cm]{stereo_sp+lg_matches}
-  }
-  \caption{}
-  \label{fig:5:stereo_res_sparse}
-\end{figure}
+% As discussed in Chapter \ref{ch:4}, the wide baseline of the stereo cameras installed at the Belvedere Glacier posed strong challenges in tie point extraction using traditional hand-crafted local features. 
+
+% \begin{figure}
+%   \centering
+%   \subcaptionbox{\label{fig:5:stereo_res:1}}{
+%     \includegraphics[width=12cm]{stereo_ms_matches}
+%   }\\
+%   \subcaptionbox{\label{fig:5:stereo_res:2}}{
+%     \includegraphics[width=12cm]{stereo_colmap_matches}
+%   }\\
+%   \subcaptionbox{\label{fig:5:stereo_res:3}}{
+%     \includegraphics[width=12cm]{stereo_sp+lg_matches}
+%   }
+%   \caption{}
+%   \label{fig:5:stereo_res_sparse}
+% \end{figure}
 
 
-\begin{figure}
-  \centering
-  \subcaptionbox{\label{fig:5:stereo_dense:1}}{
-    \includegraphics[width=14cm]{winter_dense_ms}
-  }\\
-  \subcaptionbox{\label{fig:5:stereo_dense:2}}{
-    \includegraphics[height=14cm]{stereo_dense_from_sp+lg}
-  \caption{}
-  \label{fig:5:stereo_dense}
-\end{figure}
+% \begin{figure}
+%   \centering
+%   \subcaptionbox{\label{fig:5:stereo_dense:1}}{
+%     \includegraphics[width=12cm]{stereo_dense_from_splg}
+%   }\\
+%   \subcaptionbox{\label{fig:5:stereo_dense:2}}{
+%     \includegraphics[width=12cm]{stereo_dense_roma}
+%   }
+%   \caption{}
+%   \label{fig:5:stereo_dense}
+% \end{figure}
 
 
 \subsection{Low-textures scenes}
+
+A known challenge scenario for hand-crafted descriptors such as SIFT is low-texture scenes. 
+An example can be the glacier when it is covered by snow.
+
 
 \begin{figure}
   \centering
@@ -297,22 +300,25 @@ Furthermore, two case studies specific to the Belvedere Glacier demonstrate how 
 
 \begin{figure}
   \centering
-  \subcaptionbox{\label{fig:5:winter_res:1}}{
-    \includegraphics[height=3.5cm]{winter_metashape_sparse}
-  }
-  \subcaptionbox{\label{fig:5:winter_res:2}}{
-    \includegraphics[height=3.5cm]{winter_splg}
-  }\\
+  % \subcaptionbox{\label{fig:5:winter_res:1}}{
+  %   \includegraphics[height=4.5cm]{winter_metashape_sparse}
+  % }
+  % \subcaptionbox{\label{fig:5:winter_res:2}}{
+  %   \includegraphics[height=4.5cm]{winter_splg}
+  % }\\
   \subcaptionbox{\label{fig:5:winter_res:3}}{
-    \includegraphics[height=3.5cm]{winter_dense_ms}
+    \includegraphics[height=5.5cm]{winter_dense_ms}
   }
   \subcaptionbox{\label{fig:5:winter_res:3}}{
-    \includegraphics[height=3.5cm]{winter_roma}
+    \includegraphics[height=5.5cm]{winter_dense_roma}
   }  
   \caption{}
   \label{fig:5:winter_res}
 \end{figure}
 
+
+
+\subsection{Historical internet images}
 
 \begin{table}[ht]
     \centering
@@ -323,27 +329,25 @@ Furthermore, two case studies specific to the Belvedere Glacier demonstrate how 
     \toprule
     \textbf{Label} & \textbf{Dataset} & \textbf{Local feature extractor and matcher} & \textbf{Oriented/} \newline\textbf{total images} & \textbf{Mean reprojection error [px]} & \textbf{Mean track length} &  \textbf{3D tie points}\\
     \midrule
-    C1  & Nadar     & DIM: Combination of local features \textsuperscript{*}    & \textcolor{green}{12/12}     & 1.09  & 2.6   & 2791 \\
+    C1  & Nadar     & DIM: Combination of local features\textsuperscript{*}    & \textcolor{green}{12/12}     & 1.09  & 2.6   & 2791 \\
     C2  & Nadar     & COLMAP (RootSIFT)                     & 0/12      & NA    & NA    & NA   \\
     C3  & Nadar     & Metashape (proprietary)               & 03/12     & 0.36  & 2.0   & 294  \\ \hline
     D1  & Castle    & DIM: SuperPoint + LightGlue           & \textcolor{green}{48/48}     & 0.9   & 3.3   & 75274 \\
-    D2  & Castle    & COLMAP (RootSIFT) \textsuperscript{**} & 31/48     & 0.94  & 3.7   & 11367 \\
+    D2  & Castle    & COLMAP (RootSIFT)\textsuperscript{**} & 31/48     & 0.94  & 3.7   & 11367 \\
     D3  & Castle    & Metashape (proprietary)               & \textcolor{green}{48/48}     & 0.5   & 2.5   & 59679 \\ 
     \bottomrule
     \end{tabular}
 \end{table}
 
-\subsection{Historical internet images}
-
 Dataset C – Nadar – is a collection of 12 self-portrait images from the opera Revolving (1865) of Gaspard-Félix Tournachon, known as Nadar\footnote{\url{https://en.wikipedia.org/wiki/Nadar}}. 
 The images have been downloaded from Wikipedia (resolution of 524 x 671 px), and they show significantly different viewpoints, low radiometric quality, and many time-related artifacts. 
-In addition, the dataset is partially ill-posed for photogrammetric purposes since Nadar sometimes changed both facial expressions and the relative position between head and shoulders. 
+In addition, the dataset is partially ill-posed for photogrammetric purposes since Nadar sometimes changed both facial expressions and the relative position between the head and shoulders. 
 All these characteristics make the reconstruction difficult with classical approaches.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{nadar_images}
-    \caption{Sample images Dataset \textcolor{red}{XX} - Nadar}
+    \caption{Sample images Dataset C - Nadar}
     \label{fig:5:nadar_images}
 \end{figure}
 

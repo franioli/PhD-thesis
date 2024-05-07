@@ -38,7 +38,7 @@ A relevant and tragic example was the collapse of a section of the Marmolada Gla
 (Dolomites, Italy), which occurred on 3 July 2022 at 13:43:20 CEST\footnote{\url{https://www.theguardian.com/world/2022/jul/03/deaths-glacier-breaks-marmolada-mountain-italy}}. 
 The collapse caused an ice avalanche that killed 11 mountaineers trying to reach the Marmolada summit and injured 7~\citep{Olivieri2023, Bondesan2023}.
 The collapse occurred on the northern slope of the glacier at an elevation of \SI{3213}{\masl} and involved a volume of \SI{\sim 96000}{\cubic\meter}~\citep{Olivieri2023}.
-The detachment was caused by a failure along a median crevasse, partially filled by meltwater due to highly anomalous temperatures, that reached \SI{10.7}{\degree\celsius} at the time of the event.
+The detachment was caused by a failure along a median crevasse, partially filled by meltwater due to highly anomalous temperatures, that reached \SI{10.7}{\celsius} at the time of the event.
 The sudden glacier collapse was probably induced by a combination of hydraulic jacking and pressure within a thin layer of basal till~\citep{Bondesan2023}.
 
 Just one year after the Marmolada collapse, another relevant event slope instability event was registered in the Austrian state of Tyrol, close to the Italian border. 
@@ -160,52 +160,6 @@ Research in this domain has progressed rapidly, with models specifically designe
 
 % =======
 
-\section{Objectives}
-
-This thesis explores the potential of multi-scale and multi-temporal photogrammetry 
-for monitoring alpine glaciers, with a particular focus on the debris-covered Belvedere Glacier in the Italian Alps (see \secref{sec:1:belvedereglacier}).
-
-This investigation integrates a spectrum of photogrammetric techniques.  
-Firstly, historical aerial imagery analysis provides a long-term perspective on decades-long geomorphological changes at the meter scale.  
-Secondly, in-situ UAV acquisitions enable annual reconstructions of glacier morphology, allowing for precise change analysis at a high spatial resolution.  
-Finally, permanent in-situ monitoring using a low-cost stereo camera system allows for capturing the short-term dynamics of this rapidly changing environment.
-
-\textcolor{red}{Add figure of multi-temporal/multi-scale}
-
-To investigate the long-term evolution of the glacier, this study uses archival aerial photogrammetry data collected by public agencies during mapping flights.
-This technique allowed the reconstruction of past glacier morphology from 1977 to 2009, with approximately decadal intervals between models.  
-The historical knowledge gained through this method is invaluable in documenting a natural heritage that is rapidly disappearing due to climate change. 
-Of particular interest, archival photogrammetry reveals a significant period of glacier expansion in the early of the glacier in the early 21st century, allowing precise quantification of the increase in ice volume and glacier thickness.
-
-To understand the current evolution of the glacier, this work integrates low-cost UAVs and GNSS for close-range photogrammetric monitoring.
-Annual in-situ surveys, conducted since 2015, provide a periodical and highly accurate record of the evolution. 
-Through these UAV surveys, centimeter-scale resolution enables detailed mapping of the dynamic environment, including precise quantification of glacier volume loss and study of variations in glacier flow rate.
-
-However, alpine glacier dynamics are inherently non-linear, with a pronounced acceleration of processes in summer compared to winter.  
-This trend has intensified in recent years due to the increasing frequency of hot and dry summers associated with climate change. 
-While annual high-precision in-situ measurements provide essential insights into long-term geomorphological evolution, they lack the temporal resolution to fully capture the short-term kinematics of the glacier, which are crucial for
-understanding the relationship between glacier dynamics and external drivers such as air temperature.
-To address this need, a permanent monitoring system based on low-cost stereo cameras has been designed and installed on Belvedere Glacier. 
-This system allows daily observations of glacier motion at a local spatial scale,
-providing the high-frequency data needed for in-depth kinematic analysis.
-
-This thesis describes the technical design and implementation of a low-cost glacier monitoring system, as well as the development of novel software tools for extracting relevant information from stereo camera images via photogrammetric processing. 
-To overcome the limitations of existing software in handling images with extremely wide baselines, a new pipeline was designed and published. 
-This pipeline allows the analysis of time-series point clouds and the extraction of metrics such as velocity, volume variations, and displacement.
-
-A major challenge was related to the challenging mountain environment, which constrained the camera placement.
-This resulted in extremely wide baselines and significant viewpoint differences.  
-These conditions made it difficult to find corresponding points using traditional local feature-matching techniques and hindered 3D reconstruction using existing commercial and open-source photogrammetric software.
-To overcome this obstacle, a novel pipeline was developed using state-of-the-art deep-learning algorithms for robust feature matching that successfully overcomes the limitations of wide baseline stereo image processing.
-
-This thesis presents a successful pilot test of the low-cost glacier monitoring system.
-The current uses only two cameras installed at the northwest terminal lobe of the Belvedere glacier, focused on the terminal ice cliff, which is the portion of the glacier that is experiencing the most severe retreat and fast evolution. 
-To achieve a more comprehensive and robust monitoring framework capable of capturing the full dynamics of the glacier, the system needs to be scaled up. 
-Expanding the camera network will increase the coverage and significantly improve the quality of daily 3D reconstructions through greater data redundancy.
-Motivated by this potential, the final part of this thesis focuses on the development of a flexible multi-view library. 
-This library enables image matching using both state-of-the-art deep learning algorithms and traditional hand-crafted features. 
-Crucially, it integrates seamlessly with existing photogrammetric software for streamlined 3D reconstruction, thus supporting a future expansion of the monitoring system.
-
 \section{The Belvedere Glacier}\label{sec:1:belvedereglacier}
 
 The Belvedere Glacier (Randolph Glacier Inventory code RGI60--11.02858) is an alpine
@@ -278,6 +232,55 @@ any significant damage \citep{Kaab2004}.
 % The northern lobe of the Belvedere Glacier is concurrently experiencing a fast retreat:
 % in the past few years, an average retreat of \SI{\sim20}{\meter\per\year} was documented
 % \citep{Ioli2022} and it is actively changing every day, due to ice falls and collapses.
+
+
+\section{Objectives}
+
+This thesis explores the potential of multi-scale and multi-temporal photogrammetry 
+for monitoring alpine glaciers, with a particular focus on the debris-covered Belvedere Glacier in the Italian Alps.
+
+This investigation integrates a spectrum of photogrammetric techniques.  
+Firstly, historical aerial imagery analysis provides a long-term perspective on decades-long geomorphological changes at the meter scale.  
+Secondly, in-situ UAV acquisitions enable annual reconstructions of glacier morphology, allowing for precise change analysis at a high spatial resolution.  
+Finally, permanent in-situ monitoring using a low-cost stereo camera system allows for capturing the short-term dynamics of this rapidly changing environment.
+
+\textcolor{red}{Add figure of multi-temporal/multi-scale}
+
+To investigate the long-term evolution of the glacier, this study uses archival aerial photogrammetry data collected by public agencies during mapping flights.
+This technique allowed the reconstruction of past glacier morphology from 1977 to 2009, with approximately decadal intervals between models.  
+The historical knowledge gained through this method is invaluable in documenting a natural heritage that is rapidly disappearing due to climate change. 
+Of particular interest, archival photogrammetry reveals a significant period of glacier expansion in the early of 21st century, allowing precise quantification of the increase in ice volume and glacier thickness.
+
+To understand the current evolution of the glacier, this work integrates low-cost UAVs and GNSS for close-range photogrammetric monitoring.
+Annual in-situ surveys, conducted since 2015, provide a periodical and highly accurate record of the evolution. 
+Through these UAV surveys, centimeter-scale resolution enables detailed mapping of the dynamic environment, including precise quantification of glacier volume loss and study of variations in glacier flow rate.
+
+However, alpine glacier dynamics are inherently non-linear, with a pronounced acceleration of processes in summer compared to winter.  
+This trend has intensified in recent years due to the increasing frequency of hot and dry summers associated with climate change. 
+While annual high-precision in-situ measurements provide essential insights into long-term geomorphological evolution, they lack the temporal resolution to fully capture the short-term kinematics of the glacier, which are crucial for
+understanding the relationship between glacier dynamics and external drivers such as air temperature.
+To address this need, a permanent monitoring system based on low-cost stereo cameras has been designed and installed on Belvedere Glacier. 
+This system allows daily observations of glacier motion at a local spatial scale,
+providing the high-frequency data needed for in-depth kinematic analysis.
+
+This thesis describes the technical design and implementation of a low-cost glacier monitoring system, as well as the development of novel software tools for extracting relevant information from stereo camera images via photogrammetric processing. 
+To overcome the limitations of existing software in handling images with extremely wide baselines, a new pipeline was designed and published. 
+This pipeline allows the analysis of time-series point clouds and the extraction of metrics such as velocity, volume variations, and displacement.
+
+A major challenge was related to the challenging mountain environment, which constrained the camera placement.
+This resulted in extremely wide baselines and significant viewpoint differences.  
+These conditions made it difficult to find corresponding points using traditional local feature-matching techniques and hindered 3D reconstruction using existing commercial and open-source photogrammetric software.
+To overcome this obstacle, a novel pipeline was developed using state-of-the-art deep-learning algorithms for robust feature matching that successfully overcomes the limitations of wide baseline stereo image processing.
+
+This thesis presents a successful pilot test of the low-cost glacier monitoring system.
+The current uses only two cameras installed at the northwest terminal lobe of the Belvedere glacier, focused on the terminal ice cliff, which is the portion of the glacier that is experiencing the most severe retreat and fast evolution. 
+To achieve a more comprehensive and robust monitoring framework capable of capturing the full dynamics of the glacier, the system needs to be scaled up. 
+Expanding the camera network will increase the coverage and significantly improve the quality of daily 3D reconstructions through greater data redundancy.
+Motivated by this potential, the final part of this thesis focuses on the development of a flexible multi-view library. 
+This library enables image matching using both state-of-the-art deep learning algorithms and traditional hand-crafted features. 
+Crucially, it integrates seamlessly with existing photogrammetric software for streamlined 3D reconstruction, thus supporting a future expansion of the monitoring system.
+
+
 
 \section{Thesis outline}
 

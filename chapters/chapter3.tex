@@ -48,7 +48,7 @@ These targets served a dual purpose: as GCPs/CPs for photogrammetric block proce
 reference points for evaluating glacier kinematics derived from photogrammetry. 
 The targets were materialized using square cross patterns printed on polypropylene sheets and anchored to 
 large rocks and boulders (\figref{fig:3:belvedereGCP}b).
-Approximately 25 targets were deployed on the glacier itself (designated as as \textit{moving targets} or 
+Approximately 25 targets were deployed on the glacier itself (designated as \textit{moving targets} or 
 \textit{M\#} in \figref{fig:3:belvedereGCP}a), while 24 targets were placed on stable areas along the moraines 
 (labelled as \textit{stable targets} or \textit{S\#} in \figref{fig:3:belvedereGCP}a). 
 
@@ -56,20 +56,20 @@ Annually, we evaluated the condition of each target. Damaged or destroyed target
 Over time, some targets were lost and replaced with new ones positioned near the original locations (e.g., M29bis).
 
 All targets were surveyed with dual frequency geodetic quality GNSS receivers: 
-Leica GPS VivaGS14 and Leica GPS1200+.
+Leica Viva GS14 and Leica GPS1200+.
 The measurements were framed within the official Italian reference system ETRF2000
 at the epoch 2008.0, projected in UTM 32N (RDN2008 / UTM zone 32N, EPSG:7791).
 The measurement techniques employed in the survey have evolved over time.
 Before 2021, target positions on the lower glacier (where GSM network coverage was available) 
 were determined using nRTK relative to CORS permanent stations (either HxGN SmartNet or SPIN GNSS).
-These points were occupied for at least two 5-second intervals. 
+These points were occupied for at least two 10-second intervals. 
 In contrast, upper glacier targets were surveyed using static sessions of approximately 10 
 minutes, with raw data post-processed relative to local master stations located in stable areas 
 (S12 or S20, see \figref{fig:3:belvedereGCP}a).
-Since 2021, GNSS measurements were conducted in RTK mode using a local base station 
+Since 2021, GNSS measurements have been conducted in RTK mode using a local base station 
 (\textit{S12} or \textit{S20}).
 The real-time corrections were streamed from the base to the rover by a radio link connection. 
-his approach has significantly reduced measurement time in the upper glacier, requiring seconds 
+This approach has significantly reduced measurement time in the upper glacier, requiring seconds 
 rather than minutes per occupation, as was for static processing.
 Additionally, the local-base RTK method improves internal coherence among measurements, 
 as well as tropospheric and ionospheric error modeling due to shorter baselines compared to 
@@ -354,6 +354,13 @@ From 2018 onwards, consistent acquisition periods (end of July) and snow-free co
 On the other hand, the presence of snow and significant environmental variations between orthophotos from 2015 to 2018
 (\figref{fig:3:ortophoto}) made them unsuitable for DIC techniques.
 Consequently, we applied DIC on pairs of DSMs \citep{Gindraux2019} to extract glacier surface displacements for this period.
+DIC allows for determining the displacement of an image patch between two images (master and slave) of the same scene and acquired at different epochs by the same camera. The displacement \(d\) is obtained as  (Eq.~\ref{eq:3:dic}):
+
+\begin{equation}
+  d = \text{argmax}_{(r,q)} S(A(i,j),B(i+r,j+q))
+  \label{eq:3:dic}
+\end{equation}
+
 % Additionally, we manually tracked characteristic features (e.g., sharp edges of large rocks) across multiple orthophotos 
 % \citep{Lucchitta1986} to derive velocity fields (we refer to these points as MAN).
 
@@ -514,15 +521,16 @@ by half the total glacier area during variance propagation.
     \caption{Orthophotos obtained from the photogrammetric model for each year.
         (\textbf{a}) 2015, (\textbf{b}) 2016, (\textbf{c}) 2017, (\textbf{d}) 2018,
         (\textbf{e}) 2019, (\textbf{f}) 2020, (\textbf{g}) 2021, (\textbf{h}) 2022, (\textbf{i})
-        2023. All the orthophotos are in 1:25000 scale and they are overlapped to the Swisstopo base-map (source: Swisstopo
-        www.geo.admin.ch)}
+        2023. All the orthophotos are in a 1:25000 scale and they are overlapped to the Swisstopo base map (source: Swisstopo
+        www.geo.admin.ch). Refer to the Appendix \ref{app:orthophotos} for a better visualization of the orthophotos.
+        }
     \label{fig:3:ortophoto}
 \end{figure}
 
 Each SfM process yielded a 3D point cloud, a textured mesh, a DSM, and an orthophoto of the glacier. 
 Point cloud density increased over time: point clouds from 2015 to 2020 contained \SI{0.5e8}{} to \SI{1e8}{} 
 points, while those from 2021 onwards had \SI{1.5e8}{} to \SI{2.5e8}{} points. 
-DSMs and orthophotos were produced at a resolution of 20 centimeters per pixel 
+DSMs and orthophotos were produced at a resolution of 20 centimeters per pixel.
 Due to autumn surveys, orthophotos from 2015 to 2017 show some snow cover (\figref{fig:3:ortophoto}).
 
 The geometrical accuracy of the SfM models was evaluated for all years using CPs.
@@ -558,7 +566,7 @@ Annual ice flow velocities were first computed using in-situ GNSS measurements o
 (\figref{fig:3:GNSS_velocity}).
 Most of the moving targets were found and measured for 3 or more years and some of them have been continuously tracked since 2015 
 (e.g., \textit{M10}, \textit{M28}, \textit{M41}). 
-While some targets were inevitably lost (e.g., due to presence of crevasses), they were replaced with new ones 
+While some targets were inevitably lost (e.g., due to the presence of crevasses), they were replaced with new ones 
 materialized nearby to maintain data continuity. 
 
 Analysis of the graph in \figref{fig:3:GNSS_velocity} reveals three distinct velocity clusters.  
@@ -581,12 +589,12 @@ and the accumulation area (targets \textit{M10, M11}) and between the central se
     \subcaptionbox{2017-2018\label{fig:3:dic_vel:2017}}{
         \includegraphics[width=0.44\textwidth]{velocity_DIC_2017-2018}
     } 
-    \subcaptionbox{2017-2018\label{fig:3:dic_vel:2018}}{
+    \subcaptionbox{2018-2019\label{fig:3:dic_vel:2018}}{
         \includegraphics[width=0.44\textwidth]{velocity_DIC_2018-2019}
     }
     \caption{Surface velocity fields derived by DIC on pair of consecutive DSM between 2015 and 2018 and 
     orthophotos between 2019 and 2023. (\textbf{a}) 2015-2016, (\textbf{b}) 2016-2017, (\textbf{c}) 2017-2018, (\textbf{d}) 2018-2019.
-    All the surface velocity fields are overlapped to the 2009 orthophoto \citep{Degaetani2021} as reference (continue in the next page).}
+    All the surface velocity fields are overlapped to the 2009 orthophoto \citep{Degaetani2021} as reference. Refer to the Appendix \ref{app:sfv} for a better visualization of the orthophotos  (continue in the next page).}
     \label{fig:3:dic_vel}
 \end{figure}
 
@@ -606,7 +614,7 @@ and the accumulation area (targets \textit{M10, M11}) and between the central se
     }
     \caption{Surface velocity fields derived by DIC on pair of consecutive DSM between 2015 and 2018 and 
     orthophotos between 2019 and 2023. (\textbf{e}) 2019-2020, (\textbf{f}) 2020-2021, (\textbf{g}) 2021-2022, (\textbf{h}) 2022-2023.
-    All the surface velocity fields are overlapped to the 2009 orthophoto \citep{Degaetani2021} as reference (cont.).}
+    All the surface velocity fields are overlapped to the 2009 orthophoto \citep{Degaetani2021} as reference. Refer to the Appendix \ref{app:sfv} for a better visualization of the orthophotos (cont.).}
 \end{figure}
 
 The surface velocity fields, derived from both orthophotos and DSMs, are presented in \figref{fig:3:dic_vel}. 
@@ -665,7 +673,7 @@ Considering only the targets located within the glacier body and excluding 15 me
 \end{figure}
 
 The velocities determined through DIC were validated by comparing them with measurements obtained via GNSS.
-To this end, PyLamma was employed to calculate displacements based on templates centered around GNSS-measured target coordinates each year. 
+To this end, pyLamma was employed to calculate displacements based on templates centered around GNSS-measured target coordinates each year. 
 To ensure a reliable comparison, 23 measurements of points located in particularly troublesome glacier areas, such as those near crevasses or where other morphological changes disrupt the image coherence between two consecutive years upon which DIC relies, were manually excluded from the comparison.
 Thus, a dataset of 106 GNSS measurements spanning the glacier to compute the differences in East and North directions, as well as magnitude, between GNSS and DIC displacements vectors.
 Overall, the Median Absolute Deviation (MAD) of differences was \SI{0.20}{\meter}, \SI{0.18}{\meter}, and \SI{0.22}{\meter} for East, North, and magnitude components, respectively.
@@ -689,13 +697,14 @@ Despite the challenges posed by the presence of snow partially covering the glac
 
 \begin{figure}[p]
   \centering
-    \subcaptionbox{\label{fig:3:profiles:profiles}}{
-    \includegraphics[width=\textwidth]{profiles.png}
+  \includegraphics[width=\textwidth]{profiles.png} \\
+  \subcaptionbox{\label{fig:3:profiles:profiles}}{
+    \includegraphics[width=0.55\textwidth]{profiles_legend.png}
   } \\
   \subcaptionbox{\label{fig:3:profiles:map}}{
-    \includegraphics[width=.6\textwidth]{profiles_map.png}
+    \includegraphics[width=.45\textwidth]{profiles_map.png}
   }
-    \caption{\textbf{(a)} Elevation profiles obtained from the DSM computed for the years 2015-2023 along four different cross-sections. \textbf{(b)} Location of cross-sections. Cross-sections are viewed from south to north (i.e., from upstream to downstream of the glacier), as indicated by the letters in \textbf{(e)}.}
+    \caption{\textbf{(a)} Elevation profiles obtained from the DSM computed for the years 2015-2023 along four different cross-sections. \textbf{(b)} Location of cross-sections. Cross-sections are viewed from south to north.}
     \label{fig:3:profiles}
 \end{figure}
 
@@ -741,25 +750,26 @@ These features are particularly noticeable in the cross-sections BB' and DD'.
 Notably, the streamwise right moraine of the glacier experiences progressive sliding processes and collapses due to the diminishing support of the thinning glacier. 
 This phenomenon is prominently observed in both section AA' and section DD'.
 
-\section{Glacier volumes variations from 1977 to 2023}
+\section{Glacier mass variations from 1977 to 2023}
 
-By integrating historical aerial surveys (Chapter \ref{ch:2}) with repeated in-situ UAV measurements, this study quantified long-term cumulative volume variations in the Belvedere Glacier (\figref{fig:3:cumulative_volumes_mass:volumes}).
-For periods exceeding 5 years, an average ice density of\SI[separate-uncertainty = true]{850 \pm 60}{\kilo\gram\per\cubic\meter} was used to convert volume variations into mass changes \cite{Huss2013_density_geodetic_balance}. 
-However, recognizing the limitations of this assumption for shorter periods (< 3 years) due to potential density variations \cite{Huss2013_density_geodetic_balance}, the analysis focused specifically on three surveys (2015, 2019, 2023) spaced by approximately 5 years. 
-Volume variations between these surveys were calculated using a DOD approach and subsequently converted into ice mass variations  (\figref{fig:3:cumulative_volumes_mass:mass}). 
-This strategy mitigates the uncertainty associated with density assumptions for short-term mass balance assessments.
-
-\begin{figure}
+\begin{figure}[ht]
   \centering
-    \subcaptionbox{\label{fig:3:cumulative_volumes_mass:volumes}}{
-    \includegraphics[width=0.8\textwidth]{cumulative_volume_variations_all.png}
-  } \\
-  \subcaptionbox{\label{fig:3:cumulative_volumes_mass:mass}}{
-    \includegraphics[width=.8\textwidth]{cumulative_mass_changes_all.png}
-  }
-    \caption{(a) Cumulative volumes variations Belvedere Glacier (1977-2023) with 1977 as the reference year (b) Cumulative ice mass variations (in megatonnes), assuming an ice density of \SI[separate-uncertainty = true]{850 \pm 60}{\kilo\gram\per\cubic\meter}, considering periods longer than 5 years \cite{Huss2013_density_geodetic_balance}. \textcolor{red}{Make again computation volume differences for period 2015-2023}} 
+  %   \subcaptionbox{\label{fig:3:cumulative_volumes_mass:volumes}}{
+  %   \includegraphics[width=0.8\textwidth]{cumulative_volume_variations_all.png}
+  % } \\
+  % \subcaptionbox{\label{fig:3:cumulative_volumes_mass:mass}}{
+    \includegraphics[width=\textwidth]{cumulative_mass_changes_all.png}
+  % }
+    \caption{(a) Cumulative volumes variations Belvedere Glacier (1977-2023) with 1977 as the reference year (b) Cumulative ice mass variations (in megatonnes), assuming an ice density of \SI[separate-uncertainty = true]{850 \pm 60}{\kilo\gram\per\cubic\meter}, considering periods longer than 5 years \cite{Huss2013_density_geodetic_balance}. % \textcolor{red}{Make again computation volume differences for period 2015-2023}
+    } 
   \label{fig:3:cumulative_volumes_mass}
 \end{figure}
+
+By integrating historical aerial surveys (Chapter \ref{ch:2}) with repeated in-situ UAV measurements, this study quantified long-term cumulative volume variations in the Belvedere Glacier. % (\figref{fig:3:cumulative_volumes_mass:volumes}).
+For periods exceeding 5 years, an average ice density of\SI[separate-uncertainty = true]{850 \pm 60}{\kilo\gram\per\cubic\meter} was used to convert volume variations into mass changes \cite{Huss2013_density_geodetic_balance}. 
+However, recognizing the limitations of this assumption for shorter periods (< 3 years) due to potential density variations \cite{Huss2013_density_geodetic_balance}, the analysis focused specifically on three surveys (2015, 2019, 2023) spaced by approximately 5 years. 
+Volume variations between these surveys were calculated using a DOD approach and subsequently converted into ice mass variations  (\figref{fig:3:cumulative_volumes_mass}). 
+This strategy mitigates the uncertainty associated with density assumptions for short-term mass balance assessments.
 
 The Belvedere Glacier experienced increasing mass from 1977 to 2001, highlighting that the Belvedere Glacier was still experiencing an expansion. 
 This trend abruptly ended with the 2000-2002 surge event, resulting in a significant mass gain around 2001. 
@@ -805,7 +815,7 @@ It also contains periodic GNSS measurements of photogrammetric targets and outpu
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[width=0.9\textwidth]{belvederedb_erd.png}
+  \includegraphics[width=\textwidth]{belvederedb_erd.png}
   \caption{ERD diagram of the PostgreSQL database used for storing the Belvedere results. \textcolor{red}{Update fig}}
   \label{fig:3:belvederedb_erd}
 \end{figure}
@@ -834,7 +844,7 @@ This initiative not only promotes transparency and reproducibility in research b
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.8\textwidth]{db_qgis_query.png}
+  \includegraphics[width=0.9\textwidth]{db_qgis_query.png}
     \caption{Example of georeferenced layer queries from the PostgreSQL database using QGIS. The layer symbology is directly stored within the database and is automatically loaded into the QGIS project upon layer loading.}  \label{fig:3:db_qgis_query}
 \end{figure}
 

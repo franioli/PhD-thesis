@@ -39,7 +39,7 @@ This chapter aims to reconstruct the long-term evolution of the Belvedere Glacie
 To this end, three archival datasets captured by analog metric cameras in 1977, 1991, and 2001 were combined with data from a more recent aerial survey (2009) and a UAV flight (2019).
 These surveys are distributed across the timeline with a rather consistent interval of approximately 10 years, allowing us to track the glacier's morphological evolution and quantify volumetric changes. 
 
-Notably, the 2001 dataset captured the 3D topography of the Belvedere Glacier during a peculiar surge-type event \citep{Haeberli2002} occurred between 2000 and 2002 (See \secref{sec:1:belvedereglacier} for more  details)
+Notably, the 2001 dataset captured the 3D topography of the Belvedere Glacier during a peculiar surge-type event \citep{Haeberli2002} occurred between 2000 and 2002 (see \secref{sec:1:belvedereglacier} for more  details)
 This event marked the glacier's maximum extension since the Little Ice Age, and its resulting moraines remain visible today.
 Consequently, analyzing the Belvedere Glacier's long-term evolution since 1977 enables us to quantify the progression of a glacier that underwent a rapid expansion followed by a critical regression and thinning, a process that continues to this day.
 
@@ -57,13 +57,13 @@ Consequently, analyzing the Belvedere Glacier's long-term evolution since 1977 e
 \section{Datasets}\label{sec:2:datasets}
 
 The study utilized data obtained from five photogrammetric surveys conducted between 1977 and 2019. The earlier datasets, referred to as \textit{historical} datasets, were conducted in September 1977, August 1991, and September 2001. 
-These surveys involved the acquisition of images for regional mapping purposes by the Italian company CGR SpA (Compagnia Generale Ripreseaeree) using analog photogrammetric cameras mounted on planes. 
+These surveys involved the acquisition of images for regional mapping purposes by the Italian company CGR S.p.A. (Compagnia Generale Ripreseaeree S.p.A.) using analog photogrammetric cameras mounted on planes. 
 The images were cataloged, and their metadata were organized in the SITAD (Sistema Informativo Territoriale Ambientale Diffuso) database \citep{Cipriano2005_SITAD}, now integrated with the GeoPortale Piemonte\footnote{\url{ https://www.geoportale.piemonte.it/}}.
-% \citep{geoportlae_piem}.
-Upon request, CGR SpA digitized the images related to the Belvedere Glacier and provided them to the authors. 
+Upon request, CGR S.p.A. digitized the images related to the Belvedere Glacier and provided them to the authors. 
 The analog films were digitized using a photogrammetric scanner with a resolution of \SI{21}{\micro\meter\per\pixel}. 
-The 2009 dataset was acquired with a digital photogrammetric camera by CGR SpA for mapping purposes and was made available to the authors upon request.
-The most recent dataset, from 2019, was directly acquired by the authors using a fixed-wing UAV with a small and lightweight action camera mounted on board. A summary of the characteristics of the cameras and flights for each of the five datasets is presented in \tabref{tab:2:camera_summary}.
+The 2009 dataset was acquired with a digital photogrammetric camera by CGR S.p.A. for mapping purposes and was made available to the authors upon request.
+The authors directly acquired the most recent dataset from 2019 using a fixed-wing UAV with a small and lightweight action camera mounted on board.
+A summary of the characteristics of the cameras and flights for each of the five datasets is presented in \tabref{tab:2:camera_summary}.
 
 \begin{table}
     \centering
@@ -83,7 +83,7 @@ The most recent dataset, from 2019, was directly acquired by the authors using a
     
     \begin{tabularx}{\textwidth}{c>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}X}
         \hline
-        \textbf{Year} & \textbf{Avg flight h AGL (m)} & \textbf{Avg image scale} & \textbf{Avg GSD (m)} \\
+        \textbf{Year} & \textbf{Avg flight h a.g.l. (m)} & \textbf{Avg image scale} & \textbf{Avg GSD (m)} \\
         \hline
         1977 & 3600 & 1:23,000 & 0.50\textsuperscript{1} \\
         1991 & 6400 & 1:42,000 & 0.90\textsuperscript{1} \\
@@ -124,7 +124,7 @@ The most recent dataset, from 2019, was directly acquired by the authors using a
     \label{fig:2:datasets_historical}
 \end{figure}
 
-The earliest dataset considered in the study was acquired by CGR SpA on 16/09/1977
+The earliest dataset considered in the study was acquired by CGR S.p.A. on 16/09/1977
 with an analog photogrammetric camera Wild RC10, equipped with a 15 UAG I lens, with
 a focal length of 153.26 mm. The flight consisted of three stripes performed at an average
 altitude of 5600 m a.s.l., with approximately 60\% along-flight overlap and transversal
@@ -151,13 +151,14 @@ of 153.928 mm). The flight consisted of three stripes acquired between 06/09/200
 11/09/2001, producing a total of ten RGB images with overlaps of ~70\% along flight and
 ~50\% in the transversal direction (\figref{fig:2:datasets_historical:2001_block}). The two external stripes were conducted at an
 altitude of about \SI{6100}{\masl}, while the central one was conducted at a lower altitude of
-about \SI{4800}{\masl},, for an average of \SI{5800}{\masl}, The mean scale of the images was 1:23,000, producing a GSD of 0.5 m, comparable to that of the 1977 flight. 
+about \SI{4800}{\masl}, for an average of \SI{5800}{\masl}. The mean scale of the images was 1:23,000, producing a GSD of 0.5 m, comparable to that of the 1977 flight. 
 The camera reference frame was materialized by 8 fiducial marks, well identifiable on the digitalized images (\figref{fig:2:datasets_historical:1977_img}).
 
 Historical aerial images were digitalized using a photogrammetric scanner PhotoScan2000, developed by Z/I Imaging and Carl Zeiss, capable of scanning analog film rolls. 
-The images were digitalized by CGR SpA with a resolution of 21 µm/px, producing eight-bit TIF 
+The images were digitalized by CGR S.p.A. with a resolution of 21 µm/px, producing eight-bit TIF 
 images with dimensions of \qtyproduct{12 098 x 11 144}{\pixel}. 
-To assess the quality of the digitalized images, the actual pixel size was computed as the average ratio of the distance (in millimeters) between the fiducial marks with the corresponding distance in pixel. The estimated pixel size was \qtyproduct{21 x 21}{\micro\meter} for each dataset, with a standard deviation of about three orders of magnitude less, in agreement with in agreement with the technical scanner specifications.
+To assess the quality of the digitalized images, the actual pixel size was computed as the average ratio of the distance (in millimeters) between the fiducial marks with the corresponding distance in pixels. 
+The estimated pixel size was \qtyproduct{21 x 21}{\micro\meter} for each dataset, with a standard deviation of about three orders of magnitude less, in agreement with in agreement with the technical scanner specifications.
 
 \begin{figure}[ht]
     \centering
@@ -179,7 +180,7 @@ To assess the quality of the digitalized images, the actual pixel size was compu
 
 \subsection{Digital aerial dataset of 2009}
 
-During October 2009, a flight over Belvedere Glacier was carried out by CGR SpA for mapping purposes. 
+During October 2009, a flight over Belvedere Glacier was carried out by CGR S.p.A. for mapping purposes. 
 This time, a digital photogrammetric camera was employed.
 A Z/I-Imaging DMC camera equipped with a 120 mm focal length lens and a CCD
 sensor with a pixel size of 12 µm × 12 µm, acquiring RGB digital images at a resolution of
@@ -194,7 +195,7 @@ Belvedere Glacier carried out between 29/07/2019 and 02/08/2019~\citep{Ioli2022}
 A fixed-wing UAV Parrot Disco was adapted in such a way as to carry a low-cost and lightweight action
 camera, a HawkEye Firefly 8S. 
 The action camera was equipped with a 12 Mpx 1/2.3” CMOS sensor and had a pixel size of 1.34 µm × 1.34 µm and a focal length of 3.8 mm (90◦ field of view). 
-The flights were conducted at an average height of 120 m A.G.L. (above ground level), in agreement with Italian UAV regulations, and images were taken with longitudinal and transversal overlap of 80\% and 60\%, respectively (except for a small portion in the middle of the glacier with a slightly smaller transversal overlap of ~50\%; see \figref{fig:2:datasets_digital:2019_block}).
+The flights were conducted at an average height of 120 m a.g.l. (above ground level), in agreement with Italian UAV regulations, and images were taken with longitudinal and transversal overlap of 80\% and 60\%, respectively (except for a small portion in the middle of the glacier with a slightly smaller transversal overlap of ~50\%; see \figref{fig:2:datasets_digital:2019_block}).
 The average image scale was therefore approximately 1:32,000, and the GSD was 5 cm, one order of magnitude smaller compared to those of the aerial datasets. 
 Because of UAV technical limitations, the survey area was restricted to the glacier body only and five flights with the fixed-wing UAV were performed (\figref{fig:2:datasets_digital:2019_block})
 
@@ -206,7 +207,7 @@ of 50 cm × 50 cm polypropylene sheets with high color contrast, were deployed o
 survey area, anchored to large rocks on both the glacier and the moraines. Among the
 36 targets, 26 were used as ground control points (GCPs) and 10 as control points (CPs).
 The targets were measured on the field with a dual frequency (L1/L2) geodetic quality
-GNSS receiver Leica GS14. Because a GSM internet connection was available in the lower
+GNSS receiver Leica Viva GS14. Because a GSM internet connection was available in the lower
 part of the glacier, the targets were measured in nRTK relative to the HxGN SmartNet
 network of permanent stations. All the points measured in nRTK were occupied for ~10 s
 with 1 Hz acquisition rate. In the upper part of the glacier, where nRTK was not possible,
@@ -309,7 +310,7 @@ As the coverage area of the surveys is significantly different, the first step w
 This was carried out by defining first a binary mask with 1 value in correspondence of non-null cells of the DSM. 
 The mask was then blurred by iterative convolutions with a kernel representing a circular box (10 m of radius) and assigning unitary value to resulting cells with values greater than 0 until no voids were present in the inner area.
 By applying the converse procedure (i.e., blurring with the same kernel and assigning 0 to the resulting cells with values smaller than 1) for the same number of iterations, a binary mask defining the valid surveyed area was obtained.
-Finally, empty cells of initial rasterized DSM within the valid surveyed area were filled via triangulation-based bi-dimensional linear interpolation
+Finally, empty cells of initial rasterized DSM within the valid surveyed area were filled via triangulation-based bi-dimensional linear interpolation.
 As a result, gridded point clouds at a consistent resolution of 0.5 m were obtained for all five surveys (\figref{fig:2:pcd_rasterzed}).
 
 \begin{figure}[ht]
@@ -376,7 +377,7 @@ While the PC size was strictly related to the survey coverage, the PC average de
 \subsection{Point cloud pre-processing}\label{sec:2:res_preproc}
 
 Based on the preliminary processing described in \secref{sec:2:pcd_preproc}, reliable estimates of surveyed surface coverage and average density of the original point clouds were quantified (\tabref{tab:2:pcd_surface_coverage}.
-Surface coverage was obtained by multiplying the number of nonzero values of the binary masks of the valid area of each survey and the DSM cell size (0.25 m2). 
+Surface coverage was obtained by multiplying the number of nonzero values of the binary masks of the valid area of each survey and the DSM cell size (\SI{0.25}{\square\meter}). 
 The ratio between the number of nonempty cells in the original and interpolated DSMs indicated the average data density of the point clouds in the considered surveyed areas. 
 
 \begin{table}[ht]
@@ -393,7 +394,7 @@ The ratio between the number of nonempty cells in the original and interpolated 
   \end{tabular}
 \end{table}
 
-The numbers in Table \tabref{tab:2:pcd_surface_coverage} allow evaluating the impact of the chosen grid spacing when gridding the point clouds. 
+The numbers in \tabref{tab:2:pcd_surface_coverage} allow evaluating the impact of the chosen grid spacing when gridding the point clouds. 
 With 0.5 m grid spacing, the 2019 survey (that is the most detailed one) required a few empty cells to be interpolated, about 6\%, thus closely fully exploiting its high spatial resolution. 
 A finer grid would require increasing the number of interpolated cells (and thus increasing the required memory allocation for matrix manipulation), without adding information, in particular for the historical surveys.
 On the other hand, a coarser resolution would require downsampling the surveyed detailed DSM, potentially losing finer details. 
@@ -458,7 +459,7 @@ The numbers in \tabref{tab:2:glacier_volume_variations} confirm what was found b
 Between 1977 and 2001, the glacier’s volume increased substantially by \SI[retain-explicit-plus]{+20.66e6}{\cubic\meter}.
 Notably, the rate of expansion accelerated period 1991-2001.
 During this period, the glacier gained volume 50\% faster than the previous decade, increasing from \SI[retain-explicit-plus]{+0.72e6}{\cubic\meter\per\year} to \SI[retain-explicit-plus]{+1.06e6}{\cubic\meter\per\year}.
-The glacier expansion continued up to the end end of the surge event of 2000-2002 \citep{Haeberli2002, Kaab2004, Mortara2009}.
+The glacier expansion continued up to the end of the surge event of 2000-2002 \citep{Haeberli2002, Kaab2004, Mortara2009}.
 
 Since 2001, the glacier has undergone severe retreat, losing a total of \SI{-74.94e6}{\cubic\meter} of ice volume between 2001 and 2019.
 From 2001 to 2009, the average yearly volume decrease was \SI{-5.97e6}{\cubic\meter\per\year}, reducing the volume by \SI{-27.12e6}{\cubic\meter} relative to the initial 1977 measurement, despite prior accumulation.
