@@ -39,12 +39,16 @@
 % \RequirePackage{color}
 \RequirePackage[usenames,dvipsnames]{xcolor}
 
-\RequirePackage{hyperref}
 \RequirePackage[tiny, md, sc]{titlesec}
 \setlength{\headheight}{15pt}
 \pagestyle{plain}
 \RequirePackage{titling}
 \RequirePackage[palatino]{quotchap}
+
+\PassOptionsToPackage{hyphens}{url}
+% \RequirePackage[hyphens]{url}
+\RequirePackage{hyperref}
+\RequirePackage{url}
 
 \RequirePackage{kvoptions}
 \DeclareStringOption{School}[]
@@ -73,17 +77,22 @@
 \RequirePackage{verbatim}
 \setcounter{tocdepth}{2}
 
-\RequirePackage{url}
 \RequirePackage[titles]{tocloft}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 \renewcommand{\cftchapfont}{\normalsize \scshape}
 % \usepackage{fixltx2e}
 \RequirePackage{ragged2e}
 
+\RequirePackage{apalike}
+\RequirePackage{siunitx}
+\RequirePackage{tabularx}
+\RequirePackage{eurosym}
+
+
 \renewcommand\bibname{References}
 \renewcommand\listfigurename{Listing of figures}
-% \RaggedRight
-\justifying
+
+\justifying % \RaggedRight
 
 \parindent 12pt
 \RequirePackage{mathspec}

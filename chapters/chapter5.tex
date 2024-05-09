@@ -22,7 +22,7 @@
 %     \item Showcase a few case studies with DIM in complex scenarios and test case with UAV images on belvedere (simulate third camera)
 % \end{itemize}
 
-Chapter \ref{ch:4} demonstrated the potential of a low-cost stereoscopic camera system for short-term monitoring of glacier dynamics. 
+\chref{ch:4} demonstrated the potential of a low-cost stereoscopic camera system for short-term monitoring of glacier dynamics. 
 However, the usage of a stereo camera only poses limitations on the viewing area that can be covered by the system, especially under sub-optimal viewing conditions and acquisition geometry.
 To further enhance our 3D reconstruction capabilities, this chapter aims to introduce a transition to a multi-camera approach.  
 A multi-view framework offers several compelling advantages for glaciological studies.  
@@ -30,7 +30,7 @@ Firstly, overlapping fields of view from multiple cameras reduce occlusions, ens
 Secondly, multiple image perspectives refine 3D reconstructions, providing greater accuracy and reducing uncertainties. 
 Finally, a multi-camera system lends itself to expansion, allowing the integration of additional cameras over time for long-term monitoring and evolving research needs.
 
-As discussed in Chapter \ref{ch:4}, wide camera baselines, strong viewpoint changes, and the often low-texture surfaces inherent to glacial environments pose significant hurdles for traditional feature-matching techniques.
+As discussed in \chref{ch:4}, wide camera baselines, strong viewpoint changes, and the often low-texture surfaces inherent to glacial environments pose significant hurdles for traditional feature-matching techniques.
 Therefore, standard SfM software packages are often not suitable for performing photogrammetric reconstruction in challenging scenarios.
 This complexity introduces the need for cutting-edge approaches, such as the Deep-Image-Matching (DIM) toolbox presented in this chapter.
 DIM is a versatile toolbox designed for both traditional and DL-based multi-view image matching. 
@@ -68,12 +68,12 @@ Although DL local features offer several advantages, their limited rotational in
 While some initial studies highlighted this issue, many subsequent approaches have not prioritized solutions. 
 This may stem from the common use of datasets with minimal rotational variability (e.g., upright images) within the computer vision community, which are common in aerial and UAV photogrammetric datasets \cite{Bkman2022_se2loftr}. 
 Recently, some end-to-end approaches like LIFT \citep{yi2016lift} and LFNet \citep{ono2018lfnet}, and semi-dense methods like RoRD \citep{parihar2022rord} and SE2-LoFTR \citep{Bkman2022_se2loftr}, demonstrate progress in achieving rotational invariance. 
-Recent works involving Steerable CNNs \citep{cohen2016steerable, Wu2018_steerer}, are examples of group equivariant neural networks that allow for \textit{steering} the descriptors to make them invariant by the rotation, further address this limitation \cite{Weiler2019_e2cnn, cesa2022_escnn, Bkman2022_se2loftr}.
+Recent works with Steerable CNNs \citep{cohen2016steerable, Wu2018_steerer}, which are examples of group equivariant neural networks that allow for \textit{steering} the descriptors to make them invariant by the rotation, further address this limitation \cite{Weiler2019_e2cnn, cesa2022_escnn, Bkman2022_se2loftr}.
 Nevertheless, the number of approaches specifically addressing this problem is minimal compared to the overall interest in DL-based feature-matching algorithms.
 On the other hand, the most common approach to address large rotation is still to compensate by iteratively rotating images during matching, but this becomes computationally intensive for large datasets.
 
 Another limitation of DL approaches is their computational expense, which makes them unsuitable for deployment on full-resolution images, which are crucial for leveraging the available radiometric information in high-accuracy photogrammetric applications.
-In addition, it's worth noting that training itself often occurs on low-resolution images, a concern highlighted in \textcolor{red}{[Ewelina paper]}, whose impact remains uncertain.
+In addition, it's worth noting that training itself often occurs on low-resolution images, a concern highlighted in \cite{Wu2024_evaluation_dlstereo}, whose impact remains uncertain.
 Training could have been generalized enough not to require additional training on high-resolution images. 
 
 While the potential of these approaches under extreme lighting conditions and radiometric variations is increasingly evident \textcolor{red}{[Ref]}, some preliminary experiences suggest that these approaches may lack locally accurate identification \textcolor{red}{[Ref]}. 
@@ -104,7 +104,7 @@ DIM employs a modular workflow designed for effective multi-view matching \figre
 DIM itself does not perform the bundle adjustment and scene reconstruction, but it is designed to ensure seamless integration with various popular SfM software packages within the remote sensing and computer vision communities. 
 These include COLMAP \citep{schoenberger2016sfm}, OpenMVG \citep{moulon2016openmvg}, MicMac \citep{rupnik2017micmac}, Agisoft Metashape\footnote{\url{https://www.agisoft.com/}}, 
 and any other software package that supports the import from a Bundler solution format \citep{Li_Snavely_2018_MegaDepth}.
-Additionally, DIM can be easily integrated into a multi-camera multi-epoch pipeline, e.g., by exploiting the multi-temporal functionalities of ICEpy4D (see Chapter \ref{ch:4}).
+Additionally, DIM can be easily integrated into a multi-camera multi-epoch pipeline, e.g., by exploiting the multi-temporal functionalities of ICEpy4D (see \chref{ch:4}).
 
 The process begins with a pre-processing stage where users select from different matching strategies (brute-force, low-resolution guided, sequential, image retrieval, or custom) to intelligently select the pair of images for optimized matching. 
 Additionally, DIM provides a module for addressing the challenge of rotated images within datasets (e.g., in the case of aerial or UAV surveys) by automatically identifying the ideal rotation angle between image pairs, significantly boosting matching accuracy. Users can opt to match images at their original resolution or employ down-sampling or up-sampling techniques managed by a quality parameter.
@@ -122,18 +122,37 @@ Additionally, the detector-free matchers algorithms LoFTR \citep{sun2021_loftr},
 
 \subsection{Matching strategies}\label{sec:5:matching_stategies}
 
+\begin{figure}[ht]
+  \centering
+  \subcaptionbox{Unordered set\label{fig:5:matching_strategy:unordered}}{
+    \includegraphics[height=3.5cm]{match_strat_unordered}
+  } \qquad
+  \subcaptionbox{Bruteforce\label{fig:5:matching_strategy:bruteforce}}{
+    \includegraphics[height=4cm]{match_strat_bruteforce}
+  }\\ \vspace{2mm}
+  \subcaptionbox{Sequential (overlap=2)\label{fig:5:matching_strategy:sequential}}{
+    \includegraphics[height=5cm]{match_strat_sequential}
+  }\qquad
+  \subcaptionbox{Low-res preselection\label{fig:5:matching_strategy:lowres}}{
+    \includegraphics[height=5cm]{match_strat_lowres}
+  }  
+  \caption{Scheme of the main different matching strategies implemented in DIM given an unorered image set (a). (b) Bruteforce strategy (i.e., \textit{all-to-all)}; (c) Sequential strategy with overlap equal to 2 (i.e., match all images with next 3 images, note that the overlap parameter is zero-based); (d) Low-resolution guided matching strategy (i.e., perform a fast bruteforce on low-resolution images and match only good candidates at high resolution).}
+  \label{fig:5:matching_strategy}
+\end{figure}
+
 The matching strategy defines how the pairs of images to be matched are selected to optimize the matching process. The choice of matching strategy plays a crucial role in optimizing image matching, especially with large datasets.  
 
-DIM offers a versatile range of strategies to address diverse use cases (Fig XX). 
-The \texttt{brute-force} approach provides the most comprehensive exploration by attempting to match every image with every other. 
+DIM offers a versatile range of strategies to address diverse use cases. 
+The \texttt{brute-force} approach provides the most comprehensive exploration by attempting to match every image with every other (\figref{fig:5:matching_strategy:bruteforce}). 
 This method is computationally intensive but can be valuable for small datasets or complex scenarios where other strategies may yield insufficient matches. 
 The image pairs are obtained by computing combinations of n elements in 2 places, where n is the number of images in the dataset. 
 Therefore, the computation complexity by $ p = C(n,2) = \frac{n*\left(n-1\right)}{2}$, where $p$ is the number of pairs.
 
 For image sequences acquired in order by a moving camera, (e.g., Visual Odometry or SLAM), the \texttt{sequential} strategy offers optimized efficiency by matching each image with a defined number of subsequent images. 
-The overlap parameter defines the number of consecutive images to match sequentially (see Fig. XXy) and the computational complexity is given by $p = \left(n-O\right) * O $, where $O$ is the overlap parameter.
+The overlap parameter defines the number of consecutive images to match sequentially (\figref{fig:5:matching_strategy:sequential}).
+The computational complexity is given by $p = \left(n-O\right) * O $, where $O$ is the overlap parameter.
 
-The \texttt{matching\char`_lowres } enhances computational efficiency by initially analyzing downsampled images to pre-filter pairs based on valid matches detected at lower resolution and considered as inliers after a geometric verification. 
+The \texttt{matching\char`_lowres} enhances computational efficiency by initially analyzing downsampled images to pre-filter pairs based on valid matches detected at lower resolution and considered as inliers after a geometric verification (\figref{fig:5:matching_strategy:lowres}). 
 By default, the minimum number of valid matches is 20 but it can be tuned by the user. 
 
 The \texttt{retrieval} strategy allows to use of global features to determine the pairs of images that are likely to see the same scene \citep{Yang2013_imageretrieval}. 
@@ -170,7 +189,7 @@ An initial low-resolution matching step identifies tile pairs likely to contain 
 It matches features from each tile in the first image to features from the corresponding tile (i.e., the tile that shares the same boundaries in image coordinates) in the second image. 
 This approach is well suited for scenarios such as VSLAM, where images are captured sequentially by a moving camera and represent similar scenes. 
 
-\begin{figure}[ht]
+\begin{figure}[hb!]
   \centering
   \subcaptionbox{\label{fig:5:rotations:1}}{
     \includegraphics[width=.8\textwidth]{dim_rotations_1.png}
@@ -186,6 +205,10 @@ This approach is well suited for scenarios such as VSLAM, where images are captu
 
 \subsection{Image rotations}
 [Luca] [Explain approach with two clusters, faster than brute force with 4 rotations. 
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet enim. Suspendisse id velit vitae ligula volutpat condimentum. Aliquam erat volutpat. Sed quis velit. Nulla facilisi. Nulla libero. Vivamus pharetra posuere sapien. Nam consectetuer. Sed aliquam, nunc eget euismod ullamcorper, lectus nunc ullamcorper orci, fermentum bibendum enim nibh eget ipsum. Donec porttitor ligula eu dolor. Maecenas vitae nulla consequat libero cursus venenatis. Nam magna enim, accumsan eu, blandit sed, blandit a, eros.
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet enim. Suspendisse id velit vitae ligula volutpat condimentum. Aliquam erat volutpat. Sed quis velit. Nulla facilisi. Nulla libero. Vivamus pharetra posuere sapien. Nam consectetuer. Sed aliquam, nunc eget euismod ullamcorper, lectus nunc ullamcorper orci, fermentum bibendum enim nibh eget ipsum. Donec porttitor ligula eu dolor. Maecenas vitae nulla consequat libero cursus venenatis. Nam magna enim, accumsan eu, blandit sed, blandit a, eros.
 
 \subsection{Matching pipelines}
 
@@ -208,7 +231,7 @@ As compatibility constraints exist between feature extractors and matching algor
 DIM streamlines the process with a unified interface, allowing users to run pipelines with minimal configuration when default settings are suitable. 
 For customization of local feature extractor or matcher parameters, advanced users can provide configuration files to DIM's image-matching interface.
 
-DIM efficiently stores extracted features and matches in local HDF5 (Hierarchical Data Format) databases, by using the h5py library\footnote{\url{https://docs.h5py.org/en/stable/}}. 
+DIM efficiently stores extracted features and matches in local HDF5 (Hierarchical Data Format) databases, by using the h5py library\footnote{h5py library: \url{https://docs.h5py.org/en/stable/}}. 
 Pipeline outputs are stored in two HDF5 files: \textit{features.h5} containing keypoints image coordinates, descriptors, and scores and \textit{matches.h5} containing the indices of matched features for each image pair. 
 The features database organizes features by image, with datasets (i.e., a structure similar to a table in a relational database) representing extracted features on each image. 
 The matches database contains datasets per image pair, storing an nx2 array (n = number of matches) where columns reference the corresponding feature indices within the feature database. 
@@ -221,7 +244,7 @@ This enables the strategic exploitation of different local feature strengths; fo
 After completing the matching pipelines, outlier correspondences must be rejected. 
 DIM assumes non-calibrated cameras and employs Fundamental matrix estimation for this purpose, rejecting matches with large epipolar errors. 
 DIM offers a robust selection of algorithms for Fundamental matrix estimation and geometric verification. 
-Among these, PyDegensac \cite{Mishkin2015_pydegensac}, implementing LO-Ransac \cite{Chum2003_loransac} and DEGENSAC \cite{Chum2005_degensac}, provides the most robust solution.  Additionally, DIM supports all robust estimation algorithms implemented in OpenCV\footnote{\url{https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html}}, including traditional RANSAC, the least-median of squares algorithm (LMedS), and LO-Ransac (USAC\_DEFAULT).
+Among these, PyDegensac \cite{Mishkin2015_pydegensac}, implementing LO-Ransac \cite{Chum2003_loransac} and DEGENSAC \cite{Chum2005_degensac}, provides the most robust solution.  Additionally, DIM supports all robust estimation algorithms implemented in OpenCV\footnote{OpenCV robust estimators: \url{https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html}}, including traditional RANSAC, the least-median of squares algorithm (LMedS), and LO-Ransac (USAC\_DEFAULT).
 
 % A sub-pixel refinement module allows for improvements in the matching precision, especially in the case of DL-based features that work only at the pixel level. 
 % Different robust geometric verification techniques can be employed to verify the correspondances and to reject inaccurate or unreliable matches. 
@@ -249,7 +272,7 @@ Furthermore, two case studies specific to the Belvedere Glacier demonstrate how 
 
 % \subsection{Dense reconstruction with wide-camera baselines}
 
-% As discussed in Chapter \ref{ch:4}, the wide baseline of the stereo cameras installed at the Belvedere Glacier posed strong challenges in tie point extraction using traditional hand-crafted local features. 
+% As discussed in \chref{ch:4}, the wide baseline of the stereo cameras installed at the Belvedere Glacier posed strong challenges in tie point extraction using traditional hand-crafted local features. 
 
 % \begin{figure}
 %   \centering
@@ -300,22 +323,15 @@ An example can be the glacier when it is covered by snow.
 
 \begin{figure}
   \centering
-  % \subcaptionbox{\label{fig:5:winter_res:1}}{
-  %   \includegraphics[height=4.5cm]{winter_metashape_sparse}
-  % }
-  % \subcaptionbox{\label{fig:5:winter_res:2}}{
-  %   \includegraphics[height=4.5cm]{winter_splg}
-  % }\\
   \subcaptionbox{\label{fig:5:winter_res:3}}{
-    \includegraphics[height=5.5cm]{winter_dense_ms}
+    \includegraphics[height=6.5cm]{winter_dense_ms}
   }
   \subcaptionbox{\label{fig:5:winter_res:3}}{
-    \includegraphics[height=5.5cm]{winter_dense_roma}
+    \includegraphics[height=6.5cm]{winter_dense_roma}
   }  
   \caption{}
   \label{fig:5:winter_res}
 \end{figure}
-
 
 
 \subsection{Historical internet images}
@@ -339,7 +355,7 @@ An example can be the glacier when it is covered by snow.
     \end{tabular}
 \end{table}
 
-Dataset C – Nadar – is a collection of 12 self-portrait images from the opera Revolving (1865) of Gaspard-Félix Tournachon, known as Nadar\footnote{\url{https://en.wikipedia.org/wiki/Nadar}}. 
+Dataset C – Nadar – is a collection of 12 self-portrait images from the opera Revolving (1865) of Gaspard-Félix Tournachon, known as Nadar\footnote{Wikipedia Nadar page: \url{https://en.wikipedia.org/wiki/Nadar}}. 
 The images have been downloaded from Wikipedia (resolution of 524 x 671 px), and they show significantly different viewpoints, low radiometric quality, and many time-related artifacts. 
 In addition, the dataset is partially ill-posed for photogrammetric purposes since Nadar sometimes changed both facial expressions and the relative position between the head and shoulders. 
 All these characteristics make the reconstruction difficult with classical approaches.

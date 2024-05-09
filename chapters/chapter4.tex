@@ -201,7 +201,7 @@ so that a nearly 100\% recharge is achieved about once every week and, in case o
 The whole monitoring system is designed to minimize power consumption, e.g., by powering off devices responsible for the highest power consumption when not needed.
 An estimation of the system's energy consumption guided the choice of the components of the power supply line. 
 Specifically, the battery and the associated panel must be accurately dimensioned for the system's purpose. 
-To this end, the Photovoltaic Geographical Information System (PVGIS)\footnote{\url{https://re.jrc.ec.europa.eu/pvg_tools/en/}}, a tool provided by the European Commission, was used.
+To this end, the Photovoltaic Geographical Information System (PVGIS)\footnote{PVG tool \url{https://re.jrc.ec.europa.eu/pvg_tools/en/}}, a tool provided by the European Commission, was used.
 PVGIS can estimate the performance of off-grid photovoltaic systems according to the installation site and it is supported by a database and algorithms for calculating solar radiation. 
 Tuning the parameters for the Belvedere Glacier location and the system consumption, we ended up with the specifications of solar panel power of 30 W, a battery voltage of 12 V, and a capacity of 10 Ah. 
 Some compromises were made, accepting that the system would not be sufficiently powered in the months with the lowest solar radiation (November, December, January, and February). 
@@ -458,8 +458,7 @@ for tasks such as 3D reconstruction and surface velocity estimation.
 
 It is worth mentioning the performance of the system in terms of costs: our monitoring system can be fully reproduced with an average cost of \texteuro2000 per station (November 2023), including camera (\texteuro400), lens (\texteuro500) and material for the on-site installation (\texteuro150).
 In comparison, commercial time-lapse cameras are expensive
-(e.g., PhotoSentinel\footnote{PhotoSentinel: \url{https://photosentinel.com/} (accessed
-  on 15/11/23)} cameras cost more than \$ 5,000.00) and hardly customizable.
+(e.g., PhotoSentinel\footnote{PhotoSentinel: \url{https://photosentinel.com/}} cameras cost more than \$ 5,000.00) and hardly customizable.
 The final prototype of the monitoring station is shown in Figure
 \ref{fig:4:final_installation}.
 
@@ -660,7 +659,7 @@ orientation correlation algorithm~\citep{fitch2002_OC}, which is more robust aga
 \end{figure}
 
 ICEpy4D was developed to achieve a daily stereoscopic reconstruction of the glacier snout.
-ICEpy4D\footnote{\url{https://github.com/franioli/icepy4d})} is a Python-based toolkit that allows for solving different steps of scene reconstruction
+ICEpy4D\footnote{ICEpy4D \url{https://github.com/franioli/icepy4d}} is a Python-based toolkit that allows for solving different steps of scene reconstruction
 (\figref{fig:4:stereo-workflow}). 
 In particular, the main steps consist of:
 (i) finding corresponding points by deep-learning feature matching;
@@ -789,8 +788,7 @@ due to its reliance on hand-crafted features, it was effective in performing den
 matching through semi-global matching
 algorithms~\citep{Hirschmuller2012}, when accurate camera poses were available for image
 rectification.
-Depth maps were generated from full-resolution images (i.e., the highest
-quality parameter in Agisoft Metashape) with mild filtering.
+Depth maps were generated from full-resolution images (i.e., \textit{highest} quality parameter in Agisoft Metashape) with mild filtering.
 The estimated depth maps were then used to reconstruct a dense point cloud and a
 triangulated mesh.
 
@@ -810,11 +808,9 @@ triangulated mesh.
   \label{fig:4:dod_scheme}
 \end{figure}
 
-The daily variation of ice volume was determined by calculating the DEM of Differences
-(DOD) along the streamwise direction. A local reference system was established by
-defining the X-direction as the streamwise direction, the Z-direction as the geodetic
-height, and the Y-direction to complete the right-hand reference system.
-The point clouds of two different epoches were rasterized to a reference YZ plane,
+The daily variation of ice volume was determined by DOD along the streamwise direction. 
+A local reference system was established by defining the X-direction as the streamwise direction, the Z-direction as the geodetic height, and the Y-direction to complete the right-hand reference system.
+The point clouds of two different epochs were rasterized to a reference YZ plane,
 corresponding to the frontal view of the terminal ice cliff, using a grid step of 0.3
 meters, while maintaining the same raster origin and extent (i.e., the two point clouds
 were first clipped with the same convex polygon).

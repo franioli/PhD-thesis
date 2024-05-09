@@ -3,13 +3,6 @@
 % Modify the following line to match your school
 \documentclass[School=Polimi]{Dissertate}
 
-\usepackage{apalike}
-\usepackage{siunitx}
-\usepackage{tabularx}
-\usepackage{eurosym}
-\usepackage{svg}
-% \usepackage{bibentry}
-
 %- Declaration of Units (SIUNIX)
 \DeclareSIUnit\pixel{px}
 \DeclareSIUnit\Hz{Hz}
@@ -24,6 +17,7 @@
 \newcommand{\figref}[1]{Fig.~\ref{#1}}
 \newcommand{\tabref}[1]{Tab.~\ref{#1}}
 \newcommand{\secref}[1]{Sec.~\ref{#1}}
+\newcommand{\chref}[1]{Chapter~\ref{#1}}
 
 % Make citing in parenthesis the default approach
 \renewcommand{\cite}{\citep}
@@ -39,6 +33,8 @@
 
 
 \begin{document}
+
+\emergencystretch 3em
 
 % the front matter
 \input{frontmatter/personalize}
@@ -57,7 +53,7 @@
 
 % include each chapter...
 \setcounter{chapter}{0} % start chapter numbering at 1
-\justifying
+\justifying 
 \include{chapters/chapter1}
 \include{chapters/chapter2}
 \include{chapters/chapter3}

@@ -367,9 +367,8 @@ DIC allows for determining the displacement of an image patch between two images
 To compute displacement by DIC, we employed the open-source Local Adaptive Multiscale Image Matching Algorithm (LAMMA)~\citep{Dematteis2022}.
 LAMMA adopts a hierarchy structure of patch grids of increasing spatial resolution and uses locally-adaptive search area sizes, according to the displacements already
 obtained in the neighboring region.
-Lamma was originally written in Matlab\footnote{\url{https://github.com/niccolodematteis/LAMMA}}, but we have 
-recently translated it into Python for multitemporal processing of stereo images \citep{ioli2024deep} and 
-published it as an open-source library, named pyLamma\footnote{\url{https://github.com/franioli/pylamma/}}.
+LAMMA was originally written in Matlab\footnote{LAMMA: \url{https://github.com/niccolodematteis/LAMMA}}, but it has been recently translated into Python.
+A collaborative effort with Niccolò Dematteis is underway to publish pyLamma as open-source \footnote{pyLamma: \url{https://github.com/franioli/pylamma}}.
 
 As a correlation function, we used the cosine similarity applied to orientation images \citep{Dematteis2021}, 
 which is less sensitive to chromatic variation changes (e.g., due to to shadows or snow patterns) and is known 
@@ -461,7 +460,7 @@ Between 2015 and 2018, the partial snow cover (\figref{fig:3:ortophoto}a--c)) in
 additional uncertainty in volume estimation. 
 To address this, snow depth data measured from the meteorological station located close 
 to the Zamboni Zappa 
-Hut\footnote{\mbox{\url{https://www.arpa.piemonte.it/rischinaturali/accesso-ai-dati/annali_meteoidrologici/annali-meteo-idro/banca-dati-meteorologica.html}}} 
+Hut\footnote{\url{https://www.arpa.piemonte.it/rischinaturali/accesso-ai-dati/annali_meteoidrologici/annali-meteo-idro/banca-dati-meteorologica.html}}
 was used as a first estimate of the snow depth for the upper part of the glacier. 
 The snow depths measured on survey dates are the following
 \begin{itemize}
@@ -779,7 +778,7 @@ As of 2023, the Belvedere Glacier has lost \SI{\sim 24}{\mega\tonne} of ice mass
 \section{An open-source framework for sharing monitoring results}\label{sec:3:open-data}
 
 A long-term monitoring campaign of Belvedere Glacier has produced a rich dataset that includes high-accuracy in-situ GNSS measurements, 3D point clouds, digital surface models (DSMs), and orthophotos derived from UAV photogrammetry.
-In recognition of the value of collaboration and open science, all point clouds, DSMs, and orthophotos for the entire glacier have been made publicly available under the GNU General Public License (GPL) version 3 license through a Zenodo repository\footnote{\url{https://doi.org/10.5281/zenodo.7842347}}~\citep{ioli_2023_zenodo}.
+In recognition of the value of collaboration and open science, all point clouds, DSMs, and orthophotos for the entire glacier have been made publicly available under the GNU General Public License (GPL) version 3 license through a Zenodo repository\footnote{Belvedere Open Data: \url{https://doi.org/10.5281/zenodo.7842347}}~\citep{ioli_2023_zenodo}.
 This open-access initiative encourages further scientific exploration and evaluation by researchers across disciplines.
 This will allow replication of the analyses performed in this thesis, such as estimates of glacier velocity and volume change, and facilitate the study of geomorphological processes such as moraine collapse and derive new insights into glacier dynamics. 
 All data are accompanied by a structured JSON file containing essential metadata, allowing researchers to easily use the data for their purposes.
@@ -787,7 +786,7 @@ All data are accompanied by a structured JSON file containing essential metadata
 To maximize accessibility also for non-expert users, the 3D point clouds derived from all the surveys were converted to a Potree-compatible structure~\citep{schutz2016potree} and uploaded to a web server.
 Potree is an open-source WebGL-based JavaScript library designed for web-based rendering of large-point 
 clouds and it offers versatile tools for handling 2D and 3D objects, scene navigation, and interaction, including measurements and cross-section profile extraction~\citep{Gaspari2024, Fascia2024}.
-The 3D glacier models are accessible from any web browser (\figref{fig:3:potree}), allowing users to navigate through different years and experience the evolution of the glacier over time\footnote{\label{the-belvedere-glacier-website}\url{https://thebelvedereglacier.it/potree/index.php}}.
+The 3D glacier models are accessible from any web browser (\figref{fig:3:potree}), allowing users to navigate through different years and experience the evolution of the glacier over time\footnote{Potree web app\label{the-belvedere-glacier-website}\url{https://thebelvedereglacier.it/potree/index.php}}.
 \marginpar[Note 1]{
     \includegraphics[width=\marginparwidth]{qr_thebelvedereglacier.png}
 }
@@ -838,7 +837,7 @@ Additional functionalities encompass the automatic conversion of GNSS coordinate
 The database currently stores 456 GNSS measurements from 85 distinct points obtained across 19 surveys. 
 The data can be conveniently accessed through GIS software like QGIS, made possible by the PostGIS database extension. 
 This setup enables automatic plotting of points associated with each measurement on a map canvas, together with pre-defined visualization styles, facilitating visual analysis.
-Furthermore, both researchers and non-expert users can access the public schema of the database via a dedicated web platform\footnote{\url{https://thebelvedereglacier.it}}. Here, users can effortlessly view the GNSS measurements on a web-map, extract time-series information, and download them for their scientific inquiries. 
+Furthermore, both researchers and non-expert users can access the public schema of the database via a dedicated web platform\footnote{Web app \url{https://thebelvedereglacier.it}}. Here, users can effortlessly view the GNSS measurements on a web-map, extract time-series information, and download them for their scientific inquiries. 
 Combining this with a web-based visualization of the 3D point clouds with Potree~\citep{schutz2016potree} makes it possible to have a complete overview of the outcomes of the Belvedere Glacier monitoring campaign.
 This initiative not only promotes transparency and reproducibility in research but also cultivates collaboration and knowledge exchange within the scientific community.
 

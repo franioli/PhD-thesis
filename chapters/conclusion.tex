@@ -1,4 +1,174 @@
 \chapter{Conclusion}
 \label{conclusion}
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet enim. Suspendisse id velit vitae ligula volutpat condimentum. Aliquam erat volutpat. Sed quis velit. Nulla facilisi. Nulla libero. Vivamus pharetra posuere sapien. Nam consectetuer. Sed aliquam, nunc eget euismod ullamcorper, lectus nunc ullamcorper orci, fermentum bibendum enim nibh eget ipsum. Donec porttitor ligula eu dolor. Maecenas vitae nulla consequat libero cursus venenatis. Nam magna enim, accumsan eu, blandit sed, blandit a, eros.
+This chapter synthesizes the key findings presented throughout this thesis, offering a comprehensive overview of the research contributions. 
+It highlights the main insights gained and discusses their broader implications within the field of glaciological research.
+
+\section{Summary of the results}
+
+This thesis applies photogrammetric techniques to the comprehensive, long-term monitoring of the Belvedere Glacier (Italian Alps), achieving spatial resolutions from the meter to the decimeter scale and temporal frequencies spanning decades, years, and even daily intervals.
+
+\chref{ch:2} of the thesis delves into the long-term evolution of the Belvedere Glacier, employing a multi-temporal analysis of aerial imagery spanning the period from 1977 to 2009. 
+Digitized archival analog images (1977, 1991, 2001) and a high-quality digital aerial dataset (2009) were processed using photogrammetric techniques within Agisoft Metashape.
+To ensure precise georeferencing, a cascade technique was employed, leveraging a recent UAV dataset acquired in 2019.
+This involved extracting GCPs from the UAV photogrammetric block (oriented using in-situ GNSS targets) to refine the image orientation of the digital aerial block, which had known a-priori image exterior orientation parameters thanks to an on-board GNSS-IMU system. 
+Subsequently, GCPs strategically distributed on stable terrain surrounding the glacier were manually extracted from the 2009 block to georeference the historical datasets.
+These techniques enabled the generation of detailed 3D glacier reconstructions with sub-metric precision at pivotal points in its history, roughly spaced by a 10-year interval.
+
+The analysis was able to document and quantify the peculiar evolution of the Belvedere glacier in the last half-century.
+The Belvedere Glacier exhibited a period of expansion from 1977 to 2001 (\SI{+20.66e6}{\cubic\meter}). 
+This growth trend was subsequently disrupted by a surge event that occurred between 2002 and 2002.
+The expansion period was followed by a period of dramatic and continuous retreat.  
+The comparison of historical and contemporary glacier extent reveals a net loss of \SI{54.28e6}{\cubic\meter} between 1977 and 2023 (approximately 24 Mt of ice mass).
+
+In \chref{ch:3}, we present the results of the periodical yearly in-situ campaign carried out on the Belvedere Glacier with UAV and GNSS from 2015 to 2023.
+During yearly fieldwork, several flights with fixed-wing UAVs and quadcopters were executed to acquire images with GSD ranging between 5 cm and 9 cm. 
+Moreover, a set of targets was deployed on the glacier and along the moraines, checked, and measured yearly with topographic-grade GNSS receivers.
+These were used respectively for image orientation and photogrammetric block validation.
+Acquired data were processed using SfM-MVS techniques to obtain decimetric-accurate 3D models, orthophotos, and DSMs. 
+Annual glacier velocity was derived by in-situ GNSS measurements of photogrammetric targets, combined with dense surface velocity fields computed by DIC on orthophotos and DSMs. 
+
+Analysis of surface velocity fields revealed distinct patterns across the glacier. 
+The central region exhibited the highest velocities, ranging from \SI{15}{\meter\per\year} to \SI{27}{\meter\per\year}.
+In contrast, the two terminal lobes showed significantly slower movement of \SI{2}{\meter\per\year} to \SI{10}{\meter\per\year}.
+Intermediate speeds were found in the upper glacier near its steep accumulation zone and the transition zone between the fast-moving center and the terminal lobes.  
+Of particular interest was the gradual slowdown observed in the terminal lobes over time.
+This is likely due to the severe ice thinning documented in recent years. 
+As glaciers thin, their internal driving forces decrease, leading to slower flow.
+Interestingly, other glacier areas do not show statistically significant speed changes.
+Annual volume variations, estimated by DOD, revealed a consistent loss of ice ranging from \SI{2e6}{\cubic\meter} to \SI{5e6}{\cubic\meter}.
+Of particular concern is the dramatic increase in ice loss from 2020 to 2023, with a staggering 200\% increase in the 2022-2023 period compared to the 2015-2016 baseline.
+
+In \chref{ch:4}, we presented a pilot study that introduced a low-cost multi-camera system for high-rate glacier monitoring. 
+By utilizing two cameras near the snout of the Belvedere Glacier, we successfully integrated 3D reconstruction from stereo cameras and surface velocity estimation on monoscopic cameras by DIC. 
+This approach accurately estimated glacier dynamics, including surface movement and terminus ice volume loss and retreat. 
+The application of DL matching techniques proved to be a significant strength of our approach, as it allowed us to overcome the challenges posed by wide camera baselines. 
+
+A total ice loss of \SI{63000}{\cubic\meter} and a retreat of the glacier snout of \SI{17.8}{\meter} was observed from 01 May 2022 to 13 November 2022. 
+However, the ice loss rate increased during summer and significantly reduced in autumn, particularly after mid-September. 
+We analyzed daily surface velocity at two locations: one 10 meters from the frontal ice cliff and another in the central part, approximately 120 meters from the front. 
+Both time series exhibited similar behaviors throughout the year, with comparable velocities from May to mid-June and again from late September to November.  
+However, the point near the terminal ice cliff exhibited approximately 30\% higher velocity during the warm season,  with values ranging from \SI{0.15}{\meter\per\day} on a few days in early August and early September to a peak of \SI{0.23}{\meter\per\day} in mid-July.  
+This finding underscores a differential glacier movement in response to the exceptionally hot and dry conditions of the 2022 summer.
+
+One of the key findings derived from the stereo-camera setup was the significant correlation between air temperature and glacier surface velocity and ablation (correlation coefficient larger than 0.8 for all the signals), with negligible time lag. 
+In the literature, the relationship between ablation and temperature is well established but rarely assessed quantitatively in the short term. 
+On the other hand, a direct relationship between surface displacement and the temperature has not been established in the literature with the same level of detail as in our study.
+
+\chref{ch:5} presents Deep-Image-Matching, a novel open-source Python toolkit that extends the DL matching algorithms implemented in \chref{ch:4} to tackle the stereo camera wide-baseline challenges in stereo-matching to a generic multi-view multi-view setup.
+DIM addresses the challenges of wide-baseline stereo matching in generic multi-view setups, facilitating the use of DL-based local features within the photogrammetric community.
+This tool is specifically designed to succeed in scenarios where traditional feature-matching algorithms often fail.
+Compared to other existing tools, DIM provides crucial advantages: it handles high-resolution images, offers robustness to rotations, and allows seamless integration with popular photogrammetric software packages like COLMAP, openMVG, MicMac, and Metashape. 
+
+DIM was designed to expand the Belvedere stereo camera setup, aiming to enhance view coverage, reduce occlusions, and improve reconstruction robustness through the installation of additional low-cost cameras along the glacier moraines.
+As the third camera has not yet been deployed on the glacier, the DIM software's capabilities were tested on other challenging datasets. 
+Additionally, a multi-camera setup was simulated using UAV imagery acquired from locations that closely approximate potential camera positions.
+
+\section{Global considerations and future perspective}
+
+% 1) La tesi è uno dei primi esempi di monitoraggio a lungo termine di un ghiacciaio alpino con precisioni che vanno dal metro al decimetro;
+% 2) E' stata condotta una decennale campagna di misura annuale degli spostamenti dell'intero ghiacciaio con precisione sub decimetrica che permette di validare le misure DIC superficiali eseguite sulle ortofoto. 
+% 3) La necessità di indagare i movimenti su periodi intra annuali ha spinto alla messa a punto di un sistema di analisi 3D giornaliero degli spostamenti basato su DL, uno dei primi esempi di applicazione in ambito criosferico; 
+% 4) I dati sono stati in gran parte pubblicati per una condivisione dei risultati in ambito scientifico mirata alla condivisione open access.   
+
+% Highlight these points:
+% - from a long-term perspective, the use of historical aerial images provides an extremely valuable resource for alpine glacier long-term monitoring. There are millions of analog photographs, acquired for mapping purposes, documenting land surface change taken in the past century available in historical archives. However, only a small fraction of these photographs have been digitally scanned and can be used with modern photogrammetric techniques. If scanned, nowadays these images can be used with modern SfM software pipeline to easily perform image orientation and 3D reconstruction of the glacier morphology. 
+% - Concerning the Belvedere Glacier, our work started with the high-quality analog images acquired in 1977 and scanned by CGR, which allowed to go back in time for half a century. 
+% However, recently, the SwissImage archive has published an extremely wide archive of scanned analogical images \cite{Heisig2021}, with several images including alpine glaciers and with few images acquiring also the Belvedere Glacier, which is located close to the Swiss Border with Italy. 
+% The oldest image available from the SwissImage archive dates back to 1951.
+% Including this datasets of images in the analysis, would enable to extend the analysis for additional 20 years in the past.
+
+% Stress the following points:
+% - decimetric-accurate photogrammetric models can be periodically obtained by using low-cost UAVs and cameras. 
+% - This high geometrical resolution and accuracy is not yet achievable by employing satellite imageries or aerial platforms, and it may be relevant for hydrological analysis, for example, mass balances. 
+% - UAVs allows to increase the temporal frequency compared to that achievable with aerial platforms, both with archival images (that is clearly limited by the availability of the acquire images), but also of recent one, that are expansive and usually are used only if there are no other possibilities (e.g., survey very high altitude peaks > 3000 m a.s.l or extremely remote areas which are not achievable with UAVs).
+% - Similarly, also recent VHR satellite images are expensive and the revisiting time in remote areas such as the Belvedere Glacier is minimum (e.g., only few images per year are available in the Pleiased/Pleaides Neo archive). Therefore an on-demand tasking acquisition would be necessary to perform a periodical monitoring. However, this still require high costs compared to a UAV flight.
+% - UAVs require minimal data acquisition costs and allow for great surveying flexibility. In fact, despite the harsh environment, in-situ operations were limited to a few days to successfully gather information on the whole glacier. Therefore, UAVs can be employed by small research groups or environmental agencies to carry out yearly or seasonal monitoring activities. 
+% - UAVs, especially recent UAVs with RTK capabilities, allows to safely survey also dangerous areas, reducing the exposure to dangers of pilots and surveyors, who can pilot the UAV from remote. 
+
+% This thesis represents a seminal contribution to the field of alpine glacier monitoring. It is one of the earliest examples of a long-term study achieving high-precision displacement measurements, moving from the meter to the decimeter level. The decade-long commitment to annual glacier-wide displacement measurements with sub-decimeter accuracy has provided a unique and invaluable dataset. This work directly facilitates the validation of surface DIC measurements from orthophotos, providing a critical benchmark in the field.
+
+\subsection*{A long-term example of photogrammetric glacier monitoring}
+
+This thesis stands as one of the few examples of comprehensive and long-term photogrammetric monitoring of an alpine glacier, achieving spatial resolutions from the meter to the decimeter scale and temporal frequencies spanning decades, years, and even daily intervals.
+Focusing on the debris-covered Belvedere Glacier in the Italian Alps, this work has provided a robust methodological framework and innovative tools that significantly advance glacier research capabilities and allow for documenting and quantifying the peculiar evolution of the Belvedere glacier in the last half-century, from 1977 to 2023.
+
+Historical and digital aerial imagery analysis revealed a crucial long-term perspective, including decades of glacier evolution and a unique expansion period in the early 21st century. 
+In particular, historical aerial images offer a uniquely valuable time capsule for understanding long-term alpine glacier dynamics.  
+Vast archives of analog photographs, documenting land surface changes for decades, exist.  
+While only a small fraction have been digitized, modern SfM software unlocks the full potential of these images for glacier reconstruction. 
+In the case of the Belvedere Glacier, high-quality analog images from 1977, acquired and scanned by CGR, made it possible to document the evolution of this natural heritage for half a century in the past. 
+However, the recent release of the SwissImage archive, with its extensive collection of scanned analog images, provides the opportunity to reach even further back in time. 
+Among the collection, a few images acquired close to the Swiss Border with Italy include the Belvedere Glacier and the oldest ones date back to 1951.
+These images could extend this thesis's analysis by a further two decades, offering significant insights.
+
+The integration of UAVs in this study greatly enhanced the monitoring of Belvedere Glacier, achieving an annual survey frequency for almost 10 years, combined with periodical in-situ GNSS measurements. 
+Low-cost UAVs, coupled with consumer-grade cameras, enabled the consistent generation of photogrammetric models with decimeter accuracy. 
+This level of spatial resolution and precision cannot be achieved with satellite or traditional aerial imagery, making UAV data uniquely valuable for detailed mass balance calculations and geomorphological process analysis.
+
+UAVs offer flexibility compared to both archival and modern aerial platforms. 
+Archival imagery is inherently limited by past acquisition schedules, while even recent aerial surveys are costly and often used only in scenarios where other options are unavailable (such as extremely high altitudes or remote locations). 
+Similarly, high-resolution satellite imagery can be expensive, and revisit times in remote areas can be infrequent (e.g., only a few images per year are available in the Pleiades/Pleiades Neo archive).
+UAVs overcome these limitations and provide on-demand data collection at a fraction of the cost, with limited time spent in the field.
+Despite the difficult conditions, in-situ operations on Belvedere Glacier were limited to a few days. 
+Additionally, the flexibility of UAVs is particularly important in a challenging alpine environment.
+Modern UAVs with RTK capabilities can safely and effectively survey dangerous glacier areas, significantly reducing the risk to personnel.
+
+High-resolution orthophotos and DSMs derived from UAV photogrammetric models allowed the calculation of annual glacier surface displacements by DIC and volume variations over the entire glacier.
+This annual survey frequency was essential to capture the rapid evolution of a glacier acutely affected by climate change. 
+Recent years have revealed an alarming acceleration of ice melt and a deceleration of certain glacier sections due to ice thinning.  
+These observations are critical for understanding local glacier responses within the broader context of global warming.
+
+\subsection*{A novel low-cost multi-cameras approach for short-term monitoring}
+
+% - Recognizing the non-linear sub-seasonal dynamics of glaciers, this thesis pioneered a low-cost stereo camera system for daily glacier 3D motion analysis.
+% - By utilizing two cameras near the snout of the Belvedere Glacier, we successfully integrated 3D reconstruction from stereo cameras and surface velocity estimation on monoscopic cameras by DIC. This approach enabled accurate estimation of glacier dynamics, including surface movement and terminus ice volume loss and retreat. 
+% - This study was among the few examples using stereo cameras to build daily 3D reconstruction of a glacier area. 
+% - This study successfully use DL algorithms to overcome the limitations of traditional feature matching algorithms in case of wide baselines and strong viewpoints changes. In fact, sub-optimal viewing conditions of the cameras can often occur when installing low-cost cameras in harsh environments.
+% - The system currently monitor a small portion of the glacier only and this study is posed as a pilot study to test the feasibility of the system, both in terms of hardware and software. To improve the outcomes, a multi-camera setup would be beneficial. To this end, the software component for processing the multi-camera view is given by Deep-Image-Matching.
+% - The transferability of the low-cost camera system used in this study to other test sites is a crucial aspect to consider. This ease of installation enables the system to be replicated at different sites without significant difficulty. While a more robust installation with minimal vibrations and camera rotations would be beneficial, the simplicity of the setup allows for efficient deployment by a small team, without the requirement of specialized equipment.
+
+Recognizing the inherently non-linear nature of glacier behavior at sub-seasonal timescales, this thesis developed a novel low-cost stereo camera system for comprehensive daily 3D motion analysis.  
+The stereoscopic camera system, installed near the snout of the Belvedere Glacier, allowed us to integrate 3D reconstruction from stereo cameras with surface velocity estimation from monoscopic cameras using DIC. 
+The result is a powerful tool for quantifying short-term glacier dynamics, including surface velocities, terminus retreat, and ice volume loss.
+
+This study stands as one of the few examples of successfully utilizing stereo cameras for daily 3D reconstruction of a glacier. 
+A key breakthrough was the implementation of DL algorithms to overcome the limitations of traditional feature matching techniques in contexts with wide baselines and extreme viewpoint changes.  
+Such conditions are often unavoidable when deploying low-cost cameras in a challenging alpine environment.
+
+Currently focused on a specific portion of the glacier, this work serves as a pilot study, demonstrating the feasibility of the low-cost system in terms of both hardware and software.
+To expand its insights, a multi-camera setup is planned.
+The Deep-Image-Matching software developed in this thesis provides a crucial foundation for this multi-view 3D reconstruction pipeline.
+
+The transferability of the camera system is a major strength. 
+Its ease of installation allows deployment on different glaciers with minimal difficulty, making it a valuable tool for expanding glacier monitoring in diverse locations.
+
+\subsection*{Open source and open access commitment}
+
+This work demonstrates a strong commitment to open-access data sharing, fostering collaboration, and accelerating progress within glaciological research and related fields.
+All results from the photogrammetric campaigns, including point clouds, orthophotos, and DSMs, are publicly available in a Zenodo repository\footnote{Belvedere Glacier Open Data: \url{https://doi.org/10.5281/zenodo.7842347}}.
+This rich dataset offers researchers a valuable base for further investigation into diverse topics. Potential applications include the detailed analysis of geomorphological processes like moraine collapse in response to glacier thinning, or as foundational inputs for glacier modeling to project future glacier evolution under various climate scenarios.
+
+To further enhance accessibility, a dedicated web app has been developed, allowing even non-expert users to explore the 3D point clouds directly within a web browser\footnote{Web app: \url{https://thebelvedereglacier.it/}}.
+This app additionally integrates a database of GNSS measurements collected over multiple years, enabling automated displacement and velocity calculations and generating insightful plots on glacier 
+kinematic evolution.
+
+Additionally, the dataset including all stereo camera images captured between May and November 2022, the stereo processing software, and the resulting time-series of point clouds have been published on Zenodo\footnote{Stereo-cameras data: \url{https://doi.org/10.5281/zenodo.8164638}}.
+A key near-future development for the web app will integrate these daily stereo images and automatic processing results directly into the platform. 
+This will provide real-time access to everyone, minimizing the need for user intervention and specialized processing.
+
+This thesis embraces the principle of open-source software, with all developed packages published on GitHub.
+This includes ICEpy4D\footnote{ICEpy4D: \url{https://github.com/franioli/icepy4d}} for multi-temporal 3D reconstruction from stereo cameras and point-cloud time series analysis, and Deep-Image-Matching\footnote{Deep-Image-Matching \url{https://github.com/3DOM-FBK/deep-image-matching}} for multi-view image matching in complex scenarios using both traditional and DL-based local features.  
+A collaborative effort with Niccolò Dematteis is underway to publish pyLamma\footnote{pyLAMMA: \url{https://github.com/franioli/pylamma}}, an easy-to-use Python interface to LAMMA \cite{Dematteis2022} for easily applying DIC to image series from monoscopic cameras. 
+Future developments include the seamless integration of these three projects within ICEpy4D, leveraging DIM for matching components and pyLamma for DIC computations. 
+This would provide a comprehensive suite of toolkits designed for multi-temporal and multi-camera scenarios. 
+Additionally, integrating ICEpy4D with libraries like py4dgeo \cite{Anders2021_py4dgeo, Winiwarter2023_kalman} would unlock powerful 4D change detection analysis on point cloud time-series.
+
+% \subsection*{From a local to a regional scale}
+
+% This thesis presents the work carried out for the long-term monitoring of a single and rather small alpine glacier.
+% However, to make the research more impactful, it would be necessary to move to a regional scale.
+% This would require a more 
+
+% References
+\makechapterbibliography{}

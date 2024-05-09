@@ -27,7 +27,7 @@ Since then, photogrammetry has become a widely used, cost- and time-effective ap
 This transformation, coupled with the development of Structure-from-Motion (SfM) and Multi-View Stereo (MVS) algorithms, and the availability of affordable digital cameras, has established photogrammetry as an indispensable technique for geomorphological research and glacier monitoring.
 
 Despite millions of analog photographs documenting land surface change taken in the past century being available in historical archives, only a small fraction of these photographs have been digitally scanned and can be used with modern photogrammetric techniques. 
-Scanned historical aerial image archives allow for "going back in time” and derive accurate historical Digital Elevation Models (DEMs) and orthophotos for long-term measurements of surface change ~\citep{Micheletti2015}
+Scanned historical aerial image archives allow for \textit{going back in time} and derive accurate historical DSMs and orthophotos for long-term measurements of surface change ~\citep{Micheletti2015}.
 
 Examples of applications of historical archive photogrammetry for documenting geomorphological processes include fluvial geomorphology~\citep{Bakker2017, lane2010quantification}, gravitational mass movement processes~\citep{chandler1995steady, walstra2007historical, schwab2008landsliding}, mapping and land cover estimation~\citep{Giordano2018} and permafrost and glacial processes~\citep{kaab2002monitoring, Kaufmann2003, keutterling2006monitoring, mondino2008multi, Fischer2011}.
 
@@ -225,7 +225,7 @@ average RMSE.
 
 \section{Methodology}\label{sec:2:methods}
 
-\subsection{Image Orientation and Point Cloud Generation}
+\subsection{SfM-MVS}
 
 For image orientation and model reconstruction of all the datasets, the photogrammetric software Agisoft Metashape (version 1.7.2) was employed. A sketch of the following
 workflow is provided in \figref{fig:2:workflow}
@@ -289,8 +289,7 @@ The GCPs used to solve the BBA of the three historical datasets were properly we
 
 Concerning the camera interior orientation, the three analog cameras were calibrated in the laboratory by the producer, and calibration certificates were available. Therefore, the calibrated value of focal length and the coordinates of the principal point were provided as initial values in the BBA. These were then adjusted based on the GCPs by using a self-calibration procedure \citep{jacobsen2004issues}. Additionally, two radial (k1 and k2) and tangential (p1 and p2) distortion parameters were estimated in order to correct the lens distortions of the photogrammetric cameras and the distortion introduced by external factors, e.g., the deterioration of the films over the years.
 
-After BBA, georeferenced dense point clouds (PCs) were computed (a downscale factor of 2 was set to make the PCs more manageable) and used as a starting point for glacier analyses. 
-
+After BBA, dense point clouds (PCs), orthophotos, and DSMs, were computed (a downscale factor of 2 was set to make the PCs more manageable) and used as a starting point for glacier analyses.
 
 \subsection{Point cloud pre-processing}{\label{sec:2:pcd_preproc}}
 The obtained point clouds referring to the different surveys required some additional preprocessing aimed at making them consistent for further analyses, both in terms of spatial resolution and coverage area.
@@ -340,9 +339,8 @@ Cumulate volume variations were obtained, taking the 1977 DSM as a reference, wh
 
 \section{Results}\label{sec:2:results}
 
-\subsection{Image Orientation and Point Cloud Generation}\label{sec:2:res_reconstruction}
+\subsection{SfM-MVS}\label{sec:2:res_reconstruction}
 
-Based on the considered CPs, different model accuracies were obtained. 
 The accuracy of the three historical models was assessed by using eight CPs, distributed mainly along the glacier moraines (see Figure 8). 
 Six CPs were used for the 2009 dataset. As reported in Figure 10, the 1977 and 1991 models obtained global RMSEs of about 0.66 m and 0.74 m, respectively, while the 2001 and 2009 models obtained similar RMSEs of about 0.38 m.
 In all cases, these values were comparable to the average GSD of the aerial images. Regarding the 2019 survey, the model accuracy was assessed by 10 CPs, resulting in an RMSE error of 0.17 m, comparable to three times the GSD. 
@@ -356,6 +354,7 @@ Nevertheless, as the GSD was on the order of magnitude of the centimeter, the mo
     \label{fig:2:cp_error}
 \end{figure}
 
+Starting from the solution obtained with the Agisoft Metashape SfM pipeline, an MVS approach was used to compute image depth maps, dense point clouds, orthophotos, and DSMs. 
 The number of points in each PC and the density of each dense cloud are summarized in Table 2.
 While the PC size was strictly related to the survey coverage, the PC average density was directly related to the GSD of the original photogrammetric survey, indicating the capability of resolving smaller details.
 
@@ -373,6 +372,8 @@ While the PC size was strictly related to the survey coverage, the PC average de
     \end{tabular}
 \end{table}
 
+Orthophotos and DSMs were computed with a GSD of \SI{0.50}{\meter} for the historical datasets of 1977, 1991, and 2001, \SI{0.40}{\meter} for the digital aerial dataset of 2009, and \SI{0.20}{\meter} for the UAV dataset of 2019.
+The computed orthophotos are visible in Appendix \ref{app:orthophotos}.
 
 \subsection{Point cloud pre-processing}\label{sec:2:res_preproc}
 
