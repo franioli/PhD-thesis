@@ -68,7 +68,7 @@ Although DL local features offer several advantages, their limited rotational in
 While some initial studies highlighted this issue, many subsequent approaches have not prioritized solutions. 
 This may stem from the common use of datasets with minimal rotational variability (e.g., upright images) within the computer vision community, which are common in aerial and UAV photogrammetric datasets \cite{Bkman2022_se2loftr}. 
 Recently, some end-to-end approaches like LIFT \citep{yi2016lift} and LFNet \citep{ono2018lfnet}, and semi-dense methods like RoRD \citep{parihar2022rord} and SE2-LoFTR \citep{Bkman2022_se2loftr}, demonstrate progress in achieving rotational invariance. 
-Recent works with Steerable CNNs \citep{cohen2016steerable, Wu2018_steerer}, which are examples of group equivariant neural networks that allow for \textit{steering} the descriptors to make them invariant by the rotation, further address this limitation \cite{Weiler2019_e2cnn, cesa2022_escnn, Bkman2022_se2loftr}.
+Recent works with Steerable CNNs \citep{cohen2016steerable}, which are examples of group equivariant neural networks that allow for \textit{steering} the descriptors to make them invariant by the rotation, further address this limitation \cite{Bkman2022_se2loftr, bokman2023steerers}.
 Nevertheless, the number of approaches specifically addressing this problem is minimal compared to the overall interest in DL-based feature-matching algorithms.
 On the other hand, the most common approach to address large rotation is still to compensate by iteratively rotating images during matching, but this becomes computationally intensive for large datasets.
 
@@ -195,20 +195,26 @@ This approach is well suited for scenarios such as VSLAM, where images are captu
     \includegraphics[width=.8\textwidth]{dim_rotations_1.png}
   } \\
   \subcaptionbox{\label{fig:5:rotations:2}}{
-    \includegraphics[width=.8\textwidth]{dim_rotations_2.png}
+    \includegraphics[width=1\textwidth]{dim_rotations_2.png}
   }
-  \caption{Scheme of the DIM's cluster-based approach to estimate the best rotation of the images before performing the image matching. 
-    The cluster-based approach allows for XX.
-  }
+  \caption{Scheme of the DIM's cluster-based approach to estimate the best rotation of the images before performing the image matching.}
   \label{fig:5:dim_rotations}
 \end{figure}
 
 \subsection{Image rotations}
-[Luca] [Explain approach with two clusters, faster than brute force with 4 rotations. 
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet enim. Suspendisse id velit vitae ligula volutpat condimentum. Aliquam erat volutpat. Sed quis velit. Nulla facilisi. Nulla libero. Vivamus pharetra posuere sapien. Nam consectetuer. Sed aliquam, nunc eget euismod ullamcorper, lectus nunc ullamcorper orci, fermentum bibendum enim nibh eget ipsum. Donec porttitor ligula eu dolor. Maecenas vitae nulla consequat libero cursus venenatis. Nam magna enim, accumsan eu, blandit sed, blandit a, eros.
+DL-based local features often struggle with extreme image rotations because they are trained on datasets with largely consistent orientations. 
+DIM addresses this challenge with two management approaches ensuring images are properly rotated according to a \textit{principal direction} before feature extraction and matching.
+Features are extracted and matched from the rotated images, and only after matching are keypoints mapped back to their positions in the original image.
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet enim. Suspendisse id velit vitae ligula volutpat condimentum. Aliquam erat volutpat. Sed quis velit. Nulla facilisi. Nulla libero. Vivamus pharetra posuere sapien. Nam consectetuer. Sed aliquam, nunc eget euismod ullamcorper, lectus nunc ullamcorper orci, fermentum bibendum enim nibh eget ipsum. Donec porttitor ligula eu dolor. Maecenas vitae nulla consequat libero cursus venenatis. Nam magna enim, accumsan eu, blandit sed, blandit a, eros.
+If the images' orientation relative to a principal direction is known (e.g., from on-board positioning systems), DIM accepts a text file specifying these rotations and rotates the images accordingly.
+Alternatively, in the absence of prior rotation knowledge, a \textit{2-cluster approach} relative to a reference image (either random or user-selected) can be used to determine the principal direction (\figref{fig:5:dim_rotations}).
+This iterative method starts with a single reference image in the first cluster (group 0) and all remaining images in the second cluster (group 1). 
+Each image $I_i$ in Group 1 is iteratively matched against a reference image $I_r$ in Group 0, testing rotations of [90, 180, 270] degrees. 
+The rotation with the highest number of geometrically verified matches is selected. 
+If the number of matches exceeds a predefined threshold, $I_i$ is moved to group 0, expanding that cluster and reducing group 1. 
+This procedure is parallelizable, with group 1 images divided into subgroups for independent matching against group 0 images on independent processes.
+This significantly speeds up the computational time compared to a brute-force approach. 
 
 \subsection{Matching pipelines}
 
@@ -303,59 +309,115 @@ Furthermore, two case studies specific to the Belvedere Glacier demonstrate how 
 % \end{figure}
 
 
-\subsection{Low-textures scenes}
-
-A known challenge scenario for hand-crafted descriptors such as SIFT is low-texture scenes. 
-An example can be the glacier when it is covered by snow.
-
-
-\begin{figure}
+\begin{figure}[ht]
   \centering
     \includegraphics[height=3.5cm]{winter_img_1}
     \includegraphics[height=3.5cm]{winter_img_2}
-    \includegraphics[height=3.5cm]{winter_img_3} \\ \vspace{1mm}
+    \includegraphics[height=3.5cm]{winter_img_5} \\ \vspace{1mm}
+    \includegraphics[height=3.5cm]{winter_img_3}
     \includegraphics[height=3.5cm]{winter_img_4}
-    \includegraphics[height=3.5cm]{winter_img_5}
-  \caption{Sample images ...}
-  \label{fig:5:castle_img}
+  \caption{Images of Dataset A - Winter. Images in the first row are taken by UAV, while those in the second row are acquired by the terrestrial cameras.}
+  \label{fig:5:winter_images}
 \end{figure}
 
+\subsection{Low-textures scenes}
 
-\begin{figure}
+Hand-crafted descriptors like SIFT often struggle in low-texture environments, such as a snow-covered glacier.  
+The lack of distinctive features significantly complicates finding corresponding points for image orientation. 
+Since glaciers are commonly snow-covered for large parts of the year, addressing this challenge is essential for robust, long-term monitoring.
+While the time series analysis discussed in \chref{ch:4}was limited to the May-November period, the planned expansion to a multi-camera system motivated a focused investigation into this scenario. 
+To simulate a multi-view setup, we integrated the 24/03/2024 images captured by the existing two fixed cameras with three additional images acquired by a Parrot Anafi UAV (1/1.2.4" CMOS sensor with 4.8 mm focal length - 23 mm in 35mm format equivalent).
+Dataset A - Winter - is composed of these three UAV images, acquired from positions near potential future camera locations along the glacier moraines and with convergent view angles, combined with the two terrestrial images (\figref{fig:5:winter_images}).
+
+\begin{table}[ht]
+    \centering
+    \caption{Summary of the Winter dataset results obtained with DIM compared to those obtained with COLMAP (with RootSIFT features) and Agisoft Metashape with its proprietary feature extractor and matches.} 
+    \label{tab:5:winter_statistics}
+    
+    \begin{tabular}{l p{3.5cm} p{2.2cm} p{2.2cm} p{2.2cm} p{2.2cm}}
+    \toprule
+    &Local features \newline and matcher & Oriented/ \newline total images & Mean reprojection error \newline [px] & Mean track \newline length &  3D tie points\\
+    \midrule
+    A1 &DIM: SuperPoint \newline + LightGlue           & \textcolor{green}{5/5}     & 0.95 & 2.1  & 11973 \\
+    A2 &COLMAP \newline (RootSIFT)                     & 4/5      & 1.01    & 2.5    & 823   \\
+    A3 &Metashape \newline(proprietary)               & 4/5     & \textcolor{green}{0.20}  & 2.1   & 1424 \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+For the image orientation, dataset A images were processed using DIM with the SuperPoint+LightGlue pipeline (A1) and subsequently compared with results obtained using hand-crafted local features.  
+These included RootSIFT within the traditional COLMAP matching pipeline (A2) and the proprietary feature matching algorithm implemented in Agisoft Metashape (A3).
+
+Given the limited dataset size, a brute-force matching strategy was used in DIM to try to match to all possible pairs. 
+To accommodate SuperPoint's lack of subpixel refinement capability, images were preprocessed by DIM by upsampling, upscaling them by a factor of two with a bicubic interpolation. 
+This enabled subpixel accuracy at the half-pixel level. 
+Furthermore, due to the limited consumer-grade GPU memory, the upscaled images were subdivided into regularly sized tiles of 3000x2000 pixels.  
+This tile dimension was a compromise between limiting the total number of tiles and facilitating processing on an NVIDIA RTX A2000 with 12 GB of memory. 
+Since the images were acquired upright with minimal in-plane sensor rotations, the pipeline for pre-selection of the best image rotation was unnecessary.  
+Pydegensac was used for the geometric verification of putative matches, and the final bundle adjustment was performed using COLMAP. 
+In contrast, both Metashape and COLMAP used full-resolution images for feature extraction and their respective bundle adjustment procedures. 
+
+% For the image orientation, the images were processed with DIM by upsampling the images by a factor of two using a bicubic interpolation technique before extracting features. 
+% This was motivated by the fact that SuperPoint lacks subpixel refinement capability in keypoint
+% detection. 
+% Therefore, upsampling the images allowed for subpixel accuracy at the half-pixel level.
+% In addition, since the upsampled images of dataset D had a resolution larger than 10000x8000 px and could not fit into the memory of a consumer-grade GPU, the images were processed by subdividing them into regular tiles with a dimension of 3000 x 2000 px.
+% The tile size was chosen as a compromise to limit the total number of tiles, but at the same time to be able to perform the processing using an NVIDIA RTX A2000 GPU with 12 GB of memory.
+% Given the limited number of images, a bruteforce matching strategy was employed to try to match all the possible image pairs. 
+% As the images were all acquired upright and the image did not present any relevant in-plane sensor rotations, no rotation selection pipeline was performed. 
+% Putative corresponding points were filtered by using Pydegensac for the geometric verification.
+% The bundle adjustment was carried out with COLMAP. 
+% For Metashape and COLMAP, full-resolution images were used for tie-point extraction and the irrespective bundle adjustment engine. 
+
+The results of the image orientation are summarized in \tabref{tab:5:winter_statistics}.
+The only approach that was able to orient all 5 images of the dataset was DIM with SuperPoint+LightGlue. 
+On the contrary, both COLMAP and Metashape oriented 4 images only, but they were not able to find enough tie points to orient the rightmost UAV image.
+However, considering the mean reprojection after the bundle adjustment, the most accurate approach resulted to be Metashape, with a reprojection error significantly smaller than 1 px, compared to DIM and COLMAP, which is around 1 px. 
+
+\begin{figure}[h!]
   \centering
-  \subcaptionbox{\label{fig:5:winter_res:3}}{
-    \includegraphics[height=6.5cm]{winter_dense_ms}
+  \subcaptionbox{\label{fig:5:winter_res:ms}}{
+    \includegraphics[height=0.4\textheight]{winter_dense_ms}
   }
-  \subcaptionbox{\label{fig:5:winter_res:3}}{
-    \includegraphics[height=6.5cm]{winter_dense_roma}
+  \subcaptionbox{\label{fig:5:winter_res:roma}}{
+    \includegraphics[height=0.4\textheight]{winter_dense_roma}
   }  
-  \caption{}
+  \caption{Dense reconstruction of the Belvedere Glacier north-west lobe using (a) Agisto Metashape and (b) RoMa. The reconstruction obtained with RoMa was computed starting from the camera poses estimated with SuperPoint+LightGlue.}
   \label{fig:5:winter_res}
 \end{figure}
+
+DIM was also used to generate a dense reconstruction of the scene using the RoMa semi-dense matching algorithm for pixel-wise correspondence estimation. 
+Since RoMa is a detector-free approach, correspondences are limited to image pairs. 
+Therefore RoMa-derived corresponding points could not be reliably tracked across multiple images. 
+While this is not ideal for image orientation, it is suitable for dense reconstruction, providing that a good geometric verification of the correspondence and some cleaning is carried out.
+Because of this reason, RoMa correspondences were triangulated using the camera poses estimated within the SuperPoint+SuperGlue solution.
+Similar to the orientation procedure, a brute-force matching strategy was applied, with images being matched at full resolution using a tiling approach.
+
+\figref{fig:5:winter_res:roma} shows the resulting semi-dense reconstruction using RoMa. 
+This DIM-generated reconstruction was then compared to the one generated by Agisoft Metashape using its proprietary algorithm (\figref{fig:5:winter_res:ms}).
+
+........
 
 
 \subsection{Historical internet images}
 
 \begin{table}[ht]
     \centering
-    \caption{Summary of the results obtained with Deep-Image-Matching (DIM), compared to the results obtained with COLMAP (with RootSIFT features) and Agisoft Metashape with its proprietary feature extractor and matchers. (*) Dataset C1 has been oriented combining different local features: SIFT, KeyNey + HardNet, ALIKED, SuperPoint, and DISK.  (**) As COLMAP produced two non-linked reconstructions, the reported results refer to the reconstruction with the highest number of oriented images.} 
+    \caption{Summary of the Nadar dataset results obtained with DIM compared to those obtained with COLMAP (with RootSIFT features) and Agisoft Metashape with its proprietary feature extractor and matches. (*) The dataset has been oriented by combining different local features: SIFT, KeyNey + HardNet, ALIKED, SuperPoint, and DISK.} 
     \label{tab:5:statistics_summary}
     
-    \begin{tabular}{l p{1cm} p{4cm} p{1.5cm} p{1.5cm} p{1.5cm} p{1.5cm}}
+    \begin{tabular}{l p{3.5cm} p{2.2cm} p{2.2cm} p{2.2cm} p{2.2cm}}
     \toprule
-    \textbf{Label} & \textbf{Dataset} & \textbf{Local feature extractor and matcher} & \textbf{Oriented/} \newline\textbf{total images} & \textbf{Mean reprojection error [px]} & \textbf{Mean track length} &  \textbf{3D tie points}\\
+    &Local features \newline and matcher & Oriented/ \newline total images & Mean reprojection error \newline [px] & Mean track \newline length &  3D tie points\\
     \midrule
-    C1  & Nadar     & DIM: Combination of local features\textsuperscript{*}    & \textcolor{green}{12/12}     & 1.09  & 2.6   & 2791 \\
-    C2  & Nadar     & COLMAP (RootSIFT)                     & 0/12      & NA    & NA    & NA   \\
-    C3  & Nadar     & Metashape (proprietary)               & 03/12     & 0.36  & 2.0   & 294  \\ \hline
-    D1  & Castle    & DIM: SuperPoint + LightGlue           & \textcolor{green}{48/48}     & 0.9   & 3.3   & 75274 \\
-    D2  & Castle    & COLMAP (RootSIFT)\textsuperscript{**} & 31/48     & 0.94  & 3.7   & 11367 \\
-    D3  & Castle    & Metashape (proprietary)               & \textcolor{green}{48/48}     & 0.5   & 2.5   & 59679 \\ 
+    B1 &DIM \newline (combination of LF)\textsuperscript{*}    & \textcolor{green}{12/12}     & 1.09  & 2.6   & 2791 \\
+    B2 &COLMAP \newline(RootSIFT)                     & 0/12      & NA    & NA    & NA   \\
+    B3 &Metashape \newline (proprietary)              & 03/12     & 0.36  & 2.0   & 294  \\
     \bottomrule
     \end{tabular}
 \end{table}
 
-Dataset C – Nadar – is a collection of 12 self-portrait images from the opera Revolving (1865) of Gaspard-Félix Tournachon, known as Nadar\footnote{Wikipedia Nadar page: \url{https://en.wikipedia.org/wiki/Nadar}}. 
+Dataset B – Nadar – is a collection of 12 self-portrait images from the opera Revolving (1865) of Gaspard-Félix Tournachon, known as Nadar\footnote{Wikipedia Nadar page: \url{https://en.wikipedia.org/wiki/Nadar}}. 
 The images have been downloaded from Wikipedia (resolution of 524 x 671 px), and they show significantly different viewpoints, low radiometric quality, and many time-related artifacts. 
 In addition, the dataset is partially ill-posed for photogrammetric purposes since Nadar sometimes changed both facial expressions and the relative position between the head and shoulders. 
 All these characteristics make the reconstruction difficult with classical approaches.
@@ -363,18 +425,18 @@ All these characteristics make the reconstruction difficult with classical appro
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{nadar_images}
-    \caption{Sample images Dataset C - Nadar}
+    \caption{Sample images Dataset B - Nadar}
     \label{fig:5:nadar_images}
 \end{figure}
 
 For the Nadar dataset, different local features have been tested: SIFT, KeyNey + HardNet, ALIKED, SuperPoint, and DISK.
-SuperPoint and DISK are matched with LightGlue, while the others are matched with a nearest-neighbor approach. 
+SuperPoint and DISK local features were matched with LightGlue, while the others were matched with a nearest-neighbor approach. 
 None of these approaches managed to orient more than three images, except DISK which found significantly more tie points and oriented seven images. 
 In \figref{fig:5:res_nadar}, a matching pair example is reported for SIFT (a) and DISK (b).
 Metashape completely failed to orient the dataset. 
 
-Only by combining all the tie points from the previous approaches, excluded Metashape, it was possible to orient the whole dataset (\figref{fig:5:res_nadar}c-d). 
-Tie points with multiplicity equal to two were excluded because considered not sufficiently robust and prone to outliers. 
+Only by combining all the tie points from the previous approaches, excluding Metashape, was it possible to orient the whole dataset (\figref{fig:5:res_nadar}c-d). 
+Tie points with multiplicity equal to two were excluded because they were considered not sufficiently robust and prone to outliers. 
 In addition, no ratio threshold has been used to retain more matches. 
 Because of the camera network and the scarcity of tie points, images were first oriented using a rough nominal focal length, then focal length and one radial distortion parameter were updated in a final bundle adjustment with self-calibration.
 
@@ -422,45 +484,73 @@ Finally, using Metashape functionalities, a textureized model is created (\figre
     \includegraphics[height=3cm]{castle_img_4}
     \includegraphics[height=3cm]{castle_img_5}
     \includegraphics[height=3cm]{castle_img_6}
-  \caption{Sample images Dataset D - Castle. Images in the first row are samples of the nadiral and oblique UAV images, those in the second row are samples of the terrestrial images, including some of the challenging underexposed or overexposed images.}
+  \caption{Sample images Dataset C - Castle. Images in the first row are samples of the nadiral and oblique UAV images, those in the second row are samples of the terrestrial images, including some of the challenging underexposed or overexposed images.}
   \label{fig:5:castle_img}
 \end{figure}
 
 \begin{figure}
   \centering
     \includegraphics[width=0.6\textwidth]{castle_gt}
-  \caption{Dataset A\_GT, used as the ground truth to evaluate the results on Dataset D. The red flags are the targets used as GCPs while the yellow ones those used as CPs.}
+  \caption{Dataset C\_GT, used as the ground truth to evaluate the results on Dataset C. The red flags are the targets used as GCPs while the yellow ones those used as CPs.}
   \label{fig:5:castle_gt}
 \end{figure}
 
-Dataset D – Castle – is composed of 48 images of the half-destroyed historical Castle of Casalbagliano, Alessandria (Italy). 
+
+\begin{table}[ht]
+    \centering
+    \caption{Summary of the Castle dataset results obtained with DIM, compared to the results obtained with COLMAP (with RootSIFT features) and Agisoft Metashape with its proprietary feature extractor and matches. (*) As COLMAP produced two non-linked reconstructions, the reported results refer to the reconstruction with the highest number of oriented images.} 
+    \label{tab:5:castle_statistics}
+    
+    \begin{tabular}{l p{3.5cm} p{2.2cm} p{2.2cm} p{2.2cm} p{2.2cm}}
+    \toprule
+    & Local features \newline and matcher & Oriented/ \newline total images & Mean reprojection error \newline [px] & Mean track \newline length &  3D tie points\\
+    \midrule
+    C1 &DIM: SuperPoint \newline + LightGlue           & \textcolor{green}{48/48}     & 0.9   & 3.3   & 75274 \\
+    C2 &COLMAP \newline (RootSIFT)\textsuperscript{*} & 31/48     & 0.94  & 3.7   & 11367 \\
+    C3 &Metashape \newline (proprietary)               & \textcolor{green}{48/48}     & 0.5   & 2.5   & 59679 \\ 
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+
+Dataset C – Castle – is composed of 48 images of the half-destroyed historical Castle of Casalbagliano, Alessandria (Italy). 
 It is a traditional photogrammetric dataset of a cultural heritage site including 25 nadiral UAV images, 11 oblique UAV images, and 12 terrestrial images \figref{fig:5:castle_img}, with a camera network like a classical photogrammetric survey. 
-Dataset D is the only one with an available ground truth. All the images of Dataset D were acquired by a single Canon Eos M with a fixed focal length of 22 mm and a size of 5184 x 3456 px.
+Dataset C is the only one with an available ground truth. 
+All the images of Dataset C were acquired by a single Canon Eos M with a fixed focal length of 22 mm and a size of 5184 x 3456 px.
 The UAV nadiral images exhibit a modest overlap, approximately 60\% in the longitudinal direction and 40\% in the transversal direction. 
 The UAV oblique images consist of four convergent shots acquired at each corner of the block, along with five additional images positioned along the exterior perimeter. 
 The terrestrial images are acquired along a circle all around the castle. 
 The main challenge of this dataset is linking together the nadiral UAV images with the terrestrial ones, as they have a strongly different point of view. 
 Moreover, some of the terrestrial images are underexposed and characterized by large dark areas or acquired against the sun and therefore they show strong sunlight reflections. 
 
-Dataset D was extracted from a larger and more robust dataset, named dataset D\_GT \figref{fig:5:castle_gt}, and which was used as a ground truth reference to validate the results obtained with DIM.
+Dataset C was extracted from a larger and more robust dataset, named Dataset C\_GT \figref{fig:5:castle_gt}, and which was used as a ground truth reference to validate the results obtained with DIM.
 This dataset is composed of 172 images (83 nadiral, 61 oblique, and 28 terrestrial) with an average overlap between the images between 70\% and 80\% and an average GSD of approximately 9 mm \cite{Gagliolo2017_uav_conservation_histo, gagliolo2018_parameter_optim}. 
-The full dataset also included 19 targets deployed on the ground around the castle and measured by a total station with sub-centimetric accuracy. Dataset D\_GT was processed with Metashape, by using 10 targets as GCPs and performing a self-calibration of the camera. The quality of the photogrammetric block was evaluated on the remaining 9 targets, used as CPs, resulting in an overall RMSE of 1.9 cm in the three directions.
+The full dataset also included 19 targets deployed on the ground around the castle and measured by a total station with sub-centimetric accuracy. Dataset C\_GT was processed with Metashape, by using 10 targets as GCPs and performing a self-calibration of the camera. The quality of the photogrammetric block was evaluated on the remaining 9 targets, used as CPs, resulting in an overall RMSE of 1.9 cm in the three directions.
 
 \begin{figure}
     \centering
-    \begin{tabular}{cc} % Create the 2x2 grid
-        \begin{tabular}{c} % First column, top cell
-            \subcaptionbox{SuperPoint+LightGlue\label{fig:5:castle:dim}}{
-                \includegraphics[height=3cm]{castle_matches_splg}
-            } \\ % End of first cell
-            \subcaptionbox{COLMAP RootSIFT\label{fig:5:castle:colmap}}{
-                \includegraphics[height=3cm]{castle_matches_colmap}
-            } 
-        \end{tabular} & % Start the second column
-        \subcaptionbox{Agisoft Metashape\label{fig:5:castle:metashape}}{
-            \includegraphics[height=5cm]{castle_matches_ms}
-        } 
-    \end{tabular}
+    % \begin{tabular}{cc} % Create the 2x2 grid
+    %     \begin{tabular}{c} % First column, top cell
+    %         \subcaptionbox{SuperPoint+LightGlue\label{fig:5:castle:dim}}{
+    %             \includegraphics[height=3cm]{castle_matches_splg}
+    %         } \\ % End of first cell
+    %         \subcaptionbox{COLMAP RootSIFT\label{fig:5:castle:colmap}}{
+    %             \includegraphics[height=3cm]{castle_matches_colmap}
+    %         } 
+    %     \end{tabular} & % Start the second column
+    %     \subcaptionbox{Agisoft Metashape\label{fig:5:castle:metashape}}{
+    %         \includegraphics[height=5cm]{castle_matches_ms}
+    %     } 
+    % \end{tabular}
+    \subcaptionbox{SuperPoint+LightGlue\label{fig:5:castle:dim}}{
+        \includegraphics[height=4cm]{castle_matches_splg}
+    } \\ 
+    \subcaptionbox{COLMAP RootSIFT\label{fig:5:castle:colmap}}{
+        \includegraphics[height=4cm]{castle_matches_colmap}
+    } \\
+    \subcaptionbox{Agisoft Metashape\label{fig:5:castle:metashape}}{
+        \includegraphics[height=8.5cm]{castle_matches_ms}
+    } 
     \caption{Example of matched features with the different approaches on a challenging image pair (green or blue lines are the valid matches, while the red dots are the rejected keypoints): (a) SuperPoint + LightGlue (658 valid matches); (b) COLMAP RootSIFT (49 valid matches); (c) Agisoft Metashape (1 valid match).}
     \label{fig:5:castle_matches}
 \end{figure}
@@ -477,7 +567,13 @@ The full dataset also included 19 targets deployed on the ground around the cast
   \label{fig:5:castle_rec}
 \end{figure}
 
-The results obtained with SuperPoint + LightGlue (\tabref{tab:5:statistics_summary}) were significantly better only compared to those obtained with a traditional COLMAP processing pipeline (D2), while they were similar to the outcomes obtained with Metashape (D3). 
+Similar to Dataset A, Dataset C was processed with DIM by using the SuperPoint+LightGlue pipeline. 
+However, due to the larger number of images, a low-resolution guided approach was used for image pair selection to reduce computational time. 
+Images were first downsampled and matched using a fast brute-force method. 
+All pairs with at least 30 valid matches were then selected for the full-resolution matching stage.  
+As before, images were first upscaled by a factor of two with a bicubic interpolation prior to feature extraction, which was again performed using a tile-based approach.
+
+The results obtained with SuperPoint + LightGlue (\tabref{tab:5:statistics_summary}) were significantly better only compared to those obtained with a traditional COLMAP processing pipeline (C2), while they were similar to the outcomes obtained with Metashape (C3). 
 With both LightGlue and Metashape, all 48 images were oriented. On the other hand, COLMAP failed to orient all the images together, but it created two different not-linked models. The largest model consisted of only 31 oriented images, as detailed in \tabref{tab:5:statistics_summary}. 
 The smallest average reprojection error of 0.5 px was obtained by processing the dataset using Metashape with its proprietary local feature implementation, while a slightly higher reprojection error of 0.9 px was obtained by SuperPoint + LightGlue (\tabref{tab:5:statistics_summary}), as SuperPoint did not have subpixel accuracy in keypoint detection. 
 On the other hand, the mean track length of 3.3 obtained with SuperPoint + LightGlue was larger than the 2.5 obtained with Metashape, guaranteeing higher redundancy of the observations in the bundle adjustment. 
@@ -485,48 +581,48 @@ On the other hand, the mean track length of 3.3 obtained with SuperPoint + Light
 \figref{fig:5:castle_matches} shows the matched keypoints for a challenging pair composed of a UAV oblique image and a terrestrial image, with a wide baseline and rather bad lighting conditions for the terrestrial image. 
 The combination of SuperPoint + LightGlue, which works better under strong viewpoints conditions \citep{ioli2024deep}, allowed for extracting more than 600 valid matches, while Metashape was able to find only a single valid match. Surprisingly for this pair, COLMAP with RootSIFT was able to detect more matches than Metashape, probably thanks to its ability to estimate affine descriptors \cite{Lindeberg1997_affine}. 
 However, for other challenging pairs, the results of SuperPoint + LightGlue were comparable to those of Metashape or COLMAP, without providing any relevant improvement. The matches obtained with SuperPoint + LightGlue were finally imported into COLMAP for the bundle adjustment and reconstruction (\figref{fig:5:castle_rec:splg}).
-The two complete solutions D1 (SuperPoint + LightGlue) and D3 (pure Metashape), in which all the 48 images were oriented, were validated by importing the estimated reconstructions into a new Metashape project and adding 4 GCPs at the block corner as a minimum constraint, while leaving the other 15 targets as CPs (\figref{fig:5:castle_rec:georef}). 
-This made it possible to compare the solutions D1 and D3 with the ground truth dataset D\_GT and to evaluate the on-ground reconstruction accuracy based on the CPs and the camera pose error by comparing the camera exterior orientation parameters.
-Comparable results were obtained for both D1 and D3, with a centimetric error on the CP and an average error of less than 5 cm on the camera location (\tabref{tab:5:castle_eo_stats}). 
-This highlights that dataset D was correctly oriented using both SuperPoint + LightGlue and Metashape processing, without showing a clear superiority of any approach. 
+The two complete solutions C1 (SuperPoint + LightGlue) and C3 (pure Metashape), in which all the 48 images were oriented, were validated by importing the estimated reconstructions into a new Metashape project and adding 4 GCPs at the block corner as a minimum constraint, while leaving the other 15 targets as CPs (\figref{fig:5:castle_rec:georef}). 
+This made it possible to compare the solutions C1 and C3 with the ground truth Dataset C\_GT and to evaluate the on-ground reconstruction accuracy based on the CPs and the camera pose error by comparing the camera exterior orientation parameters.
+Comparable results were obtained for both C1 and C3, with a centimetric error on the CP and an average error of less than 5 cm on the camera location (\tabref{tab:5:castle_eo_stats}). 
+This highlights that Dataset C was correctly oriented using both SuperPoint + LightGlue and Metashape processing, without showing a clear superiority of any approach. 
 
 \begin{table}[ht]
     \centering
-    \caption{Summary of accuracy evaluation for the solutions obtained with SuperPoint + LightGlue (D1) and Metashape (D3) with respect to the ground truth (D\_GT). The RMSE on the CPs was computed as the RMS of the difference between the 3D coordinates of the targets measured on the field and those estimated in D1 and D3. The RMSE on the cameras was computed as the RMS of the differences between the estimated 3D coordinates and attitude angles of the cameras in D\_GT and those estimated in D1 and D3.} 
+    \caption{Summary of accuracy evaluation for the solutions obtained with SuperPoint + LightGlue (C1) and Metashape (C3) with respect to the ground truth (C\_GT). The RMSE on the CPs was computed as the RMS of the difference between the 3D coordinates of the targets measured on the field and those estimated in C1 and C3. The RMSE on the cameras was computed as the RMS of the differences between the estimated 3D coordinates and attitude angles of the cameras in C\_GT and those estimated in C1 and C3.} 
     \label{tab:5:castle_eo_stats}
 
-    \begin{tabular}{p{1 cm} p{2cm} p{3.5cm} p{3.5cm} p{3cm}} 
+    \begin{tabular}{l p{2cm} p{3.5cm} p{3.5cm} p{3.5cm}} 
     \toprule
-     \textbf{Dataset} & \textbf{Approach} & \textbf{RMSE X/Y/Z on CPs [m]} & \textbf{RMSE X/Y/Z on camera location [m]} & \textbf{RMSE Yaw/Pitch/Roll on camera attitude [º]} \\ 
+    & Approach & RMSE X/Y/Z \newline on CPs [m] & RMSE X/Y/Z \newline on camera location [m] & RMSE Yaw/Pitch/Roll \newline on camera attitude [º] \\ 
      \midrule
-    \textbf{D1} & SuperPoint + LightGlue & 0.017/0.010/0.010 & 0.036/0.043/0.044 & 0.13/0.04/0.07 \\
-    \textbf{D3} & Metashape & 0.014/0.011/0.012 & 0.043/0.040/0.041 & 0.08/0.11/0.11 \\   
+    C1 & SuperPoint + LightGlue & 0.017/0.010/0.010 & 0.036/0.043/0.044 & 0.13/0.04/0.07 \\
+    C3 & Metashape & 0.014/0.011/0.012 & 0.043/0.040/0.041 & 0.08/0.11/0.11 \\   
     \bottomrule
     \end{tabular}
 \end{table}
 
 
-\subsection{Thermal vs RGB}
+% \subsection{Thermal vs RGB}
 
-The inherent low spatial resolution and low contrast of infrared images has made the application of multi-modal image matching a significant challenge within computer vision. Whilst the most popular traditional matching approaches present suitable methods for the orientation of multiple infrared images \cite{Firmenich2011_Multispectral, Aguilera2021_multispectral}, difficulties arise matching infrared and visible images due to the sensitivities of non-linear radiation distortion (NRD) \cite{Laguela2013_thermographic, Ham2013_thermal}.
-Furthermore, concerning the use of IR-RGB image blocks, this challenge only grows when we begin to address pose, noise, and temporality \cite{Li2020_RIFT, jin_image_2021}. 
-Specifically designed to be insensitive to NRD, RIFT (Radiation Invariant Feature Transform) \cite{Li2020_RIFT} provides a SIFT-like multi-modal image matching method using frequency-domain information such as phase congruency and maximum index mapping to determine and match keypoints. 
-RIFT has established itself as the most suitable handcrafted feature-based thermal image matching method for determining correspondences between infrared and visible imagery.
+% The inherent low spatial resolution and low contrast of infrared images has made the application of multi-modal image matching a significant challenge within computer vision. Whilst the most popular traditional matching approaches present suitable methods for the orientation of multiple infrared images \cite{Firmenich2011_Multispectral, Aguilera2021_multispectral}, difficulties arise matching infrared and visible images due to the sensitivities of non-linear radiation distortion (NRD) \cite{Laguela2013_thermographic, Ham2013_thermal}.
+% Furthermore, concerning the use of IR-RGB image blocks, this challenge only grows when we begin to address pose, noise, and temporality \cite{Li2020_RIFT, jin_image_2021}. 
+% Specifically designed to be insensitive to NRD, RIFT (Radiation Invariant Feature Transform) \cite{Li2020_RIFT} provides a SIFT-like multi-modal image matching method using frequency-domain information such as phase congruency and maximum index mapping to determine and match keypoints. 
+% RIFT has established itself as the most suitable handcrafted feature-based thermal image matching method for determining correspondences between infrared and visible imagery.
  
-However, the development of learning-based image-matching methods warrants exploration, overcoming one of the critical junctures for 3D reconstruction, image registration, and localization using thermal data \cite{velesaca_multimodal_2024}. 
-For multi-modal image matching, the ability to overcome these challenges has justified their exploration for infrared-visible image matching. 
-\citet{RuizDeOna2023_photomatch}’s PhotoMatch multi-modal image matching software demonstrates the application of DL image matching methods, notably ‘detect-and-describe’ approaches like D2-Net \cite{Dusmanu2019_d2net} and R2D2 \cite{revaud2019r2d2}, with both approaches superior to hand-crafted methods in six multi-modal scenarios. 
-Similarly, \cite{chang_speed_2024} presents a novel lightweight network built to exploit local and global feature information for infrared-visible image matching, achieving competitive results with RIFT, R2D2, SuperPoint+LightGlue, and LoFTR.
-These cases demonstrate the benefit that can be gained from learning-based methods for thermal image matching and the need for comparison of handcrafted- and learning-based image matching methods for thermal data fusion.
+% However, the development of learning-based image-matching methods warrants exploration, overcoming one of the critical junctures for 3D reconstruction, image registration, and localization using thermal data \cite{velesaca_multimodal_2024}. 
+% For multi-modal image matching, the ability to overcome these challenges has justified their exploration for infrared-visible image matching. 
+% \citet{RuizDeOna2023_photomatch}’s PhotoMatch multi-modal image matching software demonstrates the application of DL image matching methods, notably ‘detect-and-describe’ approaches like D2-Net \cite{Dusmanu2019_d2net} and R2D2 \cite{revaud2019r2d2}, with both approaches superior to hand-crafted methods in six multi-modal scenarios. 
+% Similarly, \cite{chang_speed_2024} presents a novel lightweight network built to exploit local and global feature information for infrared-visible image matching, achieving competitive results with RIFT, R2D2, SuperPoint+LightGlue, and LoFTR.
+% These cases demonstrate the benefit that can be gained from learning-based methods for thermal image matching and the need for comparison of handcrafted- and learning-based image matching methods for thermal data fusion.
 
-To evaluate the matching of infrared-visible imagery, Lenton Lodge, the 19th century Grade II* listed gatehouse built by Jeffry Wyatville and former entrance to Wollaton Hall, was used as a case study in Nottingham, UK. 
-The structure, largely comprising Mansfield sandstone, represents one of the finest examples of Elizabethan Revival in England and presents an extraordinary history of disrepair and restoration. 
-Before image acquisition, a ground control survey was undertaken with a Leica TS10 and custom 3D-printed survey targets constructed from selective laser sintering, aluminum, and rubber, designed to be detectable in both infrared and visible images. 
-Images were captured at a time to maximize the ‘baking’ of the building from solar radiation and to prevent the interference of shadows around the gatehouse turrets.
-Images were captured in three strips at 4m, 8m, and 12m from the facade.
+% To evaluate the matching of infrared-visible imagery, Lenton Lodge, the 19th century Grade II* listed gatehouse built by Jeffry Wyatville and former entrance to Wollaton Hall, was used as a case study in Nottingham, UK. 
+% The structure, largely comprising Mansfield sandstone, represents one of the finest examples of Elizabethan Revival in England and presents an extraordinary history of disrepair and restoration. 
+% Before image acquisition, a ground control survey was undertaken with a Leica TS10 and custom 3D-printed survey targets constructed from selective laser sintering, aluminum, and rubber, designed to be detectable in both infrared and visible images. 
+% Images were captured at a time to maximize the ‘baking’ of the building from solar radiation and to prevent the interference of shadows around the gatehouse turrets.
+% Images were captured in three strips at 4m, 8m, and 12m from the facade.
 
-A Workswell WIRIS Pro (WWP) UAV thermal imaging system, offering a Focal Plane array (FPA) active sensor with 640x512 resolution and a temperature sensitivity \SI{0.05}{\degreeCelsius} was used, configured to work terrestrially. 
-The WWP features both a thermal sensor and visible sensor (res. 1920x1080) fixed within the same camera unit, allowing for both RGB and IR radiation to be captured of a scene at the same time. Table \ref{} summarises WWP key properties and Fig. \ref{} shows the thermal imaging system.
+% A Workswell WIRIS Pro (WWP) UAV thermal imaging system, offering a Focal Plane array (FPA) active sensor with 640x512 resolution and a temperature sensitivity \SI{0.05}{\degreeCelsius} was used, configured to work terrestrially. 
+% The WWP features both a thermal sensor and visible sensor (res. 1920x1080) fixed within the same camera unit, allowing for both RGB and IR radiation to be captured of a scene at the same time. Table \ref{} summarises WWP key properties and Fig. \ref{} shows the thermal imaging system.
 
 
 % References
