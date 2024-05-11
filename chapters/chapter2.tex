@@ -195,10 +195,10 @@ Because of UAV technical limitations, the survey area was restricted to the glac
 
 \subsection{GNSS Survey for Block Georeferencing}
 
-To constrain the UAV photogrammetric block from 2019, 36 squared targets, consisting
-of 50 cm × 50 cm polypropylene sheets with high color contrast, were deployed over the
-survey area, anchored to large rocks on both the glacier and the moraines. Among the
-36 targets, 26 were used as ground control points (GCPs) and 10 as control points (CPs).
+To constrain the UAV photogrammetric block from 2019, 36 squared targets consisting
+of 50 cm × 50 cm polypropylene sheets with high color contrast were deployed over the
+survey area, anchored to large rocks on both the glacier and the moraines. 
+Among the 36 targets, 26 were used as Ground Control Points (GCPs) and 10 as Check Points (CPs).
 The targets were measured on the field with a dual frequency (L1/L2) geodetic quality
 GNSS receiver Leica Viva GS14. Because a GSM internet connection was available in the lower
 part of the glacier, the targets were measured in nRTK relative to the HxGN SmartNet
@@ -259,7 +259,7 @@ To improve the quality of the photogrammetric block within a small area such as 
 Their coordinates were retrieved from the 2019 model, which has a significantly higher spatial resolution (\tabref{tab:2:camera_summary}). 
 EO of the images was estimated through Assisted Aerial Triangulation (AAT) \citep{ioli2021_lowcost_dgps}. 
 The BBA was solved by combining GNSS/INS information with TPs automatically detected by the software and 11 GCPs manually collimated on the images. 
-The quality of the photogrammetric model was assessed by employing 6 Check Points (CP), which were not used to solve the BBA. 
+The quality of the photogrammetric model was assessed by employing 6 CP, which were not used to solve the BBA. 
 
 \begin{figure} [ht]
     \centering
@@ -275,18 +275,24 @@ The quality of the photogrammetric model was assessed by employing 6 Check Point
 
 After the digitalization, the three historical datasets were oriented by aerial triangulation based on the 2009 block. The coordinates of nine GCPs (marked with numbers 1 to 9 in \figref{fig:2:gcp}) and eight CPs (marked with letters A to H), well distributed over the whole area, were retrieved from the aerial images acquired with the DMC digital photogrammetry system.
 Points such as buildings edges, corners, sharp rocks along the glacier moraines, and particular morphological patterns that remained reasonably unchanged over time were selected in such a way as to be clearly identified in most of the four datasets (1977, 1991, 2001, and 2009), as shown in \figref{fig:2:gcp_examples}).
-Note that it was not always possible to identify the same point in all four datasets because of the different image scales, different image quality (e.g., RGB versus grayscale images), or changes in the morphology over 30 years. Therefore, if one point was not visible in one dataset, another was searched nearby. To clarify, if one point (e.g., Point 2) was not found in images from 1991, then another feature, named Point 2b, was searched for close to the original location of Point 2 in the 2009 images and used as GCP for the 1991 dataset. However, in the statistics, Points 2 and 2b were considered one point because of their spatial proximity.
-The GCPs used to solve the BBA of the three historical datasets were properly weighted with their variance. An accuracy of 0.75 px was assumed as the collimation accuracy for a human operator dealing with high-quality digital images such as those from 2009. This assumption was confirmed by the image reprojection error of the manually collimated points, which was always smaller than one pixel. Therefore, an a priori accuracy of 0.3 m was given to the GCPs in the three datasets from 1977, 1991, and 2001.
+Note that it was not always possible to identify the same point in all four datasets because of the different image scales, different image quality (e.g., RGB versus grayscale images), or changes in the morphology over 30 years. 
+Therefore, if one point was not visible in one dataset, another was searched nearby.
+To clarify, if one point (e.g., Point 2) was not found in images from 1991, then another feature, named Point 2b, was searched for close to the original location of Point 2 in the 2009 images and used as GCP for the 1991 dataset.
+However, in the statistics, Points 2 and 2b were considered one point because of their spatial proximity.
+The GCPs used to solve the BBA of the three historical datasets were properly weighted with their variance. 
+An accuracy of 0.75 px was assumed as the collimation accuracy for a human operator dealing with high-quality digital images such as those from 2009. 
+This assumption was confirmed by the image reprojection error of the manually collimated points, which was always smaller than one pixel. 
+Therefore, an a priori accuracy of 0.3 m was given to the GCPs in the three datasets from 1977, 1991, and 2001.
 
 Concerning the camera interior orientation, the three analog cameras were calibrated in the laboratory by the producer, and calibration certificates were available. 
 Therefore, the calibrated focal length and the principal point coordinates were provided as initial values in the BBA. 
 These were then adjusted based on the GCPs using a self-calibration procedure \citep{jacobsen2004issues}. Additionally, two radial (k1 and k2) and tangential (p1 and p2) distortion parameters were estimated to correct the lens distortions of the photogrammetric cameras and the distortion introduced by external factors, e.g., the deterioration of the films over the years.
 
-After BBA, dense point clouds (PCs), orthophotos, and DSMs were computed (a downscale factor of 2 was set to make the PCs more manageable) and used as a starting point for glacier analyses.
+After BBA, dense Point Clouds (PCDs), orthophotos, and DSMs were computed (a downscale factor of 2 was set to make the PCDs more manageable) and used as a starting point for glacier analyses.
 
 \subsection{Point cloud pre-processing}\label{sec:2:pcd_preproc}
 
-The obtained point clouds referring to the different surveys required additional preprocessing to make them consistent for further analyses in terms of spatial resolution and coverage area.
+The obtained point clouds referring to the different surveys required additional preprocessing to make them consistent in terms of spatial resolution and coverage area for further analyses.
 The point clouds were initially rasterized by using CloudCompare (v2.12 alpha).
 East–North gridded data with 0.5 m grid spacing were derived by averaging the height of the points inside each cell. 
 Empty cells were initially filled with null values.
@@ -301,10 +307,10 @@ Empty cells were initially filled with null values.
 The rasterized DSM was then manipulated in the MATLAB (R2020a) environment.
 As the surveys' coverage areas are significantly different, the first step was automatically detecting the valid area for each photogrammetric DSM. 
 This was done by first defining a binary mask with value 1 in correspondence with the DSM's non-null cells. 
-The mask was then blurred by iterative convolutions with a kernel representing a circular box (10 m of radius) and assigning unitary value to resulting cells with values greater than 0 until no voids were present in the inner area.
-A binary mask defining the valid surveyed area was obtained by applying the converse procedure (i.e., blurring with the same kernel and assigning 0 to the resulting cells with values smaller than 1) for the same number of iterations.
+The mask was then blurred by iterative convolutions with a circular kernel (10 m of radius), and unitary values were assigned to resulting cells with values greater than 0 until no voids were present in the inner area.
+A binary mask defining the valid surveyed area of each point cloud was obtained by applying the converse procedure (i.e., blurring with the same kernel and assigning 0 to the resulting cells with values smaller than 1) for the same number of iterations.
 Finally, empty cells of the initial rasterized DSM within the valid surveyed area were filled via triangulation-based bi-dimensional linear interpolation.
-As a result, gridded point clouds at a consistent resolution of 0.5 m were obtained for all five surveys (\figref{fig:2:pcd_rasterzed}).
+As a result, rasterized point clouds at a consistent resolution of 0.5 m were obtained for all five surveys (\figref{fig:2:pcd_rasterzed}).
 
 \begin{figure}[ht]
     \centering
@@ -313,10 +319,10 @@ As a result, gridded point clouds at a consistent resolution of 0.5 m were obtai
     \label{fig:2:glacier_masks}
 \end{figure}
 
-To compare DSM from different surveys, now at a consistent spatial resolution (0.5 m), a joint mask referring to the glacier body only and excluding surrounding areas was required.
-To this end, the five binary masks defining the valid areas of each survey were superimposed, and only fully overlapped cells were considered (\figref{fig:2:glacier_masks}b).
+A joint mask referring to the glacier body only and excluding surrounding areas was required to compare DSM from different surveys, which are now at a consistent spatial resolution.
+To this end, the five binary masks defining the valid areas of each survey were superimposed (\figref{fig:2:glacier_masks}a), and only fully overlapped cells were considered (\figref{fig:2:glacier_masks}b).
 A data-driven approach was pursued to identify the glacier body boundaries. 
-In fact, low or even null altitude variability over time was expected in the surrounding areas, while cells referring to the glacier body were expected to show detectable changes in altitude. 
+In the surrounding areas, low or even null altitude variability over time was expected, while cells referring to the glacier body were expected to show detectable changes in altitude. 
 \figref{fig:2:glacier_masks}c shows the binary mask representing the cells for which the height difference between consecutive survey epochs was larger than 10 m. 
 The shape of the glacier's body is recognizable. 
 This mask was then refined by applying the same iterative procedure previously presented for the valid area identification, which first removed isolated areas and cleaned glacier borders (\figref{fig:2:glacier_masks}d) and then applied a buffer around it also to comprise lateral moraines expected to remain almost unchanged over time (\figref{fig:2:glacier_masks}e). 
@@ -325,10 +331,10 @@ The obtained final glacier mask (now covering about a surface of \SI{1.78}{\kilo
 \subsection{Glacier evolution analysis}\label{sec:2:glacier_evolution}
 
 The final masked DSMs allowed spatial analyses of the glacier surface by comparing the measured altitude variations, quantifying volume variations, and evaluating the long-term morphology evolution from 1977 to 2019. 
-First, the DSMs were analyzed in absolute terms, i.e., regarding their altitude variability range and the spatial distribution of areas classified based on their measured altitude. 
-
+First, the DSMs were analyzed in absolute terms.
 Additionally, relative comparisons were conducted to quantify the effects of accumulation and ablation processes on Belvedere Glacier over time.
-Because the different DSMs were georeferenced and consistent in spatial resolution, volume variations could be computed by Dem of Difference (DoD).
+
+As the different DSMs were georeferenced and consistent in spatial resolution, volume variations were computed by Dem of Difference (DoD).
 Cumulate volume variations were obtained, taking the 1977 DSM as a reference, while average annual volume losses/gains were obtained in the considered periods.
 
 \section{Results}\label{sec:2:results}
@@ -343,25 +349,27 @@ Cumulate volume variations were obtained, taking the 1977 DSM as a reference, wh
 \end{figure}
 
 Eight CPs distributed mainly along the glacier moraines were used to assess the accuracy of the three historical models, while six CPs were used for the 2009 dataset \figref{fig:2:cp_error}.
-The 1977 and 1991 models obtained global RMSEs of about 0.66 m and 0.74 m, respectively, while the 2001 and 2009 models obtained similar RMSEs of about 0.38 m.
+The 1977 and 1991 models obtained global RMSEs of 0.66 m and 0.74 m, respectively, while the 2001 and 2009 models obtained similar RMSEs of about 0.38 m.
 In all cases, these values were comparable to the average GSD of the aerial images. Regarding the 2019 survey, the model accuracy was assessed by 10 CPs, resulting in an RMSE error of 0.17 m, comparable to three times the GSD. 
 This was due to the low quality of the camera employed. 
 Nevertheless, as the GSD was on the order of magnitude of the centimeter, the model accuracy was still higher than that of the older flights.
 
 Starting from the solution obtained with the Agisoft Metashape SfM pipeline, an MVS approach was used to compute image depth maps, dense point clouds, orthophotos, and DSMs. 
-The number of points in each PC and the density of each dense cloud are summarized in \tabref{tab:2:pcd_density}.
-While the PC size was strictly related to the survey coverage, the PC average density was directly related to the GSD of the original photogrammetric survey, indicating the capability of resolving finer details.
+The number of points in each PCD and the average volumetric density (i.e., the number of points per unit of volume) of each dense cloud is summarized in \tabref{tab:2:pcd_stats}.
+While the PCD size was strictly related to the survey coverage, the PCD average density was directly related to the GSD of the original photogrammetric survey, indicating the capability of resolving finer details.
 
 \begin{table}
     \centering
-    \caption{Point cloud (PC) numbers of points and volumetric densities.}
-    \label{tab:2:pcd_density}
+    \caption{Summary of characteristics of the SfM-MVS point clouds (PCD) in terms of number of points and average volumetric density. 
+    The Data Density parameter refers to the rasterized point cloud, and it is defined as the ratio between the number of nonempty cells in the original and interpolated DSMs.}
+    \label{tab:2:pcd_stats}
     \begin{tabular}{lccccc}
         \hline
         & 1977 & 1991 & 2001 & 2009 & 2019 \\
         \hline
-        PC size [pts] & 8,962,182 & 4,296,638 & 12,504,582 & 17,595,703 & 112,293,439 \\
-        PC average density [pts/m\textsuperscript{3}] & 1.56 & 1.08 & 1.58 & 2.67 & 26.40 \\
+        Points [\#] & 8,962,182 & 4,296,638 & 12,504,582 & 17,595,703 & 112,293,439 \\
+        PCD density [pts/m\textsuperscript{3}] & 1.56 & 1.08 & 1.58 & 2.67 & 26.40 \\
+        Data density [cells/m\textsuperscript{2}] & 37\% & 11\% & 39\% & 60\% & 94\% \\
         \hline
     \end{tabular}
 \end{table}
@@ -371,30 +379,42 @@ The computed orthophotos are visible in Appendix \ref{app:orthophotos}.
 
 \subsection{Point cloud pre-processing}\label{sec:2:res_preproc}
 
-Based on the preliminary processing described in \secref{sec:2:pcd_preproc}, reliable estimates of surveyed surface coverage and average density of the original point clouds were quantified (\tabref{tab:2:pcd_surface_coverage}).
-Surface coverage was obtained by multiplying the number of nonzero values of the binary masks of the valid area of each survey and the DSM cell size (\SI{0.25}{\square\meter}). 
-The ratio between the number of nonempty cells in the original and interpolated DSMs indicated the average data density of the point clouds in the considered surveyed areas. 
+According to the pre-processing described in \secref{sec:2:pcd_preproc}, we computed the data density within the rasterized point clouds as the ratio between non-empty cells in the original and interpolated DSMs.
+\tabref{tab:2:pcd_stats} highlights the impact of grid spacing choice on point cloud gridding. 
+For the most detailed 2019 survey, a 0.5 m grid spacing required minimal interpolation (\SI{\sim6}{\percent} empty cells), effectively fully exploiting its high spatial resolution. 
+Finer grids would increase interpolation and computational demands without significant informational gain, especially for the lower-resolution historical surveys. 
+Conversely, coarser grids would risk losing detail in more recent, high-resolution data. Thus, the chosen 0.5 m grid spacing minimized interpolation while preserving the full potential of higher-resolution surveys.
 
-\begin{table}[ht]
-  \centering
-  \caption{Summary of Surface Coverage and Average Density of Point Clouds}
-  \label{tab:2:pcd_surface_coverage}
-  \begin{tabular}{lccccc}
-    \hline
-    & 1977 & 1991 & 2001 & 2009 & 2019 \\
-    \hline
-    Surface Coverage [\%] & 5.53 & 9.41 & 7.17 & 5.98 & 4.33 \\
-    Data Density [cells/m\textsuperscript{2}] & 37\% & 11\% & 39\% & 60\% & 94\% \\
-    \hline
-  \end{tabular}
-\end{table}
+% \begin{table}[ht]
+%   \centering
+%   \caption{Summary of Surface Coverage and Average Density of Point Clouds}
+%   \label{tab:2:pcd_surface_coverage}
+%   \begin{tabular}{lccccc}
+%     \hline
+%     & 1977 & 1991 & 2001 & 2009 & 2019 \\
+%     \hline
+%     Surface Coverage [\%] & 5.53 & 9.41 & 7.17 & 5.98 & 4.33 \\
+%     Data Density [cells/m\textsuperscript{2}] & 37\% & 11\% & 39\% & 60\% & 94\% \\
+%     \hline
+%   \end{tabular}
+% \end{table}
 
-The numbers in \tabref{tab:2:pcd_surface_coverage} allow evaluating the impact of the chosen grid spacing when gridding the point clouds. 
-With 0.5 m grid spacing, the 2019 survey (the most detailed one) required a few empty cells to be interpolated, about 6\%, thus closely fully exploiting its high spatial resolution. 
-A finer grid would require increasing the number of interpolated cells (thus increasing the required memory allocation for matrix manipulation) without adding information, particularly for the historical surveys.
-On the other hand, a coarser resolution would require downsampling the surveyed detailed DSM, potentially losing finer details. 
-With the chosen grid spacing, the minimum amount of interpolation was needed, while the full potential of more recent and detailed surveys was preserved. 
-Furthermore, the surface coverage of the different surveys was quite different, introducing the second aspect to be addressed to complete the required preprocessing of the point clouds.
+% Based on the point cloud pre-processing described in \secref{sec:2:pcd_preproc}, the
+% average data density of the rasterized point cloud was computed.
+% The ratio between the number of nonempty cells in the original and interpolated DSMs indicated the average data density of the point clouds in the considered surveyed areas. 
+% The numbers in \tabref{tab:2:pcd_stats} allow evaluating the impact of the chosen grid spacing when gridding the point clouds. 
+% With 0.5 m grid spacing, the 2019 survey (the most detailed one) required a few empty cells to be interpolated, about 6\%, thus closely fully exploiting its high spatial resolution. 
+% A finer grid would require increasing the number of interpolated cells (thus increasing the required memory allocation for matrix manipulation) without adding information, particularly for the historical surveys.
+% On the other hand, a coarser resolution would require downsampling the surveyed detailed DSM, potentially losing finer details. 
+% With the chosen grid spacing, the minimum amount of interpolation was needed, while the full potential of more recent and detailed surveys was preserved. 
+% Furthermore, the surface coverage of the different surveys was quite different, introducing the second aspect to be addressed to complete the required preprocessing of the point clouds.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[height=0.90\textheight]{results_contours.png}
+    \caption{Glacier contours at different epochs: (a) 1977; (b) 1991; (c) 2001; (d) 2009; (e) 2019.}
+    \label{fig:2:results_contour}
+\end{figure}
 
 \begin{table}[ht]
   \centering
@@ -412,20 +432,14 @@ Furthermore, the surface coverage of the different surveys was quite different, 
 
 \subsection{Glacier evolution analysis}\label{sec:2:res_glacier_evolution}
 
-\begin{figure}[ht]
-    \centering
-    \includegraphics[height=0.9\textheight]{results_contours.png}
-    \caption{Glacier contours at different epochs: (a) 1977; (b) 1991; (c) 2001; (d) 2009; (e) 2019.}
-    \label{fig:2:results_contour}
-\end{figure}
-
 The minimum and maximum altitudes of the glacier extracted from each DSM are shown in \tabref{tab:2:glacier_altitudes}.
 The minimum values ranged between 1820 m and 1826 m, while maximum values ranged between 2339 m and 2385 m. 
-The stability of the minimum values can be justified by the area masking. 
+The stability of the minimum values can be justified by the PCD masking. 
 Minimum altitudes likely occurred near the glacier terminus, and the mask buffering could have comprised points surveyed at the terminal lobes.
-On the other hand, the variability of the maximum glacier heights likely occurred closer to mountainous peaks along the surveyed glacier accumulation area, located in the SW region of the mask, where mass balance can benefit from events such as avalanches or particular meteorological conditions immediately before the epoch of the surveys.
+Conversely, the maximum glacier heights occurred in the upper part of the glacier, close to the main accumulation area.
+In this area, the glacier can benefit from events like ice avalanches or localized large ice mass accumulation related to particular meteorological conditions or glaciological processes, such as that occurred during the surge event.
 
-\figref{fig:2:results_contour} presents glacier contour altitudes between 1800 and 2400 m, to comprise the maximum altitude range measured by the five surveys with a contour interval of 50m.
+\figref{fig:2:results_contour} presents glacier contour altitudes between 1800 and 2400 m, to comprise the maximum altitude range measured by the five surveys with a contour interval of 50 m.
 Compared to the 1977 DSM (\figref{fig:2:results_contour}a), 1991 DSM cells classified in the range 2200–2400 m remained almost unchanged while the following contour lines gradually moved toward a valley, clearly indicating a mass accumulation (\figref{fig:2:results_contour}b).
 The following 2001 survey showed a continuation in these areas of the trend of increasing altitude toward the glacier terminus. 
 Still, an altitude decrease was observed in the SW cells of the accumulation area (note the extension of the altitude class 2200–2250 m in \figref{fig:2:results_contour}c), and cells of the highest altitude class were practically absent (see \tabref{tab:2:glacier_altitudes}). 
@@ -450,8 +464,6 @@ The most recent 2019 DSM (\figref{fig:2:results_contour}e) again showed a genera
 
 Volume variations obtained by DoD are shown in \tabref{tab:2:glacier_volume_variations}.
 Cumulated volume variations are computed considering the 1977 DSM as a reference.
-The numbers in \tabref{tab:2:glacier_volume_variations} confirm what was found by analyzing the glacier contour variations but from a different perspective. 
-
 Between 1977 and 2001, the glacier's volume increased substantially by \SI[retain-explicit-plus]{+20.66e6}{\cubic\meter}.
 Notably, the rate of expansion accelerated during the period 1991-2001.
 During this period, the glacier gained volume 50\% faster than the previous decade, increasing from \SI[retain-explicit-plus]{+0.72e6}{\cubic\meter\per\year} to \SI[retain-explicit-plus]{+1.06e6}{\cubic\meter\per\year}.
@@ -459,13 +471,12 @@ The glacier expansion continued until the surge event of 2000-2002 \citep{Haeber
 
 Since 2001, the glacier has undergone severe retreat, losing a total of \SI{-74.94e6}{\cubic\meter} of ice volume between 2001 and 2019.
 From 2001 to 2009, the average yearly volume decrease was \SI{-5.97e6}{\cubic\meter\per\year}, reducing the volume by \SI{-27.12e6}{\cubic\meter} relative to the initial 1977 measurement, despite prior accumulation.
-
 While the negative trend persisted from 2009 to 2019, the rate of loss slowed (\SI{-2.72e6}{\cubic\meter\per\year}).
 Over the 42-year observation period (1977-2019), the glacier experienced a net loss of \SI{-54.28e6}{\cubic\meter}.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\textwidth]{results_volumes_variations.png}
+    \includegraphics[height=0.90\textheight]{results_volumes_variations.png}
     \caption{Binned glacier altitude variations in different periods with bin size set to 25 m: (a) 1977–1991; (b) 1991–2001; (c) 2001–2009; (d) 2009–2019. }
     \label{fig:2:volume_variations}
 \end{figure}

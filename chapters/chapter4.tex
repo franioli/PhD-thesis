@@ -21,48 +21,34 @@
 \section{Introduction}\label{sec:4:intro}
 
 Climate change is accelerating the evolution of alpine glaciers, leading to rapid ice melt and increased frequency of collapses during summer months. 
-This accelerated melting can trigger various glaciological, geomorphological, and slope stability hazards, including avalanches, glacier outbursts, rockfalls, permafrost-related collapses, and moraine instability~\citep{Kaab2005, chiarle2023, Nigrelli2024}.
-Consequently, short-term observations (e.g., daily) are crucial for achieving a deep understanding of glaciers' associated processes and their relation with external forces, particularly the air temperature.
-Monitoring surface kinematics is particularly important, as it can provide early indications of impending instability~\citep{Faillettaz2015}.
+This accelerated melting can trigger various glaciological, geomorphological, and slope stability hazards, including avalanches, glacier outbursts, rockfalls, permafrost-related collapses, and moraine instability~\citep{Kaab2005, Faillettaz2015, chiarle2023, Nigrelli2024}.
+Consequently, short-term observations (e.g., daily) are crucial for deeply understanding glaciers' associated processes and their relation with external forces, particularly the air temperature.
 
-Permanent ground-based solutions are generally preferred for short-term monitoring.
-Among these, terrestrial SAR~\citep{Strozzi2020} and TLS~\citep{Hendrickx2022,Voordendag2023} have gained significant attention.
-SAR, in particular, offers the advantage of all-weather and day-and-night imaging, making it suitable for real-time monitoring and early-warning systems~\citep{Dematteis2021, Noferini2009}.
-However, both ground-based SAR and permanent TLS are expensive, require complex
-logistics.
+Permanent ground-based solutions are generally the preferred solution for short-term monitoring.
+Among these, terrestrial SAR~\citep{Strozzi2020} and TLS~\citep{Hendrickx2022,Voordendag2023} have recently gained significant attention.
+SAR, in particular, offers the advantage of all-weather and day-and-night imaging, making it suitable for real-time monitoring and early-warning systems \citep{Dematteis2021, Noferini2009}.
+However, both ground-based SAR and permanent TLS are expensive and require complex logistics.
 These limitations prevent their applications in distributed sites at the regional scale, but their usage may be limited to investigating hazardous locations.
 
 Fixed time-lapse cameras are affordable alternatives to SAR and permanent TLS to acquire short-term qualitative and quantitative information on glacier dynamics~\citep{Giordan2016, James2016, Maas2006, Messerli2015}.
-DIC can be used on sequences of images from terrestrial time-lapse cameras to estimate glacier surface velocity.
-However, external DSMs are required to convert 2D-pixel displacements obtained by DIC into 3D displacement vectors.
+DIC can be used on sequences of images from terrestrial time-lapse cameras to estimate glacier surface velocity by tracking patterns on image sequences.
+However, with a single camera, external DSMs are required to convert 2D-pixel displacements obtained by DIC into 3D displacement vectors.
 
-Although most of the existing literature focuses on single time-lapse cameras, in recent
-years some studies have been conducted on multi-camera systems.
-Even though it was not applied to glaciers, \citet{roncella_landslide_2014} first
-developed a pure stereoscopic system for monitoring a moving landslide, proposing a fully photogrammetric approach to derive a 3D model of the scene and detect collapses, without the need for a priori DSMs.
-\citet{Schwalbe2017} proposed an application of multiple time-lapse cameras for deriving
-a coarse digital surface model using SfM to estimate a distance
-map, which was used to scale displacement vectors.
-\citet{Marsy2020} used a stereo camera system to construct a glacier DSM and
-back-projected the DIC-derived velocity field.
-However, their main focus was on deriving glacier kinematics rather than achieving a
-short-term 3D reconstruction of the glacier.
-Recently, \citet{kneib_sub-seasonal_2022} used a multi-camera system to
-estimate sub-seasonal variability of supraglacial ice cliff melt rates.
-\citet{Taylor2023} successfully tested a low-cost Raspberry Pi with a high-quality camera
-module and a telephoto lens mounted on a boat for reconstructing a glacier calving front
-by SfM achieving sub-meter accuracy when compared to a UAV benchmark.
-\citet{Blanch2023} proposed a low-cost fixed multi-camera system for natural hazard
-monitoring using a photogrammetric approach and they achieved sub-decimetric change
+Although most of the existing literature focuses on single time-lapse cameras, in recent years, some studies have been conducted on multi-camera systems for monitoring glaciologic and geomorphological processes.
+Even though it was not applied to glaciers, \citet{roncella_landslide_2014} first developed a pure stereoscopic system for monitoring a moving landslide, proposing a fully photogrammetric approach to derive a 3D model of the scene and detecting collapses without the need for a priori DSMs.
+\citet{Schwalbe2017} proposed an application of multiple time-lapse cameras for deriving a coarse digital surface model using SfM to estimate a distance
+map, which was used to scale displacement vectors derived by DIC.
+\citet{Marsy2020} used a stereo camera system to construct a glacier DSM and back-projected the DIC-derived velocity field.
+However, their main focus was on deriving glacier kinematics rather than achieving a short-term 3D reconstruction of the glacier.
+Recently, \citet{kneib_sub-seasonal_2022} used a multi-camera system to estimate sub-seasonal variability of supraglacial ice cliff melt rates.
+\citet{Taylor2023} successfully tested a low-cost Raspberry Pi with a high-quality camera module and a telephoto lens mounted on a boat for reconstructing a glacier calving front by SfM, achieving sub-meter accuracy when compared to a UAV benchmark.
+\citet{Blanch2023} proposed a low-cost fixed multi-camera system for natural hazard monitoring using a photogrammetric approach, and they achieved sub-decimetric change
 detection sensitivity in rockfall detection.
 
-Nevertheless, all of the aforementioned studies used small or normal camera baselines,
-which makes it easier for traditional photogrammetric methods to find corresponding
+Nevertheless, all of the aforementioned studies used small or normal camera baselines, which makes it easier for traditional photogrammetric methods to find corresponding
 points between images and achieve 3D scene reconstruction.
-However, in mountainous terrain, finding stable, accessible locations with ideal
-baseline and viewing geometry can be challenging.
-Conversely, wide baselines or highly convergent views hinder a 3D reconstruction by
-traditional photogrammetry.
+However, in mountainous terrain, finding stable, accessible locations with ideal baseline and viewing geometry can be challenging.
+Conversely, wide baselines or highly convergent views hinder a 3D reconstruction by traditional photogrammetry.
 
 % In traditional photogrammetry, keypoints are identified on different images by
 % local feature detectors and descriptors such as SIFT~\citep{Lowe2004},
@@ -92,25 +78,21 @@ traditional photogrammetry.
 % traditional corner detectors to state-of-the-art DL matching approaches.
 
 This chapter presents a pilot study on short-term 4D monitoring of the Belvedere Glacier glacier using a low-cost stereo-camera system with a wide baseline. 
-The study focuses on investigating daily glacier dynamics by calculating surface movement, ice volume loss, and glacier retreat of a debris-covered alpine glacier.
-The proposed methodology integrates 3D reconstruction from stereo cameras for volume
-estimation and utilizes DIC on monoscopic cameras to derive surface velocities.
-By utilizing state-of-the-art DL matching techniques, this approach overcomes
-the challenges posed by the wide camera baselines and it allows for accurately
+The study investigates daily glacier dynamics by calculating surface movement, ice volume loss, and glacier retreat of a debris-covered alpine glacier.
+The proposed methodology integrates 3D reconstruction from stereo cameras for volume estimation and utilizes DIC on monoscopic cameras to derive surface velocities.
+By utilizing state-of-the-art DL matching techniques, this approach overcomes the challenges posed by the wide camera baselines, and it allows for accurately
 reconstructing the scene under sub-optimal viewing conditions.
 
 The objective of this work is twofold:
-(i) to demonstrate the feasibility and effectiveness of using a cost-effective
-photogrammetric solution for short-term glacier monitoring using a DL approach;
+(i) to demonstrate the feasibility and effectiveness of using a cost-effective photogrammetric solution for short-term glacier monitoring using a DL approach;
 (ii) to investigate the short-term relationship between air temperature, ice volume variations, and glacier surface velocity for an alpine debris-covered glacier.
-By combining stereo and monoscopic image sequence analysis, this study
-contributes to a better understanding of sub-seasonal glacier dynamics,
+By combining stereo and monoscopic image sequence analysis, this study contributes to a better understanding of sub-seasonal glacier dynamics,
 particularly in the context of changing climate conditions and rising temperatures.
 
 
 \section{Image matching in challenging scenarios}\label{sec:4:localfeatures}
 
-Identifying homologous or tie points in pairs of images serves as the foundational task in photogrammetry for non-contact 3D measuring methods. 
+Identifying homologous or tie points in pairs of images is the foundational task in photogrammetry for non-contact 3D measuring methods. 
 These points allow for orienting single, stereo, or multi-image configurations. Applications span a wide range, depending on object size and the requisite level of accuracy, encompassing industrial, architectural, engineering, and remote sensing applications, requiring measurements on sparse control points or evaluations on dense reconstructions via multi-view dense image matching. 
 Classical photogrammetric outputs include 3D point clouds, orthophotos, and digital surface models. 
 
@@ -118,31 +100,31 @@ Classical photogrammetric outputs include 3D point clouds, orthophotos, and digi
     \centering
     % \includegraphics[angle=-90,origin=c,height=0.8\textheight]{local_feats_history}
     \includegraphics[width=1\textwidth]{local_feats_history}    
-    \caption{Timeline development of detectors, descriptors, and matches from preliminary works, hand-crafted, machine-learning, and deep-learning local features (Figure adapted from \citet{remondino2022_at_with_dl}.}
+    \caption{Timeline development of detectors, descriptors, and matches from preliminary works, hand-crafted, machine-learning, and deep-learning local features (figure adapted from \citet{remondino2022_at_with_dl}).}
     \label{fig:4:feats_history}
 \end{figure}
 
-Historically, local image features (also known as keypoints or interest points), were initially identified manually, with automatic approaches emerging between the 1980s and the early 2000s. 
-The evolution of these approaches spans a broad temporal spectrum (\figref{fig:4:feats_history}), gradually identifying algorithms that effectively deal with those fundamental characteristics necessary for reliable image features \citep{Lowe2004}. 
-Image detectors should identify repeatable keypoints across different images, described by a descriptor vector that characterizes the key local neighborhood allowing for similarity matching across different image views. 
+Historically, local image features (also known as keypoints or interest points) were initially identified manually on images.
+Automatic approaches gradually emerged between the 1980s and the early 2000s by developing algorithms that effectively identify characteristic features on images \citep{Lowe2004}.
+Image detectors should identify repeatable keypoints across different images, described by a descriptor vector that characterizes the keypoint's neighborhood. 
+This allows for similarity matching across different image views. 
 These detectors and descriptors should exhibit invariance to scale differences, arbitrary rotations, radiometric changes, and multi-view perspective projections. 
 Moreover, descriptors should be distinctive and unambiguous.  
 
 Several groundbreaking works emerged, significantly contributing to the advancement of fully automatic SfM software packages. 
-Particularly noteworthy is SIFT (Scale Invariant Feature Transform), which, despite its acknowledged limited invariance to illumination and affine transformations \citep{Lowe2004}, marked a significant milestone as the first detector and descriptor demonstrating sufficient invariance for a broad spectrum of applications. 
-Even today, SIFT remains the benchmark feature among non-deep learning-based approaches, often referred to as hand-crafted methods \citep{jin_image_2021}. 
+Particularly noteworthy is SIFT (Scale Invariant Feature Transform) \citep{Lowe2004}, which, despite its acknowledged limited invariance to illumination and affine transformations, marked a significant milestone as the first detector and descriptor demonstrating sufficient invariance to scale and rotations, making it suitable for a broad spectrum of applications. 
+Even today, SIFT remains the benchmark feature among traditional approaches (i.e., non-deep learning-based, often referred to as hand-crafted methods)\citep{jin_image_2021}. 
 
-\figref{fig:4:feats_history} illustrates a timeline of benchmark features. 
-Initially, corner detectors were utilized in the early works \citep{Harris1988ACC}, 
-transitioning to blob detectors that achieved a broader degree of scale and rotation invariance \citep{Lowe2004}. 
-Computational efficiency plays a pivotal role; for instance, SURF \citep{bay_surf_2006} was developed with the explicit goal of improving upon SIFT computation time, whilst ORB \citep{Rublee2011} was engineered as a binarized feature tailored for real-time applications. 
+\figref{fig:4:feats_history} illustrates a timeline of the evolution of local features. 
+Initially, corner detectors were utilized in the early works \citep{Harris1988ACC}, transitioning to blob detectors that achieved a broader degree of scale and rotation invariance \citep{Lowe2004}. 
+As computational efficiency played a pivotal role, SURF \citep{bay_surf_2006} was developed with the explicit goal of improving upon SIFT computation time, whilst ORB \citep{Rublee2011} was engineered as a binarized feature tailored for real-time applications. 
 
 However, these methods have limitations when dealing with large camera baselines, strong viewpoint differences, and strong radiometric or scale variations \citep{Yao_2021}. 
-Large camera baselines and changes in viewpoint lead to complex distortions, missing content, and occlusions between corresponding objects, making matching difficult \citep{jin_image_2021, ioli2023_replicable}.
+Large camera baselines and changes in viewpoint lead to complex distortions, missing content, and occlusions between corresponding objects, making matching difficult \citep{jin_image_2021, ioli2024deep}.
 Other challenging scenarios for traditional local features include matching historical images with contemporary datasets, e.g., for cultural heritage valorization \citep{Maiwald2021_Historical, Maiwald2023_HAI-SFM} or multitemporal aerial datasets \citep{Farella2022, Zhang2021_featmatc_histo}.
 
-Since 2015, a novel category of DL approaches has emerged to address the limitations of existing features.
-Initially, these methods involved independently training detectors and descriptors on extensive datasets comprising multi-temporal images, challenging illumination and perspective changes, and wide baselines \citep{mishchuk2018working}. % Verdie_2015
+Since 2015, a novel category of DL-based approaches has emerged to address the limitations of existing features.
+Initially, these methods involved independently training detectors and descriptors on extensive datasets comprising multi-temporal images, challenging illumination and perspective conditions, and wide baselines \citep{mishchuk2018working}.
 Subsequently, there has been a shift towards jointly training detectors and descriptors, starting with the seminal work of LIFT \citep{yi2016lift}, followed by other end-to-end DL approaches such as LF-Net \citep{ono2018lfnet}, SuperPoint \citep{DeTone_2018}, and ASLFeat \citep{luo2020aslfeat}.
 Generally, any combination of hand-crafted and DL approaches is feasible \citep{jin_image_2021}.
 
@@ -150,35 +132,31 @@ Additionally, the matcher component can also be trained using DL techniques.
 A pioneering and groundbreaking approach in this regard was SuperGlue \citep{sarlin2020superglue}, which makes use of an attention-based architectures~\citep{vaswani2023attention} to dramatically improve matching results by exploiting self- (intra-image) and cross- (inter-image) attention to leverage both spatial relationships of the keypoints and their visual appearance.
 Superglue has been recently followed by a faster update named LightGlue \citep{lindenberger2023lightglue}. 
 Recently, semi-dense matchers such as LoFTR \citep{sun2021_loftr} and RoMa \citep{edstedt2023roma} have been developed. 
-However, it is noteworthy that they can identify tie points only on image pairs, as they are detector-free matchers. 
+However, as they are detector-free matchers, they can identify tie points only on image pairs. 
 As these semi-dense matchers are not designed to build tracks of features in multiple images, they are not suitable for multi-view image orientation.
 
 Several works have proved the effectiveness of DL approaches against varying illumination conditions, multi-temporal datasets, wide baselines, and significantly different view angles.
 These challenging scenarios include glacier monitoring with wide camera baselines \citep{ioli2023_replicable, ioli2024deep}, 
 multi-temporal image matching \citep{Maiwald2023_HAI-SFM}, 
 multi-temporal co-registration problems \citep{Maiwald2021_Historical, Morelli2022_photogrnowandthen}, 
-visual-odometry and SLAM \citep{morelli2023colmap}, 
-aerial triangulation \citep{remondino2022_at_with_dl} 
+visual-odometry and SLAM \citep{morelli2023colmap}, aerial triangulation \citep{remondino2022_at_with_dl} 
 and in terrestrial laser scanning point cloud registration \citep{Markiewicz2023}.
 Despite these advantages, well-known limitations of DL approaches are their computational complexity, 
-limited scale and rotation invariance of the descriptors, and their application on high-resolution images, 
-as they have been designed for low-resolution images.
-
-% \textcolor{red}{Add example of usage with references!}
+limited scale and rotation invariance of the descriptors and their application on high-resolution images.
 
 \section{The low-cost stereoscopic system}\label{sec:4:system}
 
-The low-cost stereoscopic system employed for short-term monitoring of the Belvedere Glacier consists of two autonomous and independent monitoring units. 
-Each unit consists of a monitoring station that includes an off-the-shelf DSLR camera, a circuit for scheduling of image acquisition and controlling the system, a solar-based power supply system, and a case for protecting the system from the harsh environment. 
-The core of each monitoring unit is the controlling circuit, which is composed of an Arduino microcontroller for camera triggering, and a Raspberry Pi Zero with a SIM card for sending images to a remote server via a GSM network~\figref{fig:4:scheme_foto}.
+A low-cost stereoscopic camera system was designed to monitor the Belvedere Glacier's short-term evolution. 
+The stereoscopic system consists of two autonomous and independent monitoring units. 
+Each unit consists of an off-the-shelf DSLR camera, a circuit for scheduling image acquisition and controlling the system, a solar-based power supply system, and a case for protecting the system from the harsh environment. 
+The core of each monitoring unit is the controlling circuit, which is composed of an Arduino microcontroller for camera triggering and a Raspberry Pi Zero with a SIM card for sending images to a remote server via a GSM network (\figref{fig:4:scheme_foto}).
 The total cost of each unit was less than \texteuro2000, including camera and lens \citep{ioli2023_replicable}.
 
 The system was designed and built by adapting to the alpine environment an existing open-source model developed by Greig Sheridan and published on
-GitHub\footnote{\label{foot:greig}Greig Sheridan' Intervalometerator repository:
-  \url{https://github.com/greiginsydney/Intervalometerator}}.
+GitHub\footnote{\label{foot:greig}Greig Sheridan' Intervalometerator repository: \url{https://github.com/greiginsydney/Intervalometerator}}.
 A key aspect of the project was to ensure easy assembly and realization of the system to guarantee future replications and improvements.
 
-This section describes the monitoring system and its installation at the Belvedere Glacier.
+This section describes the monitoring system in detail and its installation at the Belvedere Glacier.
 
 \begin{figure}[ht!]
   \centering
@@ -190,21 +168,21 @@ This section describes the monitoring system and its installation at the Belvede
 
 
 \subsection{Power supply}\label{Power_supply}
-Each monitoring unit has its autonomous power supply line (yellow arrows in Figure
-\ref{fig:4:scheme_foto}) provided by a solar panel combined with a sealed lead-acid
-battery. An MPPT (Maximum Power Point Tracker) charge regulator directly connects with
-the unit's internal circuit, providing a regular current supply to the battery
-and the load and exploiting all the power generated by the panel. This regulator prevents
-any excess current that may damage the connected device, thus increasing the reliability of the system. 
-Its battery life-saving algorithm modulates the load disconnection level
-so that a nearly 100\% recharge is achieved about once every week and, in case of battery discharging, the whole system is switched off until 100\% recharge of the battery is achieved.
+
+Each monitoring unit has its autonomous power supply line (yellow arrows in \figref{fig:4:scheme_foto}) provided by a solar panel combined with a sealed lead-acid
+battery.
+An MPPT (Maximum Power Point Tracker) charge regulator directly connects with the unit's internal circuit, providing a regular current supply to the battery
+and the load and exploiting all the power generated by the panel.
+This regulator prevents any excess current that may damage the connected device, thus increasing the system's reliability. 
+Its battery-life-saving algorithm modulates the load disconnection level so that a nearly 100\% recharge is achieved about once every week. 
+In case of battery discharging, the whole system is switched off until the battery is fully recharged.
+
 The whole monitoring system is designed to minimize power consumption, e.g., by powering off devices responsible for the highest power consumption when not needed.
-An estimation of the system's energy consumption guided the choice of the components of the power supply line. 
-Specifically, the battery and the associated panel must be accurately dimensioned for the system's purpose. 
+Estimating the system's energy consumption guided the choice of the power supply line components, including the battery and the associated panel. 
 To this end, the Photovoltaic Geographical Information System (PVGIS)\footnote{PVG tool \url{https://re.jrc.ec.europa.eu/pvg_tools/en/}}, a tool provided by the European Commission, was used.
-PVGIS can estimate the performance of off-grid photovoltaic systems according to the installation site and it is supported by a database and algorithms for calculating solar radiation. 
-Tuning the parameters for the Belvedere Glacier location and the system consumption, we ended up with the specifications of solar panel power of 30 W, a battery voltage of 12 V, and a capacity of 10 Ah. 
-Some compromises were made, accepting that the system would not be sufficiently powered in the months with the lowest solar radiation (November, December, January, and February). 
+PVGIS can estimate the performance of off-grid photovoltaic systems according to the installation site, and it is supported by a database and algorithms for calculating solar radiation. 
+After tuning the parameters for the Belvedere Glacier location and the system consumption, we ended up with the specifications of a solar panel power of 30 W, a battery voltage of 12 V, and a capacity of 10 Ah. 
+Some compromises were made, accepting that the system might not be sufficiently powered for a few days in the months with the lowest solar radiation (November, December, January, and February). 
 
 \subsection{Controlling circuit and acquisition scheduling}\label{Control}
 
@@ -212,43 +190,29 @@ Some compromises were made, accepting that the system would not be sufficiently 
   \centering
   \includegraphics[width=0.6\textwidth]{board.jpg}
   \caption{Stripboard on which are soldered the main components of the internal
-    circuit: capacitors (1), voltage regulators (2), real-time clock with coin-cell battery (3), Arduino Pro Mini (4), optoisolators (5), and Raspberry Pi Zero W (6). \textcolor{red}{Add pic of new board}}
+    circuit: capacitors (1), voltage regulators (2), real-time clock with coin-cell battery (3), Arduino Pro Mini (4), optoisolators (5), and Raspberry Pi Zero W (6).}
   \label{fig:4:circuit}
 \end{figure}
 
-The internal electronic circuit (red box in \figref{fig:4:scheme_foto}) of the
-monitoring unit is the only load connected to the power supply and is responsible for all
+The internal electronic circuit (red box in \figref{fig:4:scheme_foto}) of the monitoring unit is the only load connected to the power supply and is responsible for all
 the system's control and scheduling functionalities.
-Its components are a real-time clock (number 3 in \figref{fig:4:circuit}) with a 12
-mm
-coin-cell backup battery, an Arduino microcontroller (Pro  Mini 328 3.3V 8MHz, number 4
-in \figref{fig:4:circuit}), a Raspberry Pi Zero W with 128 GB SD memory card (number
-6 in \figref{fig:4:circuit}), and minor elements for connections, isolation (capacitors and optoisolators numbers 1 and 5 in \figref{fig:4:circuit}), and voltage regulations (numbers 2 in \figref{fig:4:circuit}).
+Its components are a real-time clock (number 3 in \figref{fig:4:circuit}) with a 12 mm coin-cell backup battery, an Arduino microcontroller (Pro  Mini 328 3.3V 8MHz, number 4 in \figref{fig:4:circuit}), a Raspberry Pi Zero W with 128 GB SD memory card (number 6 in \figref{fig:4:circuit}), and minor elements for connections, isolation (capacitors and optoisolators numbers 1 and 5 in \figref{fig:4:circuit}), and voltage regulations (numbers 2 in \figref{fig:4:circuit}).
 The circuit was realized manually by soldering wires and components on a stripboard (see \figref{fig:4:circuit}).
 
-The Arduino communicates through an SPI (Serial Peripheral Interface) bus with an
-accurate real-time clock to schedule its actions: waking the camera, firing the shutter to take a photo, and turning on/off the Raspberry. 
+The Arduino communicates through an SPI (Serial Peripheral Interface) bus with an accurate real-time clock to schedule its actions: waking the camera, firing the shutter to take a photo, and turning on/off the Raspberry. 
 The Raspberry can access the camera images and transfer them to a remote server via internet connectivity. 
 A large storage memory is added to the unit to save photos before remote transferring. 
-The Raspberry also provides a web-based, user-friendly interface
-(\figref{fig:4:web-interface}) to configure and monitor the system remotely
+The Raspberry also provides a web-based, user-friendly interface (\figref{fig:4:web-interface}) to configure and monitor the system remotely
 \citep{greig}.
-An I2C (Inter Integrated Circuit) bus and digital pin connections enable higher-level
-communication between these two boards. Among the minor components, we mention the role
-of the three voltage regulators. They allow each unit to be powered at the appropriate
-voltage and current: starting from the 12 V in input, one delivers 3.3 V and 500 mA to
-the Arduino, one 5 V and 2.5 A to the Raspberry and its hat, and the other 7.5 V and 2.4
-A to the camera. The Arduino controls the 5V regulator of the Raspberry to reduce
-quiescent power consumption when the Raspberry board is off.
+An I2C (Inter Integrated Circuit) bus and digital pin connections enable higher-level communication between these two boards. 
+Among the minor components, we mention the role of the three voltage regulators. 
+They allow each unit to be powered at the appropriate voltage and current: starting from the 12~V in input, one delivers 3.3~V and 500~mA to
+the Arduino, one 5~V and 2.5~A to the Raspberry and its hat, and the other 7.5~V and 2.4~A to the camera.
+The Arduino controls the Raspberry's 5~V regulator to reduce quiescent power consumption when the Raspberry board is off.
 
-Acquisition of a defined number of images, camera triggering and timing, and sending of
-images to a remote server can be scheduled thanks to adequate programming of a cyclic
-executive program in C++ for Arduino and of services automatically executing Python
-scripts for the Raspberry.
-All the monitoring station activities can be remotely scheduled from the terminal or a
-user-friendly web interface \citep{greig}. 
-This useful feature allows one to change the settings and check the behavior of the system, 
-avoiding the need for manual intervention. 
+The acquisition of a defined number of images, camera triggering and timing, and sending of images to a remote server can be scheduled thanks to adequate programming of a cyclic executive program in C++ for Arduino and services that automatically execute Python scripts for the Raspberry.
+All the monitoring station activities can be remotely scheduled from the terminal or a user-friendly web interface \citep{greig}. 
+This useful feature allows one to change the settings and check the system's behavior, avoiding the need for manual intervention. 
 The Raspberry uses the gPhoto2, a Python-based protocol developed to specifically interact with popular cameras’ firmware, to communicate with the camera and access new photos. 
 The web-based interface service is based on NGINX and Gunicorn, open-source software for web servers. 
 The interface (\figref{fig:4:web-interface}) consists of a web page accessible with credentials and provides a summary of the system state and the exact time of the last operations (time of the last shot and the last upload of images), temperatures of the components, previews of the last images, buttons to wake up the camera, take a preview photo and schedule the system routine (time and number of photo acquisition, wake-up time of the Raspberry) and some camera settings.
@@ -261,12 +225,11 @@ The interface (\figref{fig:4:web-interface}) consists of a web page accessible w
   \label{fig:4:web-interface}
 \end{figure}
 
-All the components were chosen because of their low power consumption and their
-inter-compatibility. 
+All the components were chosen because of their low power consumption and their inter-compatibility. 
 The circuit is robust against power losses due to battery discharging and can auto-recover when power is regained. 
-A low energy consumption policy is also followed in selecting the scheduling. 
+A low energy consumption policy is also followed when selecting the scheduling. 
 The camera is switched on only during the data capture activity. 
-The Raspberry is switched on only once per day when the connection with the remote server and image transfer is scheduled.
+The Raspberry is switched on only once daily when the remote server connection and image transfer is scheduled.
 
 \subsection{Connectivity}\label{Connectivity}
 Internet connectivity is crucial to transfer images and control the units remotely. 
@@ -274,57 +237,54 @@ To this end, the Raspberry is equipped with the SIM7600E-H 4G hat by Waveshare.
 The module supports 4G/3G/2G communication via a SIM card. Raspberry and hat operations are the most expensive in terms of power consumption. 
 For this reason, the board is switched on only
 once a day for a limited period, which is kept adequately low to be sustainable for the system power supply but still sufficient for transferring new images to the server. 
-We adopted IoT (Internet of Things) SIM cards provided by the multi-operator service Emnify \citep{emnify}, as it offers the ability to connect to the best-quality cellular network available and includes flexible and customizable data plans.
-Remote access to the devices is allowed by a VPN (Virtual Private Network).
+We adopted IoT (Internet of Things) SIM cards provided by the multi-operator service Emnify \citep{emnify}, as it allows connecting to the best-quality cellular network available and includes flexible and customizable data plans.
+A VPN (Virtual Private Network) allows remote access to the devices.
 The service costs \texteuro33 per month for a data plan with 6 GB.
 
-\subsection{Case and protection}\label{Case and protection}
-The majority of the components need to be protected. Therefore, a solid and compact case
-that allows keeping all the parts (except the solar panel) in the same
-location is desirable for the functioning of the system and convenient
-transportation, installation, and maintenance. The case should also satisfy the thermal
-insulation requirements according to each component's working temperature range. The case
-should also be waterproof and robust against different and harsh weather conditions but, at the same time, provide access for connecting the solar panel and taking pictures. 
-Our choice was an HPRC 2250 lightweight, waterproof resin case with internal insulating foam.
-The foam was found to be useful in enhancing the temperature seal and stabilizing the location of some components, preventing unwanted movements. 
-Holes were drilled in the case: one sealed with a UV filter of 82 mm to allow the camera to take shots, two others to give access to the solar panel wires, and others to fix the system to a tripod. 
-The internal case dimensions (236x182x155 mm) posed a significant challenge in accommodating all the components inside. 
-In particular, the camera lens dimensions were constrained by
-space availability.
+\subsection{Case and protection}\label{Case and protection} 
+The majority of the components need to be protected.
+Therefore, a solid and compact case that allows all the parts (except the solar panel) to be kept in the same location is desirable for the system's functioning and convenient transportation, installation, and maintenance. 
+The case should also satisfy the thermal insulation requirements according to each component's working temperature range. 
+The case should also be waterproof and robust against different and harsh weather conditions but also provide access for connecting the solar panel and taking pictures. 
+We chose an HPRC 2250 lightweight, waterproof resin case with internal insulating foam.
+The foam was found to enhance the temperature seal and stabilize the location of some components, preventing unwanted movements. 
+Holes were drilled in the case: one sealed with an 82 mm UV filter to allow the camera to take shots, two others to access the solar panel wires, and others to fix the system to a tripod. 
+The internal case dimensions (\qtyproduct{236x182x155}{\milli\meter}) posed a significant challenge in accommodating all the components inside. 
+In particular, the camera lens dimensions were constrained by space availability.
 
 \subsection{General performances}\label{General_performances}
-The system was subject to several tests before being used in its final application at the
-Belvedere glacier site. During these tests, the system proved to be autonomous, robust to
-sudden shutdowns, cold-resistant, water-resistant, and self-sufficient for a prolonged
-period with no direct sunlight on the solar panels. 
-Specifically, in the absence of sunlight, the battery can power the system for about nine days before it is completely discharged. 
+The system was subject to several tests before being used in its final application at the Belvedere glacier site. During these tests, the system proved to be autonomous, robust to sudden shutdowns, cold-resistant, water-resistant, and self-sufficient for a prolonged period with no direct sunlight on the solar panels. 
+Specifically, without sunlight, the battery can power the system for about nine days before it is completely discharged. 
 Battery voltage and temperatures of components were monitored, simulating the absence of solar radiation and low environmental temperatures.
-Figure \ref{fig:4:nominal_performance} shows the performances of the system during these tests.
+\figref{fig:4:nominal_performance} shows the system's performances during these tests.
 
 \begin{figure}[ht!]
   \centering
   \includegraphics[width=.6\textwidth]{nominal.png}
   \caption{Battery voltage and temperature of boards with and without the solar panel during a period of tests. 
   Starting from a fully charged condition, the system was kept without the solar panel at around 2 °C for the first six days.
-  After nine days, the battery was fully discharged and the system was reconnected to the panel and exposed to solar radiation.}
+  After nine days, the battery was fully discharged, and the system was reconnected to the panel and exposed to solar radiation.}
   \label{fig:4:nominal_performance}
 \end{figure}
 
 \subsection{The choice of the camera}\label{camera}
 
 The choice of the DSLR camera and the optics can be considered application-dependent.
-Therefore specifications regarding these components are reported as referring to the Belvedere glacier case study. 
-Each monitoring station was equipped with a DSLR camera Canon EOS 2000D, with 24.1 MP CMOS \mbox{APS-C} sensor. 
-This model was chosen because of the limited costs, the high image resolution, and its compactness, as it must fit inside the case. 
-Additionally, another fundamental requirement was camera compatibility with the \textit{gPhoto2} software. 
-The choice of the lenses is mostly site-specific, as it is driven by the required GSD of the images, in addition
-to dimensional constraints that limit the choices of the optics to rather small lenses that can fit into the protective case.
+Therefore, specifications regarding these components refer to the Belvedere glacier case study. 
+Each monitoring station had a DSLR camera, Canon EOS 2000D, with 24.1 MP CMOS \mbox{APS-C} sensor. 
+This model was chosen because of its limited costs, high image resolution, and compactness, as it must fit inside the case. 
+Another fundamental requirement was camera compatibility with the \textit{gPhoto2} software. 
+The choice of the lenses is mostly site-specific, as it is driven by the required GSD of the images. 
+In addition, dimensional constraints limit the choices of the optics to rather small lenses that can fit into the protective case.
 The lenses chosen for the two cameras are described in \secref{sec:4:siteselection}.
 
 In the installation inside the system case, the traditional rechargeable battery was replaced by a special battery 
-(”fake battery”) equipped with a power supply cable, which provides a voltage of 7.5 V from the circuit. 
-The camera is attached to a sliding plate able to vary, with a limited range, and then fix the position of the camera 
-on the longitudinal axis. Screws fix the camera to the plate and the plate to the case.
+(”fake battery”) equipped with a power supply cable that provides 7.5V from the circuit. 
+The camera is attached to a sliding plate that can vary within a limited range but that fixes the camera orientation along the longitudinal axis. 
+Screws fix the camera to the plate and the plate to the case.
+
+It is worth mentioning the performance of the system in terms of costs: our monitoring system can be fully reproduced with an average cost of \texteuro2000 per station (November 2023), including camera (\texteuro400), lens (\texteuro500) and material for the on-site installation (\texteuro150).
+In comparison, commercial time-lapse cameras are expensive (e.g., PhotoSentinel\footnote{PhotoSentinel: \url{https://photosentinel.com/}} cameras cost more than \$ 5,000.00) and hardly customizable. 
 
 \subsection{Site selection for permanent installation}\label{sec:4:siteselection}
 
@@ -338,7 +298,10 @@ Another critical consideration for a good acquisition geometry is the baseline (
 This distance should be sufficiently large relative to the camera-object distance to avoid compromising depth estimation accuracy due to narrow perspective ray intersection. 
 Consequently, installing the cameras close together on the same side of the glacier was not feasible.
 
-\begin{figure}
+Ultimately, two large boulders located on opposite moraines flanking the glacier's terminal lobe were identified as the only suitable and stable locations (\figref{fig:4:studyarea}).
+The cameras, labeled as C1 and C2 (\tabref{tab:4:cameras}), were installed in July 2021 approximately at \SI{\sim230}{\meter} and \SI{\sim350}{\meter} from the terminal ice cliff, respectively, with a strongly convergent pose.
+
+\begin{figure}[ht]
   \centering
   \subcaptionbox{\label{fig:4:studyarea:map}}{
     \includegraphics[width=.3\textwidth]{2_geographic_framework.png}
@@ -351,14 +314,7 @@ Consequently, installing the cameras close together on the same side of the glac
   \label{fig:4:studyarea}
 \end{figure}
 
-Ultimately, two large boulders located on opposite moraines flanking the glacier's terminal lobe were identified as the only suitable and stable locations (\figref{fig:4:studyarea}).
-The cameras, labeled as C1 and C2, were installed in July 2021 approximately at \SI{\sim230}{\meter} and \SI{\sim350}{\meter} from the terminal ice cliff respectively, with a strongly convergent pose~\figref{fig:4:studyarea}.
-
-To ensure comparable Ground Sample Distance (GSD) of the images (\SI{\sim 3.5}{\centi\meter\per\pixel}), lenses with different focal lengths were employed. 
-A Canon EF 24 mm f/2.8 IS USM was used for camera C1 (stream-wise right) and a Canon EF 35 mm f/2 IS USM was used for camera C2 (stream-wise left).
-A summary of the characteristics of the cameras and lenses employed is provided in \tabref{tab:4:cameras}.
-
-\begin{table}
+\begin{table}[ht]
   \centering
   \caption{Summary of the characteristics of the two cameras.
     Fields marked with $^*$ are computed considering the distance between each camera and
@@ -385,16 +341,14 @@ A summary of the characteristics of the cameras and lenses employed is provided 
   \end{tabular}
 \end{table}
 
-The baseline between the two cameras of \SI{\sim 261}{\meter} ensured a good
-viewing geometry because of the large parallax between corresponding points.
-However, the baseline comparable to the camera-object distance (base-height ratio close
-to \(1\), \tabref{tab:4:cameras}) led to complex affinity-like distortions and occlusions
-between corresponding areas in the two images~\citep{Yao_2021}.
-Additionally, C1 was positioned at a lower viewpoint compared to C2, due to
-site geometry constraints.
-Therefore, camera C1 provides a limited view that primarily encompasses the frontal ice
-cliff, but does not capture the glacier surface, which is only visible from camera C2.
+To ensure comparable Ground Sample Distance (GSD) of the images (\SI{\sim 3.5}{\centi\meter\per\pixel}), lenses with different focal lengths were employed. 
+Camera C1 (streamwise right) was equipped with a Canon EF 24 mm f/2.8 IS USM, and camera C2 (streamwise left) had a Canon EF 35 mm f/2 IS USM.
+A summary of the cameras and lenses' characteristics is provided in \tabref{tab:4:cameras}.
 
+The baseline between the two cameras of \SI{\sim 261}{\meter} ensured a good viewing geometry because of the large parallax between corresponding points.
+However, the baseline comparable to the camera-object distance (base-height ratio close to \(1\), \tabref{tab:4:cameras}) led to complex affinity-like distortions and occlusions between corresponding areas in the two images~\citep{Yao_2021}.
+Additionally, C1 was positioned at a lower viewpoint compared to C2, due to site geometry constraints.
+Therefore, camera C1 provides a limited view that primarily encompasses the frontal ice cliff but does not capture the glacier surface, which is only visible from camera C2 (\figref{fig:4:studyarea:pic}).
 
 \subsection{Camera installation}\label{sec:4:cameramonumentation}
 The cameras were mounted on large, stable rocks along the moraines using aluminum topographic tripods anchored with steel dowels and cables (\figref{fig:4:final_installation}). 
@@ -402,14 +356,20 @@ A central steel tie rod secures each system.
 This agile installation approach allows for relatively easy on-site assembly and disassembly within the challenging environment, minimizing cost and time requirements. 
 The equipment was transported to the site via backpacks, often traversing unmarked terrain.
 
-Despite these efforts, analysis of the acquired images revealed minor instability in both cameras, particularly small rotations around the vertical axis and wind-induced vibrations. While achieving perfect stability in a mountain environment is challenging, the use of GCPs located in stable areas will enable the estimation of camera orientation during image processing.
+Despite these efforts, analysis of the acquired images revealed minor instability in both cameras, particularly small rotations around the vertical axis and wind-induced vibrations. 
+While achieving perfect stability in a mountain environment is challenging, the use of GCPs located in stable areas will enable the estimation of camera orientation during image processing.
+
+The final prototype of the monitoring station is shown in \figref{fig:4:final_installation}.
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[width=.2\columnwidth]{finale1.pdf}
-  \includegraphics[width=0.3\columnwidth]{centralina.jpg} \\
-  \centering{(a)\hspace{30mm}(b)}\\ \vspace{1mm}
-  \caption{(a) Picture of the monitoring unit prototype installed for tests at the Belvedere Glacier site. (b) Picture of the final installation of the camera installed on the stream-wise right moraine.}
+  \subcaptionbox{}{
+    \includegraphics[width=.2\columnwidth]{finale1.pdf}
+  } \quad
+  \subcaptionbox{}{
+    \includegraphics[width=0.3\columnwidth]{centralina.jpg}
+  }
+  \caption{(a) Picture of the monitoring unit prototype installed for tests at the Belvedere Glacier site. (b) Picture of the final installation of the camera installed on the streamwise right moraine.}
   \label{fig:4:final_installation}
 \end{figure}
 
@@ -422,7 +382,7 @@ Despite these efforts, analysis of the acquired images revealed minor instabilit
 % easily assembled on site (and also disassembled, if needed), also in a harsh environment,
 % with limited costs and time.
 % To install the cameras, in fact, all the equipment was carried in backpacks along the
-% moraines, sometimes without a marked walking path (e.g., in the case of the stream-wise
+% moraines, sometimes without a marked walking path (e.g., in the case of the streamwise
 % left camera).
 % As a drawback, the analysis of the acquired photos revealed a non-optimal stabilization
 % of the two cameras.
@@ -443,61 +403,49 @@ Despite these efforts, analysis of the acquired images revealed minor instabilit
 % Therefore, camera C1 provides a limited view that primarily encompasses the frontal ice
 % cliff, but does not capture the glacier surface, which is only visible from camera C2.
 
-\subsection{System operation and cost-effectiveness}
+% \subsection{System operation and cost-effectiveness}
 
-The stereoscopic system was operating from August 2021 up to December 2022, when it was
-temporarily unmounted for ordinary maintenance, and finally mounted again in June 2023.
-During the operational period, the system was programmed to acquire two images per day,
-but only one image per day was used for the multitemporal processing.
-Only daily images taken during the snow-free period between 01/05/2022 and
-13/11/2022 were considered.
-In this period, the glacier experienced the most significant changes, flow velocity
-and ablation rates. On the other hand, during winter and spring seasons, the glacier was
-covered by snow, making it difficult to extract relevant information from optical images
-for tasks such as 3D reconstruction and surface velocity estimation.
-
-It is worth mentioning the performance of the system in terms of costs: our monitoring system can be fully reproduced with an average cost of \texteuro2000 per station (November 2023), including camera (\texteuro400), lens (\texteuro500) and material for the on-site installation (\texteuro150).
-In comparison, commercial time-lapse cameras are expensive
-(e.g., PhotoSentinel\footnote{PhotoSentinel: \url{https://photosentinel.com/}} cameras cost more than \$ 5,000.00) and hardly customizable.
-The final prototype of the monitoring station is shown in Figure
-\ref{fig:4:final_installation}.
+The stereoscopic system operated from August 2021 until December 2022, when it was temporarily unmounted for ordinary maintenance and finally mounted again in June 2023.
+During the operational period, the system was programmed to acquire two images per day, but only one image per day was used for the multitemporal processing.
+Only daily images taken during the snow-free period between 01/05/2022 and 13/11/2022 were considered.
+In this period, the glacier experienced the most significant flow velocity and ablation rate changes. 
+On the other hand, during winter and spring seasons, the glacier was covered by snow, making it difficult to extract relevant information from optical images for tasks such as 3D reconstruction and surface velocity estimation.
 
 \section{Datasets}\label{sec:4:datasets}
 
+
+
+
 \subsection{Stereoscopic image sequences}\label{sec:4:stereo}
 
-During the snow-free study period (from 1/05/2022 to 13/11/2022), both camera C1 and
-camera C2 were able to acquire images every day, for a total of 197 images. However, 39
-images were discarded due to bad weather conditions, such as rain, low clouds, or fog,
-resulting in 158 days with valid data for stereo and monoscopic processing.
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=162mm]{4_discardes_shots.png}
+  \caption{Days with images acquired by the two cameras C1 and C2. Valid shots are
+    represented with dark colors, while discarded days due to bad weather conditions are
+    represented with light colors.}
+  \label{fig:4:discardes_shots}
+\end{figure}
+
+During the snow-free study period (from 1/05/2022 to 13/11/2022), both camera C1 and camera C2 acquired 197 images daily. 
+However, 39 images were discarded due to bad weather conditions, such as rain, low clouds, or fog, resulting in 158 days with valid data for stereo and monoscopic processing (\figref{fig:4:discardes_shots}).
 
 \subsection{UAV surveys}\label{sec:4:uavsurveys}
 
-Two UAV flights, spaced by a 10-day interval, were conducted in the summer 2022 to acquire
-ground truth data for assessing the proposed methodology.
-The first UAV flight, labeled as UAV-A, was carried out on 28/07/2022 with a DJI
-Matrice 300 RTK quadcopter and a DJI Zenmuse P1 camera with a 35 mm lens.
-During the survey, 436 images were captured, encompassing both nadiral and oblique
-perspectives.
-Additionally, 19 Ground Control Points (GCPs) were measured using a combination of a
-total station and Differential GPS (DGPS), employing a topographic-grade
-GNSS receiver.
+Two UAV flights, spaced by a 10-day interval, were conducted in the summer of 2022 to acquire ground truth data for assessing the proposed methodology.
+The first UAV flight, labeled as UAV-A, was carried out on 28/07/2022 with a DJI Matrice 300 RTK quadcopter and a DJI Zenmuse P1 camera with a 35 mm lens.
+During the survey, 436 images were captured, encompassing both nadiral and oblique perspectives.
+Additionally, 19 GCPs were measured using a combination of a total station and Differential GPS (DGPS), employing a topographic-grade GNSS receiver.
 The GCPs included both artificial targets and natural features.
-During the flight, the UAV was equipped with an onboard RTK GNSS receiver, enabling the
-acquisition of camera projection centers with decimetric accuracy.
-The photogrammetric block (\figref{fig:4:uavblocks}a) was processed with the commercial
-software package Agisoft Metashape \citep{agisoft} by using 14 GCPs and 5 Check Points
-(CPs) to evaluate the block accuracy.
+During the flight, the UAV was equipped with an onboard RTK GNSS receiver, enabling the acquisition of camera projection centers with decimetric accuracy.
+The photogrammetric block (\figref{fig:4:uavblocks}a) was processed with the commercial software package Agisoft Metashape \citep{agisoft} by using 14 GCPs and 5 CPs to evaluate the block accuracy.
 The global RMSE evaluated on the CPs was equal to 4.0 cm.
 
-The second UAV flight, UAV-B, was carried out on 05/08/2022 with a DJI Phantom
-4 RTK, focusing on a smaller portion of the northern lobe of the Belvedere Glacier.
-However, due to technical constraints, \textit{moving} GCPs located inside the
-glacier body were not measured again.
+The second UAV flight, UAV-B, was carried out on 05/08/2022 with a DJI Phantom 4 RTK, focusing on a smaller portion of the northern lobe of the Belvedere Glacier.
+However, due to technical constraints, \textit{moving} GCPs located inside the glacier body were not measured again.
 Therefore, only the fixed targets located outside the glacier were employed.
 Among these, 8 targets were designated as GCPs, while the remaining 4 were used as CPs.
-The photogrammetric block encompassed 428 nadiral and oblique images, which
-were processed using Agisoft Metashape (\figref{fig:4:uavblocks}b).
+The photogrammetric block encompassed 428 nadiral and oblique images, which were processed using Agisoft Metashape (\figref{fig:4:uavblocks}b).
 A global RMSE of 7.5 cm was obtained on the 4 CPs.
 
 \begin{figure}
@@ -516,16 +464,11 @@ A global RMSE of 7.5 cm was obtained on the 4 CPs.
 
 \subsection{Meteorological monitoring station}\label{sec:4:meteostation}
 
-To analyze the correlation between the Belvedere Glacier dynamics and
-external environmental variables, data measured from an Automatic Weather Station (AWS)
-located close to the Zamboni Zappa Hut were used.
-The AWS is located at an altitude of \SI{2075}{\masl} and at a distance of
-2 km from the area of study.
-The data from the AWS can be downloaded from the Arpa Piemonte
-website\footnote{\url{https://www.arpa.piemonte.it/rischi_naturali/snippets_arpa_graphs/dati_giornalieri_meteo/?statid=PIE-003086-906-2007-07-05&param=T}}.
-In our study, we analyzed mean daily values of air temperature, precipitation and
-incoming solar radiation from 01/05/22 to 15/11/22.
-
+To analyze the correlation between the Belvedere Glacier dynamics and external environmental variables, data measured from an Automatic Weather Station (AWS)
+located close to the Zamboni Zappa Hut were used. 
+The AWS is located at an altitude of \SI{2075}{\masl} and at a distance of 2 km from the area of study.
+The data from the AWS can be downloaded from the Arpa Piemonte website\footnote{\url{https://www.arpa.piemonte.it/rischi_naturali/snippets_arpa_graphs/dati_giornalieri_meteo/?statid=PIE-003086-906-2007-07-05&param=T}}.
+In our study, we analyzed mean daily values of air temperature, precipitation, and incoming solar radiation from 01/05/22 to 15/11/22.
 
 \section{Methodology}\label{sec:4:methodology}
 This chapter outlines the methodology developed to monitor the evolution of the Belvedere
@@ -542,9 +485,7 @@ primarily provides a 3D reconstruction of the terminal ice cliff (dashed-blue ar
 \figref{fig:4:studyarea}b).
 Consequently, deriving the 3D surface velocity field of the glacier solely from
 photogrammetry was not feasible.
-The image sequence captured by camera C2, which offer a higher viewpoint and a broader coverage of the glacier surface, was employed to determine the glacier's surface velocity
-over a larger area of the north lobe of the Belvedere Glacier (dashed-green area in
-\figref{fig:4:studyarea}b).
+The image sequence captured by camera C2, which offers a higher viewpoint and a broader coverage of the glacier surface, was employed to determine the glacier's surface velocity over a larger area of the north lobe of the Belvedere Glacier (dashed-green area in \figref{fig:4:studyarea}b).
 
 \begin{figure*}[ht]
   \centering
@@ -558,83 +499,48 @@ over a larger area of the north lobe of the Belvedere Glacier (dashed-green area
 
 \subsection{Image selection}\label{sec:4:imageselection}
 
-Once the acquired images have been received from the monitoring system, an
-automatic selection of the images was performed to exclude the ones acquired in rainy,
-foggy, or poor lighting conditions.
-This selection was based on the analysis of images' median
-entropy~\citep{tsai2008entropy}:
+Once the acquired images have been received from the monitoring system, an automatic selection of the images was performed to exclude the ones acquired in rainy,
+foggy, or poor lighting conditions. 
+This selection was based on the analysis of the images' median entropy~\citep{tsai2008entropy}:
 the images with a low value over the entire image were rejected.
 Additionally, a visual inspection was performed on the entire image dataset.
 The inspection had the following objectives:
 (i) selecting only one image per day;
 (ii) rejecting poor-quality images that were not automatically rejected,
 and images in which the fixed targets placed along the moraines were not visible;
-(iii) detecting sudden changes in the morphology of the glacier
-terminus (e.g., icefall).
+(iii) detecting sudden changes in the morphology of the glacier terminus (e.g., icefall).
 
 \subsection{Camera calibration}\label{sec:4:cameracalibration}
 
-Each camera was mounted with all its electronics inside a waterproof case and protected
-by a neutral filter that was glued to the case and fixed in front of the cameras.
-Since the filter introduced additional distortion, the cameras need to be calibrated
-inside the boxes to reproduce the final setup.
-Therefore, a two-step approach was taken: first, a 120 cm x 70 cm calibration board with
-a checkerboard printed on it was used to estimate an initial set of parameters for the
-interior orientation \citep{zhang_flexible_2000}.
-To this end, the cameras were mounted on tripods inside their cases while the calibration
-board was moved and rotated in front of the camera to simulate a convergent hemispheric
-acquisition.
-For each camera, about 30 images were collected and processed in Agisoft Metashape to
-obtain a first estimate of the interior orientation.
-However, the average camera-to-panel distance was much smaller than the actual
-camera-to-glacier distance.
-Therefore, a refinement of the calibration was performed in situ by incorporating the
-stereo pair acquired by the cameras on 28/07/22, within the UAV-A block, carried out on
-the same day.
-This block was processed with Agisoft Metashape to refine the interior camera
-orientation of the stereo cameras, aided by the increased robustness of the block given
+Each camera was mounted with all its electronics inside a waterproof case and protected by a neutral filter that was glued to the case and fixed in front of the cameras.
+Since the filter introduced additional distortion, the cameras must be calibrated inside the boxes to reproduce the final setup.
+Therefore, a two-step approach was taken: first, a 120 cm x 70 cm calibration board with a checkerboard printed on it was used to estimate an initial set of parameters for the interior orientation \citep{zhang_flexible_2000}.
+To this end, the cameras were mounted on tripods inside their cases while the calibration board was moved and rotated in front of the camera to simulate a convergent hemispheric acquisition.
+About 30 images were collected and processed in Agisoft Metashape for each camera to obtain a first estimate of the interior orientation.
+However, the average camera-to-panel distance was much smaller than the actual camera-to-glacier distance.
+Therefore, a calibration refinement was performed in situ by incorporating the stereo pair acquired by the cameras on 28/07/22 within the UAV-A block, carried out on the same day.
+This block was processed with Agisoft Metashape to refine the interior camera orientation of the stereo cameras, aided by the increased robustness of the block given
 by the additional matches between the two images taken by cameras C1 and C2 and the UAV.
 
-An additional challenge was represented by camera interior orientation stability over
-time.
-From experimental evidence, the interior orientation parameter that suffered the most
-because of temperature variations that occur in a mountain environment
-was the camera principal distance \citep{Elias2020}, while the other parameters
-remained more stable over time.
-To mitigate the impact of temperature-induced variations, it was crucial to incorporate
-camera self-calibration during the stereoscopic processing at each epoch to refine the
-pre-calibrated principal distance.
+An additional challenge was represented by camera interior orientation stability over time.
+From experimental evidence, the interior orientation parameter that suffered the most because of temperature variations that occur in a mountain environment was the camera principal distance \citep{Elias2020}, while the other parameters remained more stable over time.
+To mitigate the impact of temperature-induced variations, it was crucial to incorporate camera self-calibration during the stereoscopic processing at each epoch to refine the pre-calibrated principal distance.
 
 \subsection{Camera stability and GCPs}\label{sec:4:stability}
 
-Since the two cameras were mounted on topographic tripods, the stability of the cameras
-was not perfectly guaranteed. In particular, the two cameras experienced small vibrations
-around their pivots due to wind gusts.
-On the other hand, the position of the cameras was constrained by topographic heads that
-kept the position of the camera center constant at the centimeter level.
-Therefore, the baseline of the cameras can be reasonably considered as constant, with a
-value of \SI{261.55}{\meter}.
-On the other hand, camera angular vibrations implied that the relative orientation of the
-cameras must be estimated at each epoch.
+Since the two cameras were mounted on topographic tripods, their stability was not perfectly guaranteed. In particular, the two cameras experienced small vibrations around their pivots due to wind gusts.
+On the other hand, the position of the cameras was constrained by topographic heads that kept the position of the camera center constant at the centimeter level.
+Therefore, the baseline of the cameras can be reasonably considered constant, with a value of \SI{261.55}{\meter}.
+On the other hand, camera angular vibrations implied that the relative orientation of the cameras must be estimated at each epoch.
 Moreover, to fix the world reference system over time, the absolute orientation of the stereo model was required.
-To this end, the position of the cameras was measured in situ using a topography-grade
-GNSS receiver in RTK.
-In addition, four GCPs were materialized with plastic targets, anchored to stable rocks
-in front of the terminal ice cliff and along the streamwise left
-moraine (\figref{fig:4:studyarea}a).
-While the minimum requirement to estimate a Helmert transformation would have been just
-the two cameras' location and one one GCP, having a redundant number of GCPs overcomes
-the possibility that on some days not all GCPs were clearly visible in the images due 
-to low clouds or fog.
-Additionally, GCPs can be included in the BA to refine the cameras' interior
-orientation, and in particular the camera's focal length.
+To this end, the position of the cameras was measured in situ using a topography-grade GNSS receiver in RTK.
+In addition, four GCPs were materialized with plastic targets, anchored to stable rocks in front of the terminal ice cliff and along the streamwise left moraine (\figref{fig:4:studyarea}a).
+While the minimum requirement to estimate a Helmert transformation would have been just the two cameras' location and one GCP, having a redundant number of GCPs overcomes the possibility that, on some days, not all GCPs were clearly visible in the images due to low clouds or fog.
+Additionally, GCPs can be included in the BA to refine the cameras' interior orientation, particularly their focal length.
 
-As the cameras are subjected to slight rotations, the image coordinates of the GCPs'
-projections must be detected at each epoch.
-To this end, a feature tracking routine was developed based on the ImGRAFT TemplateMatch
-method~\citep{Messerli2015} to track a GCP on all images in the time series by DIC. 
-This involves defining a template on a reference image and search 
-orientation correlation algorithm~\citep{fitch2002_OC}, which is more robust against illumination changes compared to normalized cross-correlation and achieves sub-pixel accuracy~\citep{Dematteis2021, Heid2012_evaluation_xcorr}.
+As the cameras are subjected to slight rotations, the image coordinates of the GCPs' projections must be detected at each epoch.
+To this end, a feature tracking routine was developed based on the ImGRAFT TemplateMatch method~\citep{Messerli2015} to track a GCP on all images in the time series by DIC (\figref{fig:4:templatematch}). 
+This involves defining a template on a reference image and search orientation correlation algorithm~\citep{fitch2002_OC}, which is more robust against illumination changes compared to normalized cross-correlation and achieves sub-pixel accuracy~\citep{Dematteis2021, Heid2012_evaluation_xcorr}.
 
 \begin{figure}
     \centering
@@ -665,58 +571,34 @@ In particular, the main steps consist of:
 (i) finding corresponding points by deep-learning feature matching;
 (ii) tracking features on the sequence of images acquired from the same camera;
 (iii) performing 3D scene reconstruction and point cloud post-processing.
-All the processing was carried out with a mid-class workstation equipped with a 20-core
-i7-12700 CPU, 32~Gb of DDR5 RAM and a GPU NVIDIA RTX A2000 12~GB.
+All the processing was done with a mid-class workstation equipped with a 20-core i7-12700 CPU, 32~Gb of DDR5 RAM and a GPU NVIDIA RTX A2000 12~GB.
 
 \subsubsection{Wide-baseline image matching}\label{sec:4:matching}
 
-To find corresponding points, the combination of DL feature-matching algorithms
-SuperPoint \citep{DeTone_2018} and SuperGlue \citep{sarlin2020superglue} was used and
+To find corresponding points, the combination of DL feature-matching algorithms SuperPoint \citep{DeTone_2018} and SuperGlue \citep{sarlin2020superglue} was used, and
 fully integrated into the ICEpy4D package.
-SuperPoint is a Convolutional Neural Network (CNN) with an encoder-decoder
-structure, which detects interesting points and computes 256-value descriptors in a
-single forward pass.
-\citet{DeTone_2018} trained SuperPoint to detect corner-like features first using corners
-of synthetic shape datasets as ground truth.
-They employed a self-supervised approach by applying random homographies to warped
-copies of the input training images and combining the results \citep{DeTone_2018}.
+SuperPoint is a Convolutional Neural Network (CNN) with an encoder-decoder structure, which detects interesting points and computes 256-value descriptors in a single forward pass.
+\citet{DeTone_2018} trained SuperPoint to detect corner-like features first using corners of synthetic shape datasets as ground truth.
+They employed a self-supervised approach by applying random homographies to warped copies of the input training images and combining the results \citep{DeTone_2018}.
 SuperGlue is an attention-based graph CNN used for local feature matching.
 It was specifically designed to match SuperPoint features based on their descriptors.
-\citet{sarlin2020superglue} trained SuperGlue in a supervised manner and published two
-different sets of weights: one for indoor environments and another for outdoor
-environments.
-The outdoor environment model was trained on the Megadepth dataset
-\citep{Li_Snavely_2018_MegaDepth}.
+\citet{sarlin2020superglue} trained SuperGlue in a supervised manner and published two different sets of weights: one for indoor environments and another for outdoor environments.
+The outdoor environment model was trained on the Megadepth dataset \citep{Li_Snavely_2018_MegaDepth}.
 
-The SuperPoint and SuperGlue models were not fine-tuned to ensure the replicability of
-the proposed pipeline in different scenarios, without the need for a
-dedicated ground truth dataset.
-Acquiring a ground truth dataset may be can be challenging, especially for natural
-scenarios and mountain environments.
-Typically, generating datasets for training wide baseline matching requires collecting a
-substantial number of image sequences with a normal baseline and artificially creating a
-wide baseline by skipping intermediate images.
-However, this approach would demand numerous field campaigns to capture series of UAV
-images under different environmental conditions and throughout various seasons, making it
-generally unfeasible.
-Moreover, the matching results obtained with the Belvedere stereo pairs were already
-satisfactory using pre-trained weights for outdoor environments without any fine-tuning
-(see results in \secref{sec:4:res_matching}).
+The SuperPoint and SuperGlue models were not fine-tuned to ensure the replicability of the proposed pipeline in different scenarios without the need for a dedicated ground truth dataset.
+Acquiring a ground truth dataset can be challenging, especially for natural scenarios and mountain environments.
+Typically, generating datasets for training wide baseline matching requires collecting a considerable number of image sequences with a normal baseline and artificially creating a wide baseline by skipping intermediate images.
+However, this approach would demand numerous field campaigns to capture a series of UAV images under different environmental conditions and throughout various seasons, making it generally unfeasible.
+Moreover, the matching results obtained with the Belvedere stereo pairs were already satisfactory using pre-trained weights for outdoor environments without any fine-tuning (see results in \secref{sec:4:res_matching}).
 
-Since feature matching was performed on a GPU, which has limited memory, it was necessary
-to decompose the full-resolution images into smaller tiles and match pairs of tiles one
-after the other.
-Therefore, a two-steps approach was implemented: first, a matching is performed with
-SuperPoint and SuperGlue on downsampled images. Subsequently, the
-full-resolution images were subdivided into regular tiles, and only the tiles that had
-corresponding features in the low-resolution images were selected as candidates for a
-second matching step.
+Since feature matching was performed on a GPU with limited memory, it was necessary to decompose the full-resolution images into smaller tiles and match pairs of tiles one after the other.
+Therefore, a two-step approach was implemented: first, a matching is performed with SuperPoint and SuperGlue on downsampled images. Subsequently, the
+full-resolution images were subdivided into regular tiles, and only the tiles with corresponding features in the low-resolution images were selected as candidates for a second matching step.
 In the second step, the selected tiles were matched using the same procedure as before.
-The features matched in each tile were then reassembled to recover their image
-coordinates on the original image for geometric verification.
-Incorrectly matched keypoints, which did not satisfy the epipolar constraint, were
-rejected using Pydegensac~\citep{Mishkin2015_pydegensac}, by imposing a maximum
-re-projection error of 1.5 px.
+The features matched in each tile were then reassembled to recover their image coordinates on the original image for geometric verification.
+Incorrectly matched keypoints, which did not satisfy the epipolar constraint, were rejected using Pydegensac~\citep{Mishkin2015_pydegensac}, by imposing a maximum re-projection error of 1.5 px.
+
+\subsubsection{Tracking points over epochs}\label{sec:4:tracking}
 
 \begin{figure}[ht]
   \centering
@@ -734,63 +616,37 @@ re-projection error of 1.5 px.
   \label{fig:4:tracking}
 \end{figure}
 
-\subsubsection{Tracking points over epochs}\label{sec:4:tracking}
-
-Matched points are tracked over time on single camera image time series
-(\figref{fig:4:tracking}).
-This procedure led to two main advantages: (i) increasing the number of matches
-at every epoch; (ii) obtaining a time-series of corresponding points that can be
+Matched points are tracked over time on single-camera image time series (\figref{fig:4:tracking}).
+This procedure led to two main advantages: (i) increasing the number of matches at every epoch; (ii) obtaining a time series of corresponding points that can be
 triangulated to derive their 3D coordinates over time.
-For brevity, images are labeled with the camera labels \(C1\) and \(C2\), while a
-superscript indicates the acquisition epoch.
-At a generic epoch \(i\), keypoints were detected and
-matched between images \(C1^i\) and \(C2^i\) with the procedure described
-in \secref{sec:4:matching}.
+For brevity, images are labeled with the camera labels \(C1\) and \(C2\), while a superscript indicates the acquisition epoch.
+At a generic epoch \(i\), keypoints were detected and matched between images \(C1^i\) and \(C2^i\) with the procedure described in \secref{sec:4:matching}.
 SuperPoint features were then extracted on \(C1^{(i+1)}\) and \(C2^{(i+1)}\).
-Valid matched features from \(C1^i\) were tracked to \(C1^{(i+1)}\), by matching their
-descriptors with the SuperGlue algorithm.
+Valid matched features from \(C1^i\) were tracked to \(C1^{(i+1)}\), by matching their descriptors with the SuperGlue algorithm.
 The same holds for camera \(C2\).
-If a matched feature at epoch \(i\) was tracked successfully both from images
-\(C1^i\) to \(C1^{(i+1)}\) and from images \(C2^i\) to \(C2^{(i+1)}\), then this feature
-was considered a valid match also for epoch \(i+1\) and merged to the new corresponding
-features detected at epoch \(i+1\).
-Duplicate features (e.g., a feature that was successfully tracked from epoch \(i\) to
-epoch \(i+1\) but also matched again at epoch \(i+1\)) were removed and a new geometric
-verification was carried out to reject outliers.
+If a matched feature at epoch \(i\) was tracked successfully both from images \(C1^i\) to \(C1^{(i+1)}\) and from images \(C2^i\) to \(C2^{(i+1)}\), then this feature
+was considered a valid match also for epoch \(i+1\) and merged to the new corresponding features detected at epoch \(i+1\).
+Duplicate features (e.g., a feature that was successfully tracked from epoch \(i\) to epoch \(i+1\) but also matched again at epoch \(i+1\)) were removed and a new geometric verification was carried out to reject outliers.
 
 \subsubsection{3D scene reconstruction}\label{sec:4:3dreconstruction}
 
-At each epoch, the reconstruction of the terminal ice cliff was carried out using ICEpy4D
-in two main steps: (i) relative-absolute orientation, and (ii) bundle adjustment.
-In the first step, matches between each stereo pair were utilized to estimate the
-relative pose of the two cameras, based on the camera's pre-calibrated intrinsic matrix.
-Subsequently, the absolute orientation was determined by calculating a Helmert
-transformation, considering the cameras' locations and the available GCPs.
-In the second step, a full BA was performed to refine the relative-absolute solution. For this purpose, the Agisoft Metashape software package was employed via its Python API.
-The choice of Agisoft Metashape was driven by its support for GCPs, the possibility to
-assign different a-priori weights to observations, and the availability of a Python API,
-enabling the software to be run from a Python routine in headless mode.
-The Metashape BA was seamlessly integrated into ICEpy4D, enabling the entire workflow
-chain to run automatically without any interaction with the GUI.
+At each epoch, the terminal ice cliff was reconstructed using ICEpy4D in two main steps: (i) relative-absolute orientation and (ii) bundle adjustment.
+In the first step, matches between each stereo pair were utilized to estimate the relative pose of the two cameras based on the camera's pre-calibrated intrinsic matrix.
+Subsequently, the absolute orientation was determined by calculating a Helmert transformation, considering the cameras' locations and the available GCPs.
+A full BA was performed in the second step to refine the relative-absolute solution. For this purpose, the Agisoft Metashape software package was employed via its Python API.
+The choice of Agisoft Metashape was driven by its support for GCPs, the possibility to assign different a-priori weights to observations, and the availability of a Python API, enabling the software to be run from a Python routine in headless mode.
+The Metashape BA was seamlessly integrated into ICEpy4D, enabling the entire workflow chain to run automatically without any interaction with the GUI.
 
 During the BA, the cameras' locations and the available GCPs were used as observations.
 A centimetric a-priori accuracy was assigned to the world coordinates of the GCPs.
-A centimetric accuracy was also given to the camera locations to constrain their
-positions, while still allowing for an estimation of the cameras' rotations.
-Additionally, during the BA process, the principal distance of the
-two cameras were refined by self-calibration based on the available GCPs, while the
-remaining interior orientation parameters were kept fixed at their pre-calibrated values.
+A centimetric accuracy was also given to the camera locations to constrain their positions while still allowing for an estimation of the cameras' rotations.
+Additionally, during the BA process, the principal distance of the two cameras was refined by self-calibration based on the available GCPs, while the remaining interior orientation parameters were kept fixed at their pre-calibrated values.
 
-The dense reconstruction of the ice cliff terminus was again carried out using the
-Agisoft Metashape API.
-In fact, although Agisoft Metashape couldn't perform feature matching with wide baselines
-due to its reliance on hand-crafted features, it was effective in performing dense
-matching through semi-global matching
-algorithms~\citep{Hirschmuller2012}, when accurate camera poses were available for image
+The dense reconstruction of the ice cliff terminus was again carried out using the Agisoft Metashape API.
+In fact, although Agisoft Metashape couldn't perform feature matching with wide baselines due to its reliance on hand-crafted features, it was effective in performing dense matching through semi-global matching algorithms~\citep{Hirschmuller2012}, when accurate camera poses were available for image
 rectification.
 Depth maps were generated from full-resolution images (i.e., \textit{highest} quality parameter in Agisoft Metashape) with mild filtering.
-The estimated depth maps were then used to reconstruct a dense point cloud and a
-triangulated mesh.
+The estimated depth maps were then used to reconstruct a dense point cloud and a triangulated mesh.
 
 
 \subsection{Volume variation estimation}\label{sec:4:volumevariation}
@@ -810,16 +666,9 @@ triangulated mesh.
 
 The daily variation of ice volume was determined by DOD along the streamwise direction. 
 A local reference system was established by defining the X-direction as the streamwise direction, the Z-direction as the geodetic height, and the Y-direction to complete the right-hand reference system.
-The point clouds of two different epochs were rasterized to a reference YZ plane,
-corresponding to the frontal view of the terminal ice cliff, using a grid step of 0.3
-meters, while maintaining the same raster origin and extent (i.e., the two point clouds
-were first clipped with the same convex polygon).
-The volume change between two epochs was then calculated by differentiating the
-two rasters cell-by-cell (\figref{fig:4:dod_scheme}).
-To account for possible incomplete coverage and holes in the 3D reconstruction, which may
-result in volume underestimating, the computed volume difference was normalized by the
-percentage of filled cells (i.e., cells with at least one point in the original point
-cloud) in both rasters.
+The point clouds of two different epochs were rasterized to a reference YZ plane, corresponding to the frontal view of the terminal ice cliff, using a grid step of 0.3~m, while maintaining the same raster origin and extent (i.e., the two point clouds were first clipped with the same convex polygon).
+The volume change between two epochs was then calculated by differentiating the two rasters cell-by-cell (\figref{fig:4:dod_scheme}).
+To account for possible incomplete coverage and holes in the 3D reconstruction, which may result in volume underestimating, the computed volume difference was normalized by the percentage of filled cells (i.e., cells with at least one point in the original point cloud) in both rasters.
 The normalization was computed as in Eq.~\ref{eq:4:volumevariation}:
 
 \begin{equation}
@@ -828,45 +677,36 @@ The normalization was computed as in Eq.~\ref{eq:4:volumevariation}:
   \label{eq:4:volumevariation}
 \end{equation}
 
-where \( n_{\text{filled}} \) is the number of filled cells in both the rasters and \(
-n_{\text{total}} \) is the total number of cells within the clipping polygon.
-During the considered study period, the percentage of filled cells in the rasterized
-point clouds of the terminal ice cliff ranged from 90\% to
-98.8\%, with a mean value of 96.8\%.
+where \( n_{\text{filled}} \) is the number of filled cells in both the rasters and \(n_{\text{total}} \) is the total number of cells within the clipping polygon.
+During the considered study period, the percentage of filled cells in the rasterized point clouds of the terminal ice cliff ranged from 90\% to 98.8\%, with a mean value of 96.8\%.
 
 
 \subsubsection{Temporal lag between point clouds for volume and velocity estimation}
 \label{sec:4:timelag}
 
-To estimate volume variation and surface velocity, the point clouds were processed using pairs spaced 5 days apart.
+The point clouds were processed using pairs spaced 5 days apart to estimate volume variation and surface velocity.
 This interval was selected by the average glacier surface displacement, as computed in \secref{sec:3:res:velocity}.
 Given a decimetric accuracy of the stereo point clouds (see the results presented in \secref{sec:4:res_uav_validation}), a 5-day interval was considered appropriate to achieve a good signal-to-noise ratio.
-Therefore, each point cloud acquired on a particular day was compared to that captured 5 days earlier for volume differences computation.
+Therefore, each point cloud acquired on a particular day was compared to that captured five days earlier to compute volume differences.
 However, in case of adverse weather conditions that hindered stereo reconstruction and resulted in the unavailability of a point cloud on a certain date, the closest one acquired within a range of 5 to 7 days earlier was chosen as a substitute.
-This approach ensured a balance between preserving temporal resolution and minimizing data gaps caused by unfavorable weather conditions.
+This approach balanced preserving temporal resolution and minimizing data gaps caused by unfavorable weather conditions.
 
-To ensure consistency between volume variations and surface velocities, the same pairs of
-days utilized for estimating volume differences from point clouds were also employed for
-selecting pairs of images to compute surface velocities using DIC on a monoscopic image
-sequences (see \secref{sec:4:dic}).
+To ensure consistency between volume variations and surface velocities, the same pairs of days utilized for estimating volume differences from point clouds were also employed for selecting pairs of images to compute surface velocities using DIC on monoscopic image sequences (see \secref{sec:4:dic}).
 
 \subsection{Automatic extraction of ice cliff top edge}
 \label{sec:4:topedge}
 To calculate the glacier retreat over time, the top edge of the ice cliff was chosen as a reference point.
-This decision was made because the top edge remained rather stable and experienced
-limited changes in morphology compared to the rest of the terminal ice cliff, which is often affected by deformation and other processes that altered its shape, such as ice block collapses.
+This decision was made because the top edge remained rather stable and experienced limited changes in morphology compared to the rest of the terminal ice cliff, which is often affected by deformation and other processes that altered its shape, such as ice block collapses.
 
-The top edge of the ice cliff was automatically extracted from point clouds, by exploiting the geometric features of each point compared to its neighborhood~\citep{Hackel2016}.
-To identify elongated features situated at the edges of the ice cliff within the point cloud, the linearity, and normal change rate were computed for each point compared to a neighborhood sphere of radius 2 m. By employing empirically determined thresholds
-specifically tailored to the study site, these geometric properties facilitated the
-identification and extraction of the top edge of the glacier terminus from the point
-cloud data.
+The top edge of the ice cliff was automatically extracted from point clouds by exploiting the geometric features of each point compared to its neighborhood~\citep{Hackel2016}.
+To identify elongated features situated at the edges of the ice cliff within the point cloud, the linearity and normal change rate were computed for each point compared to a neighborhood sphere of radius 2 m. By employing empirically determined thresholds specifically tailored to the study site, these geometric properties facilitated the
+identification and extraction of the top edge of the glacier terminus from the point cloud data.
 
 \subsection{Digital Image Correlation from single cameras}
 \label{sec:4:dic}
 
 Glacier surface displacements were computed on the image sequence acquired by the monoscopic camera C2 (see \figref{fig:4:studyarea}).
-To this end, we used LAMMA \citep{Dematteis2022} and the cosine similarity applied to orientation images as a correlation function (see \secref{sec:3:method_velocity}).
+To this end, we used LAMMA \citep{Dematteis2022} and the cosine similarity applied to orientation images as a correlation function (see \secref{sec:3:method_velocity} for a description of LAMMA).
 This method offers superior robustness to shadow pattern changes and is well-suited to glacier environments \citep{Heid2012_evaluation_xcorr}.
 
 % DIC allows for determining the displacement of an image patch between two images (master
@@ -891,127 +731,63 @@ This method offers superior robustness to shadow pattern changes and is well-sui
 % sensitive to changes in the shadow pattern and it is known to perform well in glacier
 % environments \citep{Heid2012_evaluation_xcorr}.
 
-We applied DIC to the undistorted images which were corrected according to the interior
-orientation parameters estimated at every epoch within stereo BA.
-Moreover, assuming a zero-translation of the camera perspective centers, but only small
-rotations (\secref{sec:4:stability}), the transformation between the image plane at an
-arbitrary epoch with respect to a reference one (named \textit{master}) is described by a homography transformation.
-As a master image, we adopted the image taken on 28/07/2022, which was
-coeval with the DSM built from the UAV-A survey.
-All the other images acquired were warped to be coregistered to the master image,
-by computing a homography transformation \(H\) (Eq.~\ref{eq:4:homography}):
+We applied DIC to the undistorted images, which were corrected according to the interior orientation parameters estimated at every epoch within stereo BA.
+Moreover, assuming a zero-translation of the camera perspective centers, but only small rotations (\secref{sec:4:stability}), the transformation between the image plane at an arbitrary epoch with respect to a reference one (named \textit{master}) is described by a homography transformation.
+We adopted the image taken on 28/07/2022 as a master image, which was coeval with the DSM built from the UAV-A survey.
+All the other images acquired were warped to be coregistered to the master image by computing a homography transformation \(H\) (Eq.~\ref{eq:4:homography}):
 
 \begin{equation}
   H = KRK^{-1}
   \label{eq:4:homography}
 \end{equation}
 
-where \(K\) is the camera intrinsic matrix and \(R\) is the relative
-rotation between the image planes \citep{forstner2016}.
-The relative rotation \(R\) between the camera pose at a generic epoch and the pose of
-the master camera was known from stereo processing.
+where \(K\) is the camera intrinsic matrix and \(R\) is the relative rotation between the image planes \citep{forstner2016}.
+The relative rotation \(R\) between the camera pose at a generic epoch, and the pose of the master camera was known from stereo processing.
 
-The same image pairs used for volume  variation computation, spaced by a time lag of 5
-days, were selected for DIC~(\secref{sec:4:timelag}).
-The resulting displacement maps on the image plane, in pixel units, were finally
-post-processed using a local filter to remove outliers.
-To geocode the displacement maps, we used the open-source ImGRAFT Matlab toolbox
-\citep{Messerli2015}.
-Given a set of camera interior parameters (from stereo automatic calibration), ImGRAFT
-allows the projection of 3D world coordinates \((x,y,z)\) into the 2D image coordinates
-and the back projection of image coordinates onto a DSM, expressed as \(f(i,j) \to
-(x,y,z)\). Thereby, the metric conversion of the image displacement vectors, with
-components \((du,dv)\), is obtained by \(v(dx,dy,dz) = f(i+du,j+dv)-f(i,j)\), where
-\(v\) is the 3D displacement vector. The \(f\) function is a form of ray tracing, carried
-out based on the input DSM and the interior and exterior camera parameters
-\citep{Messerli2015}.
-To estimate the transformation between 2D and 3D coordinate systems,
-we adopted the DSM acquired by UAV photogrammetry on 28/07/2022,
-resampled at 1 m resolution to smooth small local DSM variations.
+The same image pairs used for volume variation computation, spaced by a time lag of 5 days, were selected for DIC~(\secref{sec:4:timelag}).
+The resulting displacement maps on the image plane, in pixel units, were finally post-processed using a local filter to remove outliers.
+To geocode the displacement maps, we used the open-source ImGRAFT Matlab toolbox \citep{Messerli2015}.
+Given a set of camera interior parameters (from stereo automatic calibration), ImGRAFT allows the projection of 3D world coordinates \((x,y,z)\) into the 2D image coordinates and the back projection of image coordinates onto a DSM, expressed as \(f(i,j) \to (x,y,z)\). Thereby, the metric conversion of the image displacement vectors, with components \((du,dv)\), is obtained by \(v(dx,dy,dz) = f(i+du,j+dv)-f(i,j)\), where \(v\) is the 3D displacement vector. The \(f\) function is a form of ray tracing carried out based on the input DSM and the interior and exterior camera parameters \citep{Messerli2015}.
+To estimate the transformation between 2D and 3D coordinate systems, we adopted the DSM acquired by UAV photogrammetry on 28/07/2022, resampled at 1 m resolution to smooth small local DSM variations.
 % The exterior orientation of the master camera was estimated based
 % on a set of 6 markers with known image and world coordinates, distributed over the
 % northern lobe. As the sequence of images was previously coregistered onto the master
 % camera, the estimated exterior orientation was kept fixed for all the other epochs.
 
-\begin{figure*}[ht!]
-  \centering
-  \includegraphics[width=162mm]{4_discardes_shots.png}
-  \caption{Days with images acquired by the two cameras C1 and C2. Valid shots are
-    represented with dark colors, while discarded days due to bad weather conditions are
-    represented with light colors.}
-  \label{fig:4:discardes_shots}
-\end{figure*}
 
 \subsubsection{Orthorectification uncertainty}
 \label{sec:4:orthorectification_uncertainty}
 
-The orthorectification of the 2D DIC displacement vectors to obtain 3D vectors is
-influenced by the chosen DSM and its associated uncertainty \citep{Travelletti2012}.
-Ideally, using an updated DSM derived from daily stereo-processing, as performed in
-\citet{Marsy2020}, would be the optimal approach.
-However, due to the camera's viewing location, it was not feasible to reconstruct the
-daily DSM of the upper surface of the glacier lobe. Consequently, we utilized the UAV-A
-DSM acquired on 28/07/2022.
+The orthorectification of the 2D DIC displacement vectors to obtain 3D vectors is influenced by the chosen DSM and its associated uncertainty \citep{Travelletti2012}.
+Ideally, using an updated DSM derived from daily stereo-processing, as performed in \citet{Marsy2020}, would be the optimal approach.
+However, due to the camera's viewing location, reconstructing the daily DSM of the upper surface of the glacier lobe was not feasible. 
+Consequently, we utilized the UAV-A DSM acquired on 28/07/2022.
 
-To estimate the uncertainty derived by the use of a single DSM over the study period, we
-conducted the following experiment: using the DSM of 28/07/2022 as the reference, we
-virtually translated the glacier DSM along the flow direction to create two synthetic
-DSMs representing the most advanced and the most retreated positions that the glacier
-snout experienced in 2022.
-The selection of these positions was based on the actual results of the stereo-processing
-(\secref{sec:4:res_volumes_retreat}): the most advanced location of the snout was
-approximately 12 meters
-downstream (May 2022), while the most retreated location was about 5 meters upstream
-(November 2022). This rigid translation of the glacier body not only affected the front
-position but also resulted in a variation in the glacier surface elevation, i.e.,
-thinning in the case of retreat.
-Subsequently, we back projected the DIC displacement values of 28/07/2022 onto the
-original DSM and the two synthetic DSMs. Finally, we compared the metric displacement
-values considering the Median Absolute Deviation (MAD) between the original and synthetic
-results.
+To estimate the uncertainty derived by the use of a single DSM over the study period, we conducted the following experiment: using the DSM of 28/07/2022 as the reference, we virtually translated the glacier DSM along the flow direction to create two synthetic DSMs representing the most advanced and the most retreated positions that the glacier snout experienced in 2022.
+The selection of these positions was based on the actual results of the stereo-processing (\secref{sec:4:res_volumes_retreat}): the most advanced location of the snout was
+approximately 12 meters downstream (May 2022), while the most retreated location was about 5 meters upstream (November 2022). This rigid translation of the glacier body not only affected the front position but also resulted in a variation in the glacier surface elevation, i.e., thinning in the case of retreat.
+Subsequently, we back-projected the DIC displacement values of 28/07/2022 onto the original DSM and the two synthetic DSMs. Finally, we compared the metric displacement
+values considering the Median Absolute Deviation (MAD) between the original and synthetic results.
 
 \subsection{Correlation between glacier dynamics and meteorological variables}
 \label{sec:4:meteoanalysis}
-We compared the behavior of glacier velocity and ice volume loss at the snout with the
-mean daily air temperature, precipitation and incoming solar radiation measured by the
-AWS located ~2 km from the glacier terminus (\secref{sec:4:meteostation}).
-Since both volume loss and velocity were obtained by comparing point clouds and images
-acquired with a temporal lag of five days, we applied a moving average with a window of
-five days to the weather data. Subsequently, to filter out the main signal due to the
-seasonal trend, we detrended the time series by subtracting a robust loess smoothing
-function~\citep{Cleveland1979} evaluated on a period of 180 days.
-Finally, we calculated the Spearman correlation with the original data and obtained
-residuals, which indicates how well the relationship between two variables can be
+We compared the behavior of glacier velocity and ice volume loss at the snout with the mean daily air temperature, precipitation, and incoming solar radiation measured by the AWS located ~2 km from the glacier terminus (\secref{sec:4:meteostation}).
+Since both volume loss and velocity were obtained by comparing point clouds and images acquired with a temporal lag of five days, we applied a moving average with a window of five days to the weather data. Subsequently, to filter out the main signal due to the seasonal trend, we detrended the time series by subtracting a robust loess smoothing function~\citep{Cleveland1979} evaluated on a period of 180 days.
+Finally, we calculated the Spearman correlation with the original data and obtained residuals, which indicates how well the relationship between two variables can be
 described using a monotonic function.
-We adopted the Spearman correlation because it is more robust against outliers compared
-to the linear correlation and because it allows the modelling of any kind of correlation
-(i.e., linear and non-linear) between meteorological variables, ice volume losses and
-glacier surface velocities.
+We adopted the Spearman correlation because it is more robust against outliers compared to the linear correlation and because it allows the modelling of any kind of correlation (i.e., linear and non-linear) between meteorological variables, ice volume losses and glacier surface velocities.
 
 
 \section{Results}\label{sec:4:results}
 
-\subsection{Image acquisition}\label{sec:4:res_images}
-
-During the snow-free study period (from 1/05/2022 to 13/11/2022), both camera C1 and
-camera C2 were able to acquire images every day, for a total of 197 images. However, 39
-images were discarded due to bad weather conditions, such as rain, low clouds, or fog,
-resulting in 158 days with valid data for stereo and monoscopic processing
-(\figref{fig:4:discardes_shots}).
-
 \subsection{Automatic detection of GCPs}\label{sec:4:res_gcptracking}
 
-Automatic target tracking of GCPs on monocular image sequences allowed successful
-tracking of GCPs
-in 99\% of image sequences from both the cameras.
-Only in two out of 158 epochs did template matching fail, requiring target manual
-collimation.
-To validate template matching results, manual collimation was performed on all the
-images.
-For camera C1, the MAD between the image coordinates of the automatically tracked targets
-and the manually collimated one was 0.46 px, with a standard deviation of 0.25 px.
-Similarly for camera C2, the MAD was 0.55 px, with a standard deviation of 0.23 px,
-denoting a sub-pixel accuracy of the template matching routine.
+Automatic target tracking of GCPs on monocular image sequences allowed successful tracking of GCPs
+in 99\% of image sequences from both cameras. 
+Only in two out of 158 epochs did template matching fail, requiring target manual collimation.
+Manual collimation was performed on all the images to validate template-matching results.
+For camera C1, the MAD between the image coordinates of the automatically tracked targets and the manually collimated one was 0.46 px, with a standard deviation of 0.25 px. 
+Similarly to camera C2, the MAD was 0.55 px, with a standard deviation of 0.23 px, denoting the template matching routine's sub-pixel accuracy.
 
 \subsection{Wide-baseline feature matching and tracking}\label{sec:4:res_matching}
 
@@ -1039,22 +815,15 @@ denoting a sub-pixel accuracy of the template matching routine.
   \label{fig:4:matches_stats}
 \end{figure}
 
-The features matched by ICEpy4D on each stereo pair extended over the entire
-frontal ice cliff, with some features detected in overlapping regions along the
-streamwise left moraine (\figref{fig:4:matches}), near targets T1 and T2
-(see \figref{fig:4:studyarea}b).
-For each epoch, a number of features ranging from 1000 to 3500 were successfully matched
-and validated following geometric verification (\figref{fig:4:matches_stats:number}).
-Among them, approximately 30-40\% of the matched features were effectively tracked
-from previous epochs, increasing the total number of matches available for
+The features matched by ICEpy4D on each stereo pair extended over the entire frontal ice cliff, with some features detected in overlapping regions along the
+streamwise left moraine (\figref{fig:4:matches}), near targets T1 and T2 (see \figref{fig:4:studyarea}b).
+For each epoch, a number of features ranging from 1000 to 3500 were successfully matched and validated following geometric verification (\figref{fig:4:matches_stats:number}).
+Among them, approximately 30-40\% of the matched features were effectively tracked from previous epochs, increasing the total number of matches available for
 camera pose estimation while establishing a linkage between consecutive epochs.
 
-After BA, the global average reprojection error was computed by projecting the 3D
-coordinates of all the tie points to the two images and averaging
+After BA, the global average reprojection error was computed by projecting the 3D coordinates of all the tie points to the two images and averaging
 the norm of the reprojection errors for all the points.
-\figref{fig:4:matches_stats:err} show the global reprojection error, which exhibited a
-consistent fluctuation around 0.45 pixels, with a standard deviation of approximately 0.3
-pixels.
+\figref{fig:4:matches_stats:err} show the global reprojection error, which exhibited a consistent fluctuation around 0.45 px, with a standard deviation of approximately 0.3 px.
 
 \begin{figure}
   \centering
@@ -1077,10 +846,8 @@ pixels.
   \end{center}
   \caption{Vertical cross-sections extracted at the location marked in
     \figref{fig:4:section_locations}.
-    All the cross-sections are extracted in a local reference system, with the
-    X-direction pointing in the direction of the glacier flow, the Z-direction pointing upward, and the Y-direction completing the right-hand reference system.
-    Please, note the different scales of the figures, indicated by the scale bar (in
-    meters).}
+    All the cross-sections are extracted in a local reference system, with the X-direction pointing in the direction of the glacier flow, the Z-direction pointing upward, and the Y-direction completing the right-hand reference system.
+    Please note the different scales of the figures, indicated by the scale bar (in meters).}
   \label{fig:4:sections}
 \end{figure}
 
@@ -1157,13 +924,10 @@ curve), at which point the detached ice block is no longer present.
   \label{fig:4:retreat}
 \end{figure}
 
-Estimation of ice volume variation was performed by DOD along the
-streamwise direction (\secref{sec:4:volumevariation}).
-\figref{fig:4:volumes_variation} presents the daily ice volume variations and the cumulated
-curve, highlighting the varying ablation rate throughout the study period.
+Estimation of ice volume variation was performed by DOD along the streamwise direction (\secref{sec:4:volumevariation}).
+\figref{fig:4:volumes_variation} presents the daily ice volume variations and the cumulated curve, highlighting the varying ablation rate throughout the study period.
 Every value of the time series is referred to as the mean instant between the date of the two-point clouds from which it was derived (see~\secref{sec:4:timelag}).
-The ice loss rate increases during summer and significantly reduces in autumn,
-particularly after mid-September.
+The ice loss rate increases during summer and significantly reduces in autumn, particularly after mid-September.
 A total ice loss of \SI{63000}{\cubic\meter} was observed from 01/05/2022 to 13/11/2022.
 
 The daily glacier was estimated continuously tracking a point located at the center of the top edge of the terminal ice cliff, extracted as described in~\secref{sec:4:topedge}.
@@ -1182,94 +946,63 @@ Once the normal vectors are defined, the local distance is computed for each cor
 \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{4_stereo_uav_2807.png}
-  \caption{Comparison of the 28/07/22 stereo point cloud with the reference UAV point cloud acquired on the same day, computed with M3C2 algorithm~\citep{lague2013accurate}. The stereo-point cloud is represented with a color scale indicating the distances relative to the UAV point cloud (represented with a light gray color as a reference).}
+  \caption{Comparison of the 28/07/22 stereo point cloud with the reference UAV point cloud acquired on the same day, computed with M3C2 algorithm~\citep{lague2013accurate}. The stereo-point cloud is represented by a color scale indicating the distances relative to the UAV point cloud (represented by a light gray color as a reference).}
   \label{fig:4:stereo_uav_2807}
 \end{figure}
 
 The comparison with the UAV-A point cloud resulted in a non-significant mean difference between the point clouds of 0.01 m, with a standard deviation of 0.04 cm, indicating an absence of systematic errors in stereo point cloud georeferencing. 
-The largest differences were observed at the edges of the stereo point cloud and inside the ice cave \figref{fig:4:stereo_uav_2807}).
+The largest differences were observed at the edges of the stereo point cloud and inside the ice cave (\figref{fig:4:stereo_uav_2807}).
 Considering the UAV-B block, the mean difference was 0.05 m, with a standard deviation of 0.03 m.
 The non-negligible mean difference was likely due to a combination of the georeferencing accuracy of the stereo point cloud and the georeferencing error in the UAV model, which was in the order of a few centimeters (see~\secref{sec:4:uavsurveys}).
-UAV-B block, in fact, had limited coverage in the surveyed area and fewer GCPs
-compared to UAV-A block.
-Overall, both the comparisons showed an overall error of stereo models smaller than 10 cm.
+UAV-B block, in fact, had limited coverage in the surveyed area and fewer GCPs compared to the UAV-A block.
+Overall, both comparisons showed an overall error of stereo models smaller than 10 cm.
 Therefore, a decimetric level of precision can be reasonably considered for the stereo models.
-
-\begin{figure*}[ht]
-  \includegraphics[width=\textwidth]{4_dic_composition.png}
-  \caption{(a) DIC displacement map between 25 and 30 July 2022. (b) Orthorectified DIC
-    displacement map between 25 and 30 July 2022. The triangles indicate the points P1
-    and P2 where we extracted the velocity time series.
-    (c, d) glacier domains characterized by specific morphology and kinematics. }
-  \label{fig:4:dic_results}
-\end{figure*}
 
 \subsection{Glacier surface velocity and morphology}\label{sec:4:res_velocity}
 
-DIC displacement maps allow for evaluating the surface kinematics of the glacier and the
-moraines (\figref{fig:4:dic_results}a).
-We orthorectified the results only in the area of the right lobe up
-to ~1 km of distance from the terminal ice cliff, covering most of the north lobe of the
+\begin{figure}[ht]
+  \includegraphics[width=\textwidth]{4_dic_composition.png}
+  \caption{(a) DIC displacement map between 25 and 30 July 2022. (b) Orthorectified DIC
+    displacement map between 25 and 30 July 2022. The triangles indicate the points P1
+    and P2, where we extracted the velocity time series.
+    (c, d) Glacier domains are characterized by specific morphology and kinematics.}
+  \label{fig:4:dic_results}
+\end{figure}
+
+DIC displacement maps allow for evaluating the surface kinematics of the glacier and the moraines (\figref{fig:4:dic_results}a).
+We orthorectified the results only in the area of the right lobe up to ~1 km distance from the terminal ice cliff, covering most of the north lobe of the
 glacier.
-Since the morphology of the frontal ice cliff evolved and moved significantly
-during the year, we did not orthorectify the displacement vectors in this area
+Since the morphology of the frontal ice cliff evolved and moved significantly during the year, we did not orthorectify the displacement vectors in this area
 (\figref{fig:4:dic_results}b).
 
-From the displacement maps of the oblique (\figref{fig:4:dic_results}a,c) and
-georeferenced images (\figref{fig:4:dic_results}b,d), it was possible to
-identify different domains, based on their morphology and kinematic behavior
-(\figref{fig:4:dic_results}c):
+From the displacement maps of the oblique (\figref{fig:4:dic_results}a,c) and georeferenced images (\figref{fig:4:dic_results}b,d), it was possible to
+identify different domains, based on their morphology and kinematic behavior (\figref{fig:4:dic_results}c):
 \begin{enumerate}
-  \item The frontal ice cliff of the glacier, where the ablation process was more
-        concentrated. The slope was very steep, and several ice and rock falls occurred,
-        particularly at the upper edge, at the limit with the rear part of the glacier.
-  \item The debris-covered main body of the glacier, covering the last 400 m of the
-        lobe. This region was gentler, and the velocity was higher in the central part.
-  \item The lateral morainic deposit, where the lack of lateral pressure from the
-        glacier due to the loss of volume destabilized the original moraines. The
-        internal part
-        collapsed onto the glacier and moved downslope due to glacier traction.
-  \item The debris talus resulting from erosional processes on the moraine, where the
-        boundary between the glacier and the stable morainic deposit was partially
-        covered by a
-        debris deposit formed as a result of superficial erosional processes on the steep
-        morainic side.
+  \item The frontal ice cliff of the glacier, where the ablation process was more concentrated. The slope was very steep, and several ice and rock falls occurred, particularly at the upper edge, at the limit with the rear part of the glacier.
+  \item The debris-covered main body of the glacier, covering the last 400 m of the lobe. This region was gentler, and the velocity was higher in the central part.
+  \item The lateral morainic deposit, where the lack of lateral pressure from the glacier due to the loss of volume, destabilized the original moraines. The internal part collapsed onto the glacier and moved downslope due to glacier traction.
+  \item The debris talus resulting from erosional processes on the moraine, where the boundary between the glacier and the stable morainic deposit was partially covered by a debris deposit formed from superficial erosional processes on the steep morainic side.
 \end{enumerate}
 
-Compared to the glacier's main body, the two latter domains moved at progressively lower
-rates, with the morainic talus showing the slowest velocity. Besides the kinematic
-regimes, these domains are clearly distinct due to long longitudinal fractures indicating
-displacement gradients. In the oblique images (\figref{fig:4:dic_results}c), it
-is possible to recognize other portions of the glacier outside the area of interest of
-this study, including a lower crevassed area and the icefall that feeds the glacier
-lobes.
+Compared to the glacier's main body, the two latter domains moved at progressively lower rates, with the morainic talus showing the slowest velocity. 
+Besides the kinematic regimes, these domains are clearly distinct due to long longitudinal fractures indicating displacement gradients. 
+In the oblique images (\figref{fig:4:dic_results}c), it is possible to recognize other portions of the glacier outside the area of interest of this study, including a lower crevassed area and the icefall that feeds the glacier lobes.
 
 \begin{figure}[ht]
   \includegraphics[width=\textwidth]{4_ts_velocities.png}
   \caption{Time series of displacement extracted in the terminal part of the glacier
-    lobe. The red curves correspond to point P1, located at 10 m from the terminal ice cliff (considering the location of the terminal ice cliff on 28/07/2022), and the blue curves correspond to point P2 located 120 m far from the ice
+    lobe. The red curves correspond to point P1, located 10 m from the terminal ice cliff (considering the location of the terminal ice cliff on 28/07/2022), and the blue curves correspond to point P2, located 120 m far from the ice
     cliff. The location of points P1 and P2 is marked in~\figref{fig:4:dic_results}.}
   \label{fig:4:velocity_ts}
 \end{figure}
 
-We considered the displacement time series of two points on the glacier surface: one at
-10 meters from the frontal ice cliff at the end of the considered period (P1) and one in
-the central part approximately 120 m from the front (P2), as indicated in
-\figref{fig:4:dic_results}a,b.
-The orthorectified 3D components of daily velocity and the velocity module, calculated
-between pairs of images spaced 5 days apart (see \secref{sec:4:timelag}), are shown in
-\figref{fig:4:velocity_ts}.
-The time series exhibit similar behavior, with a Spearman correlation coefficient
-of 0.88, and show comparable velocity values between May and the first half of June and
+We considered the displacement time series of two points on the glacier surface: one at 10 meters from the frontal ice cliff at the end of the considered period (P1) and one in the central part approximately 120 m from the front (P2), as indicated in \figref{fig:4:dic_results}a,b.
+The orthorectified 3D components of daily velocity and the velocity module, calculated between pairs of images spaced 5 days apart (see \secref{sec:4:timelag}), are shown in \figref{fig:4:velocity_ts}.
+The time series exhibit similar behavior, with a Spearman correlation coefficient of 0.88, and show comparable velocity values between May and the first half of June and
 from the second half of September until the end of the period.
-However, P1 has a ~30\% higher velocity during the warm season, with values ranging from
-\SI{0.15}{\meter\per\day}, occurring on a few days during the second week of August and
-at the beginning of September, to \SI{0.23}{\meter\per\day} in mid-July.
-The South-North velocity component is the highest, varying during the warm season between
-\SI{0.10}{\meter\per\day} to \SI{0.18}{\meter\per\day} (P1) and \SI{0.06}{\meter\per\day}
-to \SI{0.15}{\meter\per\day} (P2).
-The East-West component is approximately \SI{0.05}{\meter\per\day} lower, while the
-vertical component assumes smaller values, approximately \SI{0.03}{\meter\per\day}.
+However, P1 has a ~30\% higher velocity during the warm season, with values ranging from \SI{0.15}{\meter\per\day}, occurring on a few days during the second week of August and at the beginning of September to \SI{0.23}{\meter\per\day} in mid-July.
+The South-North velocity component is the highest, varying during the warm season between \SI{0.10}{\meter\per\day} to \SI{0.18}{\meter\per\day} (P1) and \SI{0.06}{\meter\per\day} to \SI{0.15}{\meter\per\day} (P2).
+The East-West component is approximately \SI{0.05}{\meter\per\day} lower, while the vertical component assumes smaller values, approximately \SI{0.03}{\meter\per\day}.
 
 \begin{figure}[ht]
   \centering
@@ -1279,7 +1012,7 @@ vertical component assumes smaller values, approximately \SI{0.03}{\meter\per\da
     back-projected on the true DSM of 28/07/2022 and those back-projected on a simulated
     DSM advanced downstream by 12m (as it was in May 2022).
     Red boxes represent the difference between the true velocity vectors and those
-    obtained with a simulated DSM with the glacier front retreated 5 meters upstream
+    obtained with a simulated DSM with the glacier front retreating 5 meters upstream
     (as it was in November 2022).
     \(v_E\), \(v_N\), \(v_z\), and \(v\) are respectively the three components in the
     east, north, and height directions and the magnitude of the differences of the
@@ -1290,30 +1023,27 @@ vertical component assumes smaller values, approximately \SI{0.03}{\meter\per\da
 
 \subsection{Velocity orthorectification uncertainty}\label{sec:4:res_velocity_uncertainty}
 
-To estimate the error related to DSM variations, we simulated two different snout
-positions, as described in \secref{sec:4:orthorectification_uncertainty}.
-The first simulated snout position was 12 meters
-downstream of the location of the terminal ice cliff on 28/07/2022, which was the most
-advanced front position at the beginning of the season
-(\figref{fig:4:retreat}b).
-The second simulated snout position was 5 meters upstream, representing the most
-retreated position at the end of the season (\figref{fig:4:retreat}b).
-On average, the different front locations caused a glacier elevation change of
-\SI{+1.76}{\meter} and \SI{-0.88}{\meter} for the advanced
-and retreated positions, respectively.
-The differences between the velocity vectors orthorectified with the true and the
-simulated DSMs are
-summarized in \figref{fig:4:velocity_ortortect_uncertainty}.
-The considered velocity vectors were measured by DIC between 25 and 30 July 2022, during
-a five-day period centered around the acquisition of the UAV-A DSM of 28/07/2022.
-It was observed that the velocity vertical component \(v_h\) was the least influenced,
-with a normalized MAD\(_z\) of \(2.6\%\) for
-the advanced simulated position and \(1.3\%\) for the retreated position. The MADs of the
-East and North planimetric components \(v_E, v_N\) were similar and approximately \(2.5\)
-times higher than MAD\(_z\), while the normalized MADs of the velocity modules were
-\(5.2\%\) and \(2.6\%\) (advanced and retreated positions).
+To estimate the error related to DSM variations, we simulated two different snout positions, as described in \secref{sec:4:orthorectification_uncertainty}.
+The first simulated snout position was 12 meters downstream of the location of the terminal ice cliff on 28/07/2022, which was the most
+advanced front position at the beginning of the season (\figref{fig:4:retreat}b).
+The second simulated snout position was 5 meters upstream, representing the most retreated position at the end of the season (\figref{fig:4:retreat}b).
+On average, the different front locations caused a glacier elevation change of \SI{+1.76}{\meter} and \SI{-0.88}{\meter} for the advanced and retreated positions, respectively.
+The differences between the velocity vectors orthorectified with the true and the simulated DSMs are summarized in \figref{fig:4:velocity_ortortect_uncertainty}.
+The considered velocity vectors were measured by DIC between 25 and 30 July 2022, during a five-day period centered around the acquisition of the UAV-A DSM of 28/07/2022.
+It was observed that the velocity vertical component \(v_h\) was the least influenced, with a normalized MAD\(_z\) of \(2.6\%\) for the advanced simulated position and \(1.3\%\) for the retreated position. 
+The MADs of the East and North planimetric components \(v_E, v_N\) were similar and approximately \(2.5\) times higher than MAD\(_z\), while the normalized MADs of the velocity modules were \(5.2\%\) and \(2.6\%\) (advanced and retreated positions).
 
-\begin{figure}[ht]
+\subsection{Comparison between surface velocity, frontal ice loss and meteorological
+  variables}\label{sec:4:res_temp_comparison}
+
+We compared the time series of ice volume variation \(dV\), obtained with the stereo cameras, and the magnitude of the surface velocity \(v\) obtained by the monoscopic camera approach at the locations of points \(P1\) and \(P2\) (labeled as \(\mathbf{v}_{P1}\) and \(\mathbf{v}_{P2}\)) with the series of daily meteorological measurements acquired by the AWS.
+We observed a significant relationship between the daily average air temperature \(T\), glacier surface velocity, and volume variations, while precipitation and incoming solar radiation were correlated. 
+\figref{fig:4:TS_punto-fronte} shows the time series and the seasonal trend.
+All the series exhibit the same behavior, which is in phase.
+To remove the main seasonal trend and analyze the detrended signal, we subtracted the robust loess fit~\citep{Cleveland1979} from the original series and computed the Spearman correlation coefficients for each pair of variables (\tabref{tab:4:correlation_coefficients}).
+The correlations were always larger than \(0.49\) for the detrended signal and larger than \(0.81\) for the original series.
+
+\begin{figure}
   \centering
   \includegraphics[width=1\textwidth]{4_TS_P1.png}
   \caption{Time series of the daily volume loss due to the glacier terminus retreat,
@@ -1321,26 +1051,6 @@ times higher than MAD\(_z\), while the normalized MADs of the velocity modules w
   \label{fig:4:TS_punto-fronte}
 \end{figure}
 
-\subsection{Comparison between surface velocity, frontal ice loss and meteorological
-  variables}\label{sec:4:res_temp_comparison}
-
-We compared the time series of ice volume variation \(dV\), obtained with the stereo
-cameras, and the magnitude of the surface velocity \(v\) obtained by the monoscopic
-camera approach at the locations of points \(P1\) and \(P2\) (labelled as
-\(\mathbf{v}_{P1}\) and \(\mathbf{v}_{P2}\)) with the series of daily
-meteorological measurements acquired by the AWS.
-We observed a significant relationship between the daily average air temperature \(T\),
-glacier surface velocity, and volume variations, while precipitation and incoming solar
-radiation were decorrelated. \figref{fig:4:TS_punto-fronte} shows the time series and
-the seasonal trend.
-All the series exhibit the same behavior, which is in phase.
-To remove the main seasonal trend and analyze the detrended signal, we subtracted the
-robust
-loess fit~\citep{Cleveland1979} from the original series and computed the Spearman
-correlation coefficients for each pair of variables
-(\tabref{tab:4:correlation_coefficients}).
-The correlations were always larger than \(0.49\) for the detrended signal and larger
-than \(0.81\) for the original series.
 
 \begin{table}
   \centering
@@ -1370,125 +1080,76 @@ than \(0.81\) for the original series.
 
 \subsection{Hand-crafted vs deep learning matching}\label{sec:4:handcrafted_vs_dl}
 
-In the case of the Belvedere Glacier, the wide baseline between the two cameras posed a
-challenge for traditional hand-crafted matching techniques, which failed to find
-sufficient corresponding points for estimating camera poses.
-Traditional feature matching, including well-known commercial solutions like
-Agisoft Metashape, yielded a limited number of poorly distributed tie points, ranging
-from a dozen to a hundred of tie points.
-In all the cases, the tie points were concentrated mainly in the central part of the ice
-cliff, where the ice cliff was nearly vertical, and it was not possible to determine
-camera relative orientation.
+In the case of the Belvedere Glacier, the wide baseline between the two cameras posed a challenge for traditional hand-crafted matching techniques, which failed to find
+sufficient corresponding points for estimating camera poses. 
+Traditional feature matching, including well-known commercial solutions like Agisoft Metashape, yielded a limited number of poorly distributed tie points, ranging
+from a dozen to a hundred tie points.
+In all the cases, the tie points were concentrated mainly in the central part of the ice cliff, where the ice cliff was nearly vertical, and it was impossible to determine the camera's relative orientation.
 
 On the other hand, DL feature matching algorithms outperformed traditional hand-crafted
 methods, successfully finding a significant number of corresponding features.
-SuperPoint and SuperGlue matched between 1000 and 3500 features, which were
-well distributed over the entire ice cliff with some along the streamwise right moraine
+SuperPoint and SuperGlue matched between 1000 and 3500 features, which were well distributed over the entire ice cliff, with some along the streamwise right moraine
 in the background.
-This substantial matching success allowed for estimating a sparse but complete 3D
-reconstruction of the terminal ice cliff, serving as the starting point for a
+This substantial matching success allowed for estimating a sparse but complete 3D reconstruction of the terminal ice cliff, serving as the starting point for a
 dense scene reconstruction.
-With a reliable camera pose and sparse reconstruction in place, traditional dense
-matching algorithms, like semi-global matching, proved to be effective.
-To further enhance the result, state-of-the-art algorithms can be employed for
-even better performance.
+With a reliable camera pose and sparse reconstruction in place, traditional dense matching algorithms, like semi-global matching, proved to be effective.
+To further enhance the result, state-of-the-art algorithms can be employed for even better performance.
 
 \subsection{Merging stereoscopic and monoscopic processings to study the glacier
   dynamics}\label{sec:4:stereo_monoscopic}
 
-The stereoscopic and monoscopic workflows focused on different aspects of the glacier's
-dynamics and the combined use of these two information is useful for the characterization
-of the glacier behavior of the studied area.
-The installation of two cameras allowed for the stereoscopic reconstruction of the
-glacier snout and the computation of volume variations, while the use of a single camera
-(C2) allowed for the characterization of the movement of the debris-covered sector of the
-lobe.
+The stereoscopic and monoscopic workflows focused on different aspects of the glacier's dynamics, and the combined use of these two pieces of information is useful for characterizing the glacier behavior of the studied area.
+The installation of two cameras allowed for the stereoscopic reconstruction of the glacier snout and the computation of volume variations, while the use of a single camera
+(C2) allowed for the characterization of the movement of the debris-covered sector of the lobe.
 
-The proposed system was able to monitor the evolution of the glacier in its different
-sectors and supports the identification of different kinematic sectors
-(\figref{fig:4:dic_results}).
-The north lobe of the Belvedere Glacier exhibited a complex motion that involves multiple
-components.
-This included a retreat along the streamwise direction, a downslope forward motion due to
-glacier sliding, and a thinning of the glacier surface caused by ablation.
-From the stereoscopic processing, it was possible to extract morphology and position of
-the terminal lobe, which retreated of 17.6 m between May and November 2022
+The proposed system was able to monitor the evolution of the glacier in its different sectors and supports the identification of different kinematic sectors
+(\figref{fig:4:dic_results}). 
+The north lobe of the Belvedere Glacier exhibited a complex motion that involved multiple components.
+This included a retreat along the streamwise direction, a downslope forward motion due to glacier sliding, and a thinning of the glacier surface caused by ablation.
+From the stereoscopic processing, it was possible to extract the morphology and position of the terminal lobe, which retreated by 17.6 m between May and November 2022
 (\figref{fig:4:retreat}), and ice volume loss (\figref{fig:4:volumes_variation}).
-On the other hand, the monoscopic approach allowed to derive the forward motion of the
-glacier, by tracking features on the glacier surface.
-Additionally, the availability of volumetric and kinematic data allowed
-the combined analysis of potential relationship between volume variation, surface
+On the other hand, the monoscopic approach allowed us to derive the forward motion of the glacier by tracking features on the glacier's surface.
+Additionally, the availability of volumetric and kinematic data allowed the combined analysis of the potential relationship between volume variation, surface
 velocity and external meteorological factors such as air temperature.
 
 \subsection{Glacier velocity, frontal ablation and
   temperature}\label{sec:4:discuss_velocity_ablation_temperature}
 
-Typically, mountain glacier motion is dominated by basal sliding~\citep{willis1995intra},
-which is related to the state of the hydraulic drainage
+Typically, mountain glacier motion is dominated by basal sliding~\citep{willis1995intra}, which is related to the state of the hydraulic drainage
 system~\citep{vincent2016sliding}.
-In particular, the water pressure is higher in the presence of distributed small
-channels~\citep{pimentel2011numerical}, while it diminished when large cavities form and
-a more
-efficient drainage develops~\citep{nienow2005hydrological}.
-As a consequence, glaciers flow is often faster in early summer than at the end of the
-warm season~\citep{sanders2018variations,vincent2016sliding}.
-Therefore, at seasonal scale, glacier surface velocity is sometimes not linked to air
-temperature~\citep{sanders2018variations}.
-At hourly to daily scale, several studies showed that the flow velocity is linked to
-subglacial water pressure \citep{sugiyama2010surface} and air
-temperature~\citep{liu2019diurnal},
-even though~\citet{allstadt2015observations} did not observed a significant variation in
-the diurnal cycle.
-Moreover, in many cases the flow velocity was observed to rise after intense
-rainstorms~\citep{benoit2015multi,horgan2015glacier,sugiyama2010surface}.
+In particular, the water pressure is higher in the presence of distributed small channels~\citep{pimentel2011numerical}, while it diminished when large cavities form and
+a more efficient drainage develops \citep{nienow2005hydrological}.
+Consequently, glacier flow is often faster in early summer than at the end of the warm season \citep{sanders2018variations,vincent2016sliding}.
+Therefore, at the seasonal scale, glacier surface velocity is sometimes not linked to air temperature \citep{sanders2018variations}.
+At hourly to daily scale, several studies showed that the flow velocity is linked to subglacial water pressure \citep{sugiyama2010surface} and air temperature \citep{liu2019diurnal}, even though \citet{allstadt2015observations} did not observe a significant variation in the diurnal cycle.
+Moreover, in many cases, the flow velocity was observed to rise after intense rainstorms \citep{benoit2015multi,horgan2015glacier,sugiyama2010surface}.
 
-We showed that the daily air temperature variations are strictly linked to glacier
-surface velocity at a daily to weekly scale.
-On a monthly scale, we registered the highest velocity in July, even though the absolute
-peak was reached in the first half June, concurrently with high air temperature.
-Contrary to the findings of other
-scholars~\citep{benoit2015multi,horgan2015glacier,sugiyama2010surface}, we did not
-register any relationship with rainfall episodes.
-These observations suggest that (at least in the lower portion of the north lobe) the
-subglacial hydraulic system remained homogeneous during the season.
-Besides, we also observed an even stronger relationship of the air temperature with the
-frontal ablation, which, to our knowledge, has never been documented before.
-This was possible thanks to the stereoscopic system that produced volumetric data,
-increasing the understanding of the glacier snout dynamics.
+We showed that the daily air temperature variations are strictly linked to glacier surface velocity at a daily to weekly scale.
+On a monthly scale, we registered the highest velocity in July, even though the absolute peak was reached in the first half of June, concurrently with high air temperature.
+Contrary to the findings of other scholars~\citep{benoit2015multi,horgan2015glacier,sugiyama2010surface}, we did not register any relationship with rainfall episodes.
+These observations suggest that the subglacial hydraulic system remained homogeneous during the season (at least in the lower portion of the north lobe).
+Besides, we also observed an even stronger relationship between air temperature and frontal ablation, which, to our knowledge, has never been documented before.
+This was possible thanks to the stereoscopic system that produced volumetric data, increasing the understanding of the glacier snout dynamics.
 
 \subsection{Transferability of the system}\label{sec:4:transferability}
 
-The transferability of the low-cost camera system used in this study to other test sites
-is a crucial aspect to consider.
-The installation process of the system is relatively straightforward as the cameras are
-mounted on topographic tripods, eliminating the need for complex and permanent
+The transferability of the low-cost camera system used in this study to other test sites is a crucial aspect to consider.
+The installation process of the system is relatively straightforward, as the cameras are mounted on topographic tripods, eliminating the need for complex and permanent
 structures.
-This ease of installation enables the system to be replicated in different sites without
-significant difficulty.
-While a more robust installation with minimal vibrations and camera rotations would be
-beneficial, the simplicity of the setup allows for efficient deployment by a small team,
-without the requirement of specialized equipment.
+This ease of installation enables the system to be replicated in different sites without significant difficulty.
+While a more robust installation with minimal vibrations and camera rotations would be beneficial, the simplicity of the setup allows for efficient deployment by a small team without requiring specialized equipment.
 
-The Belvedere glacier, characterized by debris cover and a dirty ice terminal cliff,
-presents favorable conditions for 3D reconstruction due to the presence of distinct
-patterns in the images.
-However, successful 3D reconstructions of bare ice or snow-covered areas have also been
-achieved in previous studies.
-\citet{belloni2023} and~\citet{Gindraux2017} utilized UAV-SfM to generate 3D models
-of debris-free or partially debris-covered glaciers.
-\citet{Taylor2023} demonstrated the effectiveness of an extremely low-cost camera for 3D
-reconstruction of a debris-free glacier calving front in Iceland.
-Additionally,~\citet{Avanzi2018} and~\citet{DeMichele2016} employed UAV-based
-photogrammetric reconstruction to map snow depth Despite snow having even fewer
-discernible patterns than bare ice, the use of multi-camera photogrammetry allowed for
-achieving accurate 3D reconstructions.
-It is worth noting that these examples utilized traditional feature matching techniques.
-With state-of-the-art DL sparse and dense matching techniques, results can be further
-improved.
-Even though the Belvedere glacier's characteristics facilitate 3D reconstruction,
-successful reconstructions of debris-free ice and snow-covered areas using similar
-techniques have been demonstrated in the literature, supporting the broader applicability
-of the low-cost camera system for monitoring glaciers in diverse environments.
+The Belvedere glacier, characterized by debris cover and a dirty ice terminal cliff, presents favorable conditions for 3D reconstruction due to the presence of distinct
+patterns in the images. 
+However, previous studies have also achieved successful 3D reconstructions of bare ice or snow-covered areas.
+\citet{belloni2023} and~\citet{Gindraux2017} utilized UAV-SfM to generate 3D models of debris-free or partially debris-covered glaciers.
+\citet{Taylor2023} demonstrated the effectiveness of an extremely low-cost camera for 3D reconstruction of a debris-free glacier calving front in Iceland.
+Additionally,~\citet{Avanzi2018} and~\citet{DeMichele2016} employed UAV-based photogrammetric reconstruction to map snow depth.
+Despite snow having even fewer discernible patterns than bare ice, multi-camera photogrammetry allowed for accurate 3D reconstructions.
+
+It is worth noting that these examples utilized traditional feature-matching techniques.
+Results can be further improved with state-of-the-art DL sparse and dense matching techniques.
+Even though the Belvedere glacier's characteristics facilitate 3D reconstruction, successful reconstructions of debris-free ice and snow-covered areas using similar techniques have been demonstrated in the literature, supporting the broader applicability of the low-cost camera system for monitoring glaciers in diverse environments.
 
 % References
 \makechapterbibliography{}
