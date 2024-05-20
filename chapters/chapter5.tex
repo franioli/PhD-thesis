@@ -8,7 +8,7 @@
 \newthought{This chapter is based on:}
 
 \begin{itemize}
-  \item Morelli, L., Ioli, F., Maiwald, F., Mazzacca, G., Menna, F., and Remondino, F. (2024). DEEP-IMAGE-MATCHING: A TOOLBOX FOR MULTIVIEW IMAGE MATCHING OF COMPLEX SCENARIOS, Int. Arch. Photogramm. Remote Sens. Spatial Inf. Sci., XLVIII-2/W4-2024, 309–316, \url{https://doi.org/10.5194/isprs-archives-XLVIII-2-W4-2024-309-2024}. 
+  \item Morelli, L., Ioli, F., Maiwald, F., Mazzacca, G., Menna, F., and Remondino, F. (2024). DEEP-IMAGE-MATCHING: A TOOLBOX FOR MULTI-VIEW IMAGE MATCHING OF COMPLEX SCENARIOS, Int. Arch. Photogramm. Remote Sens. Spatial Inf. Sci., XLVIII-2/W4-2024, 309–316, \url{https://doi.org/10.5194/isprs-archives-XLVIII-2-W4-2024-309-2024}. 
 \end{itemize}
 
 \newpage
@@ -23,23 +23,22 @@
 % \end{itemize}
 
 \chref{ch:4} demonstrated the potential of a low-cost stereoscopic camera system for short-term monitoring of glacier dynamics. 
-However, the usage of a stereo camera only poses limitations on the viewing area that can be covered by the system, especially under sub-optimal viewing conditions and acquisition geometry.
-To further enhance our 3D reconstruction capabilities, this chapter aims to introduce a transition to a multi-camera approach.  
-A multi-view framework offers several compelling advantages for glaciological studies.  
-Firstly, overlapping fields of view from multiple cameras reduce occlusions, ensuring better coverage of complex glacier surfaces. 
-Secondly, multiple image perspectives refine 3D reconstructions, providing greater accuracy and reducing uncertainties. 
-Finally, a multi-camera system lends itself to expansion, allowing the integration of additional cameras over time for long-term monitoring and evolving research needs.
+However, using a stereo camera only limits the viewing area that the system can cover, especially under sub-optimal viewing conditions and acquisition geometry.
+To further enhance 3D reconstruction capabilities, this chapter introduces a transition to a multi-camera approach that offers several advantages for glaciological studies.  
+Firstly, it reduces occlusions, ensuring better coverage of complex glacier environments. 
+Secondly, a multi-view approach can improve the 3D reconstructions, providing more observation redundancy and more robust photogrammetric estimation.
+Finally, a multi-camera framework guarantees flexibility, allowing the integration of additional cameras over time for long-term monitoring within the same processing pipeline. 
 
-As discussed in \chref{ch:4}, wide camera baselines, strong viewpoint changes, and the often low-texture surfaces inherent to glacial environments pose significant hurdles for traditional feature-matching techniques.
-Therefore, standard SfM software packages are often not suitable for performing photogrammetric reconstruction in challenging scenarios.
-This complexity introduces the need for cutting-edge approaches, such as the Deep-Image-Matching (DIM) toolbox presented in this chapter.
-DIM is a versatile toolbox designed for both traditional and DL-based multi-view image matching. 
-It addresses a crucial gap in existing libraries: the lack of tools specifically tailored for multi-view matching under challenging conditions by using hand-crafted and DL local features and matching algorithms.
+As discussed in \chref{ch:4}, wide camera baselines, strong viewpoint changes, and the often low-texture surfaces inherent to glacial environments pose significant challenges for traditional feature-matching techniques.
+Therefore, standard SfM software packages are often unsuitable for performing photogrammetric reconstruction.
+This complexity introduces the need for cutting-edge approaches like the Deep-Image-Matching (DIM) toolbox presented in this chapter.
+DIM is a versatile toolbox for traditional and DL-based multi-view image matching. 
+It addresses a crucial gap in existing libraries: the lack of tools specifically tailored for multi-view matching under challenging conditions using hand-crafted and DL local features and matching algorithms.
 
-This chapter will explore the potential of DIM by testing it against challenging scenarios (wide baselines, viewpoint differences, low texture, and multi-modal images), highlighting its potential advantages over traditional feature-matching methods.  
-The goal is to assess the suitability of DL local features for photogrammetric applications, by exploiting the DIM library to streamline their use. 
+This chapter will explore the potential of DIM by testing it against challenging scenarios (e.g., wide baselines, viewpoint differences, low texture), highlighting its potential advantages over traditional feature-matching methods.  
+The goal is to assess the suitability of DL local features for photogrammetric applications by exploiting the DIM library.
 Unfortunately, a multi-camera monitoring system has not been installed yet at the Belvedere Glacier. 
-Therefore, this chapter will focus on the software component and we will simulate a multi-view scenario on the Belvedere Glacier using existing UAV imagery. 
+Therefore, this chapter will focus on the software component, and we will simulate a multi-view scenario of the Belvedere Glacier using UAV images. 
 
 % In comparison to existing literature, this work introduces several innovative aspects: 
 % \begin{itemize}
@@ -61,24 +60,24 @@ Therefore, this chapter will focus on the software component and we will simulat
 
 \section{Limitation of Deep Learning local features}\label{sec:5:limitation_dl_feats}
 
-As discussed in \secref{sec:4:localfeatures}, in the past few years, a large number of trainable algorithms for robust local feature extraction and matching have been developed \citep{Yao_2021, remondino2022_at_with_dl}.
-DL techniques, and particularly attention-based architectures~\citep{vaswani2023attention}, have emerged as a powerful technique for extracting and matching features in difficult conditions, such as wide baselines and significant radiometric differences~\citep{jin_image_2021, Yao_2021}.
+As discussed in \secref{sec:4:localfeatures}, a large number of trainable algorithms for robust local feature extraction and matching have been developed in the past few years \citep{remondino2022_at_with_dl}.
+DL techniques, and particularly attention-based architectures~\citep{vaswani2023attention}, have emerged as a powerful technique for extracting and matching features under challenging conditions, such as wide baselines and significant radiometric differences~\citep{jin_image_2021, Yao_2021}.
 
-Although DL local features offer several advantages, their limited rotational invariance remains a constraint, particularly when analyzing images with diverse orientations. 
-While some initial studies highlighted this issue, many subsequent approaches have not prioritized solutions. 
-This may stem from the common use of datasets with minimal rotational variability (e.g., upright images) within the computer vision community, which are common in aerial and UAV photogrammetric datasets \cite{Bkman2022_se2loftr}. 
+Although DL local features offer several advantages, their limited rotational invariance remains a constraint, particularly when analyzing images with diverse orientations, such as those typical of aerial and UAV photogrammetric acquisitions. 
+While some initial studies highlighted this issue, many approaches have not prioritized the solution to this problem, as datasets with minimal rotational variability (e.g., upright images) are commonly used within the computer vision community. 
 Recently, some end-to-end approaches like LIFT \citep{yi2016lift} and LFNet \citep{ono2018lfnet}, and semi-dense methods like RoRD \citep{parihar2022rord} and SE2-LoFTR \citep{Bkman2022_se2loftr}, demonstrate progress in achieving rotational invariance. 
 Recent works with Steerable CNNs \citep{cohen2016steerable}, which are examples of group equivariant neural networks that allow for \textit{steering} the descriptors to make them invariant by the rotation, further address this limitation \cite{Bkman2022_se2loftr, bokman2023steerers}.
 Nevertheless, the number of approaches specifically addressing this problem is minimal compared to the overall interest in DL-based feature-matching algorithms.
 On the other hand, the most common approach to address large rotation is still to compensate by iteratively rotating images during matching, but this becomes computationally intensive for large datasets.
 
-Another limitation of DL approaches is their computational expense, which makes them unsuitable for deployment on full-resolution images, which are crucial for leveraging the available radiometric information in high-accuracy photogrammetric applications.
-In addition, it's worth noting that training itself often occurs on low-resolution images, a concern highlighted in \cite{Wu2024_evaluation_dlstereo}, whose impact remains uncertain.
-Training could have been generalized enough not to require additional training on high-resolution images. 
+Another limitation of DL approaches is their computational expense, which makes them unsuitable for processing high-resolution images, mainly when consumer-grade GPUs are employed. 
+However, the ability to process high-resolution images is crucial for leveraging the available image radiometric information in high-accuracy photogrammetric applications.
+In addition, it's worth noting that training itself is often carried out on low-resolution images. 
+The impact of the resolution discrepancy between the training and the inference is still uncertain \cite{Wu2024_evaluation_dlstereo}.
+In fact, training must be generalized enough not to require additional training on high-resolution images to guarantee a robust inference.
 
-While the potential of these approaches under extreme lighting conditions and radiometric variations is increasingly evident \textcolor{red}{[Ref]}, some preliminary experiences suggest that these approaches may lack locally accurate identification \textcolor{red}{[Ref]}. 
+While the potential of these approaches under extreme lighting conditions and radiometric variations is increasingly evident, some preliminary experiences suggest that these approaches may lack locally accurate identification \cite{Morelli2024_dim}. 
 Indeed, despite the existence of DL approaches for several years, their utilization in photogrammetric applications remains relatively limited. 
-\textcolor{red}{[Include relevant papers: satellite image analysis, glacier monitoring, and applications aimed at enhancing augmented reality (AR) and virtual reality (VR) experiences, registering laser scanner point clouds, Precision Agriculture Agriculture (Gao et al., 2024)]}.
 
 \begin{figure}[ht]
     \centering
@@ -98,7 +97,7 @@ Given a set of unordered images, DIM can perform the matching operations and ret
 
 DIM's primary goal is to provide a user-friendly interface to a wide selection of state-of-the-art computer vision algorithms for matching and tracking corresponding points across unordered images.
 Additionally, DIM aims to overcome the main limitations of DL-based matching approaches that pose challenges for their practical usage in photogrammetry and remote sensing. 
-These limitations include sensitivity to rotation changes, computational bottlenecks with high-resolution images (e.g., larger than 3000 px on the longest edge), difficulties in achieving sub-pixel accuracy, inefficient image pair selection for large datasets, and compatibility issues with existing SfM software packages.  
+These limitations include sensitivity to rotation changes, computational bottlenecks with high-resolution images (e.g., larger than 3000 px on the longest edge), inefficient image pair selection for large datasets, difficulties in achieving sub-pixel accuracy, and compatibility issues with existing SfM software packages.  
 
 DIM employs a modular workflow designed for effective multi-view matching \figref{fig:5:dim_workflow}.
 DIM itself does not perform the bundle adjustment and scene reconstruction, but it is designed to ensure seamless integration with various popular SfM software packages within the remote sensing and computer vision communities. 
@@ -106,17 +105,17 @@ These include COLMAP \citep{schoenberger2016sfm}, OpenMVG \citep{moulon2016openm
 and any other software package that supports the import from a Bundler solution format \citep{Li_Snavely_2018_MegaDepth}.
 Additionally, DIM can be easily integrated into a multi-camera multi-epoch pipeline, e.g., by exploiting the multi-temporal functionalities of ICEpy4D (see \chref{ch:4}).
 
-The process begins with a pre-processing stage where users select from different matching strategies (brute-force, low-resolution guided, sequential, image retrieval, or custom) to intelligently select the pair of images for optimized matching. 
-Additionally, DIM provides a module for addressing the challenge of rotated images within datasets (e.g., in the case of aerial or UAV surveys) by automatically identifying the ideal rotation angle between image pairs, significantly boosting matching accuracy. Users can opt to match images at their original resolution or employ down-sampling or up-sampling techniques managed by a quality parameter.
-To handle high-resolution imagery, DIM offers the added capability of image tiling, ensuring efficient processing without compromising detail. 
+DIM processing pipeline begins with a pre-processing stage where users select from different matching strategies (brute-force, low-resolution guided, sequential, image retrieval, or custom) to select the pair of images for optimized matching intelligently. 
+DIM provides a module for addressing the challenge of rotated images within datasets (e.g., in the case of aerial or UAV surveys) by automatically identifying the ideal rotation angle between image pairs, significantly boosting matching accuracy.
+Additionally, users can opt to match images at their original resolution or employ down-sampling or up-sampling techniques managed by a quality parameter.
+DIM offers the added capability of image tiling to handle high-resolution imagery, ensuring efficient processing without reducing detection precision. 
 
-For the actual matching, DIM supports various combinations of local feature and matching algorithms, named \textit{pipelines}, optimized for diverse problem domains. This allows users to tailor the workflow to their specific needs. 
-Each pipeline consists of two main components: (i) an \textit{extraction} step that is responsible for extracting local features from all images in the dataset; and (ii) a \textit{matching} step that matches the extracted local features across the image pairs selected by the chosen matching strategy.  
+For the actual matching, DIM supports various combinations of local feature and matching algorithms, named \textit{pipelines}, optimized for diverse problem domains. 
+This allows users to tailor the workflow to their specific needs. 
+Each pipeline consists of two main components: (i) an \textit{extraction} step that is responsible for extracting local features from all images in the dataset and (ii) a \textit{matching} step that matches the extracted local features across the image pairs selected by the chosen matching strategy.  
 
-DIM supports a wide range of local features and matching algorithms, spanning from the traditional ones to recent state-of-the-art learning approaches. 
-Available local features include ORB \citep{Rublee2011}, SIFT \citep{Lowe2004}, SuperPoint \citep{DeTone_2018}, 
-ALIKE \citep{zhao2022alike}, ALIKED \citep{zhao2023aliked}, DISK \citep{tyszkiewicz2020disk},
-Key.Net \citep{barrosolaguna2019keynet} + HardNet \citep{pultar2020improving}, DeDoDe \citep{edstedt2024dedode}.
+DIM supports a wide range of local features and matching algorithms, from traditional ones to recent state-of-the-art learning approaches. 
+Available local features include ORB \citep{Rublee2011}, SIFT \citep{Lowe2004}, SuperPoint \citep{DeTone_2018}, ALIKE \citep{zhao2022alike}, ALIKED \citep{zhao2023aliked}, DISK \citep{tyszkiewicz2020disk}, Key.Net \citep{barrosolaguna2019keynet} + HardNet \citep{pultar2020improving}, DeDoDe \citep{edstedt2024dedode} and XFeat \cite{potje2024cvpr}.
 DIM implements SuperGlue \citep{sarlin2020superglue}, LightGlue \citep{lindenberger2023lightglue}, and traditional nearest-neighbor algorithms based on the KORNIA library \citep{riba2019kornia} as local features matchers. 
 Additionally, the detector-free matchers algorithms LoFTR \citep{sun2021_loftr}, SE2-LoFTR \citep{Bkman2022_se2loftr}, and RoMA \citep{edstedt2023roma} are included in DIM and allows for a semi-dense scene reconstruction.
 
@@ -136,56 +135,57 @@ Additionally, the detector-free matchers algorithms LoFTR \citep{sun2021_loftr},
   \subcaptionbox{Low-res preselection\label{fig:5:matching_strategy:lowres}}{
     \includegraphics[height=5cm]{match_strat_lowres}
   }  
-  \caption{Scheme of the main different matching strategies implemented in DIM given an unorered image set (a). (b) Bruteforce strategy (i.e., \textit{all-to-all)}; (c) Sequential strategy with overlap equal to 2 (i.e., match all images with next 3 images, note that the overlap parameter is zero-based); (d) Low-resolution guided matching strategy (i.e., perform a fast bruteforce on low-resolution images and match only good candidates at high resolution).}
+  \caption{Scheme of the main different matching strategies implemented in DIM given an unordered image set (a). (b) Bruteforce strategy (i.e., \textit{all-to-all)}; (c) Sequential strategy with overlap equal to 2 (i.e., match all images with next 3 images, note that the overlap parameter is zero-based); (d) Low-resolution guided matching strategy (i.e., perform a fast brute-force on low-resolution images and match only good candidates at high resolution).}
   \label{fig:5:matching_strategy}
 \end{figure}
 
-The matching strategy defines how the pairs of images to be matched are selected to optimize the matching process. The choice of matching strategy plays a crucial role in optimizing image matching, especially with large datasets.  
+The matching strategy defines how the pairs of images to be matched are selected. The choice of matching strategy plays a crucial role in optimizing image matching, especially with large datasets.  
 
 DIM offers a versatile range of strategies to address diverse use cases. 
 The \texttt{brute-force} approach provides the most comprehensive exploration by attempting to match every image with every other (\figref{fig:5:matching_strategy:bruteforce}). 
 This method is computationally intensive but can be valuable for small datasets or complex scenarios where other strategies may yield insufficient matches. 
-The image pairs are obtained by computing combinations of n elements in 2 places, where n is the number of images in the dataset. 
+The image pairs are obtained by computing combinations of n elements in 2 places (i.e., the pair), where n is the number of images in the dataset. 
 Therefore, the computation complexity by $ p = C(n,2) = \frac{n*\left(n-1\right)}{2}$, where $p$ is the number of pairs.
 
-For image sequences acquired in order by a moving camera, (e.g., Visual Odometry or SLAM), the \texttt{sequential} strategy offers optimized efficiency by matching each image with a defined number of subsequent images. 
+For image sequences acquired in order by a moving camera (e.g., Visual Odometry or SLAM), the \texttt{sequential} strategy offers optimized efficiency by matching each image with a defined number of subsequent images. 
 The overlap parameter defines the number of consecutive images to match sequentially (\figref{fig:5:matching_strategy:sequential}).
 The computational complexity is given by $p = \left(n-O\right) * O $, where $O$ is the overlap parameter.
 
-The \texttt{matching\char`_lowres} enhances computational efficiency by initially analyzing downsampled images to pre-filter pairs based on valid matches detected at lower resolution and considered as inliers after a geometric verification (\figref{fig:5:matching_strategy:lowres}). 
-By default, the minimum number of valid matches is 20 but it can be tuned by the user. 
+The \texttt{matching\char`_lowres} enhances computational efficiency on large datasets by initially analyzing downsampled images to pre-filter pairs based on geometrically verified matches detected at lower resolution (\figref{fig:5:matching_strategy:lowres}).
+By default, the minimum number of valid matches for each low-resolution pair is 20, but the user can tune it. 
 
-The \texttt{retrieval} strategy allows to use of global features to determine the pairs of images that are likely to see the same scene \citep{Yang2013_imageretrieval}. 
-Global features encode the full images into a neural network and therefore they are widely used to tackle visual place recognition problems \citep{napoletano2017visual}. 
-DIM makes use of hloc \citep{Sarlin_2019_hloc} for extracting and matching global features and it supports NetVLAD \citep{arandjelovic2016netvlad},  openIBL \citep{ge2020selfsupervising}, and CoSpace \citep{Hong_2019} global features.  
+The \texttt{retrieval} strategy allows the use of global features to determine the pairs of images that are likely to see the same scene \citep{Yang2013_imageretrieval}. 
+Global features allow for describing the full image globally by encoding it into a neural network. 
+Therefore, they are widely used to tackle visual place recognition problems \citep{napoletano2017visual}.
+Candidate pairs are selected among all the images by matching the global descriptors.
+DIM makes use of hloc \citep{Sarlin_2019_hloc} for extracting and matching global features, and it supports NetVLAD \citep{arandjelovic2016netvlad}, openIBL \citep{ge2020selfsupervising}, and CoSpace \citep{Hong_2019} global features.  
 
 Finally, the \texttt{custom\char`_pairs} option grants users precise control over the matching process, allowing the specification of exact image pairs via a text file. 
-This enables tailored workflows for specific research objectives. 
 
 \subsection{Image resolution and tiling}\label{sec:5:tiling}
 
-DIM provides extensive control over image resolution before feature extraction and matching, providing flexibility for different user needs and hardware constraints. 
+DIM provides extensive control over image resolution before feature extraction and matching. 
 This functionality is particularly important when using DL-based local feature extractors and matchers that rely on GPU parallelization for best performance. 
 They face limitations when processing large images on consumer-grade GPUs, which typically have limited memory resources. 
 The image size threshold varies depending on the available GPU memory and the specific algorithms used (detector-free matchers tend to be particularly memory-intensive). 
-As a general guideline, images with a long edge of up to 3000 pixels can often be processed on a 12GB GPU using a combination such as SuperPoint and LightGlue. 
+As a general guideline, images with a long edge of up to 3000 px can be processed on a 12GB GPU using the SuperPoint+LightGlue pipeline. 
 
-To address this challenge, DIM offers several resolution management strategies: images can be downsampled by a factor of 2, 4, or 8 (medium, low, or lowest quality settings in DIM) using OpenCV's pixel-area relation (bilinear interpolation). 
-This approach may be appropriate when computational efficiency is a priority. Alternatively, for DL features that operate with pixel-level accuracy (e.g., SuperPoint), upsampling by a factor of 2 (DIM's highest quality setting) using bicubic interpolation can improve subpixel detection capabilities.  
+To address this challenge, DIM offers several resolution management strategies: images can be downsampled by a factor of 2, 4, or 8 (medium, low, or lowest quality settings in DIM) using OpenCV's pixel-area relation\footnote{OpenCV interpolation algorithms: \url{https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html}} (bilinear interpolation). 
+Image downsampling may be appropriate when computational efficiency is a priority. Alternatively, for DL features that operate with pixel-level accuracy (e.g., SuperPoint), upsampling by a factor of 2 using bicubic interpolation can improve subpixel detection capabilities.  
 
-To preserve high-resolution detail in large images, DIM supports breaking them into smaller, regular tiles.
-This is critical when using end-to-end detector-free matchers (e.g., LOFTR, RoMa), as their combined extraction and matching steps are particularly memory intensive. 
+DIM supports breaking images into smaller, regular tiles to process large images without losing high-resolution details.
 DIM's tiling allows the user to specify tile dimensions or the number of tiles per row/column.
 An overlap between neighboring tiles can be specified to avoid having no features extracted along the tile boundaries. 
 The software automatically handles zero padding to maintain consistent tile sizes throughout. 
+Image tiling is critical when high accuracy is needed or when using end-to-end detector-free matchers (e.g., LOFTR, RoMa), as their combined extraction and matching steps are particularly memory intensive. 
 
 When using image tiling, DIM handles local feature extraction separately, processing each tile sequentially. 
 However, tile-based feature matching offers several strategies: \texttt{exhaustive}, \texttt{preselection}, and \texttt{grid} mode.
 In \texttt{exhaustive} mode, features from each tile of the first image are matched against features extracted from all tiles of the second image. 
 This mirrors the brute-force approach to image pair selection (see \secref{sec:5:matching_stategies}) and ensures comprehensive exploration of potential matches, but can be computationally intensive. 
 The \texttt{preselection} mode prioritizes efficiency and is the default approach. 
-An initial low-resolution matching step identifies tile pairs likely to contain corresponding features, reducing computational cost by focusing subsequent matching efforts. 
-\texttt{Grid} mode assumes a high degree of similarity between the two images. 
+An initial low-resolution matching step identifies tile pairs likely to contain corresponding features, reducing computational cost by focusing subsequent full-resolution matching efforts on the selected tiles only. 
+\texttt{Grid} mode assumes high similarity between the two images. 
 It matches features from each tile in the first image to features from the corresponding tile (i.e., the tile that shares the same boundaries in image coordinates) in the second image. 
 This approach is well suited for scenarios such as VSLAM, where images are captured sequentially by a moving camera and represent similar scenes. 
 
@@ -204,7 +204,7 @@ This approach is well suited for scenarios such as VSLAM, where images are captu
 \subsection{Image rotations}
 
 DL-based local features often struggle with extreme image rotations because they are trained on datasets with largely consistent orientations. 
-DIM addresses this challenge with two management approaches ensuring images are properly rotated according to a \textit{principal direction} before feature extraction and matching.
+DIM addresses this challenge with two management approaches, ensuring images are properly rotated according to a \textit{principal direction} before feature extraction and matching.
 Features are extracted and matched from the rotated images, and only after matching are keypoints mapped back to their positions in the original image.
 
 If the images' orientation relative to a principal direction is known (e.g., from on-board positioning systems), DIM accepts a text file specifying these rotations and rotates the images accordingly.
@@ -219,7 +219,7 @@ This significantly speeds up the computational time compared to a brute-force ap
 \subsection{Matching pipelines}
 
 DIM offers flexibility by supporting diverse pipelines for image matching. 
-A \texttt{pipeline} consists of a local feature extractor and its corresponding matching algorithm. 
+A \texttt{pipeline} combines a local feature extractor and its corresponding matching algorithm. 
 As compatibility constraints exist between feature extractors and matching algorithms within DL-based methods, DIM currently supports the following pipelines:
 \begin{itemize}
     \item SuperPoint+LightGlue
@@ -230,27 +230,28 @@ As compatibility constraints exist between feature extractors and matching algor
     \item SIFT+nearest neighbor matching
     \item KeyNetAffNetHardNet+nearest neighbor matching
     \item DeDoDe+nearest neighbor matching
+    \item XFeat+nearest neighbor matching    
     \item LOFTR (detector-free matcher)
     \item RoMa (detector-free matcher)
 \end{itemize}
 
 DIM streamlines the process with a unified interface, allowing users to run pipelines with minimal configuration when default settings are suitable. 
-For customization of local feature extractor or matcher parameters, advanced users can provide configuration files to DIM's image-matching interface.
+Advanced users can provide configuration files to customize local feature extractor or matcher parameters.
 
-DIM efficiently stores extracted features and matches in local HDF5 (Hierarchical Data Format) databases, by using the h5py library\footnote{h5py library: \url{https://docs.h5py.org/en/stable/}}. 
+DIM efficiently stores extracted features and matches in local HDF5 (Hierarchical Data Format) databases by using the h5py library\footnote{h5py library: \url{https://docs.h5py.org/en/stable/}}. 
 Pipeline outputs are stored in two HDF5 files: \textit{features.h5} containing keypoints image coordinates, descriptors, and scores and \textit{matches.h5} containing the indices of matched features for each image pair. 
 The features database organizes features by image, with datasets (i.e., a structure similar to a table in a relational database) representing extracted features on each image. 
 The matches database contains datasets per image pair, storing an nx2 array (n = number of matches) where columns reference the corresponding feature indices within the feature database. 
-This indexing enables the construction of tracks, which build tracks of features matched across multiple images. 
-Additionally, this easy-to-use structured format enhances flexibility and maintainability.
+This matches indexing approach enables the construction of tracks of features matched across multiple images and enhances flexibility and maintainability.
 
-The use of HDF5 facilitates the combination of pipelines and the merging of feature sets. 
-This enables the strategic exploitation of different local feature strengths; for example, the same set of images can be processed both with SIFT to exploit its accuracy and reliability for standard baselines and with DL-based algorithms like SuperPoint+LightGlue due to its robustness for wide baselines and significant viewpoint changes.
+The use of HDF5 databases facilitates the combination of pipelines and merging different local features, exploiting their peculiar strengths together.
+For example, the same set of images can be processed both with SIFT for matching accuracy and reliability with standard baselines and with DL-based algorithms like SuperPoint+LightGlue due to its robustness for wide baselines and significant viewpoint changes.
 
 After completing the matching pipelines, outlier correspondences must be rejected. 
-DIM assumes non-calibrated cameras and employs Fundamental matrix estimation for this purpose, rejecting matches with large epipolar errors. 
-DIM offers a robust selection of algorithms for Fundamental matrix estimation and geometric verification. 
-Among these, PyDegensac \cite{Mishkin2015_pydegensac}, implementing LO-Ransac \cite{Chum2003_loransac} and DEGENSAC \cite{Chum2005_degensac}, provides the most robust solution.  Additionally, DIM supports all robust estimation algorithms implemented in OpenCV\footnote{OpenCV robust estimators: \url{https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html}}, including traditional RANSAC, the least-median of squares algorithm (LMedS), and LO-Ransac (USAC\_DEFAULT).
+DIM assumes non-calibrated cameras and employs fundamental matrix estimation for this purpose, rejecting matches with large epipolar errors. 
+DIM offers robust algorithms for fundamental matrix estimation and geometric verification. 
+Among these, PyDegensac \cite{Mishkin2015_pydegensac}, implementing LO-Ransac \cite{Chum2003_loransac} and DEGENSAC \cite{Chum2005_degensac}, provides the most robust solution.  
+Additionally, DIM supports all robust estimation algorithms implemented in OpenCV\footnote{OpenCV robust estimators: \url{https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html}}, including traditional RANSAC, the least-median of squares algorithm (LMedS), and LO-Ransac (USAC\_DEFAULT).
 
 % A sub-pixel refinement module allows for improvements in the matching precision, especially in the case of DL-based features that work only at the pixel level. 
 % Different robust geometric verification techniques can be employed to verify the correspondances and to reject inaccurate or unreliable matches. 
@@ -269,9 +270,9 @@ Among these, PyDegensac \cite{Mishkin2015_pydegensac}, implementing LO-Ransac \c
 
 \section{Case studies}\label{sec:5:methods}
 
-This section presents several case studies on challenging multi-view datasets, showcasing DIM's versatility in diverse remote sensing scenarios.
+This section presents a few case studies on challenging multi-view datasets, showcasing DIM's versatility in diverse remote sensing scenarios.
 While these studies may not directly focus on the Belvedere Glacier, they address common complexities encountered in the remote sensing field.  
-Furthermore, two case studies specific to the Belvedere Glacier demonstrate how DIM, integrated with ICEpy4D (see \secref{sec:4:stereoworkflow}), can enable the creation of effective multi-view monitoring systems using low-cost cameras.
+Furthermore, a case study specific to the Belvedere Glacier demonstrates how DIM, integrated with ICEpy4D (see \secref{sec:4:stereoworkflow}), can enable the creation of effective multi-view monitoring systems using low-cost cameras.
 
 % Even though they are not all specifically related to the Belvedere Glacier, they tackle specific challenging scenarios that may be commonly encountered in remote sensing.
 % Two case studies related to the Belvedere Glacier introduce to the possibility of applying DIM for achieving an actual multi-view monitoring system using low-cost cameras, by integrating DIM with ICEpy4D (see \secref{sec:4:stereoworkflow}, used for tackling the multi-temporal component of the monitoring system. 
@@ -308,28 +309,41 @@ Furthermore, two case studies specific to the Belvedere Glacier demonstrate how 
 %   \label{fig:5:stereo_dense}
 % \end{figure}
 
+\subsection{Low-textures scenes}
 
-\begin{figure}[ht]
+Hand-crafted descriptors like SIFT often struggle in low-texture environments like snow-covered glaciers, as the lack of distinctive features significantly complicates finding corresponding points for image orientation. 
+Since glaciers are commonly snow-covered for large parts of the year, addressing this challenge is essential for robust, long-term monitoring.
+While the time series analysis discussed in \chref{ch:4} was limited to the May-November period, the planned expansion to a multi-camera system and the need to make the system an all-year monitoring platform motivated a focused investigation into this scenario. 
+
+\begin{figure}
   \centering
     \includegraphics[height=3.5cm]{winter_img_1}
     \includegraphics[height=3.5cm]{winter_img_2}
     \includegraphics[height=3.5cm]{winter_img_5} \\ \vspace{1mm}
     \includegraphics[height=3.5cm]{winter_img_3}
     \includegraphics[height=3.5cm]{winter_img_4}
-  \caption{Images of Dataset A - Winter. Images in the first row are taken by UAV, while those in the second row are acquired by the terrestrial cameras.}
+  \caption{Images of Dataset A - Winter. Images in the first row are taken by UAV, while those in the second row are acquired by terrestrial cameras.}
   \label{fig:5:winter_images}
 \end{figure}
 
-\subsection{Low-textures scenes}
-
-Hand-crafted descriptors like SIFT often struggle in low-texture environments, such as a snow-covered glacier.  
-The lack of distinctive features significantly complicates finding corresponding points for image orientation. 
-Since glaciers are commonly snow-covered for large parts of the year, addressing this challenge is essential for robust, long-term monitoring.
-While the time series analysis discussed in \chref{ch:4}was limited to the May-November period, the planned expansion to a multi-camera system motivated a focused investigation into this scenario. 
 To simulate a multi-view setup, we integrated the 24/03/2024 images captured by the existing two fixed cameras with three additional images acquired by a Parrot Anafi UAV (1/1.2.4" CMOS sensor with 4.8 mm focal length - 23 mm in 35mm format equivalent).
 Dataset A - Winter - is composed of these three UAV images, acquired from positions near potential future camera locations along the glacier moraines and with convergent view angles, combined with the two terrestrial images (\figref{fig:5:winter_images}).
+Unfortunately, a ground truth acquired on the same day was unavailable to validate the multi-view reconstruction. 
+Therefore, a qualitative assessment of the resulting multi-view reconstruction is presented below.
 
-\begin{table}[ht]
+For image orientation, dataset A images were processed using DIM with the SuperPoint+LightGlue pipeline (A1) and subsequently compared with results obtained using hand-crafted local features.  
+These included RootSIFT implemented within the traditional COLMAP matching pipeline (A2) and the proprietary feature matching algorithm implemented in Agisoft Metashape (A3).
+
+Given the limited dataset size, we used a DIM brute-force matching strategy to try to match all possible pairs. 
+To accommodate SuperPoint's lack of subpixel refinement capability, we preprocessed images by upsampling them by a factor of two with bicubic interpolation. 
+This enabled subpixel accuracy at the half-pixel level. 
+Furthermore, due to the limited consumer-grade GPU memory, the upscaled images were subdivided into regularly sized tiles of 3000x2000 pixels.  
+This tile dimension was a compromise between limiting the total number of tiles and facilitating processing on an NVIDIA RTX A2000 with 12 GB of memory. 
+Since the images were acquired with an upright orientation and with minimal in-plane sensor rotations, the pipeline for pre-selection of the best image rotation was unnecessary.  
+Pydegensac was used for the geometric verification of putative matches, and the final bundle adjustment was performed using COLMAP. 
+In contrast, using their traditional workflow, Metashape and COLMAP used full-resolution images for feature extraction and bundle adjustment procedures.
+
+\begin{table}
     \centering
     \caption{Summary of the Winter dataset results obtained with DIM compared to those obtained with COLMAP (with RootSIFT features) and Agisoft Metashape with its proprietary feature extractor and matches.} 
     \label{tab:5:winter_statistics}
@@ -345,36 +359,12 @@ Dataset A - Winter - is composed of these three UAV images, acquired from positi
     \end{tabular}
 \end{table}
 
-For the image orientation, dataset A images were processed using DIM with the SuperPoint+LightGlue pipeline (A1) and subsequently compared with results obtained using hand-crafted local features.  
-These included RootSIFT within the traditional COLMAP matching pipeline (A2) and the proprietary feature matching algorithm implemented in Agisoft Metashape (A3).
-
-Given the limited dataset size, a brute-force matching strategy was used in DIM to try to match to all possible pairs. 
-To accommodate SuperPoint's lack of subpixel refinement capability, images were preprocessed by DIM by upsampling, upscaling them by a factor of two with a bicubic interpolation. 
-This enabled subpixel accuracy at the half-pixel level. 
-Furthermore, due to the limited consumer-grade GPU memory, the upscaled images were subdivided into regularly sized tiles of 3000x2000 pixels.  
-This tile dimension was a compromise between limiting the total number of tiles and facilitating processing on an NVIDIA RTX A2000 with 12 GB of memory. 
-Since the images were acquired upright with minimal in-plane sensor rotations, the pipeline for pre-selection of the best image rotation was unnecessary.  
-Pydegensac was used for the geometric verification of putative matches, and the final bundle adjustment was performed using COLMAP. 
-In contrast, both Metashape and COLMAP used full-resolution images for feature extraction and their respective bundle adjustment procedures. 
-
-% For the image orientation, the images were processed with DIM by upsampling the images by a factor of two using a bicubic interpolation technique before extracting features. 
-% This was motivated by the fact that SuperPoint lacks subpixel refinement capability in keypoint
-% detection. 
-% Therefore, upsampling the images allowed for subpixel accuracy at the half-pixel level.
-% In addition, since the upsampled images of dataset D had a resolution larger than 10000x8000 px and could not fit into the memory of a consumer-grade GPU, the images were processed by subdividing them into regular tiles with a dimension of 3000 x 2000 px.
-% The tile size was chosen as a compromise to limit the total number of tiles, but at the same time to be able to perform the processing using an NVIDIA RTX A2000 GPU with 12 GB of memory.
-% Given the limited number of images, a bruteforce matching strategy was employed to try to match all the possible image pairs. 
-% As the images were all acquired upright and the image did not present any relevant in-plane sensor rotations, no rotation selection pipeline was performed. 
-% Putative corresponding points were filtered by using Pydegensac for the geometric verification.
-% The bundle adjustment was carried out with COLMAP. 
-% For Metashape and COLMAP, full-resolution images were used for tie-point extraction and the irrespective bundle adjustment engine. 
-
 The results of the image orientation are summarized in \tabref{tab:5:winter_statistics}.
-The only approach that was able to orient all 5 images of the dataset was DIM with SuperPoint+LightGlue. 
-On the contrary, both COLMAP and Metashape oriented 4 images only, but they were not able to find enough tie points to orient the rightmost UAV image.
-However, considering the mean reprojection after the bundle adjustment, the most accurate approach resulted to be Metashape, with a reprojection error significantly smaller than 1 px, compared to DIM and COLMAP, which is around 1 px. 
+The only approach that could orient all 5 images was DIM with SuperPoint+LightGlue. 
+On the contrary, both COLMAP and Metashape oriented 4 images only, but they could not find enough tie points to orient the rightmost UAV image.
+However, considering the mean reprojection after the bundle adjustment, the most accurate approach was Metashape, with a reprojection error significantly smaller than 1 px, compared to DIM and COLMAP, which is around 1 px. 
 
-\begin{figure}[h!]
+\begin{figure}
   \centering
   \subcaptionbox{\label{fig:5:winter_res:ms}}{
     \includegraphics[height=0.4\textheight]{winter_dense_ms}
@@ -382,40 +372,29 @@ However, considering the mean reprojection after the bundle adjustment, the most
   \subcaptionbox{\label{fig:5:winter_res:roma}}{
     \includegraphics[height=0.4\textheight]{winter_dense_roma}
   }  
-  \caption{Dense reconstruction of the Belvedere Glacier north-west lobe using (a) Agisto Metashape and (b) RoMa. The reconstruction obtained with RoMa was computed starting from the camera poses estimated with SuperPoint+LightGlue.}
+  \caption{Dense reconstructions of the northwest lobe of Belvedere Glacier using (a) Agisoft Metashape and (b) RoMa. The RoMa reconstruction was computed using camera poses estimated by DIM's SuperPoint+LightGlue pipeline. Note the number of oriented images with the two different approaches, and the greater coverage of the snow-covered surface and the streamwise right moraine achieved by RoMa despite the lower overall point density (highlighted by the yellow circles).}
   \label{fig:5:winter_res}
 \end{figure}
 
 DIM was also used to generate a dense reconstruction of the scene using the RoMa semi-dense matching algorithm for pixel-wise correspondence estimation. 
 Since RoMa is a detector-free approach, correspondences are limited to image pairs. 
-Therefore RoMa-derived corresponding points could not be reliably tracked across multiple images. 
+Therefore, RoMa-derived corresponding points could not be reliably tracked across multiple images. 
 While this is not ideal for image orientation, it is suitable for dense reconstruction, providing that a good geometric verification of the correspondence and some cleaning is carried out.
 Because of this reason, RoMa correspondences were triangulated using the camera poses estimated within the SuperPoint+SuperGlue solution.
-Similar to the orientation procedure, a brute-force matching strategy was applied, with images being matched at full resolution using a tiling approach.
+Similar to the orientation procedure, a brute-force matching strategy was applied, with images being matched at half-resolution using a tiling approach due to memory limitation constraints.
 
-\figref{fig:5:winter_res:roma} shows the resulting semi-dense reconstruction using RoMa. 
-This DIM-generated reconstruction was then compared to the one generated by Agisoft Metashape using its proprietary algorithm (\figref{fig:5:winter_res:ms}).
+\figref{fig:5:winter_res} shows the semi-dense reconstruction produced by RoMa alongside the dense reconstruction produced by Agisoft Metashape. 
+The Metashape reconstruction shows excellent coverage and density on the streamwise left moraine (right side of the image) due to its distinct features and favorable image coverage from the three oriented images on the left. 
+However, very few points were reconstructed on the snow-covered surface, concentrated mainly in areas with sharper edges or geometric changes (e.g., the ice cliff). 
+This results in a skeletal representation of the glacier surface, requiring extensive interpolation for DSM generation. 
+The streamwise right moraine remains completely unreconstructed.
 
-........
-
+In contrast, the RoMa semi-dense point cloud has a lower overall density but covers a much larger area. 
+The frontal ice cliff is almost completely reconstructed, and sparse point clusters on the upper glacier surface provide valuable data for DSM interpolation. 
+Importantly, parts of the streamwise right moraine are captured, made possible by the successful orientation of all images within DIM.  
+In addition, RoMa achieves some reconstruction even in background areas with difficult geometry or challenging surfaces, highlighting its potential for broader applications.
 
 \subsection{Historical internet images}
-
-\begin{table}[ht]
-    \centering
-    \caption{Summary of the Nadar dataset results obtained with DIM compared to those obtained with COLMAP (with RootSIFT features) and Agisoft Metashape with its proprietary feature extractor and matches. (*) The dataset has been oriented by combining different local features: SIFT, KeyNey + HardNet, ALIKED, SuperPoint, and DISK.} 
-    \label{tab:5:statistics_summary}
-    
-    \begin{tabular}{l p{3.5cm} p{2.2cm} p{2.2cm} p{2.2cm} p{2.2cm}}
-    \toprule
-    &Local features \newline and matcher & Oriented/ \newline total images & Mean reprojection error \newline [px] & Mean track \newline length &  3D tie points\\
-    \midrule
-    B1 &DIM \newline (combination of LF)\textsuperscript{*}    & \textcolor{green}{12/12}     & 1.09  & 2.6   & 2791 \\
-    B2 &COLMAP \newline(RootSIFT)                     & 0/12      & NA    & NA    & NA   \\
-    B3 &Metashape \newline (proprietary)              & 03/12     & 0.36  & 2.0   & 294  \\
-    \bottomrule
-    \end{tabular}
-\end{table}
 
 Dataset B – Nadar – is a collection of 12 self-portrait images from the opera Revolving (1865) of Gaspard-Félix Tournachon, known as Nadar\footnote{Wikipedia Nadar page: \url{https://en.wikipedia.org/wiki/Nadar}}. 
 The images have been downloaded from Wikipedia (resolution of 524 x 671 px), and they show significantly different viewpoints, low radiometric quality, and many time-related artifacts. 
@@ -431,18 +410,26 @@ All these characteristics make the reconstruction difficult with classical appro
 
 For the Nadar dataset, different local features have been tested: SIFT, KeyNey + HardNet, ALIKED, SuperPoint, and DISK.
 SuperPoint and DISK local features were matched with LightGlue, while the others were matched with a nearest-neighbor approach. 
-None of these approaches managed to orient more than three images, except DISK which found significantly more tie points and oriented seven images. 
+None of these approaches managed to orient more than three images, except DISK, which found significantly more tie points and oriented seven images. 
 In \figref{fig:5:res_nadar}, a matching pair example is reported for SIFT (a) and DISK (b).
 Metashape completely failed to orient the dataset. 
 
-Only by combining all the tie points from the previous approaches, excluding Metashape, was it possible to orient the whole dataset (\figref{fig:5:res_nadar}c-d). 
-Tie points with multiplicity equal to two were excluded because they were considered not sufficiently robust and prone to outliers. 
-In addition, no ratio threshold has been used to retain more matches. 
-Because of the camera network and the scarcity of tie points, images were first oriented using a rough nominal focal length, then focal length and one radial distortion parameter were updated in a final bundle adjustment with self-calibration.
+\begin{table}
+    \centering
+    \caption{Summary of the Nadar dataset results obtained with DIM compared to those obtained with COLMAP (with RootSIFT features) and Agisoft Metashape with its proprietary feature extractor and matches. (*) The dataset has been oriented by combining different local features: SIFT, KeyNey + HardNet, ALIKED, SuperPoint, and DISK.} 
+    \label{tab:5:nadar_summary}
+    
+    \begin{tabular}{l p{3.5cm} p{2.2cm} p{2.2cm} p{2.2cm} p{2.2cm}}
+    \toprule
+    &Local features \newline and matcher & Oriented/ \newline total images & Mean reprojection error \newline [px] & Mean track \newline length &  3D tie points\\
+    \midrule
+    B1 &DIM \newline (combination of LF)\textsuperscript{*}    & \textcolor{green}{12/12}     & 1.09  & 2.6   & 2791 \\
+    B2 &COLMAP \newline(RootSIFT)                     & 0/12      & NA    & NA    & NA   \\
+    B3 &Metashape \newline (proprietary)              & 03/12     & 0.36  & 2.0   & 294  \\
+    \bottomrule
+    \end{tabular}
+\end{table}
 
-Concerning 3D model reconstruction, the poor radiometry of the images caused the dense matching of COLMAP and Metashape to fail. 
-Therefore, to obtain a point cloud dense enough to build a meshed textured 3D model, the deep learning-based semi-dense matcher RoMA available in DIM is applied (\figref{fig:5:res_nadar}e-f). 
-Finally, using Metashape functionalities, a textureized model is created (\figref{fig:5:res_nadar}g-h).
 
 \begin{figure}
   \centering
@@ -474,6 +461,15 @@ Finally, using Metashape functionalities, a textureized model is created (\figre
   \label{fig:5:res_nadar}
 \end{figure}
 
+With DIM, only by combining all the tie points from the previous approaches, excluding Metashape, was it possible to orient the whole dataset (\tabref{tab:5:nadar_summary}).
+Tie points with multiplicity equal to two were excluded because they were considered not sufficiently robust and prone to outliers. 
+In addition, no ratio threshold has been used to retain more matches. 
+Because of the camera network and the scarcity of tie points, images were first oriented using a rough nominal focal length, then focal length and one radial distortion parameter were updated in a final bundle adjustment with self-calibration.
+
+Regarding 3D model reconstruction, COLMAP and Metashape dense matching failed due to the images' poor radiometry. 
+Therefore, to obtain a point cloud dense enough to build a meshed textured 3D model, the DL semi-dense matcher RoMA available in DIM was employed and successfully reconstructed a dense point cloud of Nadar's body (\figref{fig:5:res_nadar}e-f). 
+Finally, using Metashape functionalities, a textureized model was created from the semi-dense point cloud (\figref{fig:5:res_nadar}g-h).
+
 \subsection{Combining UAV and terrestrial images}
 
 \begin{figure}
@@ -484,21 +480,38 @@ Finally, using Metashape functionalities, a textureized model is created (\figre
     \includegraphics[height=3cm]{castle_img_4}
     \includegraphics[height=3cm]{castle_img_5}
     \includegraphics[height=3cm]{castle_img_6}
-  \caption{Sample images Dataset C - Castle. Images in the first row are samples of the nadiral and oblique UAV images, those in the second row are samples of the terrestrial images, including some of the challenging underexposed or overexposed images.}
+  \caption{Sample images Dataset C - Castle. Images in the first row are samples of the nadiral and oblique UAV images, and images in the second row are samples of the terrestrial images, including some of the challenging underexposed or overexposed images.}
   \label{fig:5:castle_img}
 \end{figure}
+
+Dataset C – Castle comprises 48 images of the half-destroyed historical Castle of Casalbagliano, Alessandria (Italy). 
+It is a traditional photogrammetric dataset of a cultural heritage site, including 25 nadiral UAV images, 11 oblique UAV images, and 12 terrestrial images, with a camera network similar to a classical photogrammetric survey (\figref{fig:5:castle_img}). Dataset C is the only one with an available ground truth. 
+
+All the images of Dataset C were acquired by a single Canon Eos M with a fixed focal length of 22 mm and a size of 5184 x 3456 px.
+The UAV nadiral images exhibit a modest overlap, approximately 60\% in the longitudinal direction and 40\% in the transversal direction. 
+The UAV oblique images consist of four convergent shots acquired at each corner of the block and five additional images positioned along the exterior perimeter. 
+The terrestrial images are acquired along a circle all around the castle. 
+The main challenge of this dataset is linking the nadiral UAV images with the terrestrial ones, as they have strongly different points of view. 
+Moreover, some of the terrestrial images are underexposed and characterized by large dark areas or were acquired against the sun, and therefore, they show strong sunlight reflections. 
+
+Dataset C was extracted from a larger and more robust dataset, named Dataset C\_GT (\figref{fig:5:castle_gt}), and which was used as a ground truth reference to validate the results obtained with DIM.
+This dataset is composed of 172 images (83 nadiral, 61 oblique, and 28 terrestrial) with an average overlap between the images between 70\% and 80\% and an average GSD of approximately 9 mm \cite{Gagliolo2017_uav_conservation_histo, gagliolo2018_parameter_optim}. 
+The full dataset also included 19 targets deployed on the ground around the castle and measured by a total station with sub-centimetric accuracy. 
+Dataset C\_GT was processed with Metashape by using 10 targets as GCPs and performing a camera self-calibration. 
+The quality of the photogrammetric block was evaluated on the remaining 9 targets, used as CPs, resulting in an overall RMSE of 1.9 cm in the three directions.
+
 
 \begin{figure}
   \centering
     \includegraphics[width=0.6\textwidth]{castle_gt}
-  \caption{Dataset C\_GT, used as the ground truth to evaluate the results on Dataset C. The red flags are the targets used as GCPs while the yellow ones those used as CPs.}
+  \caption{Dataset C\_GT, used as the ground truth to evaluate the results on Dataset C. The red flags are the targets used as GCPs, while the yellow ones are those used as CPs.}
   \label{fig:5:castle_gt}
 \end{figure}
 
 
-\begin{table}[ht]
+\begin{table}
     \centering
-    \caption{Summary of the Castle dataset results obtained with DIM, compared to the results obtained with COLMAP (with RootSIFT features) and Agisoft Metashape with its proprietary feature extractor and matches. (*) As COLMAP produced two non-linked reconstructions, the reported results refer to the reconstruction with the highest number of oriented images.} 
+    \caption{Summary of the Castle dataset results obtained with DIM, compared to those obtained with COLMAP (with RootSIFT features) and Agisoft Metashape with its proprietary feature extractor and matches. (*) As COLMAP produced two non-linked reconstructions, the reported results refer to the reconstruction with the highest number of oriented images.} 
     \label{tab:5:castle_statistics}
     
     \begin{tabular}{l p{3.5cm} p{2.2cm} p{2.2cm} p{2.2cm} p{2.2cm}}
@@ -512,20 +525,17 @@ Finally, using Metashape functionalities, a textureized model is created (\figre
     \end{tabular}
 \end{table}
 
+Similar to Dataset A, Dataset C was processed with DIM by using the SuperPoint+LightGlue pipeline. 
+A low-resolution guided approach was used to select image pairs and reduce computational time. 
+Images were first upscaled by a factor of two with a bicubic interpolation prior to feature extraction, which was again performed using a tile-based approach.
 
-Dataset C – Castle – is composed of 48 images of the half-destroyed historical Castle of Casalbagliano, Alessandria (Italy). 
-It is a traditional photogrammetric dataset of a cultural heritage site including 25 nadiral UAV images, 11 oblique UAV images, and 12 terrestrial images \figref{fig:5:castle_img}, with a camera network like a classical photogrammetric survey. 
-Dataset C is the only one with an available ground truth. 
-All the images of Dataset C were acquired by a single Canon Eos M with a fixed focal length of 22 mm and a size of 5184 x 3456 px.
-The UAV nadiral images exhibit a modest overlap, approximately 60\% in the longitudinal direction and 40\% in the transversal direction. 
-The UAV oblique images consist of four convergent shots acquired at each corner of the block, along with five additional images positioned along the exterior perimeter. 
-The terrestrial images are acquired along a circle all around the castle. 
-The main challenge of this dataset is linking together the nadiral UAV images with the terrestrial ones, as they have a strongly different point of view. 
-Moreover, some of the terrestrial images are underexposed and characterized by large dark areas or acquired against the sun and therefore they show strong sunlight reflections. 
+The results obtained with SuperPoint + LightGlue (\tabref{tab:5:castle_statistics}) were significantly better only compared to those obtained with a traditional COLMAP processing pipeline (C2), while they were similar to the outcomes obtained with Metashape (C3). 
+With both LightGlue and Metashape, all 48 images were oriented.
+On the other hand, COLMAP failed to orient all the images together, but it created two different not-linked models.
+The largest model comprised only 31 oriented images (\tabref{tab:5:castle_statistics}). 
+The smallest average reprojection error of 0.5 px was obtained by processing the dataset using Metashape with its proprietary local feature implementation, while a slightly higher reprojection error of 0.9 px was obtained by SuperPoint + LightGlue (\tabref{tab:5:castle_statistics}), as SuperPoint do not have subpixel accuracy in keypoint detection. 
+On the other hand, the mean track length of 3.3 obtained with SuperPoint + LightGlue was larger than the 2.5 obtained with Metashape, guaranteeing higher redundancy of the observations in the bundle adjustment. 
 
-Dataset C was extracted from a larger and more robust dataset, named Dataset C\_GT \figref{fig:5:castle_gt}, and which was used as a ground truth reference to validate the results obtained with DIM.
-This dataset is composed of 172 images (83 nadiral, 61 oblique, and 28 terrestrial) with an average overlap between the images between 70\% and 80\% and an average GSD of approximately 9 mm \cite{Gagliolo2017_uav_conservation_histo, gagliolo2018_parameter_optim}. 
-The full dataset also included 19 targets deployed on the ground around the castle and measured by a total station with sub-centimetric accuracy. Dataset C\_GT was processed with Metashape, by using 10 targets as GCPs and performing a self-calibration of the camera. The quality of the photogrammetric block was evaluated on the remaining 9 targets, used as CPs, resulting in an overall RMSE of 1.9 cm in the three directions.
 
 \begin{figure}
     \centering
@@ -555,6 +565,15 @@ The full dataset also included 19 targets deployed on the ground around the cast
     \label{fig:5:castle_matches}
 \end{figure}
 
+\figref{fig:5:castle_matches} shows the matched keypoints for a challenging pair composed of a UAV oblique image and a terrestrial image, with a wide baseline and rather bad lighting conditions for the terrestrial image. 
+The combination of SuperPoint + LightGlue, which works better under strong viewpoints conditions \citep{ioli2024deep}, allowed for extracting more than 600 valid matches, while Metashape could find only one valid match.
+Surprisingly, COLMAP with RootSIFT detected more matches for this pair than Metashape, probably thanks to its ability to estimate affine descriptors \cite{Lindeberg1997_affine}. 
+However, for other challenging pairs, the results of SuperPoint + LightGlue were comparable to those of Metashape or COLMAP without providing any relevant improvement. The matches obtained with SuperPoint + LightGlue were finally imported into COLMAP for the bundle adjustment and reconstruction (\figref{fig:5:castle_rec:splg}).
+The two complete solutions, C1 (SuperPoint + LightGlue) and C3 (pure Metashape), in which all the 48 images were oriented, were validated by importing the estimated reconstructions into a new Metashape project and adding 4 GCPs at the block corner as a minimum constraint while leaving the other 15 targets as CPs (\figref{fig:5:castle_rec:georef}). 
+This made it possible to compare the solutions C1 and C3 with the ground truth Dataset C\_GT and to evaluate the on-ground reconstruction accuracy based on the CPs and the camera pose error by comparing the camera exterior orientation parameters.
+Comparable results were obtained for both C1 and C3, with a centimetric error on the CP and an average error of less than 5 cm on the camera location (\tabref{tab:5:castle_eo_stats}). 
+This highlights that Dataset C was correctly oriented using both SuperPoint + LightGlue and Metashape processing without showing a clear superiority of any approach. 
+
 \begin{figure}
   \centering
   \subcaptionbox{\label{fig:5:castle_rec:splg}}{
@@ -567,26 +586,7 @@ The full dataset also included 19 targets deployed on the ground around the cast
   \label{fig:5:castle_rec}
 \end{figure}
 
-Similar to Dataset A, Dataset C was processed with DIM by using the SuperPoint+LightGlue pipeline. 
-However, due to the larger number of images, a low-resolution guided approach was used for image pair selection to reduce computational time. 
-Images were first downsampled and matched using a fast brute-force method. 
-All pairs with at least 30 valid matches were then selected for the full-resolution matching stage.  
-As before, images were first upscaled by a factor of two with a bicubic interpolation prior to feature extraction, which was again performed using a tile-based approach.
-
-The results obtained with SuperPoint + LightGlue (\tabref{tab:5:statistics_summary}) were significantly better only compared to those obtained with a traditional COLMAP processing pipeline (C2), while they were similar to the outcomes obtained with Metashape (C3). 
-With both LightGlue and Metashape, all 48 images were oriented. On the other hand, COLMAP failed to orient all the images together, but it created two different not-linked models. The largest model consisted of only 31 oriented images, as detailed in \tabref{tab:5:statistics_summary}. 
-The smallest average reprojection error of 0.5 px was obtained by processing the dataset using Metashape with its proprietary local feature implementation, while a slightly higher reprojection error of 0.9 px was obtained by SuperPoint + LightGlue (\tabref{tab:5:statistics_summary}), as SuperPoint did not have subpixel accuracy in keypoint detection. 
-On the other hand, the mean track length of 3.3 obtained with SuperPoint + LightGlue was larger than the 2.5 obtained with Metashape, guaranteeing higher redundancy of the observations in the bundle adjustment. 
-
-\figref{fig:5:castle_matches} shows the matched keypoints for a challenging pair composed of a UAV oblique image and a terrestrial image, with a wide baseline and rather bad lighting conditions for the terrestrial image. 
-The combination of SuperPoint + LightGlue, which works better under strong viewpoints conditions \citep{ioli2024deep}, allowed for extracting more than 600 valid matches, while Metashape was able to find only a single valid match. Surprisingly for this pair, COLMAP with RootSIFT was able to detect more matches than Metashape, probably thanks to its ability to estimate affine descriptors \cite{Lindeberg1997_affine}. 
-However, for other challenging pairs, the results of SuperPoint + LightGlue were comparable to those of Metashape or COLMAP, without providing any relevant improvement. The matches obtained with SuperPoint + LightGlue were finally imported into COLMAP for the bundle adjustment and reconstruction (\figref{fig:5:castle_rec:splg}).
-The two complete solutions C1 (SuperPoint + LightGlue) and C3 (pure Metashape), in which all the 48 images were oriented, were validated by importing the estimated reconstructions into a new Metashape project and adding 4 GCPs at the block corner as a minimum constraint, while leaving the other 15 targets as CPs (\figref{fig:5:castle_rec:georef}). 
-This made it possible to compare the solutions C1 and C3 with the ground truth Dataset C\_GT and to evaluate the on-ground reconstruction accuracy based on the CPs and the camera pose error by comparing the camera exterior orientation parameters.
-Comparable results were obtained for both C1 and C3, with a centimetric error on the CP and an average error of less than 5 cm on the camera location (\tabref{tab:5:castle_eo_stats}). 
-This highlights that Dataset C was correctly oriented using both SuperPoint + LightGlue and Metashape processing, without showing a clear superiority of any approach. 
-
-\begin{table}[ht]
+\begin{table}
     \centering
     \caption{Summary of accuracy evaluation for the solutions obtained with SuperPoint + LightGlue (C1) and Metashape (C3) with respect to the ground truth (C\_GT). The RMSE on the CPs was computed as the RMS of the difference between the 3D coordinates of the targets measured on the field and those estimated in C1 and C3. The RMSE on the cameras was computed as the RMS of the differences between the estimated 3D coordinates and attitude angles of the cameras in C\_GT and those estimated in C1 and C3.} 
     \label{tab:5:castle_eo_stats}
@@ -600,6 +600,7 @@ This highlights that Dataset C was correctly oriented using both SuperPoint + Li
     \bottomrule
     \end{tabular}
 \end{table}
+
 
 
 % \subsection{Thermal vs RGB}
