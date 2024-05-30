@@ -24,14 +24,14 @@
 
 \chref{ch:4} demonstrated the potential of a low-cost stereoscopic camera system for short-term monitoring of glacier dynamics. 
 However, using a stereo camera only limits the viewing area that the system can cover, especially under sub-optimal viewing conditions and acquisition geometry.
-To further enhance 3D reconstruction capabilities, this chapter introduces a transition to a multi-camera approach that offers several advantages for glaciological studies.  
-Firstly, it reduces occlusions, ensuring better coverage of complex glacier environments. 
+This chapter introduces a transition to a multi-camera approach, which offers several advantages for glaciological studies to further enhance 3D reconstruction capabilities.  
+Firstly, it allows for reducing occlusions, ensuring better coverage of complex glacier environments. 
 Secondly, a multi-view approach can improve the 3D reconstructions, providing more observation redundancy and more robust photogrammetric estimation.
 Finally, a multi-camera framework guarantees flexibility, allowing the integration of additional cameras over time for long-term monitoring within the same processing pipeline. 
 
 As discussed in \chref{ch:4}, wide camera baselines, strong viewpoint changes, and the often low-texture surfaces inherent to glacial environments pose significant challenges for traditional feature-matching techniques.
 Therefore, standard SfM software packages are often unsuitable for performing photogrammetric reconstruction.
-This complexity introduces the need for cutting-edge approaches like the Deep-Image-Matching (DIM) toolbox presented in this chapter.
+This complexity introduces the need for cutting-edge approaches like the Deep-Image-Matching (DIM) toolbox\footnote{https://github.com/3DOM-FBK/deep-image-matching} presented in this chapter.
 DIM is a versatile toolbox for traditional and DL-based multi-view image matching. 
 It addresses a crucial gap in existing libraries: the lack of tools specifically tailored for multi-view matching under challenging conditions using hand-crafted and DL local features and matching algorithms.
 
@@ -58,15 +58,15 @@ Therefore, this chapter will focus on the software component, and we will simula
 %     \label{fig:5:feats_history}
 % \end{figure}
 
-\section{Limitation of Deep Learning local features}\label{sec:5:limitation_dl_feats}
+\section{Limitations of Deep Learning local features}\label{sec:5:limitation_dl_feats}
 
 As discussed in \secref{sec:4:localfeatures}, a large number of trainable algorithms for robust local feature extraction and matching have been developed in the past few years \citep{remondino2022_at_with_dl}.
-DL techniques, and particularly attention-based architectures~\citep{vaswani2023attention}, have emerged as a powerful technique for extracting and matching features under challenging conditions, such as wide baselines and significant radiometric differences~\citep{jin_image_2021, Yao_2021}.
+DL techniques, and particularly attention-based architectures~\citep{vaswani2023attention}, have emerged as powerful techniques for extracting and matching features under challenging conditions, such as wide baselines and significant radiometric differences~\citep{jin_image_2021, Yao_2021}.
 
 Although DL local features offer several advantages, their limited rotational invariance remains a constraint, particularly when analyzing images with diverse orientations, such as those typical of aerial and UAV photogrammetric acquisitions. 
 While some initial studies highlighted this issue, many approaches have not prioritized the solution to this problem, as datasets with minimal rotational variability (e.g., upright images) are commonly used within the computer vision community. 
 Recently, some end-to-end approaches like LIFT \citep{yi2016lift} and LFNet \citep{ono2018lfnet}, and semi-dense methods like RoRD \citep{parihar2022rord} and SE2-LoFTR \citep{Bkman2022_se2loftr}, demonstrate progress in achieving rotational invariance. 
-Recent works with Steerable CNNs \citep{cohen2016steerable}, which are examples of group equivariant neural networks that allow for \textit{steering} the descriptors to make them invariant by the rotation, further address this limitation \cite{Bkman2022_se2loftr, bokman2023steerers}.
+Recent works with Steerable CNNs \citep{cohen2016steerable}, which are group equivariant neural networks that allow for \textit{steering} the descriptors to make them invariant by the rotation, further address this limitation \cite{Bkman2022_se2loftr, bokman2023steerers}.
 Nevertheless, the number of approaches specifically addressing this problem is minimal compared to the overall interest in DL-based feature-matching algorithms.
 On the other hand, the most common approach to address large rotation is still to compensate by iteratively rotating images during matching, but this becomes computationally intensive for large datasets.
 
@@ -92,7 +92,7 @@ Indeed, despite the existence of DL approaches for several years, their utilizat
 % Image pairs to be matched can be chosen by the user (custom pair option), or they can be automatically selected by other strategies, including all possible pairs (brute force), sequential matching (sequential), or image retrieval using global descriptors (retrieval). Image pairs can also be chosen by running a brute force on low-resolution images to limit computational time (option matching lowres).
 % For high resolution images (i.e., images with the longest edge larger than 5000 px), feature extraction and matching are carried out by tiling the images on a regular grid to fit into GPU memory, while the selection of the tiles to be matched is guided by a first matching on low-resolution images. Features matched on each image pair are verified by using PyDegensac (Mishkin et al., 2015) to reject outliers. Geometrically verified tie points are then stored in a SQLite3 database to be imported in COLMAP, or in the openMVG format, ready for the bundle adjustment in the respective software. To import the solution in other photogrammetric software (e.g. Metashape), image orientation is performed with pycolmap library, and 3D tie points are exported in the Bundler format (Snavely et al., 2006).
 
-Deep-Image-Matching\footnote{\url{https://github.com/3DOM-FBK/deep-image-matching}} (DIM) is a flexible, open-source Python library designed for robust multi-view image matching, leveraging both hand-crafted and DL matching techniques.  
+Deep-Image-Matching\footnote{\url{https://github.com/3DOM-FBK/deep-image-matching}} (DIM) is a flexible, open-source Python library designed for robust multi-view image matching, leveraging both hand-crafted and DL matching techniques, that aims to overcome the major limitations of DL local features for photogrammetric applications.  
 Given a set of unordered images, DIM can perform the matching operations and return the corresponding points between images, providing the essential foundation for bundle adjustment and accurate photogrammetric reconstruction.
 
 DIM's primary goal is to provide a user-friendly interface to a wide selection of state-of-the-art computer vision algorithms for matching and tracking corresponding points across unordered images.
@@ -105,9 +105,9 @@ These include COLMAP \citep{schoenberger2016sfm}, OpenMVG \citep{moulon2016openm
 and any other software package that supports the import from a Bundler solution format \citep{Li_Snavely_2018_MegaDepth}.
 Additionally, DIM can be easily integrated into a multi-camera multi-epoch pipeline, e.g., by exploiting the multi-temporal functionalities of ICEpy4D (see \chref{ch:4}).
 
-DIM processing pipeline begins with a pre-processing stage where users select from different matching strategies (brute-force, low-resolution guided, sequential, image retrieval, or custom) to select the pair of images for optimized matching intelligently. 
+The DIM processing pipeline begins with a pre-processing stage where users select from different matching strategies (brute-force, low-resolution guided, sequential, image retrieval, or custom) to intelligently select the pair of images for optimized matching. 
 DIM provides a module for addressing the challenge of rotated images within datasets (e.g., in the case of aerial or UAV surveys) by automatically identifying the ideal rotation angle between image pairs, significantly boosting matching accuracy.
-Additionally, users can opt to match images at their original resolution or employ down-sampling or up-sampling techniques managed by a quality parameter.
+Additionally, users can opt to match images at their original resolution or employ down-sampling or up-sampling techniques.
 DIM offers the added capability of image tiling to handle high-resolution imagery, ensuring efficient processing without reducing detection precision. 
 
 For the actual matching, DIM supports various combinations of local feature and matching algorithms, named \textit{pipelines}, optimized for diverse problem domains. 
@@ -170,14 +170,14 @@ They face limitations when processing large images on consumer-grade GPUs, which
 The image size threshold varies depending on the available GPU memory and the specific algorithms used (detector-free matchers tend to be particularly memory-intensive). 
 As a general guideline, images with a long edge of up to 3000 px can be processed on a 12GB GPU using the SuperPoint+LightGlue pipeline. 
 
-To address this challenge, DIM offers several resolution management strategies: images can be downsampled by a factor of 2, 4, or 8 (medium, low, or lowest quality settings in DIM) using OpenCV's pixel-area relation\footnote{OpenCV interpolation algorithms: \url{https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html}} (bilinear interpolation). 
-Image downsampling may be appropriate when computational efficiency is a priority. Alternatively, for DL features that operate with pixel-level accuracy (e.g., SuperPoint), upsampling by a factor of 2 using bicubic interpolation can improve subpixel detection capabilities.  
+To address this challenge, DIM offers several resolution management strategies: images can be downsampled by a factor of 2, 4, or 8 (controlled by the \textit{medium}, \textit{low}, or \textit{lowest} quality parameter in DIM) using OpenCV's pixel-area relation\footnote{OpenCV interpolation algorithms: \url{https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html}} (i.e., bilinear interpolation). 
+Image downsampling may be appropriate when computational efficiency is a priority. Alternatively, for DL features that operate with pixel-level accuracy (e.g., SuperPoint), upsampling by a factor of 2 (\textit{highest} quality parameter) using bicubic interpolation can improve subpixel detection capabilities.  
 
 DIM supports breaking images into smaller, regular tiles to process large images without losing high-resolution details.
 DIM's tiling allows the user to specify tile dimensions or the number of tiles per row/column.
 An overlap between neighboring tiles can be specified to avoid having no features extracted along the tile boundaries. 
 The software automatically handles zero padding to maintain consistent tile sizes throughout. 
-Image tiling is critical when high accuracy is needed or when using end-to-end detector-free matchers (e.g., LOFTR, RoMa), as their combined extraction and matching steps are particularly memory intensive. 
+Image tiling is critical when high accuracy is needed or when using end-to-end detector-free matchers (e.g., LoFTR, RoMa), as their combined extraction and matching steps are particularly memory intensive. 
 
 When using image tiling, DIM handles local feature extraction separately, processing each tile sequentially. 
 However, tile-based feature matching offers several strategies: \texttt{exhaustive}, \texttt{preselection}, and \texttt{grid} mode.
@@ -189,7 +189,7 @@ An initial low-resolution matching step identifies tile pairs likely to contain 
 It matches features from each tile in the first image to features from the corresponding tile (i.e., the tile that shares the same boundaries in image coordinates) in the second image. 
 This approach is well suited for scenarios such as VSLAM, where images are captured sequentially by a moving camera and represent similar scenes. 
 
-\begin{figure}[hb!]
+\begin{figure}[ht!]
   \centering
   \subcaptionbox{\label{fig:5:rotations:1}}{
     \includegraphics[width=.8\textwidth]{dim_rotations_1.png}
@@ -209,11 +209,11 @@ Features are extracted and matched from the rotated images, and only after match
 
 If the images' orientation relative to a principal direction is known (e.g., from on-board positioning systems), DIM accepts a text file specifying these rotations and rotates the images accordingly.
 Alternatively, in the absence of prior rotation knowledge, a \textit{2-cluster approach} relative to a reference image (either random or user-selected) can be used to determine the principal direction (\figref{fig:5:dim_rotations}).
-This iterative method starts with a single reference image in the first cluster (group 0) and all remaining images in the second cluster (group 1). 
-Each image $I_i$ in Group 1 is iteratively matched against a reference image $I_r$ in Group 0, testing rotations of [90, 180, 270] degrees. 
+This iterative method starts with a single reference image in the first cluster ($Group~0$) and all remaining images in the second cluster ($Group~1$). 
+Each image $I_i$ in $Group~1$ is iteratively matched against a reference image $I_r$ in $Group~0$, testing rotations of [90, 180, 270] degrees. 
 The rotation with the highest number of geometrically verified matches is selected. 
-If the number of matches exceeds a predefined threshold, $I_i$ is moved to group 0, expanding that cluster and reducing group 1. 
-This procedure is parallelizable, with group 1 images divided into subgroups for independent matching against group 0 images on independent processes.
+If the number of matches exceeds a predefined threshold, $I_i$ is moved to $Group~0$, expanding that cluster and reducing $Group~1$. 
+This procedure is parallelizable, with $Group~1$ images divided into subgroups for independent matching against $Group~0$ images on independent processes.
 This significantly speeds up the computational time compared to a brute-force approach. 
 
 \subsection{Matching pipelines}
@@ -327,12 +327,11 @@ While the time series analysis discussed in \chref{ch:4} was limited to the May-
 \end{figure}
 
 To simulate a multi-view setup, we integrated the 24/03/2024 images captured by the existing two fixed cameras with three additional images acquired by a Parrot Anafi UAV (1/1.2.4" CMOS sensor with 4.8 mm focal length - 23 mm in 35mm format equivalent).
-Dataset A - Winter - is composed of these three UAV images, acquired from positions near potential future camera locations along the glacier moraines and with convergent view angles, combined with the two terrestrial images (\figref{fig:5:winter_images}).
+Dataset A - Winter - is composed of these three UAV images, acquired from positions near potential future camera locations along the glacier moraines and with convergent view angles, combined with two terrestrial images acquired by the in-situ monitoring cameras (\figref{fig:5:winter_images}).
 Unfortunately, a ground truth acquired on the same day was unavailable to validate the multi-view reconstruction. 
-Therefore, a qualitative assessment of the resulting multi-view reconstruction is presented below.
+Therefore, a qualitative assessment of the resulting multi-view reconstruction is presented.
 
-For image orientation, dataset A images were processed using DIM with the SuperPoint+LightGlue pipeline (A1) and subsequently compared with results obtained using hand-crafted local features.  
-These included RootSIFT implemented within the traditional COLMAP matching pipeline (A2) and the proprietary feature matching algorithm implemented in Agisoft Metashape (A3).
+For image orientation, dataset A images were processed using DIM with the SuperPoint+LightGlue pipeline (A1) and subsequently compared with results obtained using RootSIFT implemented within the traditional COLMAP matching pipeline (A2) and the proprietary feature matching algorithm implemented in Agisoft Metashape (A3).
 
 Given the limited dataset size, we used a DIM brute-force matching strategy to try to match all possible pairs. 
 To accommodate SuperPoint's lack of subpixel refinement capability, we preprocessed images by upsampling them by a factor of two with bicubic interpolation. 
@@ -341,7 +340,7 @@ Furthermore, due to the limited consumer-grade GPU memory, the upscaled images w
 This tile dimension was a compromise between limiting the total number of tiles and facilitating processing on an NVIDIA RTX A2000 with 12 GB of memory. 
 Since the images were acquired with an upright orientation and with minimal in-plane sensor rotations, the pipeline for pre-selection of the best image rotation was unnecessary.  
 Pydegensac was used for the geometric verification of putative matches, and the final bundle adjustment was performed using COLMAP. 
-In contrast, using their traditional workflow, Metashape and COLMAP used full-resolution images for feature extraction and bundle adjustment procedures.
+In contrast, Metashape and COLMAP used full-resolution images for feature extraction and bundle adjustment procedures with their traditional workflow.
 
 \begin{table}
     \centering
