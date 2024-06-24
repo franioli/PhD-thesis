@@ -18,58 +18,103 @@
     filecolor=black,
 }
 
-% Formatting guidelines found in:
-% http://www.gsas.harvard.edu/publications/form_of_the_phd_dissertation.php
-\renewcommand{\frontmatter}{
-	\input{frontmatter/personalize}
-	\maketitle
-	\advisorspage
-	\copyrightpage
-	\abstractpage
-	\tableofcontents
-	% \listoffigures % optional
-	\dedicationpage
-	\acknowledgments
-}
 
 \renewcommand{\maketitle}{
-	\thispagestyle{empty}
-	\vspace*{\fill}
-	\vspace{10pt}
+    \thispagestyle{empty}
+	% \vspace*{\fill}
 	\begin{center}
-	    \Huge \textcolor{SchoolColor}{\thetitle} \normalsize \\
+        \includegraphics[height=30mm]{figures/logo.png}\\
+        \vspace{10pt}
+        \@university \\
+        \@department \\
+        Doctoral program in \@school \\
+        \vspace{20pt}
+        % Title
+        \par\noindent\rule{\textwidth}{0.4pt} \\
+        \vspace{20pt}
+	    {\Huge \textcolor{SchoolColor}{\textbf{\thetitle}}} \\
+        \vspace{10pt}
+        \par\noindent\rule{\textwidth}{0.4pt} \\
 	    \vspace{20pt}
-        by\\ 
-        \theauthor \\
-        \vspace{35pt}
-        \includegraphics[width = 40mm]{figures/logo.png}\\
-        \vspace{35pt}
+        % Info
     	\textsc{
-            a dissertation submitted to\\
-            \vspace{4pt}
-    	    The Department of \@department\\
-            \vspace{4pt}
-            for the degree of \\
-            \vspace{4pt}
-            \@degree \\
-            \vspace{4pt}
-            in \@field \\
-        	\vspace{30pt}
-                Thesis advisor: Professor \@advisor\\
-                Co-advisor: Professor \@coadvisor\\
-            \vspace{50pt}
-        	\@university\\ 
-            \@universitycity, \@universitystate\\
-        	\@degreemonth\ \@degreeyear
-         } \\
+            \large
+            Doctoral thesis of \\ \vspace{4pt}
+            \textbf{\theauthor} \\ \vspace{4pt}
+            for the doctoral degree in \\ \vspace{4pt}
+            \@field \\ \vspace{25pt}
+            \normalsize 
+            Advisor: Prof. \@advisor\\ \vspace{5pt}
+            Co-advisor: Prof. \@coadvisor\\ \vspace{5pt}
+            Tutor: Prof. \@tutor \\ \vspace{5pt}
+            Chair of the Doctoral Program: \@chair
+         } \\ 
+        \vspace*{\fill}
+        36\textsuperscript{th} PhD cycle \\ \vspace{5pt}        
+        \@degreemonth, \@degreeyear
     \end{center} 
-    \vspace*{\fill}
+    \thispagestyle{empty}
+
+    % Insert empty page
+	\newpage 
+    \
+    \thispagestyle{empty}
+    \newpage
 }
+
+
+% \renewcommand{\maketitle}{
+%     \thispagestyle{empty}
+% 	\vspace*{\fill}
+% 	\vspace{10pt}
+% 	\begin{center}
+% 	    \Huge{\textcolor{SchoolColor}{\thetitle}} \\
+% 	    \vspace{20pt}
+%         \normalsize by\\ 
+%         \large{\theauthor} \\
+%         \vspace{35pt}
+%         \includegraphics[width = 40mm]{figures/logo.png}\\
+%         \vspace{35pt}
+%     	\textsc{
+%             a dissertation submitted to\\
+%             \vspace{4pt}
+%     	    The Department of \@department\\
+%             \vspace{4pt}
+%             for the degree of \\
+%             \vspace{4pt}
+%             \@degree \\
+%             \vspace{4pt}
+%             in \@field \\
+%         	\vspace{30pt}
+%                 Thesis advisor: Prof. \@advisor\\
+%             \vspace{5pt}
+%                 Co-advisor: Prof. \@coadvisor\\
+%             \vspace{5pt}
+%                 Tutor: Prof. \@tutor \\
+%             \vspace{10pt}
+%                 The Chair of the Doctoral Program: \\
+%                 \@chair
+%             \vspace{20pt}
+%         	\@university\\ 
+%             \@universitycity, \@universitystate\\
+%         	\@degreemonth\ \@degreeyear
+%          } \\
+%     \end{center} 
+%     \vspace*{\fill}
+%     \thispagestyle{empty}
+
+%     % Insert empty page
+% 	\newpage 
+%     \
+%     \thispagestyle{empty}
+%     \newpage
+% }
 
 
 \newcommand{\copyrightpage}{
 	\newpage
-	\thispagestyle{empty}
+	\pagenumbering{roman}
+	\setcounter{page}{3} 
 	\vspace*{\fill}
 	\scshape \noindent This thesis has been approved by\\
 	\textsc{
@@ -91,14 +136,16 @@
 		\includegraphics[width=0.5\textwidth]{frontmatter/polimi_logo_text.jpg}
 	\end{figure}
 	\vspace*{\fill}
-	\newpage
 	\rm
+
+    % Insert empty page
+	\newpage 
+    \
+    \newpage
 }
 
 \newcommand{\abstractpage}{
 	\newpage
-	\pagenumbering{roman}
-	\setcounter{page}{3}
 	\pagestyle{fancy}
 	% \lhead{Thesis advisor: Professor \@advisor} \rhead{\@author}
 	\renewcommand{\headrulewidth}{0.0pt}
@@ -112,6 +159,10 @@
 	\vspace*{\fill}
 	\newpage \lhead{} \rhead{}
 	\cfoot{\thepage}
+    % Insert empty page
+	\newpage 
+    \
+    \newpage 
 }
 
 \newcommand{\dedicationpage}{
@@ -124,7 +175,8 @@
 	\chapter*{Acknowledgments}
 	\noindent
 	\input{frontmatter/thanks}
-	\vspace*{\fill} \newpage
-	\setcounter{page}{1}
-	\pagenumbering{arabic}
+	\vspace*{\fill} 
+    \newpage
+    % Insert empty page
+	% \ \newpage 
 }

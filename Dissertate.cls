@@ -18,11 +18,13 @@
 \def\degreemonth#1{\gdef\@degreemonth{#1}}
 \def\degree#1{\gdef\@degree{#1}}
 \def\advisor#1{\gdef\@advisor{#1}}
-\def\tutor#1{\gdef\@advisor{#1}}
+\def\tutor#1{\gdef\@tutor{#1}}
+\def\chair#1{\gdef\@chair{#1}}
 \def\coadvisor#1{\gdef\@coadvisor{#1}}
-\def\department#1{\gdef\@department{#1}}
 \def\field#1{\gdef\@field{#1}}
 \def\university#1{\gdef\@university{#1}}
+\def\department#1{\gdef\@department{#1}}
+\def\school#1{\gdef\@school{#1}}
 \def\universitycity#1{\gdef\@universitycity{#1}}
 \def\universitystate#1{\gdef\@universitystate{#1}}
 \def\programname#1{\gdef\@programname{#1}}
@@ -88,7 +90,6 @@
 \RequirePackage{tabularx}
 \RequirePackage{eurosym}
 
-
 \renewcommand\bibname{References}
 \renewcommand\listfigurename{Listing of figures}
 
@@ -117,6 +118,7 @@
    figurewithin=chapter,
    tablewithin=chapter]{caption}
 \RequirePackage[font=footnotesize,justification=centering]{subcaption}
+\RequirePackage{acro}
 
 % \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 

@@ -11,7 +11,7 @@
 
 \begin{itemize}
     \item De Gaetani, C. I., Ioli, F., \& Pinto, L. (2021). Aerial and UAV Images for Photogrammetric Analysis of Belvedere Glacier Evolution in the Period 1977–2019. Remote Sensing, 13(18), 3787. \url{https://doi.org/10.3390/rs13183787}
-    \item Ioli, F., Bianchi, A., Cina, A., De Michele, C., Maschio, P., Passoni, D., \& Pinto, L. (2021). Mid-Term Monitoring of Glacier’s Variations with UAVs: The Example of the Belvedere Glacier. Remote Sensing, 14(1), 28. \url{https://doi.org/10.3390/rs14010028}
+    \item Ioli, F., Bianchi, A., Cina, A., De Michele, C., Maschio, P., Passoni, D., \& Pinto, L. (2022). Mid-Term Monitoring of Glacier’s Variations with UAVs: The Example of the Belvedere Glacier. Remote Sensing, 14(1), 28. \url{https://doi.org/10.3390/rs14010028}
     \item Ioli, F., Dematteis, N., Giordan, D., Nex, F., Pinto, L. (2024). Deep Learning Low-cost Photogrammetry for 4D Short-term Glacier Dynamics Monitoring. \textit{PFG}. \url{https://doi.org/10.1007/s41064-023-00272-w}
 \end{itemize}
 
@@ -28,15 +28,37 @@ However, mountain glaciers are a critical component of the local economy regardi
 Additionally, glacier melting and retreat are triggering several glaciological processes, e.g., ice break-off, glacier outburst, snow/ice avalanches, and gravitational slope stability processes, such as rockfalls and collapses, and debris flow, which can threaten the population infrastructure of the nearby urban areas~\citep{Kaab2004, Deline2015, Giordan2020a}.
 
 In the European Alps, the number of mass movements and hazardous events in high-elevation environments has experienced an increase in the past decade due to climate change \citep{chiarle2023, Nigrelli2024}.
-A relevant and tragic example was the collapse of a section of the Marmolada Glacier (Dolomites, Italy), which occurred on July 3, 2022, at 13:43:20 CEST\footnote{\url{https://www.theguardian.com/world/2022/jul/03/deaths-glacier-breaks-marmolada-mountain-italy}}. 
+A relevant and tragic example was the collapse of a section of the Marmolada Glacier (Dolomites, Italy), which occurred on July 3, 2022, at 13:43:20 \acs{cest}\footnote{\url{https://www.theguardian.com/world/2022/jul/03/deaths-glacier-breaks-marmolada-mountain-italy}}. 
 The collapse caused an ice avalanche that killed 11 mountaineers trying to reach the Marmolada summit and injured 7~\citep{Olivieri2023, Bondesan2023}.
 The collapse occurred on the northern slope of the glacier at an elevation of \SI{3213}{\masl} and involved a volume of \SI{\sim 96000}{\cubic\meter}~\citep{Olivieri2023}.
 The detachment was caused by a failure along a median crevasse, partially filled by meltwater due to highly anomalous temperatures, that reached \SI{10.7}{\celsius} at the time of the event.
 The sudden glacier collapse was probably induced by hydraulic jacking and pressure within a thin layer of basal till~\citep{Bondesan2023}.
 
-Just one year after the Marmolada collapse, another relevant slope instability event was registered in the Austrian state of Tyrol, close to the Italian border. 
-On June 11, 2023, a significant portion of the summit of Fluchthorn, a nearly \SI{3400}{\masl} collapsed, causing more than \SI{100000}{\cubic\meter} of rock to crash into the valley and triggering mudslides\footnote{\mbox{\url{https://edition.cnn.com/2023/06/14/europe/austrian-mountain-fluchthorn-rockslide-climate-intl/index.html}}}.
-This event was likely related to the thawing permafrost due to the high temperatures of that period\footnote{\url{https://blogs.agu.org/landslideblog/2023/06/12/fluchthorn-1/}}.
+% Just one year after the Marmolada collapse, another relevant slope instability event was registered in the Austrian state of Tyrol, close to the Italian border. 
+% On June 11, 2023, a significant portion of the summit of Fluchthorn, a nearly \SI{3400}{\masl} collapsed, causing more than \SI{100000}{\cubic\meter} of rock to crash into the valley and triggering mudslides\footnote{\mbox{\url{https://edition.cnn.com/2023/06/14/europe/austrian-mountain-fluchthorn-rockslide-climate-intl/index.html}}}.
+% This event was likely related to the thawing permafrost due to the high temperatures of that period\footnote{\url{https://blogs.agu.org/landslideblog/2023/06/12/fluchthorn-1/}}.
+
+\begin{figure}[ht!]
+    \centering
+    \subcaptionbox{}{
+        \includegraphics[height=5.3cm]{planpincieux_2}
+    }
+    \subcaptionbox{}{
+        \includegraphics[height=5.3cm]{planpincieux_1}
+    }
+    \caption{Images of the Planpincieux Glacier (Mont Blanc Massif). (a) Close-up photo of the Whymper Serac. The fracture fractures in the frontal part of the serac, from where several ice break-offs are triggered, are clearly visible (photo Fondazione Montagna Sicura, 2020, \citet{chiarle2023}); (b) illustration of the Planpincieux Glacier with overlapped the area of three sectors identified by the permanent monitoring system based on their different kinematics properties (photo Fondazione Montagna Sicura, 2023, \citet{Giordan2020a}).
+    }
+    \label{fig:1:planpincieux}
+\end{figure}
+
+A significant example of an ice failure-related hazard that demands continuous monitoring is the Planpincieux Glacier on the Italian side of the Grandes Jorasses in the Mont Blanc massif. 
+The Planpincieux Glacier is a polythermal hanging glacier noted for its significant break-off activity (\figref{fig:1:planpincieux}).
+The terminus of the Montitaz lobe features a 20-meter-high ice cliff, from which ice chunks exceeding \qty{50000}{\cubic\meter}  cubic meters frequently detach \cite{Giordan2020a}. 
+The most recent major break-off occurred during the night of May 31 to June 1, 1998, when nearly the entire Whymper glacier, approximately \SI{\sim 150000}{\cubic\meter}, broke off, triggering an ice avalanche that reached the valley floor, fortunately without causing any damage \cite{Faillettaz2016, chiarle2023}. 
+Additionally, this glacier was responsible for the deadliest ice failure event in the Italian Alps before the Marmolada tragedy: on August 2, 1993, an ice break-off exceeding \qty{80000}{\cubic\meter} killed eight mountaineers ascending the normal route of the Grandes Jorasses from the Boccalatte Hut \cite{Faillettaz2016, chiarle2023}.
+For this reason, the glacier has been monitored since 2013 using a visual-based system installed at 2305 meters elevation and 3800 meters from the glacier\footnote{https://www.fondazionemontagnasicura.org/monitoraggio-planpincieux}. 
+This system, developed by the Research Institute for Geo-Hydrological Protection (IRPI) of the Italian National Research Council (CNR) and the Safe Mountain Foundation (FMS), consists of two consumer-grade cameras powered by solar panels and remotely controlled, capturing one image per hour \cite{Dematteis2018, Giordan2020a}.
+Additionally, a \ac{gbsar} system captures images every 16 minutes, collecting over 2200 images during the study period, ensuring detailed monitoring of the glacier's movements \cite{Dematteis2018}.
 
 \begin{figure}[ht!]
     \centering
@@ -52,34 +74,15 @@ This event was likely related to the thawing permafrost due to the high temperat
     \label{fig:1:belvedere_debris_flow}
 \end{figure}
 
-On August 27, 2023, a large debris flow occurred at the Belvedere Glacier (Anzasca Valley, Italian Alps)\footnote{\url{https://www.regione.piemonte.it/web/temi/protezione-civile-difesa-suolo-opere-pubbliche/protezione-civile/sorvolo-ghiacciai-monte-rosa-07092023}}.
-The debris flow was triggered at the beginning of the steep Castelfranco gully, located at approximately \SI{3600}{\masl} on the streamwise-left side of the Belvedere Glacier northwest lobe (\figref{fig:1:belvedere_debris_flow}).
+Another significant slope instability process affecting an alpine glacier was the large debris flow that occurred on the Belvedere Glacier on August 27, 2023 (Anzasca Valley, Italian Alps)\footnote{\url{https://www.regione.piemonte.it/web/temi/protezione-civile-difesa-suolo-opere-pubbliche/protezione-civile/sorvolo-ghiacciai-monte-rosa-07092023}}. 
+The debris flow originated at the beginning of the steep Castelfranco gully, located at approximately \SI{3600}{\masl} on the streamwise-left side of the Belvedere Glacier's northwest lobe (\figref{fig:1:belvedere_debris_flow}).
 During the event, a volume of \SI{\sim 200000}{\cubic\meter} was accumulated on top of the Belvedere Glacier and obstructed the sinkhole that allowed the Castelfranco stream to flow below the ice sheet. 
-This caused the water to stream on top of the glacier, carving deep grooves on the Belvedere Glacier (\figref{fig:1:belvedere_debris_flow:cam}). 
-A large portion of the debris cumulated in the riverbed was transported towards the municipality of Macugnaga by the river Anza.
-A previous event with similar characteristics but significantly smaller dimensions occurred in 2008 and was documented by \citet{Mortara2009}, who reported an estimation of a few thousand cubic meters of cumulated debris volume.
-
-\begin{figure}[ht!]
-    \centering
-    \subcaptionbox{}{
-        \includegraphics[height=5.3cm]{planpincieux_2}
-    }
-    \subcaptionbox{}{
-        \includegraphics[height=5.3cm]{planpincieux_1}
-    }
-    \caption{Images of the Planpincieux Glacier (Mont Blanc Massif). (a) Close-up photo of the Whymper Serac. The fracture fractures in the frontal part of the serac, from where several ice break-offs are triggered, are clearly visible (photo Fondazione Montagna Sicura, 2020, \citet{chiarle2023}); (b) illustration of the Planpincieux Glacier with overlapped the area of three sectors identified by the permanent monitoring system based on their different kinematics properties (photo Fondazione Montagna Sicura, 2023, \citet{Giordan2020a}).
-    }
-    \label{fig:1:planpincieux}
-\end{figure}
-
-Another significant example of an ice failure-related hazard that demands continuous monitoring is the Planpincieux Glacier on the Italian side of the Grandes Jorasses in the Mont Blanc massif. 
-The Planpincieux Glacier is a polythermal hanging glacier noted for its significant break-off activity (\figref{fig:1:planpincieux}).
-The terminus of the Montitaz lobe features a 20-meter-high ice cliff, from which ice chunks exceeding \qty{50000}{\cubic\meter}  cubic meters frequently detach \cite{Giordan2020a}. 
-The most recent major break-off occurred during the night of May 31 to June 1, 1998, when nearly the entire Whymper glacier, approximately \SI{\sim 150000}{\cubic\meter}, broke off, triggering an ice avalanche that reached the valley floor, fortunately without causing any damage \cite{Faillettaz2016, chiarle2023}. 
-Additionally, this glacier was responsible for the deadliest ice failure event in the Italian Alps before the Marmolada tragedy: on August 2, 1993, an ice break-off exceeding \qty{80000}{\cubic\meter} killed eight mountaineers ascending the normal route of the Grandes Jorasses from the Boccalatte Hut \cite{Faillettaz2016, chiarle2023}.
-For this reason, the glacier has been monitored since 2013 using a visual-based system installed at 2305 meters elevation and 3800 meters from the glacier\footnote{https://www.fondazionemontagnasicura.org/monitoraggio-planpincieux}. 
-This system, developed by the Research Institute for Geo-Hydrological Protection (IRPI) of the Italian National Research Council (CNR) and the Safe Mountain Foundation (FMS), consists of two consumer-grade cameras powered by solar panels and remotely controlled, capturing one image per hour \cite{Dematteis2018, Giordan2020a}.
-Additionally, a ground-based SAR (GBSAR) system captures images every 16 minutes, collecting over 2200 images during the study period, ensuring detailed monitoring of the glacier's movements \cite{Dematteis2018}.
+This obstruction forced the water to flow over the glacier's surface, carving deep grooves into the ice (\figref{fig:1:belvedere_debris_flow:cam}).
+A substantial portion of the debris was transported towards the Macugnaga municipality by the river Anza.
+A similar but significantly smaller event occurred in 2008 and was documented by \citet{Mortara2009}, who estimated the debris volume to be a few thousand cubic meters.
+The 2023 debris flow profoundly impacted the glacier's dynamics, leading to the collapse of the central part of the terminal lobe surface and severe thinning over the following months. 
+This was primarily due to the water flowing atop the glacier, which washed away the debris.
+This event underscores the importance of considering meteorological variables and other slope instability processes in studying glacier dynamics, as these factors can significantly influence glacier evolution.
 
 In this context, systematically monitoring glaciers and related glaciological processes is crucial.
 To thoroughly understand these complex systems, accurate observations are essential \citep{Kaab2005}.
@@ -87,96 +90,67 @@ A particular focus is usually placed on monitoring surface kinematics, as these 
 Nevertheless, monitoring glaciers in remote areas and inaccessible terrains often presents logistical and safety challenges.
 Therefore, remote sensing techniques are widely used because they allow scientists and technicians to observe glacial processes with minimal risk. 
 
-\section{Remote and close-range sensing of alpine environments}
+\section{Remote and close-range sensing of alpine glaciers}
 
-Remote sensing techniques have revolutionized our ability to study and monitor the dynamic landscapes of mountain environments. 
-These techniques offer diverse ways to capture land surface characteristics from remote, providing insights into glacial processes and other natural phenomena in these often inaccessible regions.
+Remote sensing techniques have revolutionized the study and monitoring of mountain glaciers, providing invaluable insights into glacial processes and other natural phenomena in often inaccessible regions. 
+These techniques can be classified based on the platform carrying the sensor, such as satellites, airplanes or helicopters, \acp{uav}, and terrestrial systems, influencing the spatial and temporal resolution achievable, and the techniques employed to extract information from the data.
 
-Satellite-based remote sensing has been central in glacier monitoring for several decades \citep{Paul2007}. 
-Satellites provide a wide-scale view of glacier evolution, from mapping glacier outlines from optical imagery or combinations of different bands \cite{Hall1995, Paul_2002, Winsvold2016} to deriving planimetric displacements using Digital Image Correlation (DIC) and estimating glacier surface velocities \cite{Scambos1992, Kaab2005, Scherler2008, altena_kaab_2020}, and estimating glaciers' mass balance \cite{Bamber2007, Berthier2016, Rabatel2017, Berthier2023}.
-However, despite satellite remote sensing being essential for regional —or even global —glacier monitoring, the freely available satellite solutions lack the spatial and temporal resolution necessary to monitor small alpine glaciers and their rapid changes.
-Additionally, satellite imagery primarily provides planimetric (2D) information, precluding the generation of 3D Digital Surface Models (DSMs) that would require multi-view acquisitions.
+From the platform point of view, satellites have been central to glacier monitoring for several decades, offering the ability to survey large areas with various sensors, including optical sensors \cite{Scherler2008, Dehecq2015, Winsvold2016, Rabatel2017}, multispectral \cite{Hall1995, Paul2004, Kargel2005}, thermal infrared \cite{Mihalcea2008, Shukla2010, Bhambri2011}, \ac{sar} \citep{Fang2016, Winsvold2018, Strozzi2020} and laser altimetry \cite{Moholdt2010, Neckel2014}. 
+Optical and multispectral satellite imagery is widely used for various applications, including mapping glacier outlines \cite{Paul_2002, Winsvold2016}, estimating glacier kinematics \cite{Scherler2008, Dehecq2015}, and assessing glacier mass balance \cite{Bamber2007, Berthier2016, Rabatel2017, Berthier2023}.
 
-Synthetic Aperture Radar (SAR) offers advantages such as penetrating clouds and acquiring data regardless of illumination conditions \citep{Fang2016, Winsvold2018, Strozzi2020}. 
-Techniques like InSAR can detect small movement along the satellite's line-of-sight (or even in 3D with multi-orbit acquisitions) in the presence of permanent scatter features \citep{schubert2013glacier}.
-However, challenges arise with significant surface changes, as long satellite revisit times can lead to a loss of coherence between consecutive images, hindering accurate measurements of rapid glacier dynamics.
-On the other hand, offset tracking on SAR amplitude images \citep{schellenberger2015sar}, while useful for mapping planimetric velocity, frequently suffers from the coarse resolution of free SAR satellite imagery.
+The increasing availability of public and private satellite constellations has enabled access to high-resolution images with short revisit time, ranging from weekly to daily intervals. 
+However, despite their utility for regional and global glacier monitoring, freely available satellite data often lack the spatial and temporal resolution required to monitor small alpine glaciers and their rapid changes, while recent commercial \ac{vhr} satellite imageries are usually expansive and lack of long-term time series of images.
+Additionally, satellite imagery primarily provides 2D planimetric information, limiting the ability to generate 3D \acp{dsm} without multi-view acquisitions.
 
-Recent advances in Very High-Resolution Satellites (VHR) satellites such as World-View, Spot, Pleiades, and Pleiades Neo multi-view acquisitions enable meter or sub-meter resolution DSM generation from stereo pairs or triplets \citep{rupnik2018_VHR, Perko218, Tonolo2020}.
-These satellites offer unprecedented spatial detail for glacier monitoring, yet limitations exist.
-High commercial costs and the lack of a long historical image series compared to Landsat or Sentinel-2 restrict their applications to longer temporal scales.
+On a smaller spatial scale than the satellites, aircraft and helicopters can carry high-quality metric cameras for photogrammetric 3D reconstruction in remote mountain areas.
+This allows for achieving \ac{dsm} at the decimeter to sub-meter resolution for middle to large-scale glaciers \cite{poli2020use}. 
+While the cost of aerial photogrammetric flights remains a factor, the availability of regional mapping datasets presents a unique opportunity for long-term glacier monitoring, as historical aerial imagery allows for reconstructing glacier geometries far into the past, beyond the era of \ac{vhr} satellites \citep{Degaetani2021}.
 
-Aerial or helicopter-based photogrammetry fills the critical gap between satellite-based and Unmanned Aerial Vehicles (UAVs)-based approaches, offering the potential for 3D reconstruction and DSM generation at the decimeter to sub-meter resolution in remote mountain areas \citep{poli2020use}. 
-While the cost of photogrammetric flights remains a factor, the availability of regional mapping datasets presents a unique opportunity for long-term glacier monitoring.
-In particular, historical aerial imagery allows for reconstructing glacier geometries far into the past \citep{Degaetani2021}, beyond the era of VHR satellites and offering valuable insights into the long-term evolution of alpine glaciers.
+In the past decade, UAVs have emerged as powerful and cost-effective tools for small to mid-scale mapping thanks to their minimal requirements and ability to access remote areas safely \cite{Bhardwaj2016, Gaffey2020, Sledz2021}.
+In the earliest, \citet{Whitehead2013}, \citet{immerzeel2014} and \citet{kraaijenbrink2016} employed fixed-wing UAVs to generate orthophotos and DSMs and serving seasonal surface velocities.
+Afterward, UAV and photogrammetry have been used to map glacier extension \cite{belloni2023}, derive glacier kinematics \cite{Benoit2019, Chudley2019, Jouvet2020, ioli2021mid, Cao2021, Lamsters2022}, and estimate elevation changes and geodetic mass balance \cite{Fugazza2018, ioli2021mid, VanTricht2021, Cao2021, Lamsters2022}.
+\citet{Gindraux2017} investigated the impact of \ac{gcp} distribution on DSM accuracy, and she proposed a joint usage of DSMs and orthophotos to derive glacier kinematics.
 
-In the past decade, UAVs have emerged as powerful and cost-effective tools for small to mid-scale mapping.
-In conjunction with advances in Structure-from-Motion (SfM) \citep{Westoby2012} and Multi-View Stereo (MVS) \citep{Seitz2006} algorithms,  UAVs enable the generation of high-resolution 3D point clouds, DSMs, and orthophotos for glacier studies. 
-Their ease of deployment, minimal requirements, and ability to access remote areas safely make them invaluable in glacial environments \citep{immerzeel2014, Chudley2019, ioli2021mid}. 
+Because of their flexibility, UAVs are particularly well suited for tracking glacier evolution at the decimeter or centimeter scale through seasonal or annual surveys over extended periods  \cite{VanTricht2021, Cao2021, ioli2021mid}, as well as for capturing intra-seasonal dynamics through multiple surveys in a short time frame \cite{immerzeel2014, Chudley2019, Cao2021}. 
+However, they are unsuitable for continuous long-term monitoring due to the need for in situ intervention.
 
-Several examples of UAV and photogrammetry applications for cryosphere monitoring can be found in the literature~\citep{Bhardwaj2016, Gaffey2020}.
-These studies cover diverse environments and methodological approaches.
-For instance, \citet{Whitehead2013} employed fixed-wing UAVs and piloted helicopters with low-cost cameras to generate orthophotos and DSMs of the Fountain Glacier in the Canadian Arctic, demonstrating the applicability of UAVs for glacier mapping even in challenging conditions. 
-Similarly, \citet{immerzeel2014} and \citet{kraaijenbrink2016} used fixed-wing UAVs to evaluate seasonal surface velocities of the debris-covered Lirung Glacier in Nepal, highlighting the potential for analyzing glacier dynamics at fine temporal scales.
-\citet{Gindraux2017} further investigated the impact of Ground Control Point (GCP) quantity and distribution on the accuracy of UAV-derived glacier DSMs, and she proposed a technique based on the joint usage of DIC on both DSMs and orthophotos to derive glacier kinematics.
-The growing body of recent work \citep{Benoit2019, Chudley2019, Jouvet2020, Cao2021,  ioli2021mid, Lamsters2022, belloni2023} showcases the widespread adoption of UAVs and low-cost photogrammetry in glacier monitoring. 
-These studies demonstrate their effectiveness in capturing high spatial resolution data while minimizing the need for extensive and potentially hazardous in-situ operations.
-This underscores the potential of UAVs to track glacier evolution at unprecedented levels of detail over extended periods \citep{ioli2021mid, belloni2023}.
-
-Nevertheless, continuous in-situ monitoring with sub-seasonal temporal frequency using UAVs can be logistically challenging.
-While UAV photogrammetry excels in spatial resolution, reconstruction accuracy, and flexibility, capturing short-term glacier dynamics at a high temporal frequency (e.g., daily) still necessitates permanent in-situ monitoring systems. 
-Short-term observations are crucial for deeply understanding these rapidly evolving glaciers and their associated processes.
-Low-cost time-lapse camera systems can provide daily observations for studying sub-seasonal glacier kinematics and responses to external factors within a warming climate \cite{Messerli2015}.  
-Due to their revisit time limitations, neither satellite-based nor aerial/UAV photogrammetric techniques can provide this level of continuous data.
-
-Recently, terrestrial SAR \cite{Luzi2007} and permanent Terrestrial Laser Scanners (TLS) \cite{Hendrickx2022, Voordendag2023} have gained attention for short-term monitoring. 
-SAR's all-weather, day-and-night capabilitises are ideal for real-time monitoring and early warning systems \citep{Noferini2009, Dematteis2017_sar}. 
+At the local scale, capturing short-term glacier dynamics at a high temporal frequency (e.g., daily) necessitates permanent in-situ monitoring systems. 
+Low-cost time-lapse camera systems can provide daily observations for studying sub-seasonal glacier kinematics and responses to external factors within a warming climate \citep{Maas2006, Messerli2015, Giordan2016, James2016}.  
+Recently, terrestrial SAR \cite{Luzi2007} and permanent \ac{tls} \cite{Hendrickx2022, Voordendag2023} have gained attention for short-term monitoring and early warning systems implementation \citep{Noferini2009, Dematteis2017_sar}. 
 However, the high costs, complex logistics, and often site-specific focus of ground-based SAR and permanent TLS limit their widespread application for regional-scale monitoring.
-Fixed time-lapse cameras present a cost-effective alternative for gathering qualitative and quantitative data on glacier dynamics~\citep{Maas2006, Messerli2015, Giordan2016, James2016}.
 
-Monitoring glacier surface kinematics is especially important, as it can provide early indications of impending instability \citep{Faillettaz2015}.
-A powerful approach for deriving glacier flow velocity using close-range or remote sensing involves DIC or feature tracking algorithms \cite{ahn_box_2010, Giordan2016, Hadhri2019}.
-At its core, DIC works by tracking distinctive pixel patterns across a time series of images.
-It begins by dividing the reference image into small subsets, known as templates or interrogation windows. 
-For each template, DIC uses cross-correlation techniques to identify the most similar region within a designated search area in the subsequent image.
-This can be done in the spatial domain \citep{Scambos1992} or frequency domain \citep{rolstad1997}.
-The displacement between the template’s original position and this matching region represents the movement of the tracked feature on the glacier's surface.
-DIC is now widely used for analyzing glacier movement using various remote sensing data sources, including optical satellite imagery \citep{Scambos1992, Scherler2008, Heid2012_evaluation_xcorr}, high-resolution orthophotos derived from aerial or UAV photogrammetry \citep{immerzeel2014, Chudley2019, ioli2021mid}, as well as terrestrial time-lapse cameras \cite{Messerli2015, Giordan2016}. 
+From a technical perspective, monitoring glacier surface kinematics is crucial for understanding glacier dynamics and detecting early signs of instability \citep{Faillettaz2015}.
+\ac{dic} is a powerful technique for this purpose, as it tracks distinctive pixel patterns across a series of images to measure their displacement and determine glacier flow velocity \cite{ahn_box_2010, Giordan2016, Hadhri2019}. 
+DIC works by dividing the reference image into small subsets, known as templates or interrogation windows, and then using cross-correlation techniques to identify the most similar region within a designated search area in subsequent images. 
+This process, which can be performed in the spatial domain \citep{Scambos1992} or frequency domain \citep{rolstad1997}, effectively measures the movement of tracked features on the glacier's surface.
+DIC can applied to optical satellite imagery \cite{Scherler2008, Heid2012_evaluation_xcorr} or satellite SAR amplitude images for offset tracking \citep{schellenberger2015sar}, high-resolution orthophotos from aerial or UAV photogrammetry \cite{immerzeel2014, Chudley2019, Cao2021}, and terrestrial time-lapse cameras \cite{Dematteis2024, ioli2024deep}.
 
-While monoscopic time-lapse cameras effectively derive surface kinematics using DIC, a richer 3D reconstruction requires a multi-camera setup. 
-However, the constraints of mountainous terrain can force camera placement into less-than-ideal positions. 
-This often results in challenging acquisition geometries, such as very long baselines or strongly convergent angles \citep{ioli2024deep}.
-Traditional image matching techniques, that rely on handcrafted feature descriptors (e.g., SIFT, Kaze, ORB), struggle with the substantial variations introduced by these geometries.  Perspective shifts, occlusions, and the difficulty of reliably matching features across dramatically different views hinder accurate 3D reconstruction. 
-These limitations require innovative approaches to ensure robust feature matching and scene reconstruction in these complex environments.
-DL-based matching techniques surpass traditional methods' adaptability to wide baselines, significant radiometric differences, and complex geometric distortions \cite{Yao_2021}. 
-Research in this domain has progressed rapidly, with models specifically designed to handle oblique images, historical image sets, and low-quality consumer cameras.
+\Ac{sfm} \citep{Westoby2012} and \ac{mvs} \citep{Seitz2006} are widely used techniques for generating high-resolution \acp{dsm} and monitoring volume variations from pairs or multiple overlapping images. 
+\ac{sfm}-\ac{mvs} photogrammetry involves reconstructing 3D models from unregistered, overlapping image sets.
+\ac{sfm} specifically refers to the step in the workflow that estimates the camera's exterior (location and orientation) and interior parameters (mathematical models describing camera geometry, including lens distortions) \cite{brown1971}. 
+This step results in a sparse point cloud, representing the 3D coordinates of corresponding points detected in multiple images.
+MVS then builds on the SfM output to achieve dense 3D reconstruction, producing dense point clouds, orthophotos, DSMs, and triangulated mesh models. 
+The combined process is often referred to as \ac{sfm}-\ac{mvs}.
+The principles and applications of \ac{sfm}-\ac{mvs} photogrammetry are extensively detailed in publications such as \citet{Westoby2012, James2012, Eltner2016, Eltner2020}.
+
+\Ac{sfm} and \ac{mvs} can be employed with aerial and UAV photogrammetric blocks \cite{Degaetani2021, ioli2021mid}, as well as in-situ stereo \cite{ioli2024deep} or multi-camera setups \cite{Taylor2023}, to create high-resolution 3D point clouds and orthophotos for reconstructing glacier 3D geometry and capturing detailed spatial and temporal changes in glacier dynamics.
+Similarly, these methods can be applied to stereo pairs or triplets from \ac{vhr} satellites, such as WorldView, SPOT, Pleiades, and Pleiades Neo, to produce meter or sub-meter resolution \acp{dsm} \citep{rupnik2018_VHR, Perko218, Tonolo2020}.
 
 \section{The Belvedere Glacier}\label{sec:1:belvedereglacier}
 
-The Belvedere Glacier (Randolph Glacier Inventory code RGI60--11.02858) is an alpine
-glacier in the Anzasca Valley (Italy), on the east side of the Monte Rosa Massif (N
-\ang{45;58} E \ang{7;55}) (\figref{fig:1:studyarea}).
-The lower part of the Belvedere Glacier is a temperate debris-covered glacier that
-covers an area of \SI{\sim1.8}{\kilo\meter\squared} and extends from an altitude of \SI{\sim2250}{\masl} to \SI{\sim1800}{\masl}.
-This region is characterized by a gentle slope, and it is fed by icefalls and snow
-avalanches coming from the Monte Rosa East Face \citep{Haeberli2002}. 
+The Belvedere Glacier (Randolph Glacier Inventory code RGI60--11.02858) is an alpine glacier in the Anzasca Valley (Italy), on the east side of the Monte Rosa Massif (N \ang{45;58} E \ang{7;55}) (\figref{fig:1:studyarea}).
+The lower part of the Belvedere Glacier is a temperate debris-covered glacier that covers an area of \SI{\sim1.8}{\kilo\meter\squared} and extends from an altitude of \SI{\sim2250}{\masl} to \SI{\sim1800}{\masl}.
+This region is characterized by a gentle slope, and it is fed by icefalls and snow avalanches coming from the Monte Rosa East Face \citep{Haeberli2002}. 
 The Belvedere Glacier splits into two lobes in its low-relief sector, reaching \SI{\sim1800}{\masl}.
-The northern lobe, in particular, ends with a prominent ice cliff, from which the River
-Anza springs.
+The northern lobe, in particular, ends with a prominent ice cliff, from which the River Anza springs.
 
-Similarly to Miage Glacier (Monte Bianco, Valle d’Aosta), the Belvedere Glacier is almost entirely covered by rocks and boulders with dimensions ranging from a few decimetres to
-some meters, which makes it a \textit{black glaciers}.
-Due to the global warming trend, the number of black glaciers along the Italian Alps is
-rising \citep{Diolaiuti2003}.
+Similarly to Miage Glacier (Monte Bianco, Valle d’Aosta), the Belvedere Glacier is almost entirely covered by rocks and boulders with dimensions ranging from a few decimetres to some meters, which makes it a \textit{black glaciers}\footnote{\url{www.thebelvedereglacier.it}}.
+Due to the global warming trend, the number of black glaciers along the Italian Alps is rising \citep{Diolaiuti2003}.
 \marginpar[Note 1]{
     \includegraphics[width=\marginparwidth]{qr_thebelvedereglacier.png}
-    % \footnote{\url{www.thebelvedereglacier.it}}
 }
-Up to the beginning of the century, the~debris cover helped to compensate the effect of
-the increased temperature, establishing a negative feedback in the temperature-ablation
-relationship~\citep{Roethlisberger1985,Diolaiuti2003}.
-However, in recent years, the debris cover protection has not been sufficient to limit
-the glacier~retreat.
+Up to the beginning of the century, the debris cover helped compensate for the increased temperature's effect, establishing a negative feedback in the temperature-ablation relationship \citep{Roethlisberger1985, Diolaiuti2003}.
+However, in recent years, the protection of debris cover has not been sufficient to limit the glacier retreat.
 
 \begin{figure}
     \centering
@@ -191,40 +165,23 @@ the glacier~retreat.
     \label{fig:1:studyarea}
 \end{figure}
 
-In the past, several hazardous events originated from the Belvedere Glacier, such as floods
-and slope instability, threatened the nearby village of Macugnaga and the Zamboni Zappa
-Hut, at 2070 m a.s.l. \citep{Kaab2004}.
-At the beginning of the 21st century, the Belvedere Glacier was characterized by a
-particular surge-type dynamics  \citep{Haeberli2002}.
-During the late 1990s, the~surface speeds of the whole glacier were ranging between
-\SIlist{30;45}{\meter\per\year}~\citep{Roethlisberger1985, Kaab2005}.
-During 2000--2001, an accelerated flow in the Monte-Rosa Glacier produced a wave of
-compression-decompression stresses and strains in the Belvedere Glacier.
+In the past, several hazardous events originated from the Belvedere Glacier, such as floods and slope instability, threatened the nearby village of Macugnaga and the Zamboni Zappa Hut at 2070 m a.s.l. \citep{Kaab2004}.
+At the beginning of the 21st century, the Belvedere Glacier was characterized by particular surge-type dynamics  \citep{Haeberli2002}.
+During the late 1990s, the~surface speeds of the whole glacier were ranging between \SIlist{30;45}{\meter\per\year}~\citep{Roethlisberger1985, Kaab2005}.
+During 2000--2001, an accelerated flow in the Monte-Rosa Glacier produced a wave of compression-decompression stresses and strains in the Belvedere Glacier.
 Surface velocities soared: values up to \SI{200}{\meter\per\year} were observed
 photogrammetrically during autumn 2001~\citep{Kaab2004}.
-The ice thickness increased more than~\SI{20}{\meter} and the wave travelled downwards,
-creating a depression area in the accumulation zone that was filled by a super-glacial
-lake, the Lago Effimero~\citep{Haeberli2002, Mortara2009}.
+The ice thickness increased more than~\SI{20}{\meter}, and the wave traveled downwards, creating a depression area in the accumulation zone that was filled by a super-glacial lake, the Lago Effimero~\citep{Haeberli2002, Mortara2009}.
 
 During spring 2002, the large depression at the foot of the Monte Rosa east face, caused by the surge-type movement, was temporarily filled by a lake with a volume of \SI{3e6}{\cubic\meter}, the so-called \textit{Lago Effimero} (\textit{short-lived lake}).
-Recognizing the potential danger of an outburst flood, the Italian Civil Defense Department rapidly 
-implemented emergency measures, including evacuating parts of Macugnaga village, installing automatic 
-alarm systems and pumps, and initiating detailed scientific investigations. 
-Reduced meltwater input in July 2002, combined with natural subglacial drainage, stabilized and subsequently 
-lowered the lake level.
+Recognizing the potential danger of an outburst flood, the Italian Civil Defense Department rapidly implemented emergency measures, including evacuating parts of Macugnaga village, installing automatic alarm systems and pumps, and initiating detailed scientific investigations. 
+Reduced meltwater input in July 2002, combined with natural subglacial drainage, stabilized and subsequently lowered the lake level.
 However, the lake reformed in the spring of 2003, bursting out in mid-June without causing significant damage \citep{Kaab2004}.
-
-% \textcolor{red}{Expand this part and add more pics with old and recent events}
-
-% The northern lobe of the Belvedere Glacier is concurrently experiencing a fast retreat:
-% in the past few years, an average retreat of \SI{\sim20}{\meter\per\year} was documented
-% \citep{Ioli2022} and it is actively changing every day due to ice falls and collapses.
 
 
 \section{Objectives}
 
-This thesis explores the potential of multi-scale and multi-temporal photogrammetry 
-for monitoring alpine glaciers, focusing on the debris-covered Belvedere Glacier in the Italian Alps.
+This thesis explores the potential of multi-scale and multi-temporal photogrammetry for monitoring alpine glaciers, focusing on the debris-covered Belvedere Glacier in the Italian Alps.
 
 This investigation integrates a spectrum of photogrammetric techniques.  
 Firstly, historical aerial imagery analysis provides a long-term perspective on decades-long geomorphological changes at the meter scale.  
@@ -238,14 +195,13 @@ This technique allowed the reconstruction of past glacier morphology from 1977 t
 The historical knowledge gained through this method is invaluable in documenting a natural heritage rapidly disappearing due to climate change. 
 Of particular interest, archival photogrammetry reveals a significant period of glacier expansion in the early 21st century, allowing precise quantification of the increase in ice volume and glacier thickness.
 
-This work integrates low-cost UAVs and GNSS for close-range photogrammetric monitoring to understand the glacier's current evolution.
+This work integrates low-cost \acp{uav} and \acs{gnss} for close-range photogrammetric monitoring to understand the glacier's current evolution.
 Annual in-situ surveys since 2015 provide a periodic and highly accurate record of the evolution. 
 Through these UAV surveys, centimeter-scale resolution enables detailed mapping of the dynamic environment, including precise quantification of glacier volume loss and study of variations in glacier flow rate.
 
 However, alpine glacier dynamics are inherently non-linear, with a pronounced acceleration of processes in summer compared to winter.  
 This trend has intensified in recent years due to the increasing frequency of hot and dry summers associated with climate change. 
-While annual high-precision in-situ measurements provide essential insights into long-term geomorphological evolution, they lack the temporal resolution to fully capture the short-term kinematics of the glacier, which are crucial for
-understanding the relationship between glacier dynamics and external drivers such as air temperature.
+While annual high-precision in-situ measurements provide essential insights into long-term geomorphological evolution, they lack the temporal resolution to fully capture the short-term kinematics of the glacier, which are crucial for understanding the relationship between glacier dynamics and external drivers such as air temperature.
 To address this need, a permanent monitoring system based on low-cost stereo cameras has been designed and installed on Belvedere Glacier. 
 This system allows daily observations of glacier motion at a local spatial scale,
 providing the high-frequency data needed for in-depth kinematic analysis.
@@ -283,7 +239,7 @@ Glaciological analysis reveals complex spatial and temporal patterns in surface 
 \textbf{\chref{ch:4}} presents a novel low-cost stereo camera system for daily monitoring of a section of Belvedere Glacier (May-November 2022).
 Deep learning algorithms overcome the challenges of large baselines, enabling accurate 3D reconstruction, surface velocity estimation, and quantification of ice loss with daily frequency. 
 
-\textbf{\chref{ch:4}} describes Deep-Image-Matching (DIM), a novel open-source toolkit for wide-baseline, multi-view image matching in complex scenarios. 
+\textbf{\chref{ch:5}} describes Deep-Image-Matching (DIM), a novel open-source toolkit for wide-baseline, multi-view image matching in complex scenarios. 
 DIM's robustness, flexibility, and integration capabilities make it a powerful tool for expanding the use of deep learning in photogrammetry. 
 
 \textbf{\chref{ch:conclusion}} synthesizes the key findings of the thesis, highlighting their significance within glaciological research and the broader context of climate change.  

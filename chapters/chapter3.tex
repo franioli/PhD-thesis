@@ -8,8 +8,7 @@
 \newthought{This chapter is based on:}
 
 \begin{itemize}
-    \item \noindent Ioli, F., Bianchi, A., Cina, A., De Michele, C., Maschio, P., Passoni, D., \&
-Pinto, L. (2021). Mid-Term Monitoring of Glacier's Variations with UAVs: The Example of the Belvedere Glacier. Remote Sensing, 14(1), 28. \url{https://doi.org/10.3390/rs14010028}
+    \item \noindent Ioli, F., Bianchi, A., Cina, A., De Michele, C., Maschio, P., Passoni, D., \& Pinto, L. (2022). Mid-Term Monitoring of Glacier's Variations with UAVs: The Example of the Belvedere Glacier. Remote Sensing, 14(1), 28. \url{https://doi.org/10.3390/rs14010028}
     \item Ioli, F., De Gaetani, C., Barbieri, F., Gaspari, F., Pinto, L., \& Rossi, L. (2024). Belvedere Glacier long-term monitoring Open Data [Data set]. Zenodo. \url{https://zenodo.org/doi/10.5281/zenodo.7842347}
 \end{itemize}
 
@@ -201,7 +200,7 @@ obtained.
         \\
 
         \midrule
-        Canon PowerShot S110          & 1/1.7" CMOS                   & $7.44\times5.58$
+        Canon PowerShot S110          & 1/1.7" \acs{cmos}                   & $7.44\times5.58$
                                       & 5.2                           & $ 4000 \times
             3000
         $                             & 1.9
@@ -306,14 +305,14 @@ Each year, a minimum of 22 GCPs distributed across the glacier were used for ima
 orientation, while at least 8 CPs served for model quality assessment.  
 All GCPs and CPs were manually collimated within the images.
 
-Tie Points (TPs) were detected and matched by Metashape on full-resolution images (which
+\Ac{tp} were detected and matched by Metashape on full-resolution images (which
 corresponds to \textit{high accuracy} parameter in Metashape).
-Image External Orientation (EO) and TPs world coordinates were estimated by solving the
-Bundle Block Adjustment (BBA).
+Image \ac{eo} and TPs world coordinates were estimated by solving the
+\ac{bba}.
 TPs with the worst reprojection error on images were removed, and the BBA was solved again to improve the quality of the solution.
 This process was iterated more times until the TP mean reprojection error had dropped below
 \SI{\sim 0.8}{\pixel}.
-Camera internal orientation was estimated by self-calibration \citep{Fraser2013, Cramer2017} because of the intrinsic instability of the low-cost cameras' Interior Orientation (IO).
+Camera internal orientation was estimated by self-calibration \citep{Fraser2013, Cramer2017} because of the intrinsic instability of the low-cost cameras' \ac{io}.
 
 Agisoft Metashape computed dense 3D reconstruction with proprietary MVS
 algorithms~\citep{Dallasta}.
@@ -381,20 +380,18 @@ To achieve subpixel displacement sensitivity, LAMMA considers the sub-region of 
 Then, the subpixel displacement is the peak's position of the oversampled correlation function \citep{Debella_Gilo2011}.
 We used an upsampling factor of 10 to derive sub-pixel displacements. 
 
+The displacement velocity fields were finally filtered in the spatial domain by implementing the filter implemented in LAMMA. 
+This filter works in the spatial domain, and for each node, it considers the median displacement of the four closest nodes \cite{Dematteis2024} 
+
 \subsection{Volume variations}\label{sec:3:method_volumes}
 
-To compute glacier volume variation $ \Delta V $, consecutive DSMs were differentiated
-by employing a DEM of Difference (DOD) approach.
+To compute glacier volume variation $ \Delta V $, consecutive DSMs were differentiated by employing a \ac{dod} approach.
 To this end, the tool \textit{Compute 2.5D volume} implemented in 
 CloudCompare~\footnote{Cloudcompare: \url{https://www.danielgm.net/cc/}} was used.
-First, photogrammetric dense clouds were gridded by projecting points along the vertical
-direction onto a planar surface, resulting in DSMs with a \qtyproduct{0.5x0.5}{\meter} ground resolution.
-This resolution balances robust height estimation (by averaging a sufficient number of points per cell) 
-with the ability to resolve finer-scale glacier morphology.
-A manually created mask delineated the glacier surface within each DSM, ensuring only 
-relevant areas were analyzed.  
-DSMs from consecutive years were then subtracted pixel-by-pixel, yielding the height 
-difference for each raster cell.
+First, photogrammetric dense clouds were gridded by projecting points along the vertical direction onto a planar surface, resulting in DSMs with a \qtyproduct{0.5x0.5}{\meter} ground resolution.
+This resolution balances robust height estimation (by averaging a sufficient number of points per cell) with the ability to resolve finer-scale glacier morphology.
+A manually created mask delineated the glacier surface within each DSM, ensuring only relevant areas were analyzed.  
+DSMs from consecutive years were then subtracted pixel-by-pixel, yielding the height difference for each raster cell.
 
 A simplified approach was initially used to estimate volume variation variance, 
 treating each DSM as a mono-dimensional random variable with variance equal to the squared 
@@ -618,7 +615,7 @@ To this end, pyLamma was employed to calculate displacements based on templates 
 To ensure a reliable comparison, 23 measurements of points located in particularly troublesome glacier areas, such as those near crevasses or where other morphological changes disrupt the image coherence between two consecutive years upon which DIC relies, were excluded from the comparison.
 Thus, a dataset of 106 GNSS measurements spanning the glacier was used to compute the differences in East and North directions and magnitude between GNSS and DIC displacement vectors.
 
-Overall, the Median Absolute Deviation (MAD) of differences was \SI{0.20}{\meter}, \SI{0.18}{\meter}, and \SI{0.22}{\meter} for East, North, and magnitude components, respectively.
+Overall, the \ac{mad} of differences was \SI{0.20}{\meter}, \SI{0.18}{\meter}, and \SI{0.22}{\meter} for East, North, and magnitude components, respectively.
 These values are comparable to the GSD of the orthophotos and DSMs, highlighting an overall accuracy in displacement estimation at the pixel level.
 Boxplots in \figref{fig:3:gps_lamma_boxplot} illustrate differences categorized by image source (DSM or orthophotos). 
 While both groups show outliers exceeding \SI{2}{\meter}, orthophotos yield significantly less dispersion than DSMs.

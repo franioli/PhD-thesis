@@ -31,9 +31,15 @@ Finally, a multi-camera framework guarantees flexibility, allowing the integrati
 
 As discussed in \chref{ch:4}, wide camera baselines, strong viewpoint changes, and the often low-texture surfaces inherent to glacial environments pose significant challenges for traditional feature-matching techniques.
 Therefore, standard SfM software packages are often unsuitable for performing photogrammetric reconstruction.
-This complexity introduces the need for cutting-edge approaches like the Deep-Image-Matching (DIM) toolbox\footnote{https://github.com/3DOM-FBK/deep-image-matching} presented in this chapter.
+This complexity introduces the need for cutting-edge approaches like the \ac{dim} toolbox\footnote{https://github.com/3DOM-FBK/deep-image-matching} presented in this chapter.
 DIM is a versatile toolbox for traditional and DL-based multi-view image matching. 
 It addresses a crucial gap in existing libraries: the lack of tools specifically tailored for multi-view matching under challenging conditions using hand-crafted and DL local features and matching algorithms.
+
+The development of DIM was a collaborative effort between myself and Luca Morelli, a PhD student at 3DOM - FBK. 
+We both contributed equally to the software development, as evidenced by the commit history on GitHub. 
+Specifically, I was responsible for the backbone implementation of the software package, which included defining the main object-oriented structure for the extractors and matchers that are inherited by all the specific algorithms. 
+Additionally, I handled image resolution management, tiling approaches, geometric verification, and integration with MICMAC and pycolmap. 
+Conversely, Luca focused on the image rotation problem and integration with COLMAP and OpenMVG.
 
 This chapter will explore the potential of DIM by testing it against challenging scenarios (e.g., wide baselines, viewpoint differences, low texture), highlighting its potential advantages over traditional feature-matching methods.  
 The goal is to assess the suitability of DL local features for photogrammetric applications by exploiting the DIM library.
@@ -168,7 +174,7 @@ DIM provides extensive control over image resolution before feature extraction a
 This functionality is particularly important when using DL-based local feature extractors and matchers that rely on GPU parallelization for best performance. 
 They face limitations when processing large images on consumer-grade GPUs, which typically have limited memory resources. 
 The image size threshold varies depending on the available GPU memory and the specific algorithms used (detector-free matchers tend to be particularly memory-intensive). 
-As a general guideline, images with a long edge of up to 3000 px can be processed on a 12GB GPU using the SuperPoint+LightGlue pipeline. 
+As a general guideline, images with a long edge of up to 3000 px can be processed on a 12 GB GPU using the SuperPoint+LightGlue pipeline. 
 
 To address this challenge, DIM offers several resolution management strategies: images can be downsampled by a factor of 2, 4, or 8 (controlled by the \textit{medium}, \textit{low}, or \textit{lowest} quality parameter in DIM) using OpenCV's pixel-area relation\footnote{OpenCV interpolation algorithms: \url{https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html}} (i.e., bilinear interpolation). 
 Image downsampling may be appropriate when computational efficiency is a priority. Alternatively, for DL features that operate with pixel-level accuracy (e.g., SuperPoint), upsampling by a factor of 2 (\textit{highest} quality parameter) using bicubic interpolation can improve subpixel detection capabilities.  
@@ -411,7 +417,9 @@ For the Nadar dataset, different local features have been tested: SIFT, KeyNey +
 SuperPoint and DISK local features were matched with LightGlue, while the others were matched with a nearest-neighbor approach. 
 None of these approaches managed to orient more than three images, except DISK, which found significantly more tie points and oriented seven images. 
 In \figref{fig:5:res_nadar}, a matching pair example is reported for SIFT (a) and DISK (b).
-Metashape completely failed to orient the dataset. 
+Both COLMAP and Metashape failed to orient the dataset.
+Metashape only managed to orient a small subset of three images, making it possible to calculate other statistics such as reprojection error. 
+However, this cannot be considered a successful orientation of the block. 
 
 \begin{table}
     \centering
@@ -493,7 +501,7 @@ The terrestrial images are acquired along a circle all around the castle.
 The main challenge of this dataset is linking the nadiral UAV images with the terrestrial ones, as they have strongly different points of view. 
 Moreover, some of the terrestrial images are underexposed and characterized by large dark areas or were acquired against the sun, and therefore, they show strong sunlight reflections. 
 
-Dataset C was extracted from a larger and more robust dataset, named Dataset C\_GT (\figref{fig:5:castle_gt}), and which was used as a ground truth reference to validate the results obtained with DIM.
+Dataset C was extracted from a larger and more robust dataset, named Dataset C\_\ac{gt} (\figref{fig:5:castle_gt}), and which was used as a ground truth reference to validate the results obtained with DIM.
 This dataset is composed of 172 images (83 nadiral, 61 oblique, and 28 terrestrial) with an average overlap between the images between 70\% and 80\% and an average GSD of approximately 9 mm \cite{Gagliolo2017_uav_conservation_histo, gagliolo2018_parameter_optim}. 
 The full dataset also included 19 targets deployed on the ground around the castle and measured by a total station with sub-centimetric accuracy. 
 Dataset C\_GT was processed with Metashape by using 10 targets as GCPs and performing a camera self-calibration. 

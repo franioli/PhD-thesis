@@ -80,7 +80,7 @@ Conversely, wide baselines or highly convergent views hinder a 3D reconstruction
 This chapter presents a pilot study on short-term 4D monitoring of the Belvedere Glacier glacier using a low-cost stereo-camera system with a wide baseline. 
 The study investigates daily glacier dynamics by calculating surface movement, ice volume loss, and glacier retreat of a debris-covered alpine glacier.
 The proposed methodology integrates 3D reconstruction from stereo cameras for volume estimation and utilizes DIC on monoscopic cameras to derive surface velocities.
-By utilizing state-of-the-art DL matching techniques, this approach overcomes the challenges posed by the wide camera baselines, and it allows for accurately
+By utilizing state-of-the-art \ac{dl} matching techniques, this approach overcomes the challenges posed by the wide camera baselines, and it allows for accurately
 reconstructing the scene under sub-optimal viewing conditions.
 
 The objective of this work is twofold:
@@ -112,8 +112,8 @@ These detectors and descriptors should exhibit invariance to scale differences, 
 Moreover, descriptors should be distinctive and unambiguous.  
 
 Several groundbreaking works emerged, significantly contributing to the advancement of fully automatic SfM software packages. 
-Particularly noteworthy is SIFT (Scale Invariant Feature Transform) \citep{Lowe2004}, which, despite its acknowledged limited invariance to illumination and affine transformations, marked a significant milestone as the first detector and descriptor demonstrating sufficient invariance to scale and rotations, making it suitable for a broad spectrum of applications. 
-Even today, SIFT remains the benchmark feature among traditional approaches (i.e., non-deep learning-based, often referred to as hand-crafted methods)\citep{jin_image_2021}. 
+Particularly noteworthy is \acs{sift} (Scale Invariant Feature Transform) \citep{Lowe2004}, which, despite its acknowledged limited invariance to illumination and affine transformations, marked a significant milestone as the first detector and descriptor demonstrating sufficient invariance to scale and rotations, making it suitable for a broad spectrum of applications. 
+Even today, SIFT remains the benchmark feature among traditional approaches (i.e., non-deep learning-based, often referred to as hand-crafted methods) \citep{jin_image_2021}. 
 
 \figref{fig:4:feats_history} illustrates a timeline of the evolution of local features. 
 Initially, corner detectors were utilized in the early works \citep{Harris1988ACC}, transitioning to blob detectors that achieved a broader degree of scale and rotation invariance \citep{Lowe2004}. 
@@ -148,7 +148,7 @@ limited scale and rotation invariance of the descriptors and their application o
 
 A low-cost stereoscopic camera system was designed to monitor the Belvedere Glacier's short-term evolution. 
 The stereoscopic system consists of two autonomous and independent monitoring units. 
-Each unit consists of an off-the-shelf DSLR camera, a circuit for scheduling image acquisition and controlling the system, a solar-based power supply system, and a case for protecting the system from the harsh environment. 
+Each unit consists of an off-the-shelf \ac{dslr} camera, a circuit for scheduling image acquisition and controlling the system, a solar-based power supply system, and a case for protecting the system from the harsh environment. 
 The core of each monitoring unit is the controlling circuit, which is composed of an Arduino microcontroller for camera triggering and a Raspberry Pi Zero with a SIM card for sending images to a remote server via a GSM network (\figref{fig:4:scheme_foto}).
 The total cost of each unit was less than \texteuro2000, including camera and lens \citep{ioli2023_replicable}.
 
@@ -341,14 +341,18 @@ The cameras, labeled as C1 and C2 (\tabref{tab:4:cameras}), were installed in Ju
   \end{tabular}
 \end{table}
 
-To ensure comparable Ground Sample Distance (GSD) of the images (\SI{\sim 3.5}{\centi\meter\per\pixel}), lenses with different focal lengths were employed. 
+To ensure comparable \ac{gsd} of the images (\SI{\sim 3.5}{\centi\meter\per\pixel}), lenses with different focal lengths were employed. 
 Camera C1 (streamwise right) was equipped with a Canon EF 24 mm f/2.8 IS USM, and camera C2 (streamwise left) had a Canon EF 35 mm f/2 IS USM.
-A summary of the cameras and lenses' characteristics is provided in \tabref{tab:4:cameras}.
+The cameras and lenses' characteristics are summarized in \tabref{tab:4:cameras}.
 
 The baseline between the two cameras of \SI{\sim 261}{\meter} ensured a good viewing geometry because of the large parallax between corresponding points.
 However, the baseline comparable to the camera-object distance (base-height ratio close to \(1\), \tabref{tab:4:cameras}) led to complex affinity-like distortions and occlusions between corresponding areas in the two images~\citep{Yao_2021}.
 Additionally, C1 was positioned at a lower viewpoint compared to C2, due to site geometry constraints.
 Therefore, camera C1 provides a limited view that primarily encompasses the frontal ice cliff but does not capture the glacier surface, which is only visible from camera C2 (\figref{fig:4:studyarea:pic}).
+
+Considering a nominal situation of a normal stereo case, it is possible to compute the theoretical depth precision of the reconstructed 3D points. To this end, we consider two cameras identical to Camera C2, positioned with an average camera-object distance of 350 m, corresponding to the distance of the closest point of the sub-vertical terminal ice cliff from Camera C2. 
+Assuming an a priori collimation accuracy of \SI{1}{\pixel} (due to the lack of sub-pixel accuracy of the SuperPoint descriptor used for feature matching, as described in \secref{sec:4:stereoworkflow}), the theoretical depth precision is approximately 3.7 cm.
+It is important to note that these values may be underestimated, as the a priori collimation accuracy could easily exceed 1 pixel due to the strongly convergent viewing angles and the inherent difficulties in finding corresponding points.
 
 \subsection{Camera installation}\label{sec:4:cameramonumentation}
 The cameras were mounted on large, stable rocks along the moraines using aluminum topographic tripods anchored with steel dowels and cables (\figref{fig:4:final_installation}). 
@@ -369,7 +373,7 @@ The final prototype of the monitoring station is shown in \figref{fig:4:final_in
   \subcaptionbox{}{
     \includegraphics[width=0.3\columnwidth]{centralina.jpg}
   }
-  \caption{(a) Picture of the monitoring unit prototype installed for tests at the Belvedere Glacier site. (b) Picture of the final installation of the camera installed on the streamwise right moraine.}
+  \caption{(a) Picture of the monitoring unit prototype installed for tests at the Belvedere Glacier site. (b) Picture of the final camera installation installed on the streamwise right moraine.}
   \label{fig:4:final_installation}
 \end{figure}
 
@@ -408,13 +412,10 @@ The final prototype of the monitoring station is shown in \figref{fig:4:final_in
 The stereoscopic system operated from August 2021 until December 2022, when it was temporarily unmounted for ordinary maintenance and finally mounted again in June 2023.
 During the operational period, the system was programmed to acquire two images per day, but only one image per day was used for the multitemporal processing.
 Only daily images taken during the snow-free period between 01/05/2022 and 13/11/2022 were considered.
-In this period, the glacier experienced the most significant flow velocity and ablation rate changes. 
+The glacier experienced the most significant flow velocity and ablation rate changes during this period. 
 On the other hand, during winter and spring seasons, the glacier was covered by snow, making it difficult to extract relevant information from optical images for tasks such as 3D reconstruction and surface velocity estimation.
 
 \section{Datasets}\label{sec:4:datasets}
-
-
-
 
 \subsection{Stereoscopic image sequences}\label{sec:4:stereo}
 
@@ -464,7 +465,7 @@ A global RMSE of 7.5 cm was obtained on the 4 CPs.
 
 \subsection{Meteorological monitoring station}\label{sec:4:meteostation}
 
-To analyze the correlation between the Belvedere Glacier dynamics and external environmental variables, data measured from an Automatic Weather Station (AWS)
+To analyze the correlation between the Belvedere Glacier dynamics and external environmental variables, data measured from an \ac{aws}
 located close to the Zamboni Zappa Hut were used. 
 The AWS is located at an altitude of \SI{2075}{\masl} and at a distance of 2 km from the area of study.
 The data from the AWS can be downloaded from the Arpa Piemonte website\footnote{\url{https://www.arpa.piemonte.it/rischi_naturali/snippets_arpa_graphs/dati_giornalieri_meteo/?statid=PIE-003086-906-2007-07-05&param=T}}.
@@ -536,7 +537,7 @@ Moreover, to fix the world reference system over time, the absolute orientation 
 To this end, the position of the cameras was measured in situ using a topography-grade GNSS receiver in RTK.
 In addition, four GCPs were materialized with plastic targets, anchored to stable rocks in front of the terminal ice cliff and along the streamwise left moraine (\figref{fig:4:studyarea}a).
 While the minimum requirement to estimate a Helmert transformation would have been just the two cameras' location and one GCP, having a redundant number of GCPs overcomes the possibility that, on some days, not all GCPs were clearly visible in the images due to low clouds or fog.
-Additionally, GCPs can be included in the BA to refine the cameras' interior orientation, particularly their focal length.
+Additionally, GCPs can be included in the \ac{ba} to refine the cameras' interior orientation, particularly their focal length.
 
 As the cameras are subjected to slight rotations, the image coordinates of the GCPs' projections must be detected at each epoch.
 To this end, a feature tracking routine was developed based on the ImGRAFT TemplateMatch method~\citep{Messerli2015} to track a GCP on all images in the time series by DIC (\figref{fig:4:templatematch}). 
@@ -577,7 +578,7 @@ All the processing was done with a mid-class workstation equipped with a 20-core
 
 To find corresponding points, the combination of DL feature-matching algorithms SuperPoint \citep{DeTone_2018} and SuperGlue \citep{sarlin2020superglue} was used, and
 fully integrated into the ICEpy4D package.
-SuperPoint is a Convolutional Neural Network (CNN) with an encoder-decoder structure, which detects interesting points and computes 256-value descriptors in a single forward pass.
+SuperPoint is a \ac{cnn} with an encoder-decoder structure, which detects interesting points and computes 256-value descriptors in a single forward pass.
 \citet{DeTone_2018} trained SuperPoint to detect corner-like features first using corners of synthetic shape datasets as ground truth.
 They employed a self-supervised approach by applying random homographies to warped copies of the input training images and combining the results \citep{DeTone_2018}.
 SuperGlue is an attention-based graph CNN used for local feature matching.
@@ -767,7 +768,7 @@ To estimate the uncertainty derived by the use of a single DSM over the study pe
 The selection of these positions was based on the actual results of the stereo-processing (\secref{sec:4:res_volumes_retreat}): the most advanced location of the snout was
 approximately 12 meters downstream (May 2022), while the most retreated location was about 5 meters upstream (November 2022). This rigid translation of the glacier body not only affected the front position but also resulted in a variation in the glacier surface elevation, i.e., thinning in the case of retreat.
 Subsequently, we back-projected the DIC displacement values of 28/07/2022 onto the original DSM and the two synthetic DSMs. Finally, we compared the metric displacement
-values considering the Median Absolute Deviation (MAD) between the original and synthetic results.
+values considering the \ac{mad} between the original and synthetic results.
 
 \subsection{Correlation between glacier dynamics and meteorological variables}
 \label{sec:4:meteoanalysis}

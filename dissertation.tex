@@ -1,6 +1,3 @@
-% !TEX root = ./dissertation.tex
-
-% Modify the following line to match your school
 \documentclass[School=Polimi]{Dissertate}
 
 %- Declaration of Units (SIUNIX)
@@ -9,7 +6,6 @@
 \DeclareSIUnit\year{y}
 \DeclareSIUnit\pt{pt}
 \DeclareSIUnit\masl{m~a.s.l.}
-% \DeclareSIUnit\tonnes{t}
 \sisetup{product-units=repeat}
 
 \setcounter{secnumdepth}{3}
@@ -32,6 +28,8 @@
     \end{spacing}
 }
 
+% Abbreviations
+\include{chapters/abbreviations}
 
 \begin{document}
 
@@ -41,19 +39,22 @@
 \input{frontmatter/personalize}
 \maketitle
 \copyrightpage
+\acknowledgments 
 \abstractpage
 \tableofcontents
 %\authorlist
 \listoffigures
+
+% Insert empty page to start list of tables on the right
+\newpage \ \newpage
 \listoftables
-% \dedicationpage
-% \acknowledgments 
+\printacronyms
 
 % \singlespacing
 \onehalfspacing
+\newpage
 
 % include each chapter...
-\newpage
 \pagenumbering{arabic} % Arabic/Indic page numbers
 \setcounter{chapter}{0} % start chapter numbering at 1
 \setcounter{page}{1} % start page numbering at 1

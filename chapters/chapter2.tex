@@ -8,9 +8,7 @@
 
 \newthought{This chapter is based on:}
 
-\noindent De Gaetani, C. I., Ioli, F., \& Pinto, L. (2021). Aerial and UAV Images for
-Photogrammetric Analysis of Belvedere Glacier Evolution in the Period 1977–2019. Remote
-Sensing, 13(18), 3787. \url{https://doi.org/10.3390/rs13183787}
+\noindent De Gaetani, C. I., Ioli, F., \& Pinto, L. (2021). Aerial and UAV Images for Photogrammetric Analysis of Belvedere Glacier Evolution in the Period 1977–2019. Remote Sensing, 13(18), 3787. \url{https://doi.org/10.3390/rs13183787}
 
 \newpage
 
@@ -19,12 +17,12 @@ Sensing, 13(18), 3787. \url{https://doi.org/10.3390/rs13183787}
 To understand the long-term dynamics of an alpine glacier, gathering information from the past becomes mandatory. 
 Geomorphological studies benefit from three-dimensional topographic representations, which accurately describe the topography surfaces and quantify their variation over time~\citep{chandler1995steady}.
 Traditionally, image datasets acquired by metric cameras mounted onboard planes have been used to build maps through analytical stereo plotters and traditional photogrammetric techniques. 
-Image orientation experienced improvements with the incorporation of GNSS-INS sensors for precise camera positioning and orientation
+Image orientation experienced improvements with the incorporation of \acs{gnss}/\acs{ins} sensors for precise camera positioning and orientation
 ~\citep{Forlani_pinto2001, jacobsen2004issues}.
 
 The emergence of digital photogrammetry in the late 1990s and the advent of automated methods for finding homologous points between images catalyzed a shift towards automated processing of extensive image collections. 
 Since then, photogrammetry has become a widely used, cost- and time-effective approach for geoscience research~\citep{Lane2000}.
-This transformation, coupled with the development of Structure-from-Motion (SfM) and Multi-View Stereo (MVS) algorithms and the availability of affordable digital cameras, has established photogrammetry as an indispensable technique for geomorphological research and glacier monitoring.
+This transformation, coupled with the development of SfM/MVS algorithms and the availability of affordable digital cameras, has established photogrammetry as an indispensable technique for geomorphological research and glacier monitoring.
 
 Despite millions of analog photographs documenting land surface change taken in the past century being available in historical archives, only a tiny fraction of these photographs have been digitally scanned and can be used with modern photogrammetric techniques. 
 Scanned historical aerial image archives allow for \textit{going back in time} and derive accurate historical DSMs and orthophotos for long-term measurements of surface change ~\citep{Micheletti2015}.
@@ -58,7 +56,7 @@ Consequently, analyzing the Belvedere Glacier's long-term evolution since 1977 e
 
 The study utilized data from five photogrammetric surveys conducted between 1977 and 2019. The earlier datasets, referred to as \textit{historical} datasets, were conducted in September 1977, August 1991, and September 2001. 
 These surveys involved the acquisition of images for regional mapping purposes by the Italian company CGR S.p.A. (Compagnia Generale Ripreseaeree S.p.A.) using analog photogrammetric cameras mounted on planes. 
-The images were cataloged, and their metadata were organized in the SITAD (Sistema Informativo Territoriale Ambientale Diffuso) database \citep{Cipriano2005_SITAD}, now integrated with the GeoPortale Piemonte\footnote{\url{ https://www.geoportale.piemonte.it/}}.
+The images were cataloged, and their metadata were organized in the SITAD (Sistema Informativo Territoriale Ambientale Diffuso) database \citep{Cipriano2005_SITAD}, now integrated with the GeoPortale Piemonte\footnote{\url{https://www.geoportale.piemonte.it/}}.
 CGR S.p.A. digitized the images of the Belvedere Glacier and provided them to the authors upon request. 
 The analog films were digitized using a photogrammetric scanner with a resolution of \SI{21}{\micro\meter\per\pixel}. 
 The 2009 dataset was acquired with a digital photogrammetric camera by CGR S.p.A. for mapping purposes and was made available to the authors upon request.
@@ -125,33 +123,27 @@ A summary of the characteristics of the cameras and flights for each of the five
 \end{figure}
 
 The earliest dataset considered in the study was acquired by CGR S.p.A. on 16/09/1977
-with an analog photogrammetric camera Wild RC10, equipped with a 15 UAG I lens with
-a focal length of 153.26 mm. 
+with an analog photogrammetric camera Wild RC10, equipped with a 15 UAG I lens with a focal length of 153.26 mm. 
 The flight consisted of three stripes performed at an average altitude of 5600 m a.s.l., with approximately 60\% along-flight overlap and transversal overlap varying from 30\% to 60\% because the stripes were not parallel. 
 A total of 11 RGB images were acquired (\figref{fig:2:datasets_historical:1977_block}). 
-Considering the average altitude of the glacier of \SI{2000}{\masl}, the scale of the images was about 1:23,000, leading to an average ground sample distance (GSD) of 0.5 m. 
-The camera reference system was materialized on the film with four fiducial marks placed at the four corners of the image. As is visible in \figref{fig:2:datasets_historical:1977_img}, some of the fiducial marks were faded due to the aging of the films, but they were still identifiable in the digitalized images.
+Considering the average altitude of the glacier of \SI{2000}{\masl}, the scale of the images was about 1:23,000, leading to an average \ac{gsd} of 0.5 m. 
+The camera reference system was materialized on the film with four fiducial marks placed at the four corners of the image. 
+As is visible in \figref{fig:2:datasets_historical:1977_img}, some of the fiducial marks were faded due to the aging of the films, but they were still identifiable in the digitalized images.
 
 The 1991 survey was carried out on two different days: 03/08/1991 and 07/08/1991.
-Eleven grayscale images were taken with an analog photogrammetric camera, a Wild RC20
-equipped with a 15/4 UAGA F lens (focal length of 153.26 mm). The flight consisted of only
-two stripes ((\figref{fig:2:datasets_historical:1991_block})), conducted at \SI{8200}{\masl} and \SI{8500}{\masl}, leading to an average
-GSD for the images of about 0.9 m. The along-flight overlap was approximately between
-70\% and 80\%, while the transversal overlap was about 50\%. As in the images of 1977, four
-fiducial marks allowed for the definition of the camera reference system (\figref{fig:2:datasets_historical:1991_img}).
+Eleven grayscale images were taken with an analog photogrammetric camera, a Wild RC20 equipped with a 15/4 UAGA F lens (focal length of 153.26 mm). 
+The flight consisted of only two stripes (\figref{fig:2:datasets_historical:1991_block}), conducted at \SI{8200}{\masl} and \SI{8500}{\masl}, leading to an average \ac{gsd} for the images of about 0.9 m. The along-flight overlap was approximately between
+70\% and 80\%, while the transversal overlap was about 50\%. As in the images of 1977, four fiducial marks allowed for the definition of the camera reference system (\figref{fig:2:datasets_historical:1991_img}).
 
-The most recent among the three historical datasets dates back to 2001. Images were
-acquired with a film camera Wild RC30 equipped with a 15/4 UAG-S lens (focal length
-of 153.928 mm). The flight consisted of three stripes acquired between 06/09/2001 and
-11/09/2001, producing a total of ten RGB images with overlaps of ~70\% along flight and
-~50\% in the transversal direction (\figref{fig:2:datasets_historical:2001_block}). The two external stripes were conducted at an
-altitude of about \SI{6100}{\masl}, while the central one was conducted at a lower altitude of
-about \SI{4800}{\masl}, for an average of \SI{5800}{\masl}. The mean scale of the images was 1:23,000, producing a GSD of 0.5 m, comparable to that of the 1977 flight. 
+The most recent among the three historical datasets dates back to 2001. Images were acquired with a film camera Wild RC30 equipped with a 15/4 UAG-S lens (focal length of 153.928 mm). 
+The flight consisted of three stripes acquired between 06/09/2001 and 11/09/2001, producing a total of ten RGB images with overlaps of ~70\% along flight and ~50\% in the transversal direction (\figref{fig:2:datasets_historical:2001_block}). 
+The two external stripes were conducted at an altitude of about \SI{6100}{\masl}, while the central one was conducted at a lower altitude of
+about \SI{4800}{\masl}, for an average of \SI{5800}{\masl}. 
+The mean scale of the images was 1:23,000, producing a GSD of 0.5 m, comparable to that of the 1977 flight. 
 The camera reference frame was materialized by eight fiducial marks, well identifiable on the digitalized images (\figref{fig:2:datasets_historical:1977_img}).
 
 Historical aerial images were digitalized using a photogrammetric scanner PhotoScan2000, developed by Z/I Imaging and Carl Zeiss, capable of scanning analog film rolls. 
-The images were digitalized by CGR S.p.A. with a resolution of 21 µm/px, producing eight-bit TIF 
-images with dimensions of \qtyproduct{12 098 x 11 144}{\pixel}. 
+The images were digitalized by CGR S.p.A. with a resolution of 21 µm/px, producing eight-bit TIF images with dimensions of \qtyproduct{12 098 x 11 144}{\pixel}. 
 To assess the quality of the digitalized images, the actual pixel size was computed as the average ratio of the distance (in millimeters) between the fiducial marks with the corresponding distance in pixels. 
 The estimated pixel size was \qtyproduct{21 x 21}{\micro\meter} for each dataset, with a standard deviation of about three orders of magnitude less, in agreement with the technical scanner specifications.
 
@@ -193,24 +185,14 @@ Therefore, the average image scale was approximately 1:32,000, and the GSD was 5
 Because of UAV technical limitations, the survey area was restricted to the glacier body only, and five flights with the fixed-wing UAV were performed (\figref{fig:2:datasets_digital:2019_block})
 
 
-\subsection{GNSS Survey for Block Georeferencing}
+\subsection{GNSS Survey for Block Georeferencing}\label{sec:2:datasets:gnss}
 
-To constrain the UAV photogrammetric block from 2019, 36 squared targets consisting
-of 50 cm × 50 cm polypropylene sheets with high color contrast were deployed over the
-survey area, anchored to large rocks on both the glacier and the moraines. 
-Among the 36 targets, 26 were used as Ground Control Points (GCPs) and 10 as Check Points (CPs).
-The targets were measured on the field with a dual frequency (L1/L2) geodetic quality
-GNSS receiver Leica Viva GS14. Because a GSM internet connection was available in the lower
-part of the glacier, the targets were measured in nRTK relative to the HxGN SmartNet
-network of permanent stations. All the points measured in nRTK were occupied for ~10 s
-with a 1 Hz acquisition rate. In the upper part of the glacier, where nRTK was not possible,
-the targets were measured by static positioning. For each of those points, carrier-phase
-raw observations were logged for a timespan of \SI{\sim 10}{\minute} (1 Hz sampling rate).
-These were postprocessed relative to a local master station (Leica GPS1200) placed 
-over a target next to the Zamboni–Zappa hut (2070 m a.s.l.). 
-Coordinates of the master station were repeatedly measured in different years, with both
-static and nRTK measurements, and accuracy on the order of 0.5 cm in planimetry and 2 cm 
-in height was obtained. 
+To constrain the UAV photogrammetric block from 2019, 36 squared targets consisting of 50 cm × 50 cm polypropylene sheets with high color contrast were deployed over the survey area, anchored to large rocks on both the glacier and the moraines. 
+Among the 36 targets, 26 were used as \acp{gcp} and 10 as Check Points \acp{cp}.
+The targets were measured on the field with a dual frequency (L1/L2) geodetic quality GNSS receiver Leica Viva GS14. Because a GSM internet connection was available in the lower part of the glacier, the targets were measured in \ac{nrtk} relative to the HxGN SmartNet
+network of permanent stations. All the points measured in nRTK were occupied for ~10 s with a 1 Hz acquisition rate. In the upper part of the glacier, where nRTK was not possible, the targets were measured by static positioning. For each of those points, carrier-phase raw observations were logged for a timespan of \SI{\sim 10}{\minute} (1 Hz sampling rate).
+These were postprocessed relative to a local master station (Leica GPS1200) placed over a target next to the Zamboni–Zappa hut (2070 m a.s.l.). 
+Coordinates of the master station were repeatedly measured in different years, with both static and nRTK measurements, and accuracy on the order of 0.5 cm in planimetry and 2 cm in height was obtained. 
 GNSS observations were post-processed with Leica Infinity software (version 3.2.0) in the official Italian reference system ETRF2000 at epoch 2008.0. 
 The resulting accuracies of the GCPs' coordinates were 1.5 cm in planimetry and 3 cm in height in terms of average RMSE.
 
@@ -218,48 +200,47 @@ The resulting accuracies of the GCPs' coordinates were 1.5 cm in planimetry and 
 
 \subsection{SfM-MVS}
 
-The photogrammetric software Agisoft Metashape (version 1.7.2) was employed for image orientation and model reconstruction of all the datasets. A sketch of the following
-workflow is provided in \figref{fig:2:workflow}
+The photogrammetric blocks were processed with the commercial software package Agisoft Metashape (version 1.7.2), which allows for image orientation and model reconstruction with digital cameras and scanned films with fiducial marks.
+\figref{fig:2:workflow} summarizes the workflow to orient the five photogrammetric blocks.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{workflow}
-    \caption{Workflow for the reconstruction of models and their spatial alignment in a common reference frame}
+    \includegraphics[height=9cm]{histo_datasets_workflow}
+    \caption{Workflow for image orientation of the five photogrammetric blocks. \acp{vgcp} refer to \acp{gcp} extracted from a previous photogrammetric model by identifying characteristic features (either natural or artificial) that have remained unchanged over time across multiple images of the previous photogrammetric block. The 3D coordinates of the \acp{vgcp} are obtained through forward triangulation of their image coordinates in 3D space.}
     \label{fig:2:workflow}
 \end{figure}
 
 \begin{figure}
     \centering
-    \subcaptionbox{\label{fig:2:gcp:historical}}[.32\textwidth]{
-        \includegraphics[height=5.3cm]{gcp_historical}
+    \subcaptionbox{\label{fig:2:gcp:2019}}[.32\textwidth]{
+        \includegraphics[height=5.3cm]{gcp_2019}
     } \hspace{1mm}
     \subcaptionbox{\label{fig:2:gcp:2009}}[.32\textwidth]{
         \includegraphics[height=5.3cm]{gcp_2009}
     }
-    \subcaptionbox{\label{fig:2:gcp:2019}}[.32\textwidth]{
-        \includegraphics[height=5.3cm]{gcp_2019}
+    \subcaptionbox{\label{fig:2:gcp:historical}}[.32\textwidth]{
+        \includegraphics[height=5.3cm]{gcp_historical}
     } 
-    \caption{Sketches of the GCPs and CPs locations; (a) 1977, 1991 and 2001 surveys; (b) 2009 survey; (c) 2019 survey.}
+    \caption{Sketches of the GCPs and CPs locations for the different photogrammetric block: (a) 2019 block; (b) 2009 block; (c) 1977, 1991 and 2001 block. For the 2009 block and the historical blocks, the points are \acsp{vgcp} and \acsp{vcp}.}
     \label{fig:2:gcp}
 \end{figure}
 
-Concerning the most recent UAV survey from 2019, the 1486 images were oriented by traditional aerial triangulation based on 26 targets spread over the survey
-\figref{fig:2:gcp} area used as GCPs in the Bundle Block Adjustment (BBA).
-The GCPs were manually collimated on the images.
-A collimation accuracy of 1 px was assumed as the a priori standard deviation of the observations within the BBA. 
-Tie Points (TPs) were automatically detected and matched by Metashape on full-resolution images.
-Camera Internal Orientation (IO) parameters of the Hawkeye Firefly 8S action camera were
-estimated during the BBA by self-calibration. 
-To this end, approximated IO parameters were precalibrated using a traditional checkerboard. 
-However, these initial values were adjusted for each flight because of the internal instability of the camera and thanks to the high density of the GCPs available.
+Concerning the most recent UAV survey from 2019, the 1486 images were oriented by traditional aerial triangulation based on the 26 targets spread over the survey area (see \secref{sec:2:datasets:gnss}) used as GCPs in the \ac{bba}.
+The location of the GCPs is presented in \figref{fig:2:gcp}.
+The targets were manually collimated on the images. 
+A 1 px collimation accuracy was assumed as the a priori standard deviation of the observations because of the rather poor image quality derived from the low-cost action camera. 
+\Acp{tp} were automatically detected and matched by Metashape on full-resolution images.
+Camera \ac{io} parameters of the Hawkeye Firefly 8S action camera were estimated during the \ac{bba} by self-calibration. 
+To this end, approximated \ac{io} parameters were pre-calibrated using a traditional checkerboard \cite{zhang_flexible_2000}. 
+These initial values were adjusted for each flight because of the internal instability of the camera and thanks to the high density of the GCPs available.
 
-Regarding the 2009 digital dataset, the Z/I-Imaging DMC system included high-precision GNSS/INS instrumentation, providing the camera External Orientation (EO) \citep{Hinz2001}. 
+Regarding the 2009 digital dataset, the Z/I-Imaging DMC system included high-precision GNSS/INS instrumentation, providing the camera \ac{eo} \citep{Hinz2001}. 
 The coordinates of the camera projection centers were provided with an accuracy of 30 cm, while the camera attitude angles had an accuracy of 8 mgon for roll and pitch angles and 10 mgon for yaw \citep{Forlani_pinto2001}.
-To improve the quality of the photogrammetric block within a small area such as that of Belvedere Glacier, 11 features identifiable on the images (e.g., sharp rocks) were used as GCPs. 
-Their coordinates were retrieved from the 2019 model, which has a significantly higher spatial resolution (\tabref{tab:2:camera_summary}). 
-EO of the images was estimated through Assisted Aerial Triangulation (AAT) \citep{ioli2021_lowcost_dgps}. 
-The BBA was solved by combining GNSS/INS information with TPs automatically detected by the software and 11 GCPs manually collimated on the images. 
-The quality of the photogrammetric model was assessed by employing 6 CP, which were not used to solve the BBA. 
+To improve the quality of the photogrammetric block within a small area such as that of Belvedere Glacier, 11 features identifiable on the images (e.g., sharp rocks) were used as \acp{vgcp}. 
+The 3D coordinates of \acp{vgcp} were estimated by forward triangulation from multiple collimations of the same point on different images of the 2019 UAV block, which has a significantly higher spatial resolution  \tabref{tab:2:camera_summary}) than the aerial blocks.
+This procedure allows for estimating the triangulation error of the 3D point, which was considered as the uncertainty of the 3D coordinates for subsequent \ac{bba} in the 2009 block.
+\Ac{eo} of the images was estimated through \ac{aat} \citep{ioli2021_lowcost_dgps}, as the \ac{bba} was solved by combining \ac{gnss}/\ac{ins} information with \acp{tp} automatically detected by the software and the \acp{vgcp} manually collimated on the images. 
+The quality of the photogrammetric model was finally assessed by employing 6 \acp{vcp}, which were not used to solve the \ac{bba}. 
 
 \begin{figure} [ht]
     \centering
@@ -269,30 +250,35 @@ The quality of the photogrammetric model was assessed by employing 6 CP, which w
     \subcaptionbox{\label{fig:2:gcp_examples:natural}}[\textwidth]{
         \includegraphics[width=\textwidth]{natural_gcps}
     }
-    \caption{Examples of points chosen as GCPs or CPs: (a) artificial features in 1977, 1991, and 2001 aerial images, respectively; (d) natural features in 1977, 1991, and 2001 aerial images, respectively.}
+    \caption{Examples of points chosen as \acp{vgcp} or \acp{vcp}: (a) artificial features in 1977, 1991, and 2001 aerial images; (d) natural features in 1977, 1991, and 2001 aerial images.}
     \label{fig:2:gcp_examples}
 \end{figure}
 
-After the digitalization, the three historical datasets were oriented by aerial triangulation based on the 2009 block. The coordinates of nine GCPs (marked with numbers 1 to 9 in \figref{fig:2:gcp}) and eight CPs (marked with letters A to H), well distributed over the whole area, were retrieved from the aerial images acquired with the DMC digital photogrammetry system.
+The three historical aerial datasets were oriented by aerial triangulation based on the 2009 block.
+The coordinates of 9 \acp{vgcp} (marked with numbers 1 to 9 in \figref{fig:2:gcp:historical}) and eight \acp{vcp} (marked with letters A to H), well distributed over the whole area, were retrieved from the 2009 aerial images.
 Points such as buildings edges, corners, sharp rocks along the glacier moraines, and particular morphological patterns that remained reasonably unchanged over time were selected in such a way as to be clearly identified in most of the four datasets (1977, 1991, 2001, and 2009), as shown in \figref{fig:2:gcp_examples}).
 Note that it was not always possible to identify the same point in all four datasets because of the different image scales, different image quality (e.g., RGB versus grayscale images), or changes in the morphology over 30 years. 
 Therefore, if one point was not visible in one dataset, another was searched nearby.
 To clarify, if one point (e.g., Point 2) was not found in images from 1991, then another feature, named Point 2b, was searched for close to the original location of Point 2 in the 2009 images and used as GCP for the 1991 dataset.
 However, in the statistics, Points 2 and 2b were considered one point because of their spatial proximity.
-The GCPs used to solve the BBA of the three historical datasets were properly weighted with their variance. 
-An accuracy of 0.75 px was assumed as the collimation accuracy for a human operator dealing with high-quality digital images such as those from 2009. 
-This assumption was confirmed by the image reprojection error of the manually collimated points, which was always smaller than one pixel. 
-Therefore, an a priori accuracy of 0.3 m was given to the GCPs in the three datasets from 1977, 1991, and 2001.
+The \acp{vgcp} used to solve the BBA of the three historical datasets were properly weighted with their variance, which was computed by forward triangulation in the 2009 photogrammetric block. 
+
+While using \acp{vgcp} to orient historical photogrammetric blocks does introduce a correlation between the models, causing error propagation from the more recent models to the older ones, this effect is partially mitigated by the increasing \ac{gsd} from newer to older blocks.
+Specifically, the error in the \acp{vgcp} extracted from the UAV block is well below the \ac{gsd} of the 2009 images. 
+Similarly, the error in the \acp{vgcp} extracted from the 2009 model remains below the \ac{gsd} of the older blocks. 
+Even though the \ac{gsd} of the 1977 and 2001 blocks are more comparable to the 2009 block, the significantly higher quality of the 2009 images reduces the impact of error propagation.
+Provided that the \acp{vgcp} were consistently weighted with their variances and no significant systematic errors (such as doming effects) were present in the models used to extract the \acp{vgcp} (which was verified by comparing DSMs on stable areas), we can assume that the effect of variance propagation from the more recent to the older models was limited and remained within the pixel level of the images.
 
 Concerning the camera interior orientation, the three analog cameras were calibrated in the laboratory by the producer, and calibration certificates were available. 
 Therefore, the calibrated focal length and the principal point coordinates were provided as initial values in the BBA. 
-These were then adjusted based on the GCPs using a self-calibration procedure \citep{jacobsen2004issues}. Additionally, two radial (k1 and k2) and tangential (p1 and p2) distortion parameters were estimated to correct the lens distortions of the photogrammetric cameras and the distortion introduced by external factors, e.g., the deterioration of the films over the years.
+These were then adjusted based on the {vgcp} using a self-calibration procedure \citep{jacobsen2004issues}. 
+Additionally, two radial (k1 and k2) and tangential (p1 and p2) distortion parameters were estimated to correct the lens distortions of the photogrammetric cameras and, mostly, the distortion introduced by external factors, e.g., the deterioration of the films over the years or by the scanning procedure.
 
-After BBA, dense Point Clouds (PCDs), orthophotos, and DSMs were computed (a downscale factor of 2 was set to make the PCDs more manageable) and used as a starting point for glacier analyses.
+After BBA, dense \ac{pcd}, orthophotos, and DSMs were computed (a downscale factor of 2 was set to make the PCDs more manageable) and used as a starting point for glacier analyses.
 
 \subsection{Point cloud pre-processing}\label{sec:2:pcd_preproc}
 
-The obtained point clouds referring to the different surveys required additional preprocessing to make them consistent in terms of spatial resolution and coverage area for further analyses.
+The obtained point clouds referring to the different surveys required additional preprocessing to make them consistent regarding spatial resolution and coverage area for further analyses.
 The point clouds were initially rasterized by using CloudCompare (v2.12 alpha).
 East–North gridded data with 0.5 m grid spacing were derived by averaging the height of the points inside each cell. 
 Empty cells were initially filled with null values.
@@ -334,8 +320,8 @@ The final masked DSMs allowed spatial analyses of the glacier surface by compari
 First, the DSMs were analyzed in absolute terms.
 Additionally, relative comparisons were conducted to quantify the effects of accumulation and ablation processes on Belvedere Glacier over time.
 
-As the different DSMs were georeferenced and consistent in spatial resolution, volume variations were computed by Dem of Difference (DoD).
-Cumulate volume variations were obtained, taking the 1977 DSM as a reference, while average annual volume losses/gains were obtained in the considered periods.
+As the different DSMs were georeferenced and consistent in spatial resolution, volume variations were computed by \ac{dod}.
+Cumulated volume variations were obtained, taking the 1977 DSM as a reference, while average annual volume losses/gains were obtained in the considered periods.
 
 \section{Results}\label{sec:2:results}
 
@@ -348,14 +334,15 @@ Cumulate volume variations were obtained, taking the 1977 DSM as a reference, wh
     \label{fig:2:cp_error}
 \end{figure}
 
-Eight CPs distributed mainly along the glacier moraines were used to assess the accuracy of the three historical models, while six CPs were used for the 2009 dataset \figref{fig:2:cp_error}.
+Eight \acp{vcp} distributed mainly along the glacier moraines were used to assess the accuracy of the three historical models, while six \acp{vcp} were used for the 2009 dataset \figref{fig:2:cp_error}.
 The 1977 and 1991 models obtained global RMSEs of 0.66 m and 0.74 m, respectively, while the 2001 and 2009 models obtained similar RMSEs of about 0.38 m.
-In all cases, these values were comparable to the average GSD of the aerial images. Regarding the 2019 survey, the model accuracy was assessed by 10 CPs, resulting in an RMSE error of 0.17 m, comparable to three times the GSD. 
+In all cases, these values were comparable to the average GSD of the aerial images. 
+Regarding the 2019 survey, the model accuracy was assessed by 10 CPs, resulting in an RMSE error of 0.17 m, comparable to three times the GSD. 
 This was due to the low quality of the camera employed. 
 Nevertheless, as the GSD was on the order of magnitude of the centimeter, the model accuracy was still higher than that of the older flights.
 
 Starting from the solution obtained with the Agisoft Metashape SfM pipeline, an MVS approach was used to compute image depth maps, dense point clouds, orthophotos, and DSMs. 
-The number of points in each PCD and the average volumetric density (i.e., the number of points per unit of volume) of each dense cloud is summarized in \tabref{tab:2:pcd_stats}.
+The PCD number of points and the average volumetric density (i.e., the number of points per unit of volume) are summarized in \tabref{tab:2:pcd_stats}.
 While the PCD size was strictly related to the survey coverage, the PCD average density was directly related to the GSD of the original photogrammetric survey, indicating the capability of resolving finer details.
 
 \begin{table}
