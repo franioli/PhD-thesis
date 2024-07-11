@@ -242,7 +242,7 @@ This procedure allows for estimating the triangulation error of the 3D point, wh
 \Ac{eo} of the images was estimated through \ac{aat} \citep{ioli2021_lowcost_dgps}, as the \ac{bba} was solved by combining \ac{gnss}/\ac{ins} information with \acp{tp} automatically detected by the software and the \acp{vgcp} manually collimated on the images. 
 The quality of the photogrammetric model was finally assessed by employing 6 \acp{vcp}, which were not used to solve the \ac{bba}. 
 
-\begin{figure} [ht]
+\begin{figure} [ht!]
     \centering
     \subcaptionbox{\label{fig:2:gcp_examples:artificial}}[\textwidth]{
         \includegraphics[width=\textwidth]{artificial_gcps}
@@ -269,7 +269,7 @@ Similarly, the error in the \acp{vgcp} extracted from the 2009 model remains bel
 Even though the \ac{gsd} of the 1977 and 2001 blocks are more comparable to the 2009 block, the significantly higher quality of the 2009 images reduces the impact of error propagation.
 Provided that the \acp{vgcp} were consistently weighted with their variances and no significant systematic errors (such as doming effects) were present in the models used to extract the \acp{vgcp} (which was verified by comparing DSMs on stable areas), we can assume that the effect of variance propagation from the more recent to the older models was limited and remained within the pixel level of the images.
 
-Concerning the camera interior orientation, the three analog cameras were calibrated in the laboratory by the producer, and calibration certificates were available. 
+Concerning the camera interior orientation, the three analog cameras were calibrated by the producers, and calibration certificates were available. 
 Therefore, the calibrated focal length and the principal point coordinates were provided as initial values in the BBA. 
 These were then adjusted based on the {vgcp} using a self-calibration procedure \citep{jacobsen2004issues}. 
 Additionally, two radial (k1 and k2) and tangential (p1 and p2) distortion parameters were estimated to correct the lens distortions of the photogrammetric cameras and, mostly, the distortion introduced by external factors, e.g., the deterioration of the films over the years or by the scanning procedure.
@@ -327,15 +327,16 @@ Cumulated volume variations were obtained, taking the 1977 DSM as a reference, w
 
 \subsection{SfM-MVS}\label{sec:2:res_reconstruction}
 
-\begin{figure}[hb]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{cp_error.png}
     \caption{Model accuracy comparison in terms of RMS error on CPs. }
     \label{fig:2:cp_error}
 \end{figure}
 
-Eight \acp{vcp} distributed mainly along the glacier moraines were used to assess the accuracy of the three historical models, while six \acp{vcp} were used for the 2009 dataset \figref{fig:2:cp_error}.
-The 1977 and 1991 models obtained global RMSEs of 0.66 m and 0.74 m, respectively, while the 2001 and 2009 models obtained similar RMSEs of about 0.38 m.
+Eight \acp{vcp} distributed mainly along the glacier moraines were used to assess the accuracy of the three historical models, while six \acp{vcp} were used for the 2009 dataset.
+\figref{fig:2:cp_error} reports the RMSEs computed on the \acp{vcp}.
+The 1977 and 1991 models obtained global RMSEs of 0.66 m and 0.74 m, respectively, while the 2001 and 2009 models obtained similar RMSEs of approximately 0.4 m.
 In all cases, these values were comparable to the average GSD of the aerial images. 
 Regarding the 2019 survey, the model accuracy was assessed by 10 CPs, resulting in an RMSE error of 0.17 m, comparable to three times the GSD. 
 This was due to the low quality of the camera employed. 
@@ -344,6 +345,11 @@ Nevertheless, as the GSD was on the order of magnitude of the centimeter, the mo
 Starting from the solution obtained with the Agisoft Metashape SfM pipeline, an MVS approach was used to compute image depth maps, dense point clouds, orthophotos, and DSMs. 
 The PCD number of points and the average volumetric density (i.e., the number of points per unit of volume) are summarized in \tabref{tab:2:pcd_stats}.
 While the PCD size was strictly related to the survey coverage, the PCD average density was directly related to the GSD of the original photogrammetric survey, indicating the capability of resolving finer details.
+
+Orthophotos and DSMs were computed with a GSD of \SI{0.50}{\meter} for the historical datasets of 1977, 1991, and 2001, \SI{0.40}{\meter} for the digital aerial dataset of 2009, and \SI{0.20}{\meter} for the UAV dataset of 2019.
+The computed orthophotos are visible in Appendix \ref{app:orthophotos}.
+
+\subsection{Point cloud pre-processing}\label{sec:2:res_preproc}
 
 \begin{table}
     \centering
@@ -360,11 +366,6 @@ While the PCD size was strictly related to the survey coverage, the PCD average 
         \hline
     \end{tabular}
 \end{table}
-
-Orthophotos and DSMs were computed with a GSD of \SI{0.50}{\meter} for the historical datasets of 1977, 1991, and 2001, \SI{0.40}{\meter} for the digital aerial dataset of 2009, and \SI{0.20}{\meter} for the UAV dataset of 2019.
-The computed orthophotos are visible in Appendix \ref{app:orthophotos}.
-
-\subsection{Point cloud pre-processing}\label{sec:2:res_preproc}
 
 According to the pre-processing described in \secref{sec:2:pcd_preproc}, we computed the data density within the rasterized point clouds as the ratio between non-empty cells in the original and interpolated DSMs.
 \tabref{tab:2:pcd_stats} highlights the impact of grid spacing choice on point cloud gridding. 
@@ -396,14 +397,17 @@ Conversely, coarser grids would risk losing detail in more recent, high-resoluti
 % With the chosen grid spacing, the minimum amount of interpolation was needed, while the full potential of more recent and detailed surveys was preserved. 
 % Furthermore, the surface coverage of the different surveys was quite different, introducing the second aspect to be addressed to complete the required preprocessing of the point clouds.
 
-\begin{figure}[h!]
+
+\subsection{Glacier evolution analysis}\label{sec:2:res_glacier_evolution}
+
+\begin{figure}
     \centering
     \includegraphics[height=0.90\textheight]{results_contours.png}
     \caption{Glacier contours at different epochs: (a) 1977; (b) 1991; (c) 2001; (d) 2009; (e) 2019.}
     \label{fig:2:results_contour}
 \end{figure}
 
-\begin{table}[ht]
+\begin{table}
   \centering
   \caption{Minimum and Maximum Altitudes (a.s.l.) of the Glacier at Different Epochs}
   \label{tab:2:glacier_altitudes}
@@ -416,8 +420,6 @@ Conversely, coarser grids would risk losing detail in more recent, high-resoluti
     \hline
   \end{tabular}
 \end{table}
-
-\subsection{Glacier evolution analysis}\label{sec:2:res_glacier_evolution}
 
 The minimum and maximum altitudes of the glacier extracted from each DSM are shown in \tabref{tab:2:glacier_altitudes}.
 The minimum values ranged between 1820 m and 1826 m, while maximum values ranged between 2339 m and 2385 m. 

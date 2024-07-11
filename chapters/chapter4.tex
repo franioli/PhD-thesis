@@ -188,9 +188,8 @@ Some compromises were made, accepting that the system might not be sufficiently 
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[width=0.6\textwidth]{board.jpg}
-  \caption{Stripboard on which are soldered the main components of the internal
-    circuit: capacitors (1), voltage regulators (2), real-time clock with coin-cell battery (3), Arduino Pro Mini (4), optoisolators (5), and Raspberry Pi Zero W (6).}
+    \includegraphics[width=.6\textwidth]{board.jpg}
+  \caption{Prototyping stripboard on which are soldered the main components of the internal circuit: capacitors (1), voltage regulators (2), real-time clock with coin-cell battery (3), Arduino Pro Mini (4), optoisolators (5), and Raspberry Pi Zero W (6).}
   \label{fig:4:circuit}
 \end{figure}
 
@@ -198,6 +197,14 @@ The internal electronic circuit (red box in \figref{fig:4:scheme_foto}) of the m
 the system's control and scheduling functionalities.
 Its components are a real-time clock (number 3 in \figref{fig:4:circuit}) with a 12 mm coin-cell backup battery, an Arduino microcontroller (Pro  Mini 328 3.3V 8MHz, number 4 in \figref{fig:4:circuit}), a Raspberry Pi Zero W with 128 GB SD memory card (number 6 in \figref{fig:4:circuit}), and minor elements for connections, isolation (capacitors and optoisolators numbers 1 and 5 in \figref{fig:4:circuit}), and voltage regulations (numbers 2 in \figref{fig:4:circuit}).
 The circuit was realized manually by soldering wires and components on a stripboard (see \figref{fig:4:circuit}).
+After some testing, the final version of the circuit was implemented on a more compact PCB (Printed Circuit Board), with all the components soldered in pre-defined positions, connected by conductive transmission lines printed directly on the board (\figref{fig:4:circuit_final}).
+
+\begin{figure}[ht!]
+  \centering 
+  \includegraphics[width=0.55\textwidth]{board_final.jpg}
+  \caption{Final circuit version with the components soldered on a smaller PCB. The 4G hat for internet connection is attached to the Raspberry Pi.}
+  \label{fig:4:circuit_final}
+\end{figure}
 
 The Arduino communicates through an SPI (Serial Peripheral Interface) bus with an accurate real-time clock to schedule its actions: waking the camera, firing the shutter to take a photo, and turning on/off the Raspberry. 
 The Raspberry can access the camera images and transfer them to a remote server via internet connectivity. 
@@ -220,8 +227,7 @@ The interface (\figref{fig:4:web-interface}) consists of a web page accessible w
 \begin{figure}[ht!]
   \centering
   \includegraphics[width=1\textwidth]{web_interface.png}
-  \caption{Example of some of the pages of the web-based interface to remotely control
-    the monitoring units.}
+  \caption{Example of some of the pages of the web-based interface to remotely control the monitoring units.}
   \label{fig:4:web-interface}
 \end{figure}
 
@@ -229,7 +235,7 @@ All the components were chosen because of their low power consumption and their 
 The circuit is robust against power losses due to battery discharging and can auto-recover when power is regained. 
 A low energy consumption policy is also followed when selecting the scheduling. 
 The camera is switched on only during the data capture activity. 
-The Raspberry is switched on only once daily when the remote server connection and image transfer is scheduled.
+The Raspberry is switched on only once daily when the remote server connection and image transfer are scheduled.
 
 \subsection{Connectivity}\label{Connectivity}
 Internet connectivity is crucial to transfer images and control the units remotely. 
