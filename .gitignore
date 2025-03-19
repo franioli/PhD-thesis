@@ -1,5 +1,6 @@
 img/_various/
 PhD_thesis.pdf
+*.pdf
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
